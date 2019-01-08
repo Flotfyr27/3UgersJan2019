@@ -2,23 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b637f80-09be-468d-9250-204997cd0a8e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/Controller/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/GameElements/Entities/Chancecard/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/GameElements/Entities/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/GameElements/Fields/ChanceField/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/GameElements/Fields/Ownable/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/GameElements/Fields/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/GameElements/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Domain/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/TechnicalServices/GameLogic/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/TechnicalServices/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/UI/GUI/package-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/UI/package-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/32_final.iml" beforeDir="false" afterPath="$PROJECT_DIR$/32_final.iml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -267,7 +251,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546991115341" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546991279862" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -294,27 +278,26 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1546990646075</updated>
-      <workItem from="1546990647169" duration="468000" />
+      <workItem from="1546990647169" duration="747000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="468000" />
+    <option name="totallyTimeSpent" value="747000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Image Layers" />
       <window_info id="Designer" />
       <window_info id="UI Designer" />
       <window_info id="Capture Tool" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.329718" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
