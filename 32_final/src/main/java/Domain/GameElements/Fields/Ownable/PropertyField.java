@@ -17,4 +17,14 @@ public class PropertyField extends OwnableField{
     public void buy() {
 
     }
+
+    @Override
+    public void pawn() {
+
+    }
+
+    @Override
+    public void payRent() {
+
+    }
 }
