@@ -6,14 +6,20 @@ import TechnicalServices.GameLogic.GameLogic;
 public class MoveChanceCard extends ChanceCard {
     protected int value;
 
-    public MoveChanceCard (int amount){
+    public MoveChanceCard (int amount, String description){
         value = amount;
+        super.description = description;
     }
 
 
     @Override
     public void action(Player player){
-        int destination = player.getPos() + value;
+        int destination;
+
+        if ((player.getPos() + value) < 0 )
+            destination = 40 + (player.getPos() + value);
+        else
+            destination = (player.getPos() + value)%40;
 
         if (value >= 0){
             GameLogic.movingPastStart(player, destination);

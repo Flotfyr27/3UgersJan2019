@@ -1,7 +1,7 @@
 package Domain.GameElements.Fields.Ownable;
 
 import Domain.GameElements.Fields.Field;
-import main.java.Domain.GameElements.Entities.Player;
+import Domain.GameElements.Entities.Player;
 
 import java.awt.*;
 
