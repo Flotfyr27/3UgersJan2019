@@ -4,11 +4,12 @@ import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Field;
 
 public class MoveToNearestChanceCard extends ChanceCard {
-    private java.Class fieldType;
 
-    public MoveToNearestChanceCard(Field.Class fieldType, String description){
+    //TODO find ud af om der kun er mulighed for at skulle flytte til type eller
+    // om der er flere af samme type der er forskellige move to destinationer
+
+    public MoveToNearestChanceCard(String description){
         super(description);
-        this.fieldType = fieldType;
     }
 
     public void action(Player player) {
