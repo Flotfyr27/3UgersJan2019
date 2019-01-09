@@ -13,12 +13,14 @@ public class MoveChanceCard extends ChanceCard {
 
     @Override
     public void action(Player player){
+        int destination = player.getPos() + value;
 
+        if (value >= 0){
+            GameLogic.movingPastStart(player, destination);
+            player.setPos(destination);
+        } else {
+            player.setPos(destination);
+        }
     }
 
-
-    protected void passStartHandler(Player p, int destination){
-        if (p.getPos() > destination)
-            p.getAccount().changeScore();
-    }
 }

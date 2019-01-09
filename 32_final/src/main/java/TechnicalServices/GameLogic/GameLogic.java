@@ -1,6 +1,6 @@
-package main.java.TechnicalServices.GameLogic;
+package TechnicalServices.GameLogic;
 
-import main.java.Domain.GameElements.Entities.Player;
+import Domain.GameElements.Entities.Player;
 
 /*
 * Make list of prices through out the game in separate methods
@@ -147,7 +147,7 @@ public class GameLogic {
      * @param player The player who moves
      * @param destination The destination of the move
      */
-    public void movingPastStart(Player player, int destination){
+    public static void movingPastStart(Player player, int destination){
        if(player.getPos()> destination)
         player.getAccount().changeScore(4000);
     }
