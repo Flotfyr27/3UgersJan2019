@@ -138,17 +138,14 @@ public class GameLogic {
         value = chanceCardValues[i];
         return value;
     }
+    /*
+    public boolean hasLost(Player player){
 
+    }
 
+    public void lastManStanding(Player[]){
 
-
-
-
-
-
-
-
-
-
+    }
+*/
 
 }
