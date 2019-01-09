@@ -1,4 +1,7 @@
 package main.java.TechnicalServices.GameLogic;
+
+import main.java.Domain.GameElements.Entities.Player;
+
 /*
 * Make list of prices through out the game in separate methods
 * Win condition
@@ -138,14 +141,24 @@ public class GameLogic {
         value = chanceCardValues[i];
         return value;
     }
-    /*
-    public boolean hasLost(Player player){
 
+    /**
+     * This methods checks when a player moves, whether they pass start
+     * @param player The player who moves
+     * @param destination The destination of the move
+     */
+    public void movingPastStart(Player player, int destination){
+       if(player.getPos()> destination)
+        player.getAccount().changeScore(4000);
     }
 
-    public void lastManStanding(Player[]){
-
+  /*  public boolean hasLost(Player player){
+        if()
     }
 */
+    public void lastManStanding(Player[] players){
+
+    }
+
 
 }
