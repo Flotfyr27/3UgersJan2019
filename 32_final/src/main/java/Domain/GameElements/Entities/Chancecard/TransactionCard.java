@@ -5,6 +5,10 @@ public class TransactionCard extends ChanceCard {
 
     private int amount;
 
+    /**
+     * Determines that 'action' is used to change the balance of players
+     * @param p
+     */
     @override
     private void action (Player p){
         p.getAccount().changeScore(amount);
