@@ -25,6 +25,8 @@ public class BirthdayCard extends TransactionCard {
             p.getAccount().changeScore(-super.amount);
         }
 
+        //TODO make this method take into acount that some might not be able to pay
+
         player.getAccount().changeScore(super.amount * players.length);
     }
 }

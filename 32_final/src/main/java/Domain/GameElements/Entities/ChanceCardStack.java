@@ -63,10 +63,29 @@ public class ChanceCardStack {
      */
     public ChanceCard next() {
         if (!hasNext()) {
-            cardNum = 0;
+            cardNum = 0; //TODO this will always exclude the first card, fix it.
         }
 
         return chanceCards[cardNum++];
+    }
+
+    /**
+     * this method is only for testing and for presentation mode.
+     * it sets your current location in the stack to some specific place
+     *
+     * @param location the index in the array you go to.
+     */
+    public void setStackLocation(int location){
+        cardNum = location;
+    }
+
+    /**
+     * This method is only for testing.
+     * returns the length of the ChanceCard array.
+     * @return
+     */
+    protected int getStackLength(){
+        return chanceCards.length;
     }
 
     /**

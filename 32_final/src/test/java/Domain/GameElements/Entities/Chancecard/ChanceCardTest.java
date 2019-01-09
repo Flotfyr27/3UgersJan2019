@@ -71,9 +71,16 @@ class ChanceCardTest {
 
     @Test
     void moveToNearestChanceCardTest(){
-        
+
     }
 
+    /**
+     * tests the TransactionCard
+     *
+     * testing:
+     * positive transaction
+     * negative transaction
+     */
     @Test
     void transactionCardTest(){
         TransactionCard positiveCard = new TransactionCard(100, "text");
@@ -95,6 +102,15 @@ class ChanceCardTest {
 
     }
 
+    /**
+     * tests the MoveToChanceCard
+     *
+     *  testing:
+     *  the recipient has the right amount
+     *  the others have lost right amount
+     *
+     *  TODO should also add a test for whether it handles players with too little money correctly.
+     */
     @Test
     void birthdayCardTest(){
         int startMoney = 200;
