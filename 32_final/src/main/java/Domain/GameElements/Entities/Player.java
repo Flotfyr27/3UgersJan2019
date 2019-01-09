@@ -1,4 +1,4 @@
-package main.java.Domain.GameElements.Entities;
+package Domain.GameElements.Entities;
 
 public class Player {
     private int pPos;
