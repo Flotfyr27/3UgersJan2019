@@ -16,7 +16,7 @@ public class BirthdayCard extends TransactionCard {
     }
 
     /**
-     * Counts together birthday money for the current player to accept amount based on number of players
+     * takes a specific amount of money from every player and gives it to the player who drew the card.
      * @param player
      */
     @Override

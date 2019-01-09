@@ -7,7 +7,9 @@ public class MoveChanceCard extends ChanceCard {
     protected int value;
 
     /**
-     * TODO write javadoc
+     * Constructor. The amount is the number of fields the player traverses.
+     * The description is the text presented to the player.
+     *
      * @param amount
      * @param description
      */
@@ -17,7 +19,8 @@ public class MoveChanceCard extends ChanceCard {
     }
 
     /**
-     * TODO write javadoc
+     * This method moves a player by a specific amount and makes sure you get money if you pass the start field.
+     *
      * @param player
      */
     @Override

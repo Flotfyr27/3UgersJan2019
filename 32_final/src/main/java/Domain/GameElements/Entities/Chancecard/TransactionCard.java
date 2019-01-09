@@ -6,6 +6,14 @@ public class TransactionCard extends ChanceCard {
     private int amount;
 
     /**
+     * Constructor.
+     * @param amount
+     */
+    public TransactionCard (int amount){
+        this.amount = amount;
+    }
+
+    /**
      * Determines that 'action' is used to change the balance of players
      * @param p
      */

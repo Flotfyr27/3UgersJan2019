@@ -5,6 +5,7 @@ import TechnicalServices.GameLogic.GameLogic;
 public final class MoveToChanceCard extends MoveChanceCard {
 
     private boolean getsStartMoney;
+
     /**
      * Constructor. The destination is the fields place in the Field array Board.
      * The description is the text presented to the player.
@@ -45,7 +46,8 @@ public final class MoveToChanceCard extends MoveChanceCard {
             e.printStackTrace();
         }
 
-        GameLogic.movingPastStart(player, super.value);
+        if (getsStartMoney)
+            GameLogic.movingPastStart(player, super.value);
 
         player.setPos(super.value);
     }
