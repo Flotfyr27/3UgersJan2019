@@ -3,13 +3,14 @@ import Domain.GameElements.Entities.Player;
 
 public class TransactionCard extends ChanceCard {
 
-    private int amount;
+    protected int amount;
 
     /**
      * Constructor.
      * @param amount
      */
-    public TransactionCard (int amount){
+    public TransactionCard (int amount, String description){
+        super(description);
         this.amount = amount;
     }
 
@@ -21,7 +22,5 @@ public class TransactionCard extends ChanceCard {
     public void action (Player p){
         p.getAccount().changeScore(amount);
     }
-
-
 
 }

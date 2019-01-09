@@ -4,14 +4,14 @@ import Domain.GameElements.Entities.Player;
 
 public class BirthdayCard extends TransactionCard {
 
-    private int amount;
     private Player[] players;
 
     /**
      * Constructor.
      * @param players
      */
-    public BirthdayCard(Player[] players){
+    public BirthdayCard(int amount, Player[] players, String description){
+        super(amount, description);
         this.players = players;
     }
 
@@ -22,9 +22,9 @@ public class BirthdayCard extends TransactionCard {
     @Override
     public void action(Player player){
         for (Player p : players){
-            p.getAccount().changeScore(-amount);
+            p.getAccount().changeScore(-super.amount);
         }
 
-        player.getAccount().changeScore(amount * players.length);
+        player.getAccount().changeScore(super.amount * players.length);
     }
 }
