@@ -14,8 +14,8 @@ public class MoveChanceCard extends ChanceCard {
      * @param description
      */
     public MoveChanceCard (int amount, String description){
+        super(description);
         value = amount;
-        super.description = description;
     }
 
     /**

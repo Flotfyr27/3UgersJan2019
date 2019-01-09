@@ -39,11 +39,19 @@ class ChanceCardTest {
         assertEquals(38, p.getPos());
     }
 
-
+    /**
+     * tests the MoveToChanceCard
+     *
+     * testing:
+     * a field in front of player
+     * a field on the other side of start
+     * a field on the other side of start for which you should not get paid to go to.
+     */
     @Test
     void moveToChanceCardTest() {
         MoveToChanceCard normalCard = new MoveToChanceCard(20, "text");
         MoveToChanceCard overStartCard = new MoveToChanceCard(3, "text");
+        MoveToChanceCard overStartNoMoneyCard = new MoveToChanceCard(3, false, "text");
 
         Player p = new Player("p1");
         p.setPos(10);
@@ -54,6 +62,22 @@ class ChanceCardTest {
         overStartCard.action(p);
         assertEquals(3, p.getPos());
         assertTrue(p.getAccount().getScore() > 0);
+        p.setPos(20);
+    }
+
+    @Test
+    void transactionCardTest(){
+
+    }
+
+
+    @Test
+    void taxCardTest(){
+
+    }
+
+    @Test
+    void birthdayCardTest(){
 
     }
 }
