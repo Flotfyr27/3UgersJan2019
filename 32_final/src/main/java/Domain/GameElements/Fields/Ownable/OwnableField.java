@@ -14,6 +14,10 @@ public abstract class OwnableField extends Field {
         this.price = price;
         this.rent = rent;
     }
+    public int getWorth(){
+        int worth = price;
+        return worth;
+    }
     public abstract void pawn();
     public abstract void payRent();
     public abstract void buy();
