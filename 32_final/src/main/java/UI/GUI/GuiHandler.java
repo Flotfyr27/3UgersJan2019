@@ -4,20 +4,52 @@
 package UI.GUI;
 
 import Domain.GameElements.Entities.Player;
-import Domain.GameElements.Fields.ChanceField;
-import Domain.GameElements.Fields.EmptyField;
-import Domain.GameElements.Fields.Field;
+import Domain.GameElements.Fields.*;
 import Domain.GameElements.Fields.Ownable.*;
+import Domain.GameElements.Fields.ChanceField.*;
 import gui_fields.*;
 import gui_main.GUI;
 
 import java.awt.*;
 
 public class GuiHandler {
-    GUI gui;
-    GUI_Field[] gui_fields = new GUI_Field[24];
-    GUI_Player[] guiPlayers;
-    public GuiHandler(Field[] fields){//Field[] fields
+    private GUI gui;
+    private GUI_Field[] gui_fields = new GUI_Field[24];
+    private GUI_Player[] guiPlayers;
+
+    private static GuiHandler guiHandlerInstance;
+
+    /**
+     * returns the instance of the GuiHandler
+     * this method ensures that all classes can access the same GuiHandler instance (singleton)
+     * @return
+     */
+    public static GuiHandler getInstance() {
+        if (guiHandlerInstance != null)
+            return guiHandlerInstance;
+        else
+            throw new NullPointerException("an instance of the GuiHandler has not been instantiated yet");
+    }
+
+    /**
+     * Creates an instance of the GuiHandler class if none exists otherwise throws exception.
+     * @param fields
+     * @return
+     */
+    public static GuiHandler instantiateGui(Field[] fields){
+        if (guiHandlerInstance == null) {
+            guiHandlerInstance = new GuiHandler(fields);
+            return getInstance();
+        } else {
+            throw new IllegalStateException("An instance has already been created, use getInstance() instead.");
+        }
+    }
+
+    /**
+     * Constructor. it is private to make sure it cannot be used externally.
+     * @param fields
+     */
+    private GuiHandler(Field[] fields){//Field[] fields
         for(int i = 0; i < gui_fields.length; i++){
             if(fields[i].getClass().equals(EmptyField.class) && i == 0){
                 gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColour(), null));
