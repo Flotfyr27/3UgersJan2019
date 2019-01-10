@@ -25,7 +25,7 @@ public class JailorField extends Field {
 /*
  * If the player has a "get out of jail free" card, this removes the card in a method in players. Then next player.
  */
-        if(player.jailCards >= 1){
+        if(player.getJailCards() >= 1){
 
             player.removeJailCards();
 
