@@ -13,4 +13,6 @@ public class MoveController {
         currentPos = (currentPos + dist)%boardLength;
         p.setPos(currentPos);
     }
+
+
 }
