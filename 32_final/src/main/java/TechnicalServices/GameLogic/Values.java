@@ -150,13 +150,42 @@ public class Values {
     }
 
     /**
-     *
-     * @param i
-     * @return
+     *  @param i
+     *  @return A ragged array, that tells the price of the rent for the properties with and without houses/hotels.
+     *  [0]: Rent for Rødovrevej
+     *  [1]: Rent for Hvidovrevej
+     *  [2]: Rent for Scandlines "Helsingør-Helsingborg"
+     *  [3]: Rent for Roskildevej
+     *  [4]: Rent for Valby Langgade
+     *  [5]: Rent for Allégade
+     *  [6]: Rent for Fredriksberg Allé
+     *  [7]: Rent for Turborg Squash
+     *  [8]: Rent for Bülowsvej
+     *  [9]: Rent for Gl. Kongevej
+     *  [10]: Rent for Mols-Linien
+     *  [11]: Rent for Bernstorffsvej
+     *  [12]: Rent for Hellerupvej
+     *  [13]: Rent for Strandvejen
+     *  [14]: Rent for Trianglen
+     *  [15]: Rent for Østerbrogade
+     *  [16]: Rent for Grønningen
+     *  [17]: Rent for Scandlines "Gedser-Rostock"
+     *  [18]: Rent for Bredgade
+     *  [19]: Rent for Kgs.Nytorv
+     *  [20]: Rent for CocaCola
+     *  [21]: Rent for Østergade
+     *  [22]: Rent for Amagertorv
+     *  [23]: Rent for Vimmelskaffet
+     *  [24]: Rent for Nygade
+     *  [25]: Rent for Scandlines "Rødby-Puttgarden"
+     *  [26]: Rent for Frederiksbergade
+     *  [27]: Rent for Rådhuspladsen
      */
-    public static int rentvalue (int i) {
+
+
+    public static int rentPrice (int i) {
         int rent =0;
-               int rentvalue[][]  =
+               int rentPrice [][]  =
                 {{50, 250, 750, 2250, 4000, 6000},
                 {50,250,750,2250,4000,6000},
                 {500,1000,2000,4000},
@@ -185,7 +214,7 @@ public class Values {
                 {700,3500,10000,22000,26000,30000},
                 {1000,4000,12000,28000,34000,40000}};
 
-    rent = rentvalue[i][i];
+    rent = rentPrice[i][i];
 return rent;
     }
 
