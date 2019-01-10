@@ -22,7 +22,7 @@ class PropertyFieldTest {
     }
 
     @Test
-    void removeHouse(int value){
+    void removeHouse(){
         PropertyField pf = new PropertyField("Test", "Subtext", null, 4000, 1000);
         assertEquals(0, pf.getHouses());
         pf.addHouse();
@@ -46,6 +46,15 @@ class PropertyFieldTest {
 
     @Test
     void getWorth() {
+        PropertyField pf = new PropertyField("Test", "Subtext", null, 0, 1000);
+        assertEquals(0, pf.getWorth());
+        pf.addHouse();
+        pf.addHouse();
+        pf.addHouse();
+        pf.addHouse();
+        assertEquals(4000, pf.getWorth());
+        pf.addHouse();
+        assertEquals(5000, pf.getWorth());
     }
 
     @Test

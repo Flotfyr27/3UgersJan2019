@@ -17,7 +17,6 @@ public class PropertyField extends OwnableField{
         this.housePrice = housePrice;
     }
     private int numberOfHouses = 0, housePrice;
-    private int hotelPrice = housePrice*5;
     private boolean hasHotel = false;
 
     /**
@@ -44,7 +43,7 @@ public class PropertyField extends OwnableField{
     public int getWorth() {
         int worth = super.getWorth()+(numberOfHouses*housePrice);
         if(hasHotel){
-            worth += hotelPrice;
+            worth += housePrice*5;
         }
         return worth;
     }
