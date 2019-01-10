@@ -21,12 +21,16 @@ public class BirthdayCard extends TransactionCard {
      */
     @Override
     public void action(Player player){
+        int count = 0;
         for (Player p : players){
-            p.getAccount().changeScore(-super.amount);
+            if (!p.hasLost()) {
+                p.getAccount().changeScore(-super.amount);
+                count++;
+            }
         }
 
         //TODO make this method take into acount that some might not be able to pay
 
-        player.getAccount().changeScore(super.amount * players.length);
+        player.getAccount().changeScore(super.amount * count);
     }
 }
