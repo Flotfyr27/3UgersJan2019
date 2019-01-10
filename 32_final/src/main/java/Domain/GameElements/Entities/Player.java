@@ -86,4 +86,12 @@ public class Player {
     public void removeJailCards(){
         jailCards--;
     }
+
+    /**
+     * Method returns number of jailcards possessed
+     * @return Integer value depending on the amount of jailcards
+     */
+    public int getJailCards(){
+        return jailCards;
+    }
 }
