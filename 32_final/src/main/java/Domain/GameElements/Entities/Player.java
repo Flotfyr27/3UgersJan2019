@@ -1,12 +1,12 @@
 package Domain.GameElements.Entities;
 
 import Domain.GameElements.Fields.Ownable.OwnableField;
-
+import Domain.GameElements.Entities.Account;
 import java.util.ArrayList;
 
 public class Player {
     private int pPos;
-    private main.java.Domain.GameElements.Entities.Account account;
+    private Account account;
     private String name;
     private boolean isActive;
     private boolean lost;
@@ -20,7 +20,7 @@ public class Player {
     public Player(String name) {
         this.name = name;
         pPos = 0;
-        account = new main.java.Domain.GameElements.Entities.Account();
+        account = new Account();
         isActive = true;
         lost = false;
         ownedFields = new ArrayList<OwnableField>();
@@ -46,7 +46,7 @@ public class Player {
         return pPos;
     }
 
-    public main.java.Domain.GameElements.Entities.Account getAccount() {
+    public Account getAccount() {
         return account;
     }
 
