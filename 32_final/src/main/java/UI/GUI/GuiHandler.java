@@ -36,7 +36,7 @@ public class GuiHandler {
      * @param fields
      * @return
      */
-    public static GuiHandler instantiateGui(Field[] fields) throws IllegalStateException{
+    public static GuiHandler instantiateGui(Domain.GameElements.Fields.Field[] fields) throws IllegalStateException{
         if (guiHandlerInstance == null) {
             guiHandlerInstance = new GuiHandler(fields);
             return getInstance();
@@ -49,17 +49,17 @@ public class GuiHandler {
      * Constructor. it is private to make sure it cannot be used externally.
      * @param fields
      */
-    private GuiHandler(Field[] fields){//Field[] fields
+    private GuiHandler(Domain.GameElements.Fields.Field[] fields){//Field[] fields
         for(int i = 0; i < gui_fields.length; i++){
             if(fields[i].getClass().equals(EmptyField.class) && i == 0){
-                gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColour(), null));
+                gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
             }else if(fields[i].getClass().equals(PropertyField.class)){
                 PropertyField propertyField = (PropertyField) fields[i];
-                gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", Integer.toString(propertyField.getPrice()), fields[i].getBgColour(), null));
+                gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", Integer.toString(propertyField.getPrice()), fields[i].getBgColor(), null));
             }else if(fields[i].getClass().equals(EmptyField.class)){
-                gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColour(), null));//This one be causing trouble
+                gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
             }else if(fields[i].getClass().equals(ChanceField.class)){
-                gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColour(), null));
+                gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
             }
         }
 
@@ -124,7 +124,7 @@ public class GuiHandler {
 
     }
 
-    public void updateGui(Player[] pArr, Field[] f){
+    public void updateGui(Player[] pArr, Domain.GameElements.Fields.Field[] f){
 
         boolean carMoved = false;
         //moves players step by step

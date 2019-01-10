@@ -73,4 +73,7 @@ public class TaxField extends Field {
         }
     }
 
+    public void landOnAction(Player current) {
+
+    }
 }

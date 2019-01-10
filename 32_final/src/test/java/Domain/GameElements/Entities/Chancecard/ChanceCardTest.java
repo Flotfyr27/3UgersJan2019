@@ -109,15 +109,15 @@ class ChanceCardTest {
         p.setPos(10);
         p.getAccount().changeScore(-p.getAccount().getScore());
         OwnableField[] ownedFields = {
-                new PropertyField("1", "", Color.BLUE, p, 100, 10, 50),
+                /*new PropertyField("1", "", Color.BLUE, p, 100, 10, 50),
                 new PropertyField("2", "", Color.BLUE, p, 100, 10, 50),
                 new PropertyField("3", "", Color.BLUE, p, 100, 10, 50),
                 new CompanyField("4", "", Color.BLUE, p, 100, 50),
                 new CompanyField("5", "", Color.BLUE, p, 100, 50),
-                new ShippingField("6", "", Color.BLUE, p, 100, 50)
+                new ShippingField("6", "", Color.BLUE, p, 100, 50)*/
         };
 
-        p.getOwnedFields().add()
+        //p.getOwnedFields().add();
 
 
     }
