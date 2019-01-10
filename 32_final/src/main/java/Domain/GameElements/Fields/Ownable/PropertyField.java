@@ -51,9 +51,10 @@ public class PropertyField extends OwnableField{
     public void addHouse(){
         numberOfHouses++;
     }
-    public void removeHouse(){
-        numberOfHouses--;
+    public void removeHouse(int value){
+        numberOfHouses -= value;
     }
+
 
     @Override
     public void sell() {
