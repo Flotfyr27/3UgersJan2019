@@ -79,4 +79,7 @@ public class Player {
     public void addJailCards(){
         jailCards++;
     }
+    public void removeJailCards(){
+        jailCards--;
+    }
 }
