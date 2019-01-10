@@ -48,9 +48,27 @@ public class PropertyField extends OwnableField{
         }
         return worth;
     }
+
+    /**
+     * Method to add a house, if 4 houses already exists a hotel will be added and houses removed.
+     */
     public void addHouse(){
-        numberOfHouses++;
+        if(hasHotel){
+
+        }else if(numberOfHouses < 4){
+            numberOfHouses++;
+        }else if(!hasHotel && numberOfHouses == 4){
+            hasHotel = true;
+            numberOfHouses = 0;
+        }else {
+            numberOfHouses++;
+        }
     }
+
+    /**
+     * Removes a house based on the numeric value given
+     * @param value The amount of houses to remove
+     */
     public void removeHouse(int value){
         numberOfHouses -= value;
     }
