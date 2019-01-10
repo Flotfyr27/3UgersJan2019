@@ -23,6 +23,10 @@ public Board(int numberOfPlayers){
             players[i].getAccount().changeScore(30000);
         }
     }
+    public Player[] getPlayers(){
+        return players;
+    }
+
     private void setFields(){
     fields = new Field[40];
     fields[0] = (new EmptyField("START", "Hver gang de passerer START, modtag kr. 4000", Color.RED));
