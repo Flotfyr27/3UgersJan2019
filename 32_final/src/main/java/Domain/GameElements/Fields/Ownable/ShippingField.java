@@ -1,7 +1,8 @@
 package Domain.GameElements.Fields.Ownable;
 
-import java.awt.*;
 import Domain.GameElements.Entities.Player;
+
+import java.awt.*;
 
 public class ShippingField extends OwnableField {
     /**
