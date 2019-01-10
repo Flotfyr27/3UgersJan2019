@@ -103,6 +103,9 @@ public class ChanceCardStack {
                 new MoveToNearestChanceCard(ShippingField.class, fields, true, "Ryke brikkem frem " +
                         "til det nærmeste rederi og betal ejeren to gange den leje, han ellers er berretiget til. " +
                         "Hvis selskabet ikke ejes af nogen, kan De købe det af banken."),
+                new MatadorLegatetChanceCard(40000,"De modtager \"Matador-legatet for værdigt " +
+                        "trængende\" på kr. 40.000. Ved værdigt trængende forstås, at Deres formue, dv.s Deres " +
+                        "kontante penge + skøder + bygninger, ikke overstiger kr. 15.000."),
 
 
 
