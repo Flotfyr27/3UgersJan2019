@@ -12,6 +12,8 @@ public class Player {
     private boolean lost;
     private ArrayList<OwnableField> ownedFields; /*we used an ArrayList instead of an array because
     this list will change size often over the course of a game*/
+    private int jailCards;
+
 
     /**
      * constructor.
@@ -24,6 +26,7 @@ public class Player {
         isActive = true;
         lost = false;
         ownedFields = new ArrayList<OwnableField>();
+        jailCards = 0;
     }
 
     /**
@@ -68,5 +71,12 @@ public class Player {
      */
     public ArrayList<OwnableField> getOwnedFields() {
         return ownedFields;
+    }
+
+    /**
+     * Methods that ensures that player gets a n extra jailCard if the GetOutOfJailFree card is drawn.
+     */
+    public void addJailCards(){
+        jailCards++;
     }
 }

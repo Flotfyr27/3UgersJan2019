@@ -87,7 +87,12 @@ public class ChanceCardStack {
                 new MoveToChanceCard(30,false,"Gå i fængsel. Selv om de passerer \"START\"," +
                         " indkasserer De ikke kr. 4.000."),
                 new MoveToChanceCard(39,"Tag ind på Rådhuspladsen."),
+                new GetOutOfJailCard("I andledning af kongens fødselsdag benådes de herved for fængsel. " +
+                        "Dette kort kan opbevares, indtil De får brug for det eller De kan sælge det."),
+                new GetOutOfJailCard("I andledning af kongens fødselsdag benådes de herved for fængsel. " +
+                        "Dette kort kan opbevares, indtil De får brug for det eller De kan sælge det."),
                 
+
 
 
 
