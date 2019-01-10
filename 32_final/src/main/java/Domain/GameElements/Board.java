@@ -1,5 +1,4 @@
 package Domain.GameElements;
-
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.ChanceField.ChanceField;
 import Domain.GameElements.Fields.EmptyField;
@@ -7,7 +6,6 @@ import Domain.GameElements.Fields.Field;
 import Domain.GameElements.Fields.Ownable.CompanyField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
 import Domain.GameElements.Fields.Ownable.ShippingField;
-import Domain.GameElements.Fields.TaxField;
 
 import java.awt.*;
 
