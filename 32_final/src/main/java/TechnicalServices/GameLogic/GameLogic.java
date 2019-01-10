@@ -20,12 +20,22 @@ public class GameLogic {
         player.getAccount().changeScore(4000);
     }
 
+    /**
+     *
+     * @param player It checks if the player has lost or not.
+     * @return
+     */
     public boolean hasLost(Player player){
         if(player.getAccount().getScore() <= 0)
             return true;
         else return false;
     }
 
+    /**
+     *Checks if a player lost.
+     * @param
+     * @return
+     */
     public boolean lastManStanding(Player[] players){
         int lost = 0;
         for (int i = 0;i <players.length;i++) {

@@ -160,7 +160,7 @@ public class GuiHandler {
         }
 
         //Update ownership of tile
-        Player owner;
+            Player owner;
         for(int i = 0; i < gui_fields.length; i++){
             if (f[i].getClass().equals(PropertyField.class)) {
                 owner = ((PropertyField) f[i]).getOwner();
@@ -216,7 +216,9 @@ public class GuiHandler {
      */
     public String makeButtons(String msg, String... buttonName){
         return gui.getUserButtonPressed(msg, buttonName);
+
     }
+
 }
 
 

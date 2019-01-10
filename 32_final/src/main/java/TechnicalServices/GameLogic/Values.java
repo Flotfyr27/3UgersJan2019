@@ -1,14 +1,23 @@
-package main.java.TechnicalServices.GameLogic;
+package TechnicalServices.GameLogic;
+
+import Domain.GameElements.Entities.DieTray;
 
 public class Values {
+    private static DieTray dicetray;;
+    public Values(){
+        DieTray dicetray = new DieTray();
+    }
+
+
+
     /**
      * This method returns the price of a property, so if you want the price for field number 9, you type propertyPrice(9)
      * @param i The position of the property on the board
      * @return The price of the property, given by its position on the board
      */
-    public static int propertyPrice(int i){
+    public static int propertyPrice(int i) {
         int price = 0;
-        switch(i) {
+        switch (i) {
             case 2:
                 price = 1200;
                 break;
@@ -124,7 +133,7 @@ public class Values {
      * [22]&&[23] Oliepriserne stiger betal 500 kr. pr hus og 2000 kr pr. hotel      *
      * [24]&&[25] Ejendomsskatterne stiger betal 800 kr pr. hus og 2300 kr pr. hotel *
      * @param i
-     * @return
+     * @return Returns the value effect of the chancecard
      */
     public static int chanceCardValue(int i){
         int value = 0;
@@ -185,7 +194,7 @@ public class Values {
 
     public static int rentPrice (int i) {
         int rent =0;
-               int rentPrice [][]  =
+              int rentPrice [][]  =
                 {{50, 250, 750, 2250, 4000, 6000},
                 {50,250,750,2250,4000,6000},
                 {500,1000,2000,4000},
@@ -193,7 +202,7 @@ public class Values {
                 {100,600,1800,5400,8000,11000},
                 {150,800,2000,6000,9000,12000},
                 {200,1000,3000,9000,12500,15000},
-                {(100*dicetray.getsum),(200*dicetray.getsum)},
+                {(100*dicetray.getSum()),(200*dicetray.getSum())},
                 {200,1000,3000,9000,12500,15000},
                 {250,1250,3750,10000,14000,18000},
                 {500,1000,2000,4000},
@@ -206,7 +215,7 @@ public class Values {
                 {500,1000,2000,4000},
                 {450,2200,6600,16000,19500,23000},
                 {450,2200,6600,16000,19500,23000},
-                {(100*dicetray.getsum),(200*dicetray.getsum)},
+                {(100*dicetray.getSum()),(200*dicetray.getSum())},
                 {500,2400,7200,17000,20500,24000},
                 {550,2600,7800,18000,22000,25000},
                 {550,2600,7800,18000,22000,25000},
@@ -221,9 +230,5 @@ return rent;
 
 
 
-
-
-
-
 }
-/*TODO Make methods for all property, which provides the current rent (streets, faeries and breweries), difinerer dicetray*/
+/*TODO Make methods for all property, which provides the current rent (streets, faeries and breweries)*/
