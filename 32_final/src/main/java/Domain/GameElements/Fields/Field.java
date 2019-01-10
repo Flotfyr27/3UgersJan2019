@@ -1,5 +1,7 @@
 package Domain.GameElements.Fields;
 
+import Domain.GameElements.Entities.Player;
+
 import java.awt.*;
 
 public abstract class Field {
@@ -51,7 +53,7 @@ public abstract class Field {
      * @param players An array of all players
      * @param fields An array of all fields
      */
-   // public abstract void landOnAction(Player current, Player[] players, Field[] fields){};
+    public abstract void landOnAction(Player current, Player[] players, Field[] fields);
 
     /**
      * Does... something
