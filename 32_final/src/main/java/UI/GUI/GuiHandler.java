@@ -36,7 +36,7 @@ public class GuiHandler {
      * @param fields
      * @return
      */
-    public static GuiHandler instantiateGui(Field[] fields) throws IllegalStateException{
+    public static GuiHandler instantiateGui(Domain.GameElements.Fields.Field[] fields) throws IllegalStateException{
         if (guiHandlerInstance == null) {
             guiHandlerInstance = new GuiHandler(fields);
             return getInstance();
@@ -49,7 +49,7 @@ public class GuiHandler {
      * Constructor. it is private to make sure it cannot be used externally.
      * @param fields
      */
-    private GuiHandler(Field[] fields){//Field[] fields
+    private GuiHandler(Domain.GameElements.Fields.Field[] fields){//Field[] fields
         for(int i = 0; i < gui_fields.length; i++){
             if(fields[i].getClass().equals(EmptyField.class) && i == 0){
                 gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
@@ -124,7 +124,7 @@ public class GuiHandler {
 
     }
 
-    public void updateGui(Player[] pArr, Field[] f){
+    public void updateGui(Player[] pArr, Domain.GameElements.Fields.Field[] f){
 
         boolean carMoved = false;
         //moves players step by step

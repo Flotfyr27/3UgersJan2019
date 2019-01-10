@@ -68,4 +68,9 @@ public class PropertyField extends OwnableField{
     public void payRent() {
 
     }
+
+    @Override
+    public void landOnAction(Player current) {
+
+    }
 }
