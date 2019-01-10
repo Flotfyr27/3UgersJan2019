@@ -15,7 +15,11 @@ public class Board {
 private Field[] fields;
 private Player[] players;
 
-public Board(int numberOfPlayers){
+    /**
+     * Constructor for Board
+     * @param numberOfPlayers input to determine the amount of players
+     */
+    public Board(int numberOfPlayers){
     if(numberOfPlayers < 3){
         numberOfPlayers = 3;
     }else if(numberOfPlayers > 6){
@@ -24,16 +28,28 @@ public Board(int numberOfPlayers){
     initPlayers(numberOfPlayers);
 }
 
+    /**
+     * Internal method to initialize all players
+     * @param numberOfPlayers Integer to determine number of players
+     */
     private void initPlayers(int numberOfPlayers){
         for(int i = 0; i < numberOfPlayers; i++){
             players[i] = new Player("Player" + (i+1));
             players[i].getAccount().changeScore(30000);
         }
     }
+
+    /**
+     * Method to get an array of all players
+     * @return Array filled with player objects
+     */
     public Player[] getPlayers(){
         return players;
     }
 
+    /**
+     * Initial method to set all fields to the game board
+     */
     private void setFields(){
     fields = new Field[40];
     fields[0] = (new EmptyField("START", "Hver gang de passerer START, modtag kr. 4000", Color.RED));
