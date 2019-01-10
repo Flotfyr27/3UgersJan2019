@@ -36,7 +36,7 @@ public class GuiHandler {
      * @param fields
      * @return
      */
-    public static GuiHandler instantiateGui(Field[] fields){
+    public static GuiHandler instantiateGui(Field[] fields) throws IllegalStateException{
         if (guiHandlerInstance == null) {
             guiHandlerInstance = new GuiHandler(fields);
             return getInstance();
@@ -208,6 +208,15 @@ public class GuiHandler {
         return builder.toString();
     }
 
+    /**
+     * This method lets any class create an arbitrary number of buttons and waits for the user to press one
+     * @param msg
+     * @param buttonName
+     * @return the name of the user-selected button
+     */
+    public String makeButtons(String msg, String... buttonName){
+        return gui.getUserButtonPressed(msg, buttonName);
+    }
 
 }
 

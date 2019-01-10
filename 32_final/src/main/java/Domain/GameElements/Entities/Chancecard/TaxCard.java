@@ -13,7 +13,7 @@ public class TaxCard extends ChanceCard{
         super(description);
         this.housePrice = housePrice;
         this.hotelPrice = hotelPrice;
-        gui = GuiHandler.getInstance;
+        gui = GuiHandler.getInstance();
     }
 
     public void action(Player p){
