@@ -17,9 +17,7 @@ public abstract class OwnableField extends Field {
      */
     public OwnableField(String name, String subtext, Color bgColour, int price){
         super(name, subtext, bgColour);
-        this.owner = owner;
         this.price = price;
-        this.rent = rent;
     }
 
     /**
