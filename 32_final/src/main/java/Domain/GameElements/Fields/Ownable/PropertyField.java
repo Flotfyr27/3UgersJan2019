@@ -9,13 +9,11 @@ public class PropertyField extends OwnableField{
      * @param name Name of the field
      * @param subtext Subtext for the field
      * @param bgColour background colour for the field
-     * @param owner Owner of the field
      * @param price Price of the field
-     * @param rent Rent of the field
      * @param housePrice Price per house on the field
      */
-    public PropertyField(String name, String subtext, Color bgColour, Player owner, int price, int rent, int housePrice){
-        super(name, subtext, bgColour, owner, price, rent);
+    public PropertyField(String name, String subtext, Color bgColour, int price, int housePrice){
+        super(name, subtext, bgColour, price);
         this.housePrice = housePrice;
     }
     private int numberOfHouses = 0, housePrice;

@@ -4,8 +4,8 @@ import java.awt.*;
 import Domain.GameElements.Entities.Player;
 
 public class CompanyField extends OwnableField {
-    public CompanyField(String name, String subtext, Color bgColour, Player owner, int price, int rent){
-        super(name, subtext, bgColour, owner, price, rent);
+    public CompanyField(String name, String subtext, Color bgColour, int price){
+        super(name, subtext, bgColour, price);
     }
 
     @Override
