@@ -2,10 +2,11 @@ package Domain.GameElements.Entities.Chancecard;
 
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Field;
+import Domain.GameElements.Fields.Ownable.OwnableField;
 
 public class MoveToNearestChanceCard extends MoveToChanceCard {
 
-    private Class<Field> type;
+    private Class<OwnableField> type;
     private Field[] fields;
     private boolean payDouble;
 
@@ -16,7 +17,7 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
      * @param fields
      * @param description
      */
-    public MoveToNearestChanceCard(Class<Field> type, Field[] fields, String description){
+    public MoveToNearestChanceCard(Class<OwnableField> type, Field[] fields, String description){
         super(0, description);
         this.type = type;
         this.fields = fields;
@@ -31,7 +32,7 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
      * @param payDouble
      * @param description
      */
-    public MoveToNearestChanceCard(Class<Field> type, Field[] fields, boolean payDouble, String description){
+    public MoveToNearestChanceCard(Class<OwnableField> type, Field[] fields, boolean payDouble, String description){
         super(0, description);
         this.type = type;
         this.fields = fields;

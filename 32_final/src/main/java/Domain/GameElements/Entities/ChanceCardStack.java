@@ -3,6 +3,8 @@ package Domain.GameElements.Entities;
 import java.util.Random;
 
 import Domain.GameElements.Entities.Chancecard.*;
+import Domain.GameElements.Fields.Field;
+import Domain.GameElements.Fields.Ownable.ShippingField;
 
 public class ChanceCardStack {
     private ChanceCard[] chanceCards;
@@ -26,7 +28,7 @@ public class ChanceCardStack {
      * Constructor.
      * initializes, defines and shuffles the ChanceCards.
      */
-    private ChanceCardStack(Player[] players){
+    private ChanceCardStack(Player[] players, Field[] fields){
         cardNum = 0;
 
         chanceCards = new ChanceCard[] {
@@ -87,11 +89,22 @@ public class ChanceCardStack {
                 new MoveToChanceCard(30,false,"Gå i fængsel. Selv om de passerer \"START\"," +
                         " indkasserer De ikke kr. 4.000."),
                 new MoveToChanceCard(39,"Tag ind på Rådhuspladsen."),
+                new MoveToChanceCard(15,"Tag med Mols-Linien. Flyt brikken frem, og hvis " +
+                        "De passerer \"START\", indkassér da kr. 4.000."),
                 new GetOutOfJailCard("I andledning af kongens fødselsdag benådes de herved for fængsel. " +
                         "Dette kort kan opbevares, indtil De får brug for det eller De kan sælge det."),
                 new GetOutOfJailCard("I andledning af kongens fødselsdag benådes de herved for fængsel. " +
                         "Dette kort kan opbevares, indtil De får brug for det eller De kan sælge det."),
-                
+                new MoveToNearestChanceCard(ShippingField.class, fields,"Tag med den nærmeste færge. " +
+                        "Flyt brikken frem, og hvis De passerer \"START\", indkassér da kr. 4.000."),
+                new MoveToNearestChanceCard(ShippingField.class, fields, true, "Ryke brikkem frem " +
+                        "til det nærmeste rederi og betal ejeren to gange den leje, han ellers er berretiget til. " +
+                        "Hvis selskabet ikke ejes af nogen, kan De købe det af banken."),
+                new MoveToNearestChanceCard(ShippingField.class, fields, true, "Ryke brikkem frem " +
+                        "til det nærmeste rederi og betal ejeren to gange den leje, han ellers er berretiget til. " +
+                        "Hvis selskabet ikke ejes af nogen, kan De købe det af banken."),
+
+
 
 
 
