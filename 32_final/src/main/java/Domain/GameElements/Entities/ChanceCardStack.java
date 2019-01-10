@@ -54,7 +54,7 @@ public class ChanceCardStack {
                 new TransactionCard(500, "De har vundet i Klasselotteriet. Modtag kr. 500."),
                 new TransactionCard(-200, "De har fået en parkeringsbøde. Betal kr. 200 i bøde."),
                 new TransactionCard(-300, "Betal for vognvask og smøring kr. 300."),
-                new TransactionCard(-1000, "De har kørt frem for FULDT STOP. Betal kr. 1.000.),"),
+                new TransactionCard(-1000, "De har kørt frem for \"fuldt stop\". Betal kr. 1.000.),"),
                 new TransactionCard(1000, "Deres præmieobligation er udtrukket. De modtager kr. " +
                         "1.000. af banken."),
                 new TransactionCard(1000, "Deres præmieobligation er udtrukket. De modtager kr. " +
@@ -68,6 +68,27 @@ public class ChanceCardStack {
                 new TransactionCard(-3000, "Betal kr. 3.000 for reparation af Deres vogn."),
                 new TransactionCard(1000, "Modtag udbytte af Deres aktier - kr. 1.000."),
                 new TransactionCard(1000, "Modtag udbytte af Deres aktier - kr. 1.000."),
+                new TaxCard(800,2300, "Ejendomsskatterne er steget. " +
+                        "Ekstraudgiftere er: kr. 800 pr. hus, kr. 2.300 pr. hotel."),
+                new TaxCard(500,2000, "Oliepriserne er steget og " +
+                        "De skal betale: kr.500 pr. hus kr. 2.000 pr. hotel."),
+                new MoveToChanceCard(32,"Ryk frem til Vimmelskaftet. Hvis De passerer \"START\", " +
+                        "indkassér da kr. 4.000"),
+                new MoveToChanceCard(0,"Ryk frem til \"START\"."),
+                new MoveToChanceCard(24,"Ryk frem til Grønningen. Hvis De passerer \"START\", " +
+                        "indkassér da kr. 4.000."),
+                new MoveToChanceCard(19,"Ryk frem til Strandvejen. Hvis De passerer \"START\", " +
+                        "indkassér da kr. 4.000"),
+                new MoveToChanceCard(11, "Ryk frem til Frederiksberg Allé. Hvis De passerer \"START\", " +
+                        "indkassér da kr. 4.000."),
+                new MoveToChanceCard(0,"Ryk frem til \"START\"."),
+                new MoveToChanceCard(30,false,"Gå i fængsel. Selv om de passerer \"START\"," +
+                        " indkasserer De ikke kr. 4.000."),
+                new MoveToChanceCard(30,false,"Gå i fængsel. Selv om de passerer \"START\"," +
+                        " indkasserer De ikke kr. 4.000."),
+                new MoveToChanceCard(39,"Tag ind på Rådhuspladsen."),
+                
+
 
 
 
