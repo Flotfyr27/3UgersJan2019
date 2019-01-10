@@ -2,7 +2,7 @@ package Domain.GameElements.Entities.Chancecard;
 import Domain.GameElements.Entities.Player;
 import TechnicalServices.GameLogic.GameLogic;
 
-public final class MoveToChanceCard extends MoveChanceCard {
+public class MoveToChanceCard extends MoveChanceCard {
 
     private boolean getsStartMoney;
 

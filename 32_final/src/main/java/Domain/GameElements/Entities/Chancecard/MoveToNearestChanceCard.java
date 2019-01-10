@@ -3,17 +3,64 @@ package Domain.GameElements.Entities.Chancecard;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Field;
 
-public class MoveToNearestChanceCard extends ChanceCard {
+public class MoveToNearestChanceCard extends MoveToChanceCard {
 
-    //TODO find ud af om der kun er mulighed for at skulle flytte til type eller
-    // om der er flere af samme type der er forskellige move to destinationer
+    private Class<Field> type;
+    private Field[] fields;
+    private boolean payDouble;
 
-    public MoveToNearestChanceCard(String description){
-        super(description);
+    /**
+     * Constructor
+     *
+     * @param type
+     * @param fields
+     * @param description
+     */
+    public MoveToNearestChanceCard(Class<Field> type, Field[] fields, String description){
+        super(0, description);
+        this.type = type;
+        this.fields = fields;
+        payDouble = false;
     }
 
-    public void action(Player player) {
+    /**
+     * Constructor
+     *
+     * @param type
+     * @param fields
+     * @param payDouble
+     * @param description
+     */
+    public MoveToNearestChanceCard(Class<Field> type, Field[] fields, boolean payDouble, String description){
+        super(0, description);
+        this.type = type;
+        this.fields = fields;
+        this.payDouble = payDouble;
+    }
 
+    /**
+     * moves the player to the closest field of a specified class.
+     *
+     * @param p
+     *
+     * TODO implement the payDouble feature
+     */
+    public void action(Player p) {
+        for (int i = p.getPos(); i < fields.length; i++) {
+            if (fields[i].getClass().equals(type)) {
+                super.value = i;
+                super.action(p);
+                return;
+            }
+        }
+        for (int i = 0; i < p.getPos(); i++) {
+            if (fields[i].getClass().equals(type)) {
+                super.value = i;
+                super.action(p);
+                return;
+            }
+        }
+        throw new RuntimeException("No Field of the specified type found");
     }
 
 }
