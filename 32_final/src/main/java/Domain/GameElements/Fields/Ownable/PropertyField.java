@@ -68,4 +68,13 @@ public class PropertyField extends OwnableField{
     public void payRent() {
 
     }
+
+    /**
+     * Method to determine what happens when a player lands on a field.
+     * @param current The current player
+     */
+    @Override
+    public void landOnAction(Player current) {
+
+    }
 }
