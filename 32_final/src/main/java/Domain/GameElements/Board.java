@@ -3,9 +3,11 @@ import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.ChanceField.ChanceField;
 import Domain.GameElements.Fields.EmptyField;
 import Domain.GameElements.Fields.Field;
+import Domain.GameElements.Fields.JailorField;
 import Domain.GameElements.Fields.Ownable.CompanyField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
 import Domain.GameElements.Fields.Ownable.ShippingField;
+import Domain.GameElements.Fields.TaxField;
 
 import java.awt.*;
 
@@ -54,7 +56,7 @@ private Player[] players;
     fields[1] = (new PropertyField("Rødovrevej", "kr. 1.200", Color.CYAN, 1200, 1000));
     fields[2] = (new ChanceField("Prøv lykken", "?", Color.BLACK));
     fields[3] = (new PropertyField("Hvidovrevej", "kr. 1.200", Color.CYAN, 1200, 1000));
-   //TAXFIELD fields[4] = (new TaxField("Skat", "Betal indkomstskat: 10% eller kr. 4.000", Color.GREEN, ))
+    fields[4] = (new TaxField("Skat", "Betal indkomstskat: 10% eller kr. 4.000", Color.GREEN, 2));
     fields[5] = (new ShippingField("Scandlines, Helsingør-Helsingborg", "kr. 4.000", Color.BLUE, 4000));
     fields[6] = (new PropertyField("Roskildevej", "kr. 2.000", Color.ORANGE, 2000, 1000));
     fields[7] = (new ChanceField("Prøv lykken", "?", Color.BLACK));
@@ -80,7 +82,7 @@ private Player[] players;
     fields[27] = (new PropertyField("Kgs. Nytorv", "kr. 5.200", Color.WHITE, 5200, 3000));
     fields[28] = (new CompanyField("Coca-Cola", "kr. 3.000", Color.RED, 3000));
     fields[29] = (new PropertyField("Østergade", "kr. 5.600", Color.WHITE, 5600, 3000));
-    //PRISON fields[30]
+    fields[30] = (new JailorField("De fængsles", "", Color.BLACK));
     fields[31] = (new PropertyField("Amagertorv", "kr. 6.000", Color.YELLOW, 6000, 4000));
     fields[32] = (new PropertyField("Vimmelskaftet", "kr. 6.000", Color.YELLOW, 6000, 4000));
     fields[33] = (new ChanceField("Prøv lykken", "?", Color.BLACK));
@@ -88,7 +90,7 @@ private Player[] players;
     fields[35] = (new ShippingField("Scandlines, Rødby-Puttgarden", "kr. 4.000", Color.BLUE, 4000));
     fields[36] = (new ChanceField("Prøv lykken", "?", Color.BLACK));
     fields[37] = (new PropertyField("Frederiksberggade", "kr. 7.000", Color.MAGENTA, 7000, 4000));
-    //fields[38] = (new TaxField())
+    fields[38] = (new TaxField("Ekstraordinær statsskat: Betal", "kr. 2.000", Color.GREEN, 1));
     fields[39] = (new PropertyField("Rådhuspladsen", "kr. 8.000", Color.MAGENTA, 8000, 4000));
     }
 }
