@@ -48,6 +48,12 @@ public class PropertyField extends OwnableField{
         }
         return worth;
     }
+    public void addHouse(){
+        numberOfHouses++;
+    }
+    public void removeHouse(){
+        numberOfHouses--;
+    }
 
     @Override
     public void sell() {
