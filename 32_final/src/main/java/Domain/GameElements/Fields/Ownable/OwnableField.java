@@ -32,6 +32,14 @@ public abstract class OwnableField extends Field {
         int worth = price;
         return worth;
     }
+
+    /**
+     * Method to get the price of a field
+     * @return Integer value of the price of a field
+     */
+    public int getPrice(){
+        return price;
+    }
     public abstract void pawn();
     public abstract void payRent();
     public abstract void buy();
