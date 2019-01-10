@@ -26,7 +26,7 @@ public class ChanceCardStack {
      * Constructor.
      * initializes, defines and shuffles the ChanceCards.
      */
-    private ChanceCardStack(){
+    private ChanceCardStack(Player[] players){
         cardNum = 0;
 
         chanceCards = new ChanceCard[] {

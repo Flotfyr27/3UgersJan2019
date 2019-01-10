@@ -1,7 +1,13 @@
 package Domain.GameElements.Entities.Chancecard;
 
 import Domain.GameElements.Entities.Player;
+import Domain.GameElements.Fields.Ownable.CompanyField;
+import Domain.GameElements.Fields.Ownable.OwnableField;
+import Domain.GameElements.Fields.Ownable.PropertyField;
+import Domain.GameElements.Fields.Ownable.ShippingField;
 import org.junit.jupiter.api.Test;
+
+import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -99,6 +105,20 @@ class ChanceCardTest {
 
     @Test
     void taxCardTest(){
+        Player p = new Player("p1");
+        p.setPos(10);
+        p.getAccount().changeScore(-p.getAccount().getScore());
+        OwnableField[] ownedFields = {
+                new PropertyField("1", "", Color.BLUE, p, 100, 10, 50),
+                new PropertyField("2", "", Color.BLUE, p, 100, 10, 50),
+                new PropertyField("3", "", Color.BLUE, p, 100, 10, 50),
+                new CompanyField("4", "", Color.BLUE, p, 100, 50),
+                new CompanyField("5", "", Color.BLUE, p, 100, 50),
+                new ShippingField("6", "", Color.BLUE, p, 100, 50)
+        };
+
+        p.getOwnedFields().add()
+
 
     }
 

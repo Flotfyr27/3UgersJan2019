@@ -20,7 +20,8 @@ public class TaxCard extends ChanceCard{
             if (f.getClass().equals(PropertyField.class)) {
                 PropertyField pf = (PropertyField) f;
                 sum += housePrice * pf.getHouses();
-                sum += hotelPrice * pf.getHotels();
+                if(pf.getHotel())
+                    sum++;
             }
         }
     }
