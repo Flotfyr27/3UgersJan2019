@@ -34,6 +34,14 @@ class PropertyFieldTest {
 
     @Test
     void getHotel() {
+        PropertyField pf = new PropertyField("Test", "Subtext", null, 4000, 1000);
+        assertFalse(pf.getHotel());
+        pf.addHouse();
+        pf.addHouse();
+        pf.addHouse();
+        pf.addHouse();
+        pf.addHouse();
+        assertTrue(pf.getHotel());
     }
 
     @Test
