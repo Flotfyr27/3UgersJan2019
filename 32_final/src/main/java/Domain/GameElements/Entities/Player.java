@@ -74,11 +74,15 @@ public class Player {
     }
 
     /**
-     * Methods that ensures that player gets a n extra jailCard if the GetOutOfJailFree card is drawn.
+     * Methods that ensures that player gets an extra jailCard if the GetOutOfJailFree card is drawn.
      */
     public void addJailCards(){
         jailCards++;
     }
+
+    /**
+     * Method removes a jailcard from the player
+     */
     public void removeJailCards(){
         jailCards--;
     }
