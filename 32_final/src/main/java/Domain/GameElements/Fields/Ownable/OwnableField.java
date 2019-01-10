@@ -1,6 +1,7 @@
 package Domain.GameElements.Fields.Ownable;
 
 import Domain.GameElements.Fields.Field;
+import Domain.GameElements.Entities.Player;
 import java.awt.*;
 
 public abstract class OwnableField extends Field {

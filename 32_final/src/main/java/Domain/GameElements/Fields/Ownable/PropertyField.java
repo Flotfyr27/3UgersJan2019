@@ -1,6 +1,7 @@
 package Domain.GameElements.Fields.Ownable;
 
 import java.awt.*;
+import Domain.GameElements.Entities.Player;
 
 public class PropertyField extends OwnableField{
     public PropertyField(String name, String subtext, Color bgColour, Player owner, int price, int rent, int housePrice){
