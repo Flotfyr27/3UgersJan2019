@@ -15,6 +15,9 @@ public class PropertyField extends OwnableField{
     public int getHouses(){
         return numberOfHouses;
     }
+    public boolean getHotel(){
+        return hasHotel;
+    }
 
     @Override
     public int getWorth() {
