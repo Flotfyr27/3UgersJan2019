@@ -13,11 +13,9 @@ public abstract class OwnableField extends Field {
      * @param name The name of the field
      * @param subtext The fields subtext
      * @param bgColour The background colour of the field
-     * @param owner The owner of the field
      * @param price The price of the field
-     * @param rent The rent of the field
      */
-    public OwnableField(String name, String subtext, Color bgColour, Player owner, int price, int rent){
+    public OwnableField(String name, String subtext, Color bgColour, int price){
         super(name, subtext, bgColour);
         this.owner = owner;
         this.price = price;
@@ -39,6 +37,22 @@ public abstract class OwnableField extends Field {
      */
     public int getPrice(){
         return price;
+    }
+
+    /**
+     * Method set the owner of a field.
+     * @param player Player to own the field
+     */
+    public void setOwner(Player player){
+        owner = player;
+    }
+
+    /**
+     * Method to get the owner
+     * @return Player who is the owner
+     */
+    public Player getOwner(){
+        return owner;
     }
     public abstract void pawn();
     public abstract void payRent();
