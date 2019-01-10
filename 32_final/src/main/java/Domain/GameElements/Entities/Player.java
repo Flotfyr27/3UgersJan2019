@@ -5,6 +5,7 @@ public class Player {
     private Account account;
     private String name;
     private boolean isActive;
+    private boolean lost;
 
     public Player(String name) {
         this.name = name;
@@ -36,4 +37,6 @@ public class Player {
     public String getName() {
         return name;
     }
+
+    public boolean getLost(){return lost;}
 }
