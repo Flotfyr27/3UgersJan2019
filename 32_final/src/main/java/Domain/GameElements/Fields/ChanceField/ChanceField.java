@@ -16,6 +16,10 @@ public class ChanceField extends Field {
         super(name, subtext, bgColour);
     }
 
+    public void landOnAction(Player current) {
+
+    }
+
     public void landOnAction(Player current, Player[] players, Field[] fields){
 
     }
