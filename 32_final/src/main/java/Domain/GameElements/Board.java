@@ -17,18 +17,9 @@ private Player[] players;
 
     /**
      * Constructor for Board
-     * @param numberOfPlayers input to determine the amount of players
      */
-    public Board(int numberOfPlayers){
-    //The if-statement is here as added security.
-    if(numberOfPlayers < 3){
-        numberOfPlayers = 3;
-    }else if(numberOfPlayers > 6){
-        numberOfPlayers = 6;
-    }
-    initPlayers(numberOfPlayers);
+    public Board(){
 }
-
     /**
      * Internal method to initialize all players
      * @param numberOfPlayers Integer to determine number of players
