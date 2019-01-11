@@ -12,7 +12,7 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
 
     /**
      * Constructor
-     *
+     *TODO fix class argument
      * @param type
      * @param fields
      * @param description
@@ -54,6 +54,9 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
                 return;
             }
         }
+
+
+
         for (int i = 0; i < p.getPos(); i++) {
             if (fields[i].getClass().equals(type)) {
                 super.value = i;

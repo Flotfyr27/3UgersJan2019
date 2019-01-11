@@ -4,14 +4,14 @@ import Domain.GameElements.Entities.Account;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Ownable.OwnableField;
 
-public class MatadorLegatetChanceCard extends TransactionCard {
+public class MatadorLegateChanceCard extends TransactionCard {
 
     /**
      * Constructor.
      *
      * @param description
      */
-    public MatadorLegatetChanceCard(int amount, String description) {
+    public MatadorLegateChanceCard(int amount, String description) {
         super(amount, description);
     }
 

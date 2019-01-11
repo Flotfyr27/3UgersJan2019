@@ -35,4 +35,8 @@ public class ShippingField extends OwnableField {
     public void payRent() {
 
     }
+
+    public void landOnAction(Player current) {
+
+    }
 }

@@ -50,10 +50,8 @@ public abstract class Field {
     /**
      * Abstract method to determine what happens when a player lands on a field.
      * @param current The current player
-     * @param players An array of all players
-     * @param fields An array of all fields
      */
-    public abstract void landOnAction(Player current, Player[] players, Field[] fields);
+    public abstract void landOnAction(Player current);
 
     /**
      * Does... something

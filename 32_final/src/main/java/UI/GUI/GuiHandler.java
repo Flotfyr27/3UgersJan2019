@@ -52,14 +52,14 @@ public class GuiHandler {
     private GuiHandler(Field[] fields){//Field[] fields
         for(int i = 0; i < gui_fields.length; i++){
             if(fields[i].getClass().equals(EmptyField.class) && i == 0){
-                gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColour(), null));
+                gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
             }else if(fields[i].getClass().equals(PropertyField.class)){
                 PropertyField propertyField = (PropertyField) fields[i];
-                gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", Integer.toString(propertyField.getPrice()), fields[i].getBgColour(), null));
+                gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", Integer.toString(propertyField.getPrice()), fields[i].getBgColor(), null));
             }else if(fields[i].getClass().equals(EmptyField.class)){
-                gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColour(), null));//This one be causing trouble
+                gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
             }else if(fields[i].getClass().equals(ChanceField.class)){
-                gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColour(), null));
+                gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
             }
         }
 
@@ -205,7 +205,7 @@ public class GuiHandler {
 
     }
 
-    /**
+    /**todo change to two dice
      * Shows the roll of the die.
      * @param value
      */
@@ -217,7 +217,7 @@ public class GuiHandler {
      * Writes a message in the midle of the Board
      * @param msg
      */
-    public void msgInMidle(String msg){
+    public void msgInMiddle(String msg){
         gui.displayChanceCard(msg);
     }
 
@@ -230,7 +230,7 @@ public class GuiHandler {
     }
 
     /**
-     * Gives message on the top left cornor
+     * Gives message on the top left corner
      * @param msg
      */
     public void giveMsg(String msg){
@@ -239,7 +239,7 @@ public class GuiHandler {
 
 
     /**
-     * A string that build the field.
+     * A string that builds the field.
      * @return
      */
     @Override
@@ -261,9 +261,7 @@ public class GuiHandler {
      */
     public String makeButtons(String msg, String... buttonName){
         return gui.getUserButtonPressed(msg, buttonName);
-
     }
-
 }
 
 

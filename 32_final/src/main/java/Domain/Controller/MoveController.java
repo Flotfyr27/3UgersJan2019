@@ -1,4 +1,4 @@
-package main.java.Domain.Controller;
+package Domain.Controller;
 
 public class MoveController {
 }
