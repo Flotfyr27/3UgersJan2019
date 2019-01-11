@@ -46,7 +46,7 @@ public class MoveController {
         dice.Roll();
         guiHandler.showDice(dice.getValue1(), dice.getValue2());
         int dist = dice.getSum();
-        GameLogic.movingPastStart(p,dist);
+        GameLogic.movingPastStart(p,p.getPos()+dist);
         currentPos = (currentPos + dist)%board.getFields().length;
         p.setPos(currentPos);
         guiHandler.updateGui(board.getPlayers(), board.getFields());
