@@ -17,7 +17,7 @@ public class ChanceCardStack {
      */
     public static ChanceCardStack getStackInstance() {
         if (stackInstance == null) {
-            //stackInstance = new ChanceCardStack();
+            stackInstance = new ChanceCardStack();
         }
 
         return stackInstance;
@@ -27,14 +27,16 @@ public class ChanceCardStack {
      * Constructor.
      * initializes, defines and shuffles the ChanceCards.
      */
-    private ChanceCardStack(Player[] players, Field[] fields){
+    private ChanceCardStack() {
         cardNum = 0;
+    }
 
-        chanceCards = new ChanceCard[] {
+    public void initializeCards(Player[] players){
+        chanceCards = new ChanceCard[]{
                 new MoveChanceCard(-3, "Ryk tre felter tilbage."),
                 new MoveChanceCard(-3, "Ryk tre felter tilbage."),
-                new MoveChanceCard(3,"Ryk tre felter frem."),
-                new BirthdayCard(500,players,"De har lagt penge ud til et sammenskudsgilde. " +
+                new MoveChanceCard(3, "Ryk tre felter frem."),
+                new BirthdayCard(500, players, "De har lagt penge ud til et sammenskudsgilde. " +
                         "Mærkværdigvis betaler alle straks. Modtag fra hver medspiller kr. 500."),
                 new BirthdayCard(200, players, "Det er Deres fødselsdag. Modtag af hver " +
                         "medspiller kr. 200."),
@@ -69,26 +71,26 @@ public class ChanceCardStack {
                 new TransactionCard(-3000, "Betal kr. 3.000 for reparation af Deres vogn."),
                 new TransactionCard(1000, "Modtag udbytte af Deres aktier - kr. 1.000."),
                 new TransactionCard(1000, "Modtag udbytte af Deres aktier - kr. 1.000."),
-                new TaxCard(800,2300, "Ejendomsskatterne er steget. " +
+                new TaxCard(800, 2300, "Ejendomsskatterne er steget. " +
                         "Ekstraudgiftere er: kr. 800 pr. hus, kr. 2.300 pr. hotel."),
-                new TaxCard(500,2000, "Oliepriserne er steget og " +
+                new TaxCard(500, 2000, "Oliepriserne er steget og " +
                         "De skal betale: kr.500 pr. hus kr. 2.000 pr. hotel."),
-                new MoveToChanceCard(32,"Ryk frem til Vimmelskaftet. Hvis De passerer \"START\", " +
+                new MoveToChanceCard(32, "Ryk frem til Vimmelskaftet. Hvis De passerer \"START\", " +
                         "indkassér da kr. 4.000"),
-                new MoveToChanceCard(0,"Ryk frem til \"START\"."),
-                new MoveToChanceCard(24,"Ryk frem til Grønningen. Hvis De passerer \"START\", " +
+                new MoveToChanceCard(0, "Ryk frem til \"START\"."),
+                new MoveToChanceCard(24, "Ryk frem til Grønningen. Hvis De passerer \"START\", " +
                         "indkassér da kr. 4.000."),
-                new MoveToChanceCard(19,"Ryk frem til Strandvejen. Hvis De passerer \"START\", " +
+                new MoveToChanceCard(19, "Ryk frem til Strandvejen. Hvis De passerer \"START\", " +
                         "indkassér da kr. 4.000"),
                 new MoveToChanceCard(11, "Ryk frem til Frederiksberg Allé. Hvis De passerer \"START\", " +
                         "indkassér da kr. 4.000."),
-                new MoveToChanceCard(0,"Ryk frem til \"START\"."),
-                new MoveToChanceCard(30,false,"Gå i fængsel. Selv om de passerer \"START\"," +
+                new MoveToChanceCard(0, "Ryk frem til \"START\"."),
+                new MoveToChanceCard(30, false, "Gå i fængsel. Selv om de passerer \"START\"," +
                         " indkasserer De ikke kr. 4.000."),
-                new MoveToChanceCard(30,false,"Gå i fængsel. Selv om de passerer \"START\"," +
+                new MoveToChanceCard(30, false, "Gå i fængsel. Selv om de passerer \"START\"," +
                         " indkasserer De ikke kr. 4.000."),
-                new MoveToChanceCard(39,"Tag ind på Rådhuspladsen."),
-                new MoveToChanceCard(15,"Tag med Mols-Linien. Flyt brikken frem, og hvis " +
+                new MoveToChanceCard(39, "Tag ind på Rådhuspladsen."),
+                new MoveToChanceCard(15, "Tag med Mols-Linien. Flyt brikken frem, og hvis " +
                         "De passerer \"START\", indkassér da kr. 4.000."),
                 new GetOutOfJailCard("I andledning af kongens fødselsdag benådes de herved for fængsel. " +
                         "Dette kort kan opbevares, indtil De får brug for det eller De kan sælge det."),
@@ -102,18 +104,9 @@ public class ChanceCardStack {
                 new MoveToNearestChanceCard(ShippingField.class, fields, true, "Ryke brikkem frem " +
                         "til det nærmeste rederi og betal ejeren to gange den leje, han ellers er berretiget til. " +
                         "Hvis selskabet ikke ejes af nogen, kan De købe det af banken."),*/
-                new MatadorLegateChanceCard(40000,"De modtager \"Matador-legatet for værdigt " +
+                new MatadorLegateChanceCard(40000, "De modtager \"Matador-legatet for værdigt " +
                         "trængende\" på kr. 40.000. Ved værdigt trængende forstås, at Deres formue, dv.s Deres " +
-                        "kontante penge + skøder + bygninger, ikke overstiger kr. 15.000."),
-
-
-
-
-
-
-
-
-
+                        "kontante penge + skøder + bygninger, ikke overstiger kr. 15.000.")
         };
 
         shuffleCards(chanceCards);
