@@ -7,12 +7,10 @@ import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.*;
 import Domain.GameElements.Fields.Ownable.*;
 import Domain.GameElements.Fields.ChanceField.*;
-import gui_codebehind.GUI_BoardController;
 import gui_fields.*;
 import gui_main.GUI;
 
 import java.awt.*;
-import java.security.PrivateKey;
 
 public class GuiHandler {
     private GUI gui;
@@ -198,6 +196,10 @@ public class GuiHandler {
             }
         }
 
+
+        // maybe use gui.displayChanceCard(message);
+        //TODO : Display chanceCard text
+
     }
 
     /**
@@ -205,8 +207,8 @@ public class GuiHandler {
      * @param faceValue1 The value of the first dice
      * @param faceValue2 The value of the second dice
      */
-    public void showDice(int faceValue1, int faceValue2){
-        gui.setDice(faceValue1, faceValue2);
+    public void showDice(int value1, int value2){
+        gui.setDice(value1, value2);
     }
 
     /**
