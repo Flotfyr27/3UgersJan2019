@@ -9,7 +9,7 @@ public class MoveController {
     private Board board;
     private DiceTray dice = new DiceTray();
     private MoveController(){
-        board.getInstance();
+       // board.getInstance();
     }
 
     /**
@@ -54,8 +54,8 @@ public class MoveController {
             p.setIsActive(false);
     }
 
-    }
-
-
-
 }
+
+
+
+
