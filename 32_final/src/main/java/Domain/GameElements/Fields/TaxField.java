@@ -67,7 +67,7 @@ public class TaxField extends Field {
                 player.getAccount().changeScore(-4000);
             }else{
                 try{
-
+                //TODO check exception type
                 }catch(NullPointerException e){
                     e.printStackTrace();
                     System.out.println("Wrong value");
