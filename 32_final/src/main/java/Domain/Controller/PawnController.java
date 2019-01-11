@@ -1,6 +1,7 @@
 package Domain.Controller;
 
-import Domain.GameElements.Board;
+
+import Domain.GameElements.Entities.Chancecard.MoveToNearestChanceCard;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Ownable.OwnableField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
@@ -11,18 +12,23 @@ public class PawnController {
 
     private int pawnValue;
     private boolean fieldIsEmpty;
+    private boolean fieldIsPropertyField;
+    private MoveToNearestChanceCard moveToNearestChanceCard;
+    private Class<OwnableField> type;
 
-    Player player = new Player();
-    PropertyField propertyField = new PropertyField();
+    Player[] players;
+    private PropertyField propertyField;
 
-    Account account = new Account();
-    OwnableField ownableField;
+    private Account account = new Account();
+    private OwnableField ownableField;
+    private Field[] field;
 
 
+    public PawnController(Player[] players, Field[] fields) {
 
+    }
 
     private boolean FieldIsEmpty() {
-        this.fieldIsEmpty = fieldIsEmpty;
         if (propertyField.getHouses() == 0 || propertyField.getHotel()) {
             fieldIsEmpty = true;
         } else {
@@ -31,35 +37,39 @@ public class PawnController {
         return false;
     }
 
-        private void pawnProperty(){
-
-            if (fieldIsEmpty == true) {
-                pawnValue = ownableField.getPrice() / 2;
-
-                account.changeScore(-pawnValue);
-
-            }
-            else{
-                int numberOfHouses = propertyField.getHouses();
-                propertyField.removeHouse(numberOfHouses);
-            }
+    private boolean ifFieldIsPropertyField(){
+        if (ownableField.getClass()==PropertyField.class){
+            fieldIsPropertyField = true;
         }
-        /**if (fieldIsEmpty == true){
-            int buildingsWorth = 0;
-            for (OwnableField field : player.getOwnedFields()) {
+        else{
+            fieldIsPropertyField = false;
+        }
+        return false;
+    }
 
-                buildingsWorth = field.getWorth() - field.getPrice();
+    private void pawnProperty() {
+        int buildingsWorth = 0;
+        buildingsWorth = field.getWorth() - field.getPrice();
+        if (fieldIsPropertyField && !fieldIsEmpty){
 
-
-
-            }
             int numberOfHouses = propertyField.getHouses();
             propertyField.removeHouse(numberOfHouses);
+            account.changeScore(buildingsWorth);
+
+        } else {
+
+            pawnValue = ownableField.getPrice() / 2;
+
+            account.changeScore(-pawnValue);
         }
-        else {
-        */
+
+    private void unPawn(){
+            account.changeScore(pawnValue);
+            
         }
     }
+}
+
 
 
 
