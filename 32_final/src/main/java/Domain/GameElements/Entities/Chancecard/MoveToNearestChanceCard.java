@@ -58,7 +58,7 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
 
 
         for (int i = 0; i < p.getPos(); i++) {
-            if (fields[i].getClass().equals(type)) {
+            if (fields[i].getClass() == type) {
                 super.value = i;
                 super.action(p);
                 return;

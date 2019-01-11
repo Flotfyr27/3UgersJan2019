@@ -7,6 +7,7 @@ import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.*;
 import Domain.GameElements.Fields.Ownable.*;
 import Domain.GameElements.Fields.ChanceField.*;
+import Domain.GameElements.Fields.Field;
 import gui_fields.*;
 import gui_main.GUI;
 
@@ -37,7 +38,7 @@ public class GuiHandler {
      * @param fields the fields in the board class
      * @return The instance of the object
      */
-    public GuiHandler instantiateGui(Field[] fields) throws IllegalStateException{
+   /* public GuiHandler instantiateGui(Field[] fields) throws IllegalStateException{
         for(int i = 0; i < gui_fields.length; i++){
             if(fields[i].getClass().equals(EmptyField.class) && i == 0){
                 gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
@@ -53,7 +54,7 @@ public class GuiHandler {
 
         gui = new GUI(gui_fields, Color.lightGray);
         return this;
-    }
+    }*/
 
     /**
      * Constructor. it is private to make sure it cannot be used externally.
