@@ -1,12 +1,12 @@
 package Domain.GameElements.Entities;
 
-public class DieTray {
+public class DiceTray {
     private int value1;
     private int value2;
     public int sum;
     Die die;
 
-    public DieTray() {
+    public DiceTray() {
         die = new Die();
         Roll();
     }
