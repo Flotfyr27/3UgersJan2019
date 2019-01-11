@@ -3,12 +3,14 @@ package Domain.GameElements.Entities;
 public class DiceTray {
     private int value1;
     private int value2;
-    public int sum;
+    private int sum;
     Die die;
 
+    /**
+     * Constructor for the dicetray
+     */
     public DiceTray() {
         die = new Die();
-        Roll();
     }
 
     /**
