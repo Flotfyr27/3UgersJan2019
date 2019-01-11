@@ -73,6 +73,11 @@ public class PropertyField extends OwnableField{
         numberOfHouses -= value;
     }
 
+    /**
+     * This method calculates the rent of a property
+     * @param p The player who lands on the field
+     * @return Returns an integer value of rent
+     */
     @Override
     public int getRent(Player p) {
         int rent = Values.rentPrice(p.getPos(), numberOfHouses);
