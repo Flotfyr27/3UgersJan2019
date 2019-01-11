@@ -137,7 +137,7 @@ public class ChanceCardStack {
      */
     public ChanceCard next() {
         if (!hasNext()) {
-            cardNum = 0; //TODO this will always exclude the first card, fix it.
+            cardNum = 0;
         }
 
         return chanceCards[cardNum++];

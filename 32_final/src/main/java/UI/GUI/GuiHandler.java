@@ -3,20 +3,24 @@
  */
 package UI.GUI;
 
+
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.*;
 import Domain.GameElements.Fields.Ownable.*;
 import Domain.GameElements.Fields.ChanceField.*;
-import Domain.GameElements.Fields.Field;
+import gui_codebehind.GUI_BoardController;
 import gui_fields.*;
 import gui_main.GUI;
 
 import java.awt.*;
 
+
 public class GuiHandler {
     private GUI gui;
     private GUI_Field[] gui_fields = new GUI_Field[40];
     private GUI_Player[] guiPlayers;
+    private int[] dicefacevalues = new int[2];
+    private GUI_BoardController bc;
 
     private static GuiHandler guiHandlerInstance;
 
@@ -38,23 +42,37 @@ public class GuiHandler {
      * @param fields the fields in the board class
      * @return The instance of the object
      */
-   /* public GuiHandler instantiateGui(Field[] fields) throws IllegalStateException{
+    public void initGuiFields(Domain.GameElements.Fields.Field[] fields) throws IllegalStateException{
         for(int i = 0; i < gui_fields.length; i++){
             if(fields[i].getClass().equals(EmptyField.class) && i == 0){
                 gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
-            }else if(fields[i].getClass().equals(PropertyField.class)){
+
+            } else if(fields[i].getClass().equals(PropertyField.class)){
                 PropertyField propertyField = (PropertyField) fields[i];
                 gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", Integer.toString(propertyField.getPrice()), fields[i].getBgColor(), null));
-            }else if(fields[i].getClass().equals(EmptyField.class)){
+
+            } else if(fields[i].getClass().equals(EmptyField.class)){
                 gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
-            }else if(fields[i].getClass().equals(ChanceField.class)){
-                gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
+
+            } else if(fields[i].getClass().equals(ChanceField.class)){
+                gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), Color.white));
+
+            } else if (fields[i].getClass().equals(TaxField.class)) {
+               gui_fields[i] = new GUI_Tax(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(),null);
+
+            } else if (fields[i].getClass().equals(ShippingField.class)) {
+                gui_fields[i] = new GUI_Shipping("", fields[i].getName(), fields[i].getSubtext(), "", "",fields[i].getBgColor(),null);
+
+            } else if (fields[i].getClass().equals(CompanyField.class)) {
+                gui_fields[i] = new GUI_Brewery("", fields[i].getName(), fields[i].getSubtext(), "", "",fields[i].getBgColor(),null);
+
+            } else if (fields[i].getClass().equals(JailorField.class)) {
+                gui_fields[i] = new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null);
             }
         }
 
         gui = new GUI(gui_fields, Color.lightGray);
-        return this;
-    }*/
+    }
 
     /**
      * Constructor. it is private to make sure it cannot be used externally.
@@ -71,7 +89,7 @@ public class GuiHandler {
         int output;
 
         do { //Made this loop due to us sometimes being able to choose any number of players despite min/max value
-            output = gui.getUserInteger("Choose between 2 and 4 players", min, max);
+            output = gui.getUserInteger("Choose between 3 and 6 players", min, max);
         } while (output < min || output > max);
         return output;
     }
@@ -80,7 +98,7 @@ public class GuiHandler {
      * Creates players and set car types.
      * @param p
      */
-    public void initGui(Player[] p){
+    public void initGuiPlayers(Player[] p){
         GUI_Car.Type carType;
         Color primaryColor;
         //Create players
@@ -139,9 +157,9 @@ public class GuiHandler {
      * @param pArr
      * @param f
      */
-    public void updateGui(Player[] pArr, Field[] f){
+    public void updateGui(Player[] pArr, Domain.GameElements.Fields.Field[] f){
 
-        /**
+        /*
          * Move the players on the map, field by field
          */
         boolean carMoved = false;
@@ -173,14 +191,14 @@ public class GuiHandler {
         }
 
 
-        /**
+        /*
          * Updates the player balance.
          */
         for(int i = 0; i < pArr.length; i++){
             guiPlayers[i].setBalance(pArr[i].getAccount().getScore());
         }
 
-        /**
+        /*
          * updates ownership of tile
          */
         Player owner;
@@ -195,18 +213,15 @@ public class GuiHandler {
             }
         }
 
-
-        // maybe use gui.displayChanceCard(message);
-        //TODO : Display chanceCard text
-
     }
 
-    /**todo change to two dice
-     * Shows the roll of the die.
-     * @param value
+    /**
+     * Shows the roll of the  two dices.
+     * @param faceValue1 The value of the first dice
+     * @param faceValue2 The value of the second dice
      */
-    public void showDie(int value){
-        gui.setDie(value);
+    public void showDice(int faceValue1, int faceValue2){
+        gui.setDice(faceValue1, faceValue2);
     }
 
     /**

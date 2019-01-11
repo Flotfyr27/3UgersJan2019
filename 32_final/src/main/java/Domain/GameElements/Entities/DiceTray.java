@@ -3,17 +3,18 @@ package Domain.GameElements.Entities;
 public class DiceTray {
     private int value1;
     private int value2;
-    public int sum;
+    private int sum;
     Die die;
 
+    /**
+     * Constructor for the dicetray
+     */
     public DiceTray() {
         die = new Die();
-        Roll();
     }
 
     /**
-     * Roll method.
-     * TODO fix java doc
+     * A Roll method. To get to get two values from the dice.
      */
     public void Roll() {
         value1 = die.Roll();
@@ -21,7 +22,7 @@ public class DiceTray {
     }
 
     /**
-     * Made a getSum method, to get the sum of the roll.
+     * A getSum method, to get the sum of the roll.
      * @return It returns the sum.
      */
     public int getSum() {
@@ -40,7 +41,21 @@ public class DiceTray {
             return false;
     }
 
+    /**
+     * returns the value of the first die
+     * @return value
+     */
+    public int getValue1() {
+        return value1;
+    }
 
+    /**
+     * returns the value of the second die
+     * @return value
+     */
+    public int getValue2() {
+        return value2;
+    }
 }
 
 

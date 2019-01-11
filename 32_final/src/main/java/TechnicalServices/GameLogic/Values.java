@@ -138,7 +138,9 @@ public class Values {
     public static int chanceCardValue(int i){
         int value = 0;
         int[] chanceCardValues = {
-                -3000, -2000, -1000, -1000, -1000 -300, -200, -200, -200, 200, 200, 500, 500, 500, 1000, 1000, 1000, 1000, 1000, 1000, 3000, 40000, -500, -2000, -800, -2300 /*TODO sørg for at de fire sidste priser er reguleret i henhold til antal huse og hoteller, samt de andre fælles puljer, markeret med stjerne */
+                -3000, -2000, -1000, -1000, -1000 -300, -200, -200, -200, 200, 200, 500, 500, 500,
+                1000, 1000, 1000, 1000, 1000, 1000, 3000, 40000, -500, -2000, -800, -2300
+                /*TODO sørg for at de fire sidste priser er reguleret i henhold til antal huse og hoteller, samt de andre fælles puljer, markeret med stjerne */
         };
         value = chanceCardValues[i];
         return value;
