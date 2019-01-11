@@ -70,7 +70,7 @@ public class GuiHandler {
         int output;
 
         do { //Made this loop due to us sometimes being able to choose any number of players despite min/max value
-            output = gui.getUserInteger("Choose between 2 and 4 players", min, max);
+            output = gui.getUserInteger("Choose between 3 and 6 players", min, max);
         } while (output < min || output > max);
         return output;
     }
@@ -202,10 +202,11 @@ public class GuiHandler {
 
     /**todo change to two dice
      * Shows the roll of the die.
-     * @param value
+     * @param value1 the value of the first die
+     * @param value2 the value of the second die
      */
-    public void showDie(int value){
-        gui.setDie(value);
+    public void showDice(int value1, int value2){
+        gui.setDice(value1, value2);
     }
 
     /**
