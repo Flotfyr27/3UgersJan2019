@@ -12,10 +12,10 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
 
     /**
      * Constructor
-     *TODO fix class argument
-     * @param type
-     * @param fields
-     * @param description
+     *
+     * @param type The class of the field you move to. The first field of this class i selected.
+     * @param fields The field array defining the fields on the board.
+     * @param description The text displayed when the card is drawn.
      */
     public MoveToNearestChanceCard(Class<OwnableField> type, Field[] fields, String description){
         super(0, description);
@@ -26,11 +26,10 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
 
     /**
      * Constructor
-     *
-     * @param type
-     * @param fields
-     * @param payDouble
-     * @param description
+     * @param type The class of the field you move to. The first field of this class i selected.
+     * @param fields The field array defining the fields on the board.
+     * @param payDouble should the player pay double rent when getting there?
+     * @param description The text displayed when the card is drawn.
      */
     public MoveToNearestChanceCard(Class<OwnableField> type, Field[] fields, boolean payDouble, String description){
         super(0, description);
