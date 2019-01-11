@@ -33,7 +33,7 @@ public class ChanceCardStack {
 
         chanceCards = new ChanceCard[] {
                 new MoveChanceCard(-3, "Ryk tre felter tilbage."),
-                new MoveChanceCard(-3, "Ryk tre felter tilabge."),
+                new MoveChanceCard(-3, "Ryk tre felter tilbage."),
                 new MoveChanceCard(3,"Ryk tre felter frem."),
                 new BirthdayCard(500,players,"De har lagt penge ud til et sammenskudsgilde. " +
                         "Mærkværdigvis betaler alle straks. Modtag fra hver medspiller kr. 500."),
