@@ -46,6 +46,7 @@ public class MainController {
                     choice = guiHandler.makeButtons("vælg en handling",
                             "Slå terninger", "Handel", "Pantsætning");
                     if (choice.equalsIgnoreCase("Slå terning"))
+                        System.out.println("move!");
                         moveCon.runCase(currentPlayer);
                     if (choice.equalsIgnoreCase("Handel"))
                         ; //tradeCon.runCase();
@@ -55,7 +56,7 @@ public class MainController {
 
             }while (currentPlayer.getIsActive());
 
-            currentPlayerNum++;
+            currentPlayerNum = ++currentPlayerNum % players.length;
         }
     }
 

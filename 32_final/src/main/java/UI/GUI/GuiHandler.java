@@ -42,7 +42,7 @@ public class GuiHandler {
      * @param fields the fields in the board class
      * @return The instance of the object
      */
-    public GuiHandler instantiateGui(Domain.GameElements.Fields.Field[] fields) throws IllegalStateException{
+    public void initGuiFields(Domain.GameElements.Fields.Field[] fields) throws IllegalStateException{
         for(int i = 0; i < gui_fields.length; i++){
             if(fields[i].getClass().equals(EmptyField.class) && i == 0){
                 gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
@@ -72,7 +72,6 @@ public class GuiHandler {
         }
 
         gui = new GUI(gui_fields, Color.lightGray);
-        return this;
     }
 
     /**
@@ -99,7 +98,7 @@ public class GuiHandler {
      * Creates players and set car types.
      * @param p
      */
-    public void initGui(Player[] p){
+    public void initGuiPlayers(Player[] p){
         GUI_Car.Type carType;
         Color primaryColor;
         //Create players

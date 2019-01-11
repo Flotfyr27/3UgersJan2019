@@ -46,7 +46,6 @@ public class Board {
         players = new Player[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++) {
             players[i] = new Player("Player" + (i + 1));
-            players[i].getAccount().changeScore(30000);
         }
     }
 

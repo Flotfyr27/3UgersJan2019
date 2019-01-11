@@ -6,12 +6,14 @@ import UI.GUI.GuiHandler;
 public class Main {
     public static void main(String[] args) {
         Board board = Board.getInstance();
-        GuiHandler guiHandler = GuiHandler.getInstance().instantiateGui(board.getFields());
+        GuiHandler guiHandler = GuiHandler.getInstance();
+        guiHandler.initGuiFields(board.getFields());
 
         board.initPlayers(guiHandler.getNumberOfPlayers(3, 6));
+        guiHandler.initGuiPlayers(board.getPlayers());
 
         MainController mainController = new MainController(board.getPlayers());
-        MoveController moveController = MoveController.getInstance();
+        MoveController moveController = MoveController.getInstance().initiate(board);
         //JailController jailController = JailControllor.getInstance();
 
         mainController.runCase();
