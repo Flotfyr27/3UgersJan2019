@@ -10,4 +10,8 @@ private Field[] fields;
     fields = new Field[40];
    //fields[0] = (new (EmptyField("START", "Hver gang de passerer START, modtag kr. 4000")));
     }
+
+    public Field[] getFields() {
+        return fields;
+    }
 }
