@@ -47,7 +47,7 @@ public class JailController {
             //Choice of making bail and throwing the dice
             if(buttons.equals("Betal kr.1.000, og ryk ud af fængsel")) {
                 player.getAccount().changeScore(-1000);
-                moveController; //The dice are thrown in the moveController
+                MoveController.getInstance().runCase(player); //The dice are thrown in the moveController
                 player.setJailTime(-1);
                 return;
             }
@@ -55,8 +55,9 @@ public class JailController {
                 else if(buttons.equals("Slå terninger")){
                     diceTray.Roll();
 
+                    //if/else statement which determines what to do when throwing double dice or not.
                     if(diceTray.IsDoubleValue()) {
-                        moveController; //The dice are thrown in the moveController
+                        MoveController.getInstance().runcase(player, diceTray.getSum(), diceTray.IsDoubleValue()); //The dice are thrown in the moveController
                         player.setJailTime(-1);
                         return;
                     }else if(!diceTray.IsDoubleValue()){
@@ -72,7 +73,7 @@ public class JailController {
         //The player is forced to make bail
         if(player.getJailTime()==3){
             player.getAccount().changeScore(-1000);
-            moveController; //The dice are thrown in the moveController
+            MoveController.getInstance().runCase(player); //The dice are thrown in the moveController
             player.setJailTime(-1);
         }
 

@@ -6,7 +6,6 @@ public class DiceTray {
     private int sum;
     Die die;
 
-    public DiceTray() {
     /**
      * Constructor for the dicetray
      */
