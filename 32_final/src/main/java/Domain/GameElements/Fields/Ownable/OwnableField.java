@@ -52,6 +52,15 @@ public abstract class OwnableField extends Field {
     public Player getOwner(){
         return owner;
     }
+    public void buyField(Player p){
+        if(getOwner() == null){
+            if(p.getAccount().getScore() >= getPrice()){
+                setOwner(p);
+                p.getAccount().changeScore(-getPrice());
+                p.getOwnedFields().add(this);
+            }
+        }
+    }
 
     public abstract int getRent(Player player);
 
