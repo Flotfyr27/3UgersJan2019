@@ -33,8 +33,4 @@ public class ShippingField extends OwnableField {
         int rent = Values.rentPrice(p.getPos(), count);
         return rent;
     }
-
-    public void landOnAction(Player current) {
-
-    }
 }

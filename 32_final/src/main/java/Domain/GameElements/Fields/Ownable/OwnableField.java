@@ -61,6 +61,23 @@ public abstract class OwnableField extends Field {
             }
         }
     }
+    /**
+     * Method to determine what happens when a player lands on a field.
+     * @param current The current player
+     */
+    @Override
+    public void landOnAction(Player current) {
+        if(getOwner() == null){
+            buyField(current);
+        }else if(getOwner() == current){
+            return;
+        }else{
+            //TODO check to see if player has enough money to pay rent, else pawn!
+            getOwner().getAccount().changeScore(getRent(current));
+            current.getAccount().changeScore(-getRent(current));
+        }
+
+    }
 
     public abstract int getRent(Player player);
 
