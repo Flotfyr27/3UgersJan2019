@@ -53,6 +53,6 @@ public abstract class OwnableField extends Field {
         return owner;
     }
 
-    public abstract int getRent();
+    public abstract int getRent(Player player);
 
 }
