@@ -1,6 +1,8 @@
 package Domain.GameElements.Entities.Chancecard;
 
+import Domain.GameElements.Entities.Chancecard.TaxCard;
 import Domain.GameElements.Entities.Player;
+import Domain.GameElements.Fields.Field;
 import Domain.GameElements.Fields.Ownable.CompanyField;
 import Domain.GameElements.Fields.Ownable.OwnableField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
@@ -107,18 +109,32 @@ class ChanceCardTest {
     void taxCardTest(){
         Player p = new Player("p1");
         p.setPos(10);
-        p.getAccount().changeScore(-p.getAccount().getScore());
-        OwnableField[] ownedFields = {
-                new PropertyField("1", "", Color.BLUE, p, 100, 10, 50),
-                new PropertyField("2", "", Color.BLUE, p, 100, 10, 50),
-                new PropertyField("3", "", Color.BLUE, p, 100, 10, 50),
-                new CompanyField("4", "", Color.BLUE, p, 100, 50),
-                new CompanyField("5", "", Color.BLUE, p, 100, 50),
-                new ShippingField("6", "", Color.BLUE, p, 100, 50)
+        p.getAccount().changeScore(100 -p.getAccount().getScore());
+        OwnableField[] fields = {
+                new PropertyField("1", "", Color.BLUE, 100, 10),
+                new PropertyField("2", "", Color.BLUE, 100, 10),
+                new PropertyField("3", "", Color.BLUE, 100, 10),
+                new CompanyField("4", "", Color.BLUE, 100),
+                new CompanyField("4", "", Color.BLUE, 100),
+                new ShippingField("6", "", Color.BLUE,100)
         };
 
-        p.getOwnedFields().add()
+        fields[0].setOwner(p);
+        p.getOwnedFields().add(fields[0]);
+        fields[1].setOwner(p);
+        p.getOwnedFields().add(fields[1]);
+        fields[3].setOwner(p);
+        p.getOwnedFields().add(fields[3]);
+        fields[5].setOwner(p);
+        p.getOwnedFields().add(fields[5]);
 
+        ((PropertyField) fields[1]).addHouse();
+        ((PropertyField) fields[1]).addHouse();
+
+        TaxCard taxCard = new TaxCard(10,20, "text");
+
+        taxCard.action(p);
+        assertEquals(80, p.getAccount().getScore());
 
     }
 

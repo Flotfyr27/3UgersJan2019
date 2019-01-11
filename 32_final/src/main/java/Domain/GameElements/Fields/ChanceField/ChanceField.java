@@ -15,8 +15,8 @@ public class ChanceField extends Field {
     public ChanceField(String name, String subtext, Color bgColour){
         super(name, subtext, bgColour);
     }
-
-    public void landOnAction(Player current, Player[] players, Field[] fields){
+    @Override
+    public void landOnAction(Player current) {
 
     }
 }

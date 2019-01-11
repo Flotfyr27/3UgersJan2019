@@ -71,7 +71,7 @@ public class Player {
      * returns a boolean value of whether the player has lost yet or not.
      * @return
      */
-    public boolean hasLost() {
+    public boolean getLost() {
         return lost;
     }
 

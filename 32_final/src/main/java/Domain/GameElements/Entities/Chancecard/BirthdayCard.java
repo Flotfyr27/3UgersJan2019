@@ -23,13 +23,13 @@ public class BirthdayCard extends TransactionCard {
     public void action(Player player){
         int count = 0;
         for (Player p : players){
-            if (!p.hasLost()) {
+            if (!p.getLost()) {
                 p.getAccount().changeScore(-super.amount);
                 count++;
             }
         }
 
-        //TODO make this method take into acount that some might not be able to pay
+        //TODO make this method take into account that some might not be able to pay
 
         player.getAccount().changeScore(super.amount * count);
     }

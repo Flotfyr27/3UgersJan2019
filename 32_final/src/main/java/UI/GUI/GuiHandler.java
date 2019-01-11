@@ -14,7 +14,7 @@ import java.awt.*;
 
 public class GuiHandler {
     private GUI gui;
-    private GUI_Field[] gui_fields = new GUI_Field[24];
+    private GUI_Field[] gui_fields = new GUI_Field[40];
     private GUI_Player[] guiPlayers;
 
     private static GuiHandler guiHandlerInstance;
@@ -25,45 +25,40 @@ public class GuiHandler {
      * @return
      */
     public static GuiHandler getInstance() {
-        if (guiHandlerInstance != null)
-            return guiHandlerInstance;
-        else
-            throw new NullPointerException("an instance of the GuiHandler has not been instantiated yet");
-    }
-
-    /**
-     * Creates an instance of the GuiHandler class if none exists otherwise throws exception.
-     * @param fields
-     * @return
-     */
-    public static GuiHandler instantiateGui(Field[] fields) throws IllegalStateException{
         if (guiHandlerInstance == null) {
-            guiHandlerInstance = new GuiHandler(fields);
-            return getInstance();
-        } else {
-            throw new IllegalStateException("An instance has already been created, use getInstance() instead.");
-        }
+            guiHandlerInstance = new GuiHandler();
+            return guiHandlerInstance;
+        } else
+            return guiHandlerInstance;
     }
 
     /**
-     * Constructor. it is private to make sure it cannot be used externally.
-     * @param fields
+     * creates the gui_fields
+     * @param fields the fields in the board class
+     * @return The instance of the object
      */
-    private GuiHandler(Field[] fields){//Field[] fields
+    public GuiHandler instantiateGui(Field[] fields) throws IllegalStateException{
         for(int i = 0; i < gui_fields.length; i++){
             if(fields[i].getClass().equals(EmptyField.class) && i == 0){
-                gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColour(), null));
+                gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
             }else if(fields[i].getClass().equals(PropertyField.class)){
                 PropertyField propertyField = (PropertyField) fields[i];
-                gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", Integer.toString(propertyField.getPrice()), fields[i].getBgColour(), null));
+                gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", Integer.toString(propertyField.getPrice()), fields[i].getBgColor(), null));
             }else if(fields[i].getClass().equals(EmptyField.class)){
-                gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColour(), null));//This one be causing trouble
+                gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
             }else if(fields[i].getClass().equals(ChanceField.class)){
-                gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColour(), null));
+                gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
             }
         }
 
         gui = new GUI(gui_fields, Color.lightGray);
+        return this;
+    }
+
+    /**
+     * Constructor. it is private to make sure it cannot be used externally.
+     */
+    private GuiHandler(){
     }
 
     /**
@@ -80,6 +75,10 @@ public class GuiHandler {
         return output;
     }
 
+    /**
+     * Creates players and set car types.
+     * @param p
+     */
     public void initGui(Player[] p){
         GUI_Car.Type carType;
         Color primaryColor;
@@ -107,6 +106,16 @@ public class GuiHandler {
                     primaryColor = Color.MAGENTA;
                     break;
                 }
+                case 4:{
+                    carType = GUI_Car.Type.CAR;
+                    primaryColor = Color.yellow;
+                break;
+                }
+                case 5:{
+                    carType = GUI_Car.Type.UFO;
+                    primaryColor = Color.ORANGE;
+                    break;
+                }
                 default:{
                     carType = GUI_Car.Type.CAR;
                     primaryColor = Color.BLUE;
@@ -124,8 +133,16 @@ public class GuiHandler {
 
     }
 
+    /**
+     * Updates where the player(s) are located on the field.
+     * @param pArr
+     * @param f
+     */
     public void updateGui(Player[] pArr, Field[] f){
 
+        /**
+         * Move the players on the map, field by field
+         */
         boolean carMoved = false;
         //moves players step by step
         for (int i = 0; i < gui_fields.length; i++) {
@@ -154,12 +171,17 @@ public class GuiHandler {
             }
         }
 
-        //Update player balance
+
+        /**
+         * Updates the player balance.
+         */
         for(int i = 0; i < pArr.length; i++){
             guiPlayers[i].setBalance(pArr[i].getAccount().getScore());
         }
 
-        //Update ownership of tile
+        /**
+         * updates ownership of tile
+         */
         Player owner;
         for(int i = 0; i < gui_fields.length; i++){
             if (f[i].getClass().equals(PropertyField.class)) {
@@ -178,25 +200,43 @@ public class GuiHandler {
 
     }
 
+    /**todo change to two dice
+     * Shows the roll of the die.
+     * @param value
+     */
     public void showDie(int value){
         gui.setDie(value);
     }
 
-    public void msgInMidle(String msg){
+    /**
+     * Writes a message in the midle of the Board
+     * @param msg
+     */
+    public void msgInMiddle(String msg){
         gui.displayChanceCard(msg);
     }
 
+    /**
+     * Message when a player has to press the roll button
+     * @param msg
+     */
     public void waitForRoll(String msg){
         gui.getUserButtonPressed(msg, "Roll");
     }
 
+    /**
+     * Gives message on the top left corner
+     * @param msg
+     */
     public void giveMsg(String msg){
         gui.showMessage(msg);
     }
 
-    //TODO lav en toString metode der udskriver alle vores felter.
 
-
+    /**
+     * A string that builds the field.
+     * @return
+     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
