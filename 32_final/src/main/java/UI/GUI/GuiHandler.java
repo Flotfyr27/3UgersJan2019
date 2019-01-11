@@ -14,7 +14,7 @@ import java.awt.*;
 
 public class GuiHandler {
     private GUI gui;
-    private GUI_Field[] gui_fields = new GUI_Field[24];
+    private GUI_Field[] gui_fields = new GUI_Field[40];
     private GUI_Player[] guiPlayers;
 
     private static GuiHandler guiHandlerInstance;
@@ -80,6 +80,10 @@ public class GuiHandler {
         return output;
     }
 
+    /**
+     * Creates players and set car types.
+     * @param p
+     */
     public void initGui(Player[] p){
         GUI_Car.Type carType;
         Color primaryColor;
@@ -107,6 +111,16 @@ public class GuiHandler {
                     primaryColor = Color.MAGENTA;
                     break;
                 }
+                case 4:{
+                    carType = GUI_Car.Type.CAR;
+                    primaryColor = Color.yellow;
+                break;
+                }
+                case 5:{
+                    carType = GUI_Car.Type.UFO;
+                    primaryColor = Color.ORANGE;
+                    break;
+                }
                 default:{
                     carType = GUI_Car.Type.CAR;
                     primaryColor = Color.BLUE;
@@ -124,8 +138,16 @@ public class GuiHandler {
 
     }
 
+    /**
+     * Updates where the player(s) are located on the field.
+     * @param pArr
+     * @param f
+     */
     public void updateGui(Player[] pArr, Field[] f){
 
+        /**
+         * Move the players on the map, field by field
+         */
         boolean carMoved = false;
         //moves players step by step
         for (int i = 0; i < gui_fields.length; i++) {
@@ -154,13 +176,18 @@ public class GuiHandler {
             }
         }
 
-        //Update player balance
+
+        /**
+         * Updates the player balance.
+         */
         for(int i = 0; i < pArr.length; i++){
             guiPlayers[i].setBalance(pArr[i].getAccount().getScore());
         }
 
-        //Update ownership of tile
-            Player owner;
+        /**
+         * updates ownership of tile
+         */
+        Player owner;
         for(int i = 0; i < gui_fields.length; i++){
             if (f[i].getClass().equals(PropertyField.class)) {
                 owner = ((PropertyField) f[i]).getOwner();
@@ -178,25 +205,43 @@ public class GuiHandler {
 
     }
 
+    /**
+     * Shows the roll of the die.
+     * @param value
+     */
     public void showDie(int value){
         gui.setDie(value);
     }
 
+    /**
+     * Writes a message in the midle of the Board
+     * @param msg
+     */
     public void msgInMidle(String msg){
         gui.displayChanceCard(msg);
     }
 
+    /**
+     * Message when a player has to press the roll button
+     * @param msg
+     */
     public void waitForRoll(String msg){
         gui.getUserButtonPressed(msg, "Roll");
     }
 
+    /**
+     * Gives message on the top left cornor
+     * @param msg
+     */
     public void giveMsg(String msg){
         gui.showMessage(msg);
     }
 
-    //TODO lav en toString metode der udskriver alle vores felter.
 
-
+    /**
+     * A string that build the field.
+     * @return
+     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

@@ -32,7 +32,7 @@ public class GameLogic {
     }
 
     /**
-     *Checks if a player lost.
+     *Checks how many that have lost. If all except one person has lost, it returns true.
      * @param
      * @return
      */
