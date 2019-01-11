@@ -20,6 +20,7 @@ private Player[] players;
      * @param numberOfPlayers input to determine the amount of players
      */
     public Board(int numberOfPlayers){
+    //The if-statement is here as added security.
     if(numberOfPlayers < 3){
         numberOfPlayers = 3;
     }else if(numberOfPlayers > 6){
@@ -74,7 +75,7 @@ private Player[] players;
     fields[19] = (new PropertyField("Strandvejen", "kr. 4.000", Color.GRAY, 4000, 1000));
     fields[20] = (new EmptyField("Gratis Parkering", "Det gratis", Color.white));
     fields[21] = (new PropertyField("Trianglen", "kr. 4.400", Color.RED, 4400, 3000));
-    fields[22] = (new ChanceField("Prøv lykken", "?", Color.black));
+    fields[22] = (new ChanceField("Prøv lykken", "?", Color.BLACK));
     fields[23] = (new PropertyField("Østerbrogade", "kr. 4.400", Color.RED, 4400, 3000));
     fields[24] = (new PropertyField("Grønningen", "kr. 4.800", Color.RED, 4800, 3000));
     fields[25] = (new ShippingField("Scandlines, Gedser-Rostock", "kr. 4.000", Color.BLUE, 4000));

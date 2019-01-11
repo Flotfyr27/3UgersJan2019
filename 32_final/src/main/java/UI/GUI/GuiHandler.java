@@ -49,7 +49,7 @@ public class GuiHandler {
      * Constructor. it is private to make sure it cannot be used externally.
      * @param fields
      */
-    private GuiHandler(Domain.GameElements.Fields.Field[] fields){//Field[] fields
+    private GuiHandler(Field[] fields){//Field[] fields
         for(int i = 0; i < gui_fields.length; i++){
             if(fields[i].getClass().equals(EmptyField.class) && i == 0){
                 gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
@@ -205,7 +205,7 @@ public class GuiHandler {
 
     }
 
-    /**
+    /**todo change to two dice
      * Shows the roll of the die.
      * @param value
      */
@@ -217,7 +217,7 @@ public class GuiHandler {
      * Writes a message in the midle of the Board
      * @param msg
      */
-    public void msgInMidle(String msg){
+    public void msgInMiddle(String msg){
         gui.displayChanceCard(msg);
     }
 
@@ -230,7 +230,7 @@ public class GuiHandler {
     }
 
     /**
-     * Gives message on the top left cornor
+     * Gives message on the top left corner
      * @param msg
      */
     public void giveMsg(String msg){
@@ -239,7 +239,7 @@ public class GuiHandler {
 
 
     /**
-     * A string that build the field.
+     * A string that builds the field.
      * @return
      */
     @Override

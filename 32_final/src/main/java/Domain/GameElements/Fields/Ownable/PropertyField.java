@@ -60,7 +60,7 @@ public class PropertyField extends OwnableField{
             hasHotel = true;
             numberOfHouses = 0;
         }else {
-            numberOfHouses++;
+            return;
         }
     }
 

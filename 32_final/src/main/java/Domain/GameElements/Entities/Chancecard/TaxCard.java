@@ -24,6 +24,7 @@ public class TaxCard extends ChanceCard{
                     sum++;
             }
         }
+        p.getAccount().changeScore(-sum);
     }
 
 

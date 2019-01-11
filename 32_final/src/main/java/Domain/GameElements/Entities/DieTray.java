@@ -12,7 +12,8 @@ public class DieTray {
     }
 
     /**
-     * Made a roll method.
+     * Roll method.
+     * TODO fix java doc
      */
     public void Roll() {
         value1 = die.Roll();
