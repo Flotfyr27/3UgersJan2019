@@ -3,16 +3,19 @@ package Domain.GameElements.Entities;
 public class DiceTray {
     private int value1;
     private int value2;
-    public int sum;
+    private int sum;
     Die die;
 
     public DiceTray() {
+    /**
+     * Constructor for the dicetray
+     */
+    public DiceTray() {
         die = new Die();
-        Roll();
     }
 
     /**
-     * a Roll method. To get to get two values from the dice.
+     * A Roll method. To get to get two values from the dice.
      */
     public void Roll() {
         value1 = die.Roll();
@@ -20,7 +23,7 @@ public class DiceTray {
     }
 
     /**
-     * a getSum method, to get the sum of the roll.
+     * A getSum method, to get the sum of the roll.
      * @return It returns the sum.
      */
     public int getSum() {

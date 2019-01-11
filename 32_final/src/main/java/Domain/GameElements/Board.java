@@ -94,4 +94,8 @@ private Player[] players;
     fields[38] = (new TaxField("Ekstraordinær statsskat: Betal", "kr. 2.000", Color.GREEN, 1));
     fields[39] = (new PropertyField("Rådhuspladsen", "kr. 8.000", Color.MAGENTA, 8000, 4000));
     }
+
+    public Field[] getFields() {
+        return fields;
+    }
 }
