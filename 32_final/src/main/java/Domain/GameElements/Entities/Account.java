@@ -1,11 +1,10 @@
-package main.java.Domain.GameElements.Entities;
+package Domain.GameElements.Entities;
 
 public class Account {
     private int score;
 
     public Account() {
-        score = 0;
-
+        score = 30000;
     }
 
     public void changeScore(int value) {
