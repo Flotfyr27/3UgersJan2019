@@ -91,7 +91,7 @@ public class PropertyField extends OwnableField{
     @Override
     public void landOnAction(Player current) {
         if(getOwner() == null){
-            //Buy shit
+            buyField(current);
         }else if(getOwner() == current){
             return;
         }else{
