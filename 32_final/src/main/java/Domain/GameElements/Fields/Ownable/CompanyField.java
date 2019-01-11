@@ -9,21 +9,6 @@ public class CompanyField extends OwnableField {
     }
 
     @Override
-    public void buy() {
-
-    }
-
-    @Override
-    public void sell() {
-
-    }
-
-    @Override
-    public void pawn() {
-
-    }
-
-    @Override
     public void payRent() {
 
     }
