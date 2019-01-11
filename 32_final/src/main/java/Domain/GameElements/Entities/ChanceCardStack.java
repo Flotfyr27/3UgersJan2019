@@ -18,7 +18,7 @@ public class ChanceCardStack {
      */
     public static ChanceCardStack getStackInstance() {
         if (stackInstance == null) {
-            stackInstance = new ChanceCardStack();
+            //stackInstance = new ChanceCardStack();
         }
 
         return stackInstance;
@@ -95,14 +95,14 @@ public class ChanceCardStack {
                         "Dette kort kan opbevares, indtil De får brug for det eller De kan sælge det."),
                 new GetOutOfJailCard("I andledning af kongens fødselsdag benådes de herved for fængsel. " +
                         "Dette kort kan opbevares, indtil De får brug for det eller De kan sælge det."),
-                new MoveToNearestChanceCard(ShippingField.class, fields,"Tag med den nærmeste færge. " +
+                /*new MoveToNearestChanceCard(ShippingField.class, fields,"Tag med den nærmeste færge. " +
                         "Flyt brikken frem, og hvis De passerer \"START\", indkassér da kr. 4.000."),
                 new MoveToNearestChanceCard(ShippingField.class, fields, true, "Ryke brikkem frem " +
                         "til det nærmeste rederi og betal ejeren to gange den leje, han ellers er berretiget til. " +
                         "Hvis selskabet ikke ejes af nogen, kan De købe det af banken."),
                 new MoveToNearestChanceCard(ShippingField.class, fields, true, "Ryke brikkem frem " +
                         "til det nærmeste rederi og betal ejeren to gange den leje, han ellers er berretiget til. " +
-                        "Hvis selskabet ikke ejes af nogen, kan De købe det af banken."),
+                        "Hvis selskabet ikke ejes af nogen, kan De købe det af banken."),*/
                 new MatadorLegatetChanceCard(40000,"De modtager \"Matador-legatet for værdigt " +
                         "trængende\" på kr. 40.000. Ved værdigt trængende forstås, at Deres formue, dv.s Deres " +
                         "kontante penge + skøder + bygninger, ikke overstiger kr. 15.000."),

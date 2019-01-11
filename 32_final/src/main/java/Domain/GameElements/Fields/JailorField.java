@@ -4,6 +4,7 @@ import Domain.GameElements.Entities.Player;
 
 import java.awt.*;
 
+
 public class JailorField extends Field {
     /**
      *
@@ -18,10 +19,10 @@ public class JailorField extends Field {
     /**
      * Moves the player to jail, and sets "Rounds in jail" to 0
      * @param player
-     * @param players An array of all players
-     * @param fields An array of all fields
      */
-    public void landOnAction(Player player, Player[] players, Field[] fields){
+
+    @Override
+    public void landOnAction(Player player){
 /*
  * If the player has a "get out of jail free" card, this removes the card in a method in players. Then next player.
  */
