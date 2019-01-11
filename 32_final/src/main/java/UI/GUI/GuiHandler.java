@@ -7,15 +7,19 @@ import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.*;
 import Domain.GameElements.Fields.Ownable.*;
 import Domain.GameElements.Fields.ChanceField.*;
+import gui_codebehind.GUI_BoardController;
 import gui_fields.*;
 import gui_main.GUI;
 
 import java.awt.*;
+import java.security.PrivateKey;
 
 public class GuiHandler {
     private GUI gui;
     private GUI_Field[] gui_fields = new GUI_Field[40];
     private GUI_Player[] guiPlayers;
+    private int[] dicefacevalues = new int[2];
+    private GUI_BoardController bc;
 
     private static GuiHandler guiHandlerInstance;
 
@@ -70,7 +74,7 @@ public class GuiHandler {
         int output;
 
         do { //Made this loop due to us sometimes being able to choose any number of players despite min/max value
-            output = gui.getUserInteger("Choose between 2 and 4 players", min, max);
+            output = gui.getUserInteger("Choose between 3 and 6 players", min, max);
         } while (output < min || output > max);
         return output;
     }
@@ -194,18 +198,15 @@ public class GuiHandler {
             }
         }
 
-
-        // maybe use gui.displayChanceCard(message);
-        //TODO : Display chanceCard text
-
     }
 
-    /**todo change to two dice
-     * Shows the roll of the die.
-     * @param value
+    /**
+     * Shows the roll of the  two dices.
+     * @param faceValue1 The value of the first dice
+     * @param faceValue2 The value of the second dice
      */
-    public void showDie(int value){
-        gui.setDie(value);
+    public void showDice(int faceValue1, int faceValue2){
+        gui.setDice(faceValue1, faceValue2);
     }
 
     /**

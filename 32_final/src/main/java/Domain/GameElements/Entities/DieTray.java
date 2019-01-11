@@ -12,7 +12,7 @@ public class DieTray {
     }
 
     /**
-     * a Roll method. To get to get two values from the dice.
+     * A Roll method. To get to get two values from the dice.
      */
     public void Roll() {
         value1 = die.Roll();
@@ -20,7 +20,7 @@ public class DieTray {
     }
 
     /**
-     * a getSum method, to get the sum of the roll.
+     * A getSum method, to get the sum of the roll.
      * @return It returns the sum.
      */
     public int getSum() {
