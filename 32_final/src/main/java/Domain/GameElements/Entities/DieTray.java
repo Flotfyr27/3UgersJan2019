@@ -23,7 +23,7 @@ public class DieTray {
      * Made a getSum method, to get the sum of the roll.
      * @return It returns the sum.
      */
-    public int getDiceSum() {
+    public int getSum() {
         sum = value1 + value2;
         return sum;
     }
