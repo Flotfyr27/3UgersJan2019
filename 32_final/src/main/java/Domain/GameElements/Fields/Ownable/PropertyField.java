@@ -72,22 +72,6 @@ public class PropertyField extends OwnableField{
         numberOfHouses -= value;
     }
 
-
-    @Override
-    public void sell() {
-
-    }
-
-    @Override
-    public void buy() {
-
-    }
-
-    @Override
-    public void pawn() {
-
-    }
-
     @Override
     public void payRent() {
 
