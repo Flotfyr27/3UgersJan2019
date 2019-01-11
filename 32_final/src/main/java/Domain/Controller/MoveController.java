@@ -37,6 +37,23 @@ public class MoveController {
         p.setPos(currentPos);
 
         board.getFields()[currentPos].landOnAction(p);
+        if(!dice.IsDoubleValue()){
+            p.setIsActive(false);
+        }
+
+    }
+
+    public void runcase(Player p, int dist, boolean isDouble){
+        int currentPos = p.getPos();
+        GameLogic.movingPastStart(p,dist);
+        currentPos = (currentPos + dist)%board.getFields().length;
+        p.setPos(currentPos);
+
+        board.getFields()[currentPos].landOnAction(p);
+        if(!isDouble)
+            p.setIsActive(false);
+    }
+
     }
 
 
