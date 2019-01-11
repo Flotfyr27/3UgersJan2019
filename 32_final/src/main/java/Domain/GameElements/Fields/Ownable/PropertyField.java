@@ -90,6 +90,15 @@ public class PropertyField extends OwnableField{
      */
     @Override
     public void landOnAction(Player current) {
+        if(getOwner() == null){
+            //Buy shit
+        }else if(getOwner() == current){
+            return;
+        }else{
+            //TODO check to see if player has enough money to pay rent, else pawn!
+            getOwner().getAccount().changeScore(getRent(current));
+            current.getAccount().changeScore(-getRent(current));
+        }
 
     }
 }
