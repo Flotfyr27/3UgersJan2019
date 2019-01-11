@@ -9,7 +9,7 @@ public class CompanyField extends OwnableField {
     }
 
     @Override
-    public void payRent() {
+    public int getRent() {
 
     }
 

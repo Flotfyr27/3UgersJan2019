@@ -17,7 +17,7 @@ public class ShippingField extends OwnableField {
     }
 
     @Override
-    public void payRent() {
+    public int getRent() {
 
     }
 

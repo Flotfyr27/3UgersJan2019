@@ -192,7 +192,7 @@ public class Values {
      */
 
 
-    public static int rentPrice (int i) {
+    public static int rentPrice (int fieldPlacement, int numberOfHouses) {
         int rent =0;
               int rentPrice [][]  =
                 {{50, 250, 750, 2250, 4000, 6000},
@@ -223,7 +223,7 @@ public class Values {
                 {700,3500,10000,22000,26000,30000},
                 {1000,4000,12000,28000,34000,40000}};
 
-    rent = rentPrice[i][i];
+    rent = rentPrice[fieldPlacement][numberOfHouses];
 return rent;
     }
 

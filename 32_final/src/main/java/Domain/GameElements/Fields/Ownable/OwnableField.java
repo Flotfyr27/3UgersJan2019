@@ -53,6 +53,6 @@ public abstract class OwnableField extends Field {
         return owner;
     }
 
-    public abstract void payRent();
+    public abstract int getRent();
 
 }

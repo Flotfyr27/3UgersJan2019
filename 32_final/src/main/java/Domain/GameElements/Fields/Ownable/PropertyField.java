@@ -73,7 +73,7 @@ public class PropertyField extends OwnableField{
     }
 
     @Override
-    public void payRent() {
+    public int getRent() {
 
     }
 
