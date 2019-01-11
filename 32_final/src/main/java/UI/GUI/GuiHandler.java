@@ -3,6 +3,7 @@
  */
 package UI.GUI;
 
+import Domain.GameElements.Board;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.*;
 import Domain.GameElements.Fields.Ownable.*;
@@ -12,7 +13,7 @@ import gui_fields.*;
 import gui_main.GUI;
 
 import java.awt.*;
-import java.security.PrivateKey;
+
 
 public class GuiHandler {
     private GUI gui;
@@ -41,7 +42,7 @@ public class GuiHandler {
      * @param fields the fields in the board class
      * @return The instance of the object
      */
-    public GuiHandler instantiateGui(Field[] fields) throws IllegalStateException{
+    public GuiHandler instantiateGui(Domain.GameElements.Fields.Field[] fields) throws IllegalStateException{
         for(int i = 0; i < gui_fields.length; i++){
             if(fields[i].getClass().equals(EmptyField.class) && i == 0){
                 gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
@@ -142,7 +143,7 @@ public class GuiHandler {
      * @param pArr
      * @param f
      */
-    public void updateGui(Player[] pArr, Field[] f){
+    public void updateGui(Player[] pArr, Domain.GameElements.Fields.Field[] f){
 
         /**
          * Move the players on the map, field by field

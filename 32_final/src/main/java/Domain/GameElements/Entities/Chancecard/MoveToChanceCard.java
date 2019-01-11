@@ -34,9 +34,9 @@ public class MoveToChanceCard extends MoveChanceCard {
     }
 
     /**
-     * TODO write javadoc
+     * Moves the player to the specified field
      *
-     * @param player
+     * @param player The player who drew the card
      */
     @Override
     public void action(Player player){

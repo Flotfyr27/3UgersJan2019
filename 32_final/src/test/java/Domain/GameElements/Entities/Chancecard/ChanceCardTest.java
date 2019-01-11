@@ -149,8 +149,6 @@ class ChanceCardTest {
      *  testing:
      *  the recipient has the right amount
      *  the others have lost right amount
-     *
-     *  TODO should also add a test for whether it handles players with too little money correctly.
      */
     @Test
     void birthdayCardTest(){
