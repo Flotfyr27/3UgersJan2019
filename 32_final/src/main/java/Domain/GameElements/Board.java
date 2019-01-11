@@ -52,7 +52,7 @@ private Player[] players;
      */
     private void setFields(){
     fields = new Field[40];
-    fields[0] = (new EmptyField("START", "Hver gang de passerer START, modtag kr. 4000", Color.RED));
+    fields[0] = (new EmptyField("START", "Hver gang de passerer START, modtag kr. 4.000", Color.RED));
     fields[1] = (new PropertyField("Rødovrevej", "kr. 1.200", Color.CYAN, 1200, 1000));
     fields[2] = (new ChanceField("Prøv lykken", "?", Color.BLACK));
     fields[3] = (new PropertyField("Hvidovrevej", "kr. 1.200", Color.CYAN, 1200, 1000));
@@ -77,7 +77,7 @@ private Player[] players;
     fields[22] = (new ChanceField("Prøv lykken", "?", Color.black));
     fields[23] = (new PropertyField("Østerbrogade", "kr. 4.400", Color.RED, 4400, 3000));
     fields[24] = (new PropertyField("Grønningen", "kr. 4.800", Color.RED, 4800, 3000));
-    fields[25] = (new ShippingField("Scandlines, Gedser-Rostock", "kr. 4000", Color.BLUE, 4000));
+    fields[25] = (new ShippingField("Scandlines, Gedser-Rostock", "kr. 4.000", Color.BLUE, 4000));
     fields[26] = (new PropertyField("Bredgade", "kr. 5.200", Color.WHITE, 5200, 3000));
     fields[27] = (new PropertyField("Kgs. Nytorv", "kr. 5.200", Color.WHITE, 5200, 3000));
     fields[28] = (new CompanyField("Coca-Cola", "kr. 3.000", Color.RED, 3000));
