@@ -2,6 +2,7 @@ package Domain.GameElements.Fields.Ownable;
 
 import java.awt.*;
 import Domain.GameElements.Entities.Player;
+import TechnicalServices.GameLogic.Values;
 
 public class PropertyField extends OwnableField{
     /**
@@ -73,8 +74,9 @@ public class PropertyField extends OwnableField{
     }
 
     @Override
-    public int getRent() {
-
+    public int getRent(Player p) {
+        int rent = Values.rentPrice(p.getPos(), numberOfHouses);
+        return rent;
     }
 
     /**

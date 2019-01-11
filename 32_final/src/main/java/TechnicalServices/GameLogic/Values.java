@@ -159,7 +159,8 @@ public class Values {
     }
 
     /**
-     *  @param i
+     *  @param fieldPlacement The location of the field on the board (x-axis of array)
+     * @param numberOfHouses How many houses are owned (y-axis of array)
      *  @return A ragged array, that tells the price of the rent for the properties with and without houses/hotels.
      *  [0]: START
      *  [1]: Rent for Rødovrevej
