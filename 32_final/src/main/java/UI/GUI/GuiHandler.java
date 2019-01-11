@@ -25,31 +25,19 @@ public class GuiHandler {
      * @return
      */
     public static GuiHandler getInstance() {
-        if (guiHandlerInstance != null)
-            return guiHandlerInstance;
-        else
-            throw new NullPointerException("an instance of the GuiHandler has not been instantiated yet");
-    }
-
-    /**
-     * Creates an instance of the GuiHandler class if none exists otherwise throws exception.
-     * @param fields
-     * @return
-     */
-    public static GuiHandler instantiateGui(Field[] fields) throws IllegalStateException{
         if (guiHandlerInstance == null) {
-            guiHandlerInstance = new GuiHandler(fields);
-            return getInstance();
-        } else {
-            throw new IllegalStateException("An instance has already been created, use getInstance() instead.");
-        }
+            guiHandlerInstance = new GuiHandler();
+            return guiHandlerInstance;
+        } else
+            return guiHandlerInstance;
     }
 
     /**
-     * Constructor. it is private to make sure it cannot be used externally.
-     * @param fields
+     * creates the gui_fields
+     * @param fields the fields in the board class
+     * @return The instance of the object
      */
-    private GuiHandler(Field[] fields){//Field[] fields
+    public GuiHandler instantiateGui(Field[] fields) throws IllegalStateException{
         for(int i = 0; i < gui_fields.length; i++){
             if(fields[i].getClass().equals(EmptyField.class) && i == 0){
                 gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
@@ -64,6 +52,13 @@ public class GuiHandler {
         }
 
         gui = new GUI(gui_fields, Color.lightGray);
+        return this;
+    }
+
+    /**
+     * Constructor. it is private to make sure it cannot be used externally.
+     */
+    private GuiHandler(){
     }
 
     /**
