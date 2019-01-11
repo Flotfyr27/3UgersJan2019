@@ -153,7 +153,7 @@ public class Values {
      * Tier 3 = 3000
      * Tier 4 = 4000
      * @param tier
-     * @return
+     * @return price for a house
      */
     public static int housePrice(int tier) {
         int price = tier*1000;
@@ -161,8 +161,9 @@ public class Values {
     }
 
     /**
+     * A ragged array, that tells the price of the rent for the properties with and without houses/hotels.
      *  @param i
-     *  @return A ragged array, that tells the price of the rent for the properties with and without houses/hotels.
+     *  @return Rent for a property
      *  [0]: Rent for Rødovrevej
      *  [1]: Rent for Hvidovrevej
      *  [2]: Rent for Scandlines "Helsingør-Helsingborg"
@@ -233,4 +234,3 @@ return rent;
 
 
 }
-/*TODO Make methods for all property, which provides the current rent (streets, faeries and breweries)*/

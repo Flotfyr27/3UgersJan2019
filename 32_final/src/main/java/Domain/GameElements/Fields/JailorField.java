@@ -4,7 +4,6 @@ import Domain.GameElements.Entities.Player;
 
 import java.awt.*;
 
-
 public class JailorField extends Field {
     /**
      *
@@ -19,6 +18,8 @@ public class JailorField extends Field {
     /**
      * Moves the player to jail, and sets "Rounds in jail" to 0
      * @param player
+     * @param players An array of all players
+     * @param fields An array of all fields
      */
 
     @Override
@@ -32,8 +33,7 @@ public class JailorField extends Field {
 
         }else{
             player.setPos(10);
-
-            //TODO create jailcontroller
+            player.jailTime(0);
             /* For use with jailController
             player.jail = 0;
             */

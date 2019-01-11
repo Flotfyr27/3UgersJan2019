@@ -6,7 +6,7 @@ import Domain.GameElements.Fields.Ownable.OwnableField;
 
 public class MoveToNearestChanceCard extends MoveToChanceCard {
 
-    private Class<OwnableField> type;
+    private Class<?> type;
     private Field[] fields;
     private boolean payDouble;
 
@@ -17,7 +17,7 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
      * @param fields The field array defining the fields on the board.
      * @param description The text displayed when the card is drawn.
      */
-    public MoveToNearestChanceCard(Class<OwnableField> type, Field[] fields, String description){
+    public MoveToNearestChanceCard(Class<?> type, Field[] fields, String description){
         super(0, description);
         this.type = type;
         this.fields = fields;
@@ -47,7 +47,7 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
      */
     public void action(Player p) {
         for (int i = p.getPos(); i < fields.length; i++) {
-            if (fields[i].getClass().equals(type)) {
+            if (fields[i].getClass() == type) {
                 super.value = i;
                 super.action(p);
                 return;
@@ -57,7 +57,7 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
 
 
         for (int i = 0; i < p.getPos(); i++) {
-            if (fields[i].getClass().equals(type)) {
+            if (fields[i].getClass() == type) {
                 super.value = i;
                 super.action(p);
                 return;
