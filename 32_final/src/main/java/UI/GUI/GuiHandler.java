@@ -16,6 +16,8 @@ public class GuiHandler {
     private GUI gui;
     private GUI_Field[] gui_fields = new GUI_Field[40];
     private GUI_Player[] guiPlayers;
+    private int[] dicefacevalues = new int[2];
+    private GUI_BoardController bc;
 
     private static GuiHandler guiHandlerInstance;
 
@@ -25,31 +27,19 @@ public class GuiHandler {
      * @return
      */
     public static GuiHandler getInstance() {
-        if (guiHandlerInstance != null)
-            return guiHandlerInstance;
-        else
-            throw new NullPointerException("an instance of the GuiHandler has not been instantiated yet");
-    }
-
-    /**
-     * Creates an instance of the GuiHandler class if none exists otherwise throws exception.
-     * @param fields
-     * @return
-     */
-    public static GuiHandler instantiateGui(Field[] fields) throws IllegalStateException{
         if (guiHandlerInstance == null) {
-            guiHandlerInstance = new GuiHandler(fields);
-            return getInstance();
-        } else {
-            throw new IllegalStateException("An instance has already been created, use getInstance() instead.");
-        }
+            guiHandlerInstance = new GuiHandler();
+            return guiHandlerInstance;
+        } else
+            return guiHandlerInstance;
     }
 
     /**
-     * Constructor. it is private to make sure it cannot be used externally.
-     * @param fields
+     * creates the gui_fields
+     * @param fields the fields in the board class
+     * @return The instance of the object
      */
-    private GuiHandler(Field[] fields){//Field[] fields
+    public GuiHandler instantiateGui(Field[] fields) throws IllegalStateException{
         for(int i = 0; i < gui_fields.length; i++){
             if(fields[i].getClass().equals(EmptyField.class) && i == 0){
                 gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
@@ -64,6 +54,13 @@ public class GuiHandler {
         }
 
         gui = new GUI(gui_fields, Color.lightGray);
+        return this;
+    }
+
+    /**
+     * Constructor. it is private to make sure it cannot be used externally.
+     */
+    private GuiHandler(){
     }
 
     /**
@@ -75,7 +72,7 @@ public class GuiHandler {
         int output;
 
         do { //Made this loop due to us sometimes being able to choose any number of players despite min/max value
-            output = gui.getUserInteger("Choose between 2 and 4 players", min, max);
+            output = gui.getUserInteger("Choose between 3 and 6 players", min, max);
         } while (output < min || output > max);
         return output;
     }
@@ -205,12 +202,13 @@ public class GuiHandler {
 
     }
 
-    /**todo change to two dice
-     * Shows the roll of the die.
-     * @param value
+    /**
+     * Shows the roll of the  two dices.
+     * @param faceValue1 The value of the first dice
+     * @param faceValue2 The value of the second dice
      */
-    public void showDie(int value){
-        gui.setDie(value);
+    public void showDice(int value1, int value2){
+        gui.setDice(value1, value2);
     }
 
     /**
