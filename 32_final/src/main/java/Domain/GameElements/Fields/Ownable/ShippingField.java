@@ -17,6 +17,11 @@ public class ShippingField extends OwnableField {
         super(name, subtext, bgColour, price);
     }
 
+    /**
+     * This method calculates what the rent is for the shipping fields.
+     * @param p This is the player who lands on the field
+     * @return Returns an integer value which is the rent.
+     */
     @Override
     public int getRent(Player p) {
         int count = 0;
