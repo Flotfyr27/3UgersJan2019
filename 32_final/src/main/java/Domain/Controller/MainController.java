@@ -16,8 +16,12 @@ public class MainController {
     private PawnController pawnCon;
     private TradeController tradeCon;
 
+    public MainController(){
+
+    }
+
     public void runCase(){
-        while (!GameLogic.lastManStanding()){
+        while (!GameLogic.lastManStanding(players)){
             currentPlayer = players[currentPlayerNum];
             do{
                 String choice;
@@ -31,7 +35,14 @@ public class MainController {
                     if (choice.equalsIgnoreCase("Pantsætning"))
                         pawnCon.runCase();
                 } else {
-
+                    choice = guiHandler.makeButtons("vælg en handling",
+                            "Slå terninger", "Handel", "Pantsætning");
+                    if (choice.equalsIgnoreCase("Slå terning"))
+                        moveCon.runCase();
+                    if (choice.equalsIgnoreCase("Handel"))
+                        tradeCon.runCase();
+                    if (choice.equalsIgnoreCase("Pantsætning"))
+                        pawnCon.runCase();
                 }
 
             }while (currentPlayer.getIsActive());
