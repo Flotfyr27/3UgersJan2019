@@ -59,7 +59,13 @@ public class Player {
         return name;
     }
 
-    public int jailTime(int jail) {return jail;}
+    public void setJailTime(int jail) {
+        this.jail = jail;
+    }
+
+    public int getJailTime() {
+        return jail;
+    }
 
     /**
      * returns a boolean value of whether the player has lost yet or not.
