@@ -161,55 +161,75 @@ public class Values {
     /**
      *  @param i
      *  @return A ragged array, that tells the price of the rent for the properties with and without houses/hotels.
-     *  [0]: Rent for Rødovrevej
-     *  [1]: Rent for Hvidovrevej
-     *  [2]: Rent for Scandlines "Helsingør-Helsingborg"
-     *  [3]: Rent for Roskildevej
-     *  [4]: Rent for Valby Langgade
-     *  [5]: Rent for Allégade
-     *  [6]: Rent for Fredriksberg Allé
-     *  [7]: Rent for Turborg Squash
-     *  [8]: Rent for Bülowsvej
-     *  [9]: Rent for Gl. Kongevej
-     *  [10]: Rent for Mols-Linien
-     *  [11]: Rent for Bernstorffsvej
-     *  [12]: Rent for Hellerupvej
-     *  [13]: Rent for Strandvejen
-     *  [14]: Rent for Trianglen
-     *  [15]: Rent for Østerbrogade
-     *  [16]: Rent for Grønningen
-     *  [17]: Rent for Scandlines "Gedser-Rostock"
-     *  [18]: Rent for Bredgade
-     *  [19]: Rent for Kgs.Nytorv
-     *  [20]: Rent for CocaCola
-     *  [21]: Rent for Østergade
-     *  [22]: Rent for Amagertorv
-     *  [23]: Rent for Vimmelskaffet
-     *  [24]: Rent for Nygade
-     *  [25]: Rent for Scandlines "Rødby-Puttgarden"
-     *  [26]: Rent for Frederiksbergade
-     *  [27]: Rent for Rådhuspladsen
+     *  [0]: START
+     *  [1]: Rent for Rødovrevej
+     *  [2]: Chance
+     *  [3]: Rent for Hvidovrevej
+     *  [4]: Skat
+     *  [5]: Rent for Scandlines "Helsingør-Helsingborg"
+     *  [6]: Rent for Roskildevej
+     *  [7]: Chance
+     *  [8]: Rent for Valby Langgade
+     *  [9]: Rent for Allégade
+     *  [10]: Visit
+     *  [11]: Rent for Fredriksberg Allé
+     *  [12]: Rent for Turborg Squash
+     *  [13]: Rent for Bülowsvej
+     *  [14]: Rent for Gl. Kongevej
+     *  [15]: Rent for Mols-Linien
+     *  [16]: Rent for Bernstorffsvej
+     *  [17]: Chance
+     *  [18]: Rent for Hellerupvej
+     *  [19]: Rent for Strandvejen
+     *  [20]: Gratis
+     *  [21]: Rent for Trianglen
+     *  [22]: Chance
+     *  [23]: Rent for Østerbrogade
+     *  [24]: Rent for Grønningen
+     *  [25]: Rent for Scandlines "Gedser-Rostock"
+     *  [26]: Rent for Bredgade
+     *  [27]: Rent for Kgs.Nytorv
+     *  [28]: Rent for CocaCola
+     *  [29]: Rent for Østergade
+     *  [30]: Jail
+     *  [31]: Rent for Amagertorv
+     *  [32]: Rent for Vimmelskaffet
+     *  [33]: Chance
+     *  [34]: Rent for Nygade
+     *  [35]: Rent for Scandlines "Rødby-Puttgarden"
+     *  [36]: Chance
+     *  [37]: Rent for Frederiksbergade
+     *  [38]: Skat
+     *  [39]: Rent for Rådhuspladsen
      */
 
 
     public static int rentPrice (int fieldPlacement, int numberOfHouses) {
         int rent =0;
               int rentPrice [][]  =
-                {{50, 250, 750, 2250, 4000, 6000},
+                {{0},
+                {50, 250, 750, 2250, 4000, 6000},
+                {0},
                 {50,250,750,2250,4000,6000},
+                {0},
                 {500,1000,2000,4000},
                 {100,600,1800,5400,8000,11000},
+                {0},
                 {100,600,1800,5400,8000,11000},
                 {150,800,2000,6000,9000,12000},
+                {0},
                 {200,1000,3000,9000,12500,15000},
                 {(100*dicetray.getSum()),(200*dicetray.getSum())},
                 {200,1000,3000,9000,12500,15000},
                 {250,1250,3750,10000,14000,18000},
                 {500,1000,2000,4000},
                 {300,1400,4000,11000,15000,19000},
+                {0},
                 {300,1400,4000,11000,15000,19000},
                 {350,1600,4400,12000,16000,20000},
+                {0},
                 {350,1800,5000,14000,17500,21000},
+                {0},
                 {350,1800,5000,14000,17500,21000},
                 {400,2000,6000,15000,18500,22000},
                 {500,1000,2000,4000},
@@ -217,10 +237,15 @@ public class Values {
                 {450,2200,6600,16000,19500,23000},
                 {(100*dicetray.getSum()),(200*dicetray.getSum())},
                 {500,2400,7200,17000,20500,24000},
+                {0},
                 {550,2600,7800,18000,22000,25000},
                 {550,2600,7800,18000,22000,25000},
+                {0},
                 {600,3000,9000,20000,24000,28000},
+                {500, 1000, 2000, 4000},
+                {0},
                 {700,3500,10000,22000,26000,30000},
+                {0},
                 {1000,4000,12000,28000,34000,40000}};
 
     rent = rentPrice[fieldPlacement][numberOfHouses];
