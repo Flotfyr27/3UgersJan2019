@@ -104,7 +104,12 @@ class ChanceCardTest {
         assertEquals(50, p.getAccount().getScore());
     }
 
-
+    /**
+     * Tests the TaxCard
+     *
+     * Testing
+     * that only the houses on PropertyFields affect the return value
+     */
     @Test
     void taxCardTest(){
         Player p = new Player("p1");
