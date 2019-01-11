@@ -7,17 +7,25 @@ import UI.GUI.GuiHandler;
 
 public class MainController {
 
-    protected GuiHandler guiHandler;
-    protected Player[] players;
-    protected int currentPlayerNum;
-    protected Player currentPlayer;
+   private GuiHandler guiHandler;
+    private Player[] players;
+    private int currentPlayerNum;
+    private Player currentPlayer;
     private MoveController moveCon;
     private PrisonController prisonCon;
     private PawnController pawnCon;
     private TradeController tradeCon;
 
-    public MainController(){
+    public MainController(Player[] players){
+        this.players = players;
+        currentPlayerNum = 0;
 
+        guiHandler = GuiHandler.getInstance();
+
+        moveCon = new MoveController(players);
+        prisonCon = new PrisonController(players);
+        pawnCon = new PawnController(players);
+        tradeCon = new TradeController(players);
     }
 
     public void runCase(){
