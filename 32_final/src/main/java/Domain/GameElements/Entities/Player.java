@@ -13,6 +13,7 @@ public class Player {
     private ArrayList<OwnableField> ownedFields; /*we used an ArrayList instead of an array because
     this list will change size often over the course of a game*/
     private int jailCards;
+    private int jail;
 
 
     /**
@@ -27,6 +28,7 @@ public class Player {
         lost = false;
         ownedFields = new ArrayList<OwnableField>();
         jailCards = 0;
+        jail = -1;
     }
 
     /**
@@ -56,6 +58,8 @@ public class Player {
     public String getName() {
         return name;
     }
+
+    public int jailTime(int jail) {return jail;}
 
     /**
      * returns a boolean value of whether the player has lost yet or not.
