@@ -3,11 +3,12 @@
  */
 package UI.GUI;
 
-import Domain.GameElements.Board;
+
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.*;
 import Domain.GameElements.Fields.Ownable.*;
 import Domain.GameElements.Fields.ChanceField.*;
+import gui_codebehind.GUI_BoardController;
 import gui_fields.*;
 import gui_main.GUI;
 
@@ -45,13 +46,28 @@ public class GuiHandler {
         for(int i = 0; i < gui_fields.length; i++){
             if(fields[i].getClass().equals(EmptyField.class) && i == 0){
                 gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
-            }else if(fields[i].getClass().equals(PropertyField.class)){
+
+            } else if(fields[i].getClass().equals(PropertyField.class)){
                 PropertyField propertyField = (PropertyField) fields[i];
                 gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", Integer.toString(propertyField.getPrice()), fields[i].getBgColor(), null));
-            }else if(fields[i].getClass().equals(EmptyField.class)){
+
+            } else if(fields[i].getClass().equals(EmptyField.class)){
                 gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
-            }else if(fields[i].getClass().equals(ChanceField.class)){
-                gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
+
+            } else if(fields[i].getClass().equals(ChanceField.class)){
+                gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), Color.white));
+
+            } else if (fields[i].getClass().equals(TaxField.class)) {
+               gui_fields[i] = new GUI_Tax(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(),null);
+
+            } else if (fields[i].getClass().equals(ShippingField.class)) {
+                gui_fields[i] = new GUI_Shipping("", fields[i].getName(), fields[i].getSubtext(), "", "",fields[i].getBgColor(),null);
+
+            } else if (fields[i].getClass().equals(CompanyField.class)) {
+                gui_fields[i] = new GUI_Brewery("", fields[i].getName(), fields[i].getSubtext(), "", "",fields[i].getBgColor(),null);
+
+            } else if (fields[i].getClass().equals(JailorField.class)) {
+                gui_fields[i] = new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null);
             }
         }
 

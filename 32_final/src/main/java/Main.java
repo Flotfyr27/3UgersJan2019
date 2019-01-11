@@ -5,13 +5,15 @@ import UI.GUI.GuiHandler;
 
 public class Main {
     public static void main(String[] args) {
-        GuiHandler guiHandler = GuiHandler.getInstance();
         Board board = Board.getInstance();
+        GuiHandler guiHandler = GuiHandler.getInstance().instantiateGui(board.getFields());
 
         board.initPlayers(guiHandler.getNumberOfPlayers(3, 6));
 
         MainController mainController = new MainController(board.getPlayers());
         MoveController moveController = MoveController.getInstance();
-        JailController jailController = JailControllor.getInstance();
+        //JailController jailController = JailControllor.getInstance();
+
+        mainController.runCase();
     }
 }

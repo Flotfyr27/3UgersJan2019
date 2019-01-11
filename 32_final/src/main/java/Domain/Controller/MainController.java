@@ -12,9 +12,9 @@ public class MainController {
     private int currentPlayerNum;
     private Player currentPlayer;
     private MoveController moveCon;
-    private PrisonController prisonCon;
+    /*private PrisonController prisonCon;
     private PawnController pawnCon;
-    private TradeController tradeCon;
+    private TradeController tradeCon;*/
 
     public MainController(Player[] players){
         this.players = players;
@@ -22,10 +22,10 @@ public class MainController {
 
         guiHandler = GuiHandler.getInstance();
 
-        moveCon = new MoveController(players);
-        prisonCon = new PrisonController(players);
-        pawnCon = new PawnController(players);
-        tradeCon = new TradeController(players);
+        moveCon = MoveController.getInstance();
+        /*prisonCon = new PrisonController.getInstance);
+        pawnCon = new PawnController.getInstance;
+        tradeCon = new TradeController.getInstance;*/
     }
 
     public void runCase(){
@@ -33,7 +33,7 @@ public class MainController {
             currentPlayer = players[currentPlayerNum];
             do{
                 String choice;
-                if (currentPlayer.getIsJaieled) {
+                /*if (currentPlayer.getJailTime >=0) {
                     choice = guiHandler.makeButtons("vælg en handling",
                             "Slip fri", "Handel", "Pantsætning");
                     if (choice.equalsIgnoreCase("Slip fri"))
@@ -42,16 +42,16 @@ public class MainController {
                         tradeCon.runCase();
                     if (choice.equalsIgnoreCase("Pantsætning"))
                         pawnCon.runCase();
-                } else {
+                } else {*/
                     choice = guiHandler.makeButtons("vælg en handling",
                             "Slå terninger", "Handel", "Pantsætning");
                     if (choice.equalsIgnoreCase("Slå terning"))
-                        moveCon.runCase();
+                        moveCon.runCase(currentPlayer);
                     if (choice.equalsIgnoreCase("Handel"))
-                        tradeCon.runCase();
+                        ; //tradeCon.runCase();
                     if (choice.equalsIgnoreCase("Pantsætning"))
-                        pawnCon.runCase();
-                }
+                        ; //pawnCon.runCase();
+                //}
 
             }while (currentPlayer.getIsActive());
 

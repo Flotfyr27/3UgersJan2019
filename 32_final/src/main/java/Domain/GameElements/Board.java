@@ -34,7 +34,7 @@ public class Board {
      * Constructor for Board
      */
     private Board() {
-
+        setFields();
     }
 
     /**
@@ -43,6 +43,7 @@ public class Board {
      * @param numberOfPlayers Integer to determine number of players
      */
     public void initPlayers(int numberOfPlayers) {
+        players = new Player[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++) {
             players[i] = new Player("Player" + (i + 1));
             players[i].getAccount().changeScore(30000);
