@@ -52,9 +52,7 @@ public abstract class OwnableField extends Field {
     public Player getOwner(){
         return owner;
     }
-    public abstract void pawn();
+
     public abstract void payRent();
-    public abstract void buy();
-    public abstract void sell();
 
 }
