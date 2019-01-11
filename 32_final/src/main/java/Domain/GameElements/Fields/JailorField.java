@@ -5,14 +5,14 @@ import Domain.GameElements.Entities.Player;
 import java.awt.*;
 
 
-public class JailerField extends Field {
+public class JailorField extends Field {
     /**
      *
      * @param name
      * @param subtext
      * @param bgColour
      */
-    public JailerField(String name, String subtext, Color bgColour){
+    public JailorField(String name, String subtext, Color bgColour){
         super (name, subtext, bgColour);
     }
 

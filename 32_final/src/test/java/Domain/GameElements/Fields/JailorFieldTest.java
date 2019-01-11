@@ -16,7 +16,7 @@ class JailorFieldTest {
         player.addJailCards();
         assertEquals(1, player.getJailCards());
 
-        JailerField jf = new JailerField("jailorFieldTest", "test", Color.BLUE);
+        JailorField jf = new JailorField("jailorFieldTest", "test", Color.BLUE);
         jf.landOnAction(player);
         assertEquals(0, player.getJailCards());
         assertEquals(0, player.getPos());

@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class TaxField extends Field {
     private int tax, taxType;
-    private GuiHandler guiHandler = GuiHandler.getInstance();
+    private GuiHandler guiHandler;
 
     /**
      * Constructor for taxField
@@ -23,16 +23,21 @@ public class TaxField extends Field {
         super(name, subtext, bgColour);
         this.tax = tax;
         this.taxType = taxType;
-        //GUI.getinstance
+
+        try {
+            guiHandler = GuiHandler.getInstance();
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     /**
      * LandOnAction that handles the two taxation fields
      * @param player
-     * @param players An array of all players
-     * @param fields An array of all fields
      */
-    public void landOnAction(Player player, Player[] players, Field[] fields){
+
+    @Override
+    public void landOnAction(Player player){
 
         int sum = 0;
 /*
@@ -64,8 +69,8 @@ public class TaxField extends Field {
                 try{
 
                 }catch(NullPointerException e){
+                    e.printStackTrace();
                     System.out.println("Wrong value");
-                    throw e;
                 }
 
             }
@@ -73,7 +78,4 @@ public class TaxField extends Field {
         }
     }
 
-    public void landOnAction(Player current) {
-
-    }
 }
