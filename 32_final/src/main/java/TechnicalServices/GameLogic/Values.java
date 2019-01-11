@@ -1,11 +1,11 @@
 package TechnicalServices.GameLogic;
 
-import Domain.GameElements.Entities.DieTray;
+import Domain.GameElements.Entities.DiceTray;
 
 public class Values {
-    private static DieTray dicetray;;
+    private static DiceTray dicetray;;
     public Values(){
-        DieTray dicetray = new DieTray();
+        DiceTray dicetray = new DiceTray();
     }
 
 
