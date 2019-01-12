@@ -52,6 +52,7 @@ public class JailController {
                 //Throwing dice to get double values. If both dice are the same, the player gets out of jail.
                 else if(buttons.equals("Slå terninger")){
                     diceTray.Roll();
+                    guiHandler.showDice(diceTray.getValue1(), diceTray.getValue2());
 
                     //if/else statement which determines what to do when throwing double dice or not.
                     if(diceTray.IsDoubleValue()) {
