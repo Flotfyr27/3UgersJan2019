@@ -12,8 +12,8 @@ public class MainController {
     private int currentPlayerNum;
     private Player currentPlayer;
     private MoveController moveCon;
-    /*private PrisonController prisonCon;
-    private PawnController pawnCon;
+    private JailController jailController;
+    /*private PawnController pawnCon;
     private TradeController tradeCon;*/
 
     public MainController(Player[] players){
@@ -23,8 +23,8 @@ public class MainController {
         guiHandler = GuiHandler.getInstance();
 
         moveCon = MoveController.getInstance();
-        /*prisonCon = new PrisonController.getInstance);
-        pawnCon = new PawnController.getInstance;
+        jailController = JailController.getInstance();
+        /*pawnCon = new PawnController.getInstance;
         tradeCon = new TradeController.getInstance;*/
     }
 
@@ -33,16 +33,16 @@ public class MainController {
             currentPlayer = players[currentPlayerNum];
             do{
                 String choice;
-                /*if (currentPlayer.getJailTime >=0) {
+                if (currentPlayer.getJailTime() >=0) {
                     choice = guiHandler.makeButtons("vælg en handling",
                             "Slip fri", "Handel", "Pantsætning");
                     if (choice.equalsIgnoreCase("Slip fri"))
-                        prisonCon.runCase();
+                        jailController.runCase(currentPlayer);
                     if (choice.equalsIgnoreCase("Handel"))
-                        tradeCon.runCase();
+                        ;//tradeCon.runCase();
                     if (choice.equalsIgnoreCase("Pantsætning"))
-                        pawnCon.runCase();
-                } else {*/
+                        ;//pawnCon.runCase();
+                } else {
                     choice = guiHandler.makeButtons("vælg en handling",
                             "Slå terninger", "Handel", "Pantsætning");
                     if (choice.equalsIgnoreCase("Slå terning"))
@@ -52,7 +52,7 @@ public class MainController {
                         ; //tradeCon.runCase();
                     if (choice.equalsIgnoreCase("Pantsætning"))
                         ; //pawnCon.runCase();
-                //}
+                }
 
             }while (currentPlayer.getIsActive());
 

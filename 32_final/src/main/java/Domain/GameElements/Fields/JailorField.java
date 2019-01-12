@@ -31,10 +31,7 @@ public class JailorField extends Field {
 
         }else{
             player.setPos(10);
-            player.jailTime(0);
-            /* For use with jailController
-            player.jail = 0;
-            */
+            player.setJailTime(0);
         }
 
 

@@ -9,8 +9,6 @@ public class JailController {
     private int timeInJail;
     private DiceTray diceTray;
 
-    Player player = new Player("playerJailed");
-
     private static JailController instance;
 
     /**

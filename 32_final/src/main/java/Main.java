@@ -1,3 +1,4 @@
+import Domain.Controller.JailController;
 import Domain.Controller.MainController;
 import Domain.Controller.MoveController;
 import Domain.GameElements.Board;
@@ -13,8 +14,8 @@ public class Main {
         guiHandler.initGuiPlayers(board.getPlayers());
 
         MainController mainController = new MainController(board.getPlayers());
-        MoveController moveController = MoveController.getInstance().initiate(board);
-        //JailController jailController = JailControllor.getInstance();
+        MoveController.getInstance().initiate(board);
+        JailController.getInstance();
 
         mainController.runCase();
     }
