@@ -18,8 +18,6 @@ public class JailorField extends Field {
     /**
      * Moves the player to jail, and sets "Rounds in jail" to 0
      * @param player
-     * @param players An array of all players
-     * @param fields An array of all fields
      */
 
     @Override
