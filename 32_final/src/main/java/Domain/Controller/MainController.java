@@ -34,7 +34,7 @@ public class MainController {
             do{
                 String choice;
                 if (currentPlayer.getJailTime() >=0) {
-                    choice = guiHandler.makeButtons("vælg en handling",
+                    choice = guiHandler.makeButtons("Vælg en handling " + currentPlayer.getName(),
                             "Slip fri", "Handel", "Pantsætning");
                     if (choice.equalsIgnoreCase("Slip fri"))
                         jailController.runCase(currentPlayer);
@@ -43,7 +43,7 @@ public class MainController {
                     if (choice.equalsIgnoreCase("Pantsætning"))
                         ;//pawnCon.runCase();
                 } else {
-                    choice = guiHandler.makeButtons("vælg en handling",
+                    choice = guiHandler.makeButtons("vælg en handling " + currentPlayer.getName(),
                             "Slå terninger", "Handel", "Pantsætning");
                     if (choice.equalsIgnoreCase("Slå terning"))
                         System.out.println("move!");

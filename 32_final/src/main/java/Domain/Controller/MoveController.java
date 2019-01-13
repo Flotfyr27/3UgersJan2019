@@ -46,6 +46,7 @@ public class MoveController {
         dice.Roll();
         guiHandler.showDice(dice.getValue1(), dice.getValue2());
         int dist = dice.getSum();
+
         GameLogic.movingPastStart(p,p.getPos()+dist);
         currentPos = (currentPos + dist)%board.getFields().length;
         p.setPos(currentPos);
@@ -62,13 +63,16 @@ public class MoveController {
 
     public void runcase(Player p, int dist, boolean isDouble){
         int currentPos = p.getPos();
-        GameLogic.movingPastStart(p,dist);
+        GameLogic.movingPastStart(p,p.getPos()+dist);
         currentPos = (currentPos + dist)%board.getFields().length;
         p.setPos(currentPos);
+        guiHandler.updateGui(board.getPlayers(), board.getFields());
 
         board.getFields()[currentPos].landOnAction(p);
-        if(!isDouble)
+        if(!dice.IsDoubleValue()){
             p.setIsActive(false);
+        }
+        guiHandler.updateGui(board.getPlayers(), board.getFields());
     }
 
 }
