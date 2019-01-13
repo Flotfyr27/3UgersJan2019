@@ -57,8 +57,6 @@ public class MoveController {
             p.setIsActive(false);
         }
         guiHandler.updateGui(board.getPlayers(), board.getFields());
-
-
     }
 
     public void runcase(Player p, int dist, boolean isDouble){
