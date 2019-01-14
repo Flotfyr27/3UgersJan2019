@@ -41,7 +41,7 @@ public class TradeController {
                 chosenField = playerTrading.getOwnedFields().get(n);
             }
         }
-        //Discuss price
+        //Discuss price until a price is found
         int salesPrice = 0;
         String confirmationOfSale = "";
         do {
@@ -51,9 +51,11 @@ public class TradeController {
         }while(confirmationOfSale.equals("Nej"));
 
         //Take money from the buying player and add to selling player
-        if(chosenPlayer.getAccount().getScore() >= chosenField.getPrice()) {
-            chosenPlayer.getAccount().changeScore(-chosenField.getPrice());
-            playerTrading.getAccount().changeScore(chosenField.getPrice());
+        if(chosenPlayer.getAccount().getScore() >= salesPrice) {
+            chosenPlayer.getAccount().changeScore(-salesPrice);
+            playerTrading.getAccount().changeScore(salesPrice);
+            playerTrading.getOwnedFields().remove(chosenField);
+            chosenPlayer.getOwnedFields().add(chosenField);
         }else{
             return;
         }
