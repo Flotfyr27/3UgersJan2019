@@ -45,7 +45,7 @@ public class TradeController {
         int salesPrice = 0;
         String confirmationOfSale = "";
         do {
-            //salesPrice = guiHandler.getUserInt("Indtast salgsprisen: ");
+            salesPrice = guiHandler.getUserInt("Indtast salgsprisen: ");
             guiHandler.giveMsg(playerTrading.getName() + " sælger " + chosenField.getName() + " til " + chosenPlayer.getName() + " for kr. " + salesPrice + ".");
             confirmationOfSale = guiHandler.makeButtons("Er dette korrekt?", "Ja", "Nej", "Afbryd køb");
             if(confirmationOfSale.equals("Afbryd køb")){
