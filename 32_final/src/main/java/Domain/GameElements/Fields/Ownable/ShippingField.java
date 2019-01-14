@@ -1,6 +1,7 @@
 package Domain.GameElements.Fields.Ownable;
 
 import Domain.GameElements.Entities.Player;
+import TechnicalServices.GameLogic.Values;
 
 import java.awt.*;
 
@@ -16,27 +17,20 @@ public class ShippingField extends OwnableField {
         super(name, subtext, bgColour, price);
     }
 
+    /**
+     * This method calculates what the rent is for the shipping fields.
+     * @param p This is the player who lands on the field
+     * @return Returns an integer value which is the rent.
+     */
     @Override
-    public void buy() {
-
-    }
-
-    @Override
-    public void sell() {
-
-    }
-
-    @Override
-    public void pawn() {
-
-    }
-
-    @Override
-    public void payRent() {
-
-    }
-
-    public void landOnAction(Player current) {
-
+    public int getRent(Player p) {
+        int count = 0;
+        for(int n = 0; n < getOwner().getOwnedFields().size(); n++){
+            if(getOwner().getOwnedFields().get(n).getClass().equals(ShippingField.class)){
+                count++;
+            }
+        }
+        int rent = Values.rentPrice(p.getPos(), count);
+        return rent;
     }
 }
