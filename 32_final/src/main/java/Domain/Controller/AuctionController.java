@@ -14,6 +14,7 @@ public class AuctionController {
     }
 
     public void initAuction(Player startingPlayer){
+        //TODO skift til arrayList
         OwnableField field = (OwnableField) board.getFields()[startingPlayer.getPos()];
         int nextPlayer = 0, currentPlayer = 0;
         Player[] buyers = new Player[board.getPlayers().length-1];
