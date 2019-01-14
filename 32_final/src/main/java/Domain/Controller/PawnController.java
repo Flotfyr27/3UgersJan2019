@@ -37,27 +37,31 @@ public class PawnController {
      * Boolean checking if the field has any hotels or houses
      * @return
      */
-    private boolean FieldIsEmpty() {
-        if (propertyField.getHouses() == 0 || propertyField.getHotel()) {
-            fieldIsEmpty = true;
+    private boolean hasBuildings() {
+        if (propertyField.getHouses() == 0 && propertyField.getHotel()) {
+            return true;
         } else {
-            fieldIsEmpty = false;
+            return false;
         }
-        return false;
     }
 
     /**
-     * Boolean checking if it is a Property field
+     * Method checks if the field is a property field
      * @return
      */
-    private boolean ifFieldIsPropertyField(){
+    private boolean isPropertyField(){
         if (ownableField.getClass()==PropertyField.class){
             fieldIsPropertyField = true;
         }
         else{
             fieldIsPropertyField = false;
         }
-        return false;
+        return fieldIsPropertyField;
+    }
+
+    private int pawnValue(){
+        pawnValue = ownableField.getPrice()/2;
+    return pawnValue;
     }
 
     /**
@@ -66,30 +70,32 @@ public class PawnController {
     private void pawnProperty() {
         int buildingsWorth = 0;
         buildingsWorth = propertyField.getWorth() - propertyField.getPrice();
-        if (fieldIsPropertyField && !fieldIsEmpty) { //removes the houses before pawning it
 
+        if (!hasBuildings() && isPropertyField()) {
             int numberOfHouses = propertyField.getHouses();
             propertyField.removeHouse(numberOfHouses);
             account.changeScore(buildingsWorth);
 
         } else {
 
-            pawnValue = ownableField.getPrice() / 2;
-
-            account.changeScore(pawnValue);
+            account.changeScore(pawnValue());
         }
 
     }
 
     /**
-     * Unpawning the properties.
+     * Multiplication of
+     * Cast the double as an int.
      */
     private void buyPawnBack(){
-        account.changeScore((int) (-pawnValue*1.1-((int)(pawnValue*1.1)%50)));
 
-
+        account.changeScore((int) (-pawnValue()*1.1-((int)(pawnValue()*1.1)%50)));
 
     }
+
+    /**
+     * Getting boolean from ownableField and allows you to unpawn it.
+      */
     private void unPawn(){
    if(ownableField.setIsPawned(false)){
        buyPawnBack();
@@ -102,6 +108,10 @@ public class PawnController {
 
 
 
-
+/*
+køb grunde tilbage x
+pantsætgrunde x
+tjek om der er huse på grunden  x
+ */
 
 
