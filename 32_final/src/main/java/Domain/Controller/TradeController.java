@@ -41,7 +41,7 @@ public class TradeController {
                 chosenField = playerTrading.getOwnedFields().get(n);
             }
         }
-        //Discuss price until a price is found
+        //Discuss price until a price is found or purchase is aborted
         int salesPrice = 0;
         String confirmationOfSale = "";
         do {
@@ -62,8 +62,6 @@ public class TradeController {
         }else{
             return;
         }
-
-
-
+        guiHandler.giveMsg(chosenPlayer.getName() + " har købt " + chosenField.getName() + " for kr. " + salesPrice + " af " + playerTrading.getName());
     }
 }
