@@ -49,6 +49,7 @@ public class TradeController {
             guiHandler.giveMsg(playerTrading.getName() + " sælger " + chosenField.getName() + " til " + chosenPlayer.getName() + " for kr. " + salesPrice + ".");
             confirmationOfSale = guiHandler.makeButtons("Er dette korrekt?", "Ja", "Nej", "Afbryd køb");
             if(confirmationOfSale.equals("Afbryd køb")){
+                guiHandler.giveMsg("Køb afbrudt!");
                 return;
             }
         }while(confirmationOfSale.equals("Nej"));
