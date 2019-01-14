@@ -5,61 +5,59 @@ import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Ownable.OwnableField;
 import UI.GUI.GuiHandler;
 
+import java.util.ArrayList;
+
 public class AuctionController {
-    Board board;
-    GuiHandler guiHandler;
+    private Board board;
+    private GuiHandler guiHandler;
+    private ArrayList<Player> buyers;
     public AuctionController(){
         board = Board.getInstance();
         guiHandler = GuiHandler.getInstance();
     }
 
     public void initAuction(Player startingPlayer){
+
+
         //TODO skift til arrayList
         OwnableField field = (OwnableField) board.getFields()[startingPlayer.getPos()];
-        int nextPlayer = 0, currentPlayer = 0;
-        Player[] buyers = new Player[board.getPlayers().length-1];
+        int nextPlayer = 1, currentPlayer = 0;
         //Get list of buyers
         int buyerIndex = 0;
         for(int n = 0; n < board.getPlayers().length; n++){
-            if(!board.getPlayers()[n].equals(startingPlayer)){
-                buyers[buyerIndex] = board.getPlayers()[n];
-                buyerIndex++;
-            }
+            buyers.add(board.getPlayers()[n]);
         }
 
-        buyerIndex = 0;
-        boolean running = true;
         int highestBid = field.getPrice();
-        int remainingBuyers = (buyers.length-1);
         //Asks players if they want to buy the property
         do {
-            if(!buyers[buyerIndex].equals(null)) {
-                String answer = guiHandler.makeButtons(buyers[buyerIndex].getName() + " vil De købe ejendommen?", "Ja", "Nej");
-                //If a players responds with no, they are nullified.
-                if (answer.equals("Nej")) {
-                    buyers[buyerIndex] = null;
-                 //If a player responds with yes, they place a bid.
-                } else {
-                    highestBid = guiHandler.getUserInt("Indtast bud på ejendom ", highestBid, 30000);
-                    buyerIndex++;
-                }
-                //If players are nullified, index is incremented
-            } else {
-                if(buyerIndex == buyers.length){
-                    buyerIndex = 0;
+            int remainingBuyers = (buyers.size());
+            if(buyers.size() == 1){
+                guiHandler.giveMsg(buyers.get(0).getName() + " har købt " + field.getName());
+                buyers.get(0).getAccount().changeScore(-highestBid);
+                buyers.get(0).getOwnedFields().add(field);
+                field.setOwner(buyers.get(0));
+                return;
+            }
+                String answer = guiHandler.makeButtons("Vil de købe " + field.getName() + ", " + buyers.get(currentPlayer) + "?", "Ja", "Nej");
+                if(answer.equals("Nej")) {
+                    buyers.remove(currentPlayer);
                 }else{
-                    buyerIndex++;
+                    if(buyers.get(currentPlayer).getAccount().getScore() >= highestBid) {
+                        highestBid = guiHandler.getUserInt("Hvad vil De byde på ejendommen?", highestBid, highestBid * 2);
+                        currentPlayer = nextPlayer;
+                        if((nextPlayer%remainingBuyers) == 0){
+                            nextPlayer = 0;
+                        }else {
+                            nextPlayer++;
+                        }
+                    }else{
+                        buyers.remove(currentPlayer);
+                    }
                 }
-            }
-            for(int n = 0; n < (buyers.length-1); n++){
-                if(buyers[n].equals(null)){
-                    remainingBuyers--;
-                }
-            }
-            if(remainingBuyers == 1){
-                running = false;
-            }
-        }while(running);
+
+
+        }while(buyers.size() > 1);
 
     }
 }
