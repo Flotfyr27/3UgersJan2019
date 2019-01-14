@@ -10,7 +10,7 @@ public class Main {
         GuiHandler guiHandler = GuiHandler.getInstance();
         guiHandler.initGuiFields(board.getFields());
 
-        board.initBoard(guiHandler.getUserInt("Vælg mellem 3 og seks spillere", 3, 6));
+        board.initBoard(guiHandler.getUserInt("Vælg mellem 3 og 6 spillere", 3, 6));
         guiHandler.initGuiPlayers(board.getPlayers());
 
         MainController mainController = new MainController(board.getPlayers());

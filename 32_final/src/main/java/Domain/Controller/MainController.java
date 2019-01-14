@@ -38,8 +38,10 @@ public class MainController {
                             "Slip fri", "Handel", "Pantsætning");
                     if (choice.equalsIgnoreCase("Slip fri"))
                         jailController.runCase(currentPlayer);
-                    if (choice.equalsIgnoreCase("Handel"))
+                    if (choice.equalsIgnoreCase("Handel")) {
                         tradeCon.runCase(currentPlayer);
+                        currentPlayer.setIsActive(true);
+                    }
                     if (choice.equalsIgnoreCase("Pantsætning"))
                         ;//pawnCon.runCase();
                 } else {
@@ -47,8 +49,10 @@ public class MainController {
                             "Slå terninger", "Handel", "Pantsætning");
                     if (choice.equalsIgnoreCase("Slå terninger"))
                         moveCon.runCase(currentPlayer);
-                    if (choice.equalsIgnoreCase("Handel"))
+                    if (choice.equalsIgnoreCase("Handel")) {
                         tradeCon.runCase(currentPlayer);
+                        currentPlayer.setIsActive(true);
+                    }
                     if (choice.equalsIgnoreCase("Pantsætning"))
                         ; //pawnCon.runCase();
                 }

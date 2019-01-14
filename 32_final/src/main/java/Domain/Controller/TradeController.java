@@ -59,8 +59,10 @@ public class TradeController {
         String confirmationOfSale = "";
         do {
             salesPrice = guiHandler.getUserInt("Indtast salgsprisen: ");
-            guiHandler.giveMsg(playerTrading.getName() + " sælger " + chosenField.getName() + " til " + chosenPlayer.getName() + " for kr. " + salesPrice + ".");
-            confirmationOfSale = guiHandler.makeButtons("Er dette korrekt?", "Ja", "Nej", "Afbryd køb");
+
+            confirmationOfSale = guiHandler.makeButtons(playerTrading.getName() + " sælger " +
+                    chosenField.getName() + " til " + chosenPlayer.getName() + " for kr. " + salesPrice +
+                    "." + "Er dette korrekt?", "Ja", "Nej", "Afbryd køb");
             if(confirmationOfSale.equals("Afbryd køb")){
                 guiHandler.giveMsg("Køb afbrudt!");
                 return;
@@ -73,7 +75,9 @@ public class TradeController {
             playerTrading.getAccount().changeScore(salesPrice);
             playerTrading.getOwnedFields().remove(chosenField);
             chosenPlayer.getOwnedFields().add(chosenField);
+            chosenField.setOwner(chosenPlayer);
         }else{
+            guiHandler.giveMsg(chosenPlayer.getName() + " har ikke råd til denne handel.");
             return;
         }
         guiHandler.giveMsg(chosenPlayer.getName() + " har købt " + chosenField.getName() + " for kr. " + salesPrice + " af " + playerTrading.getName());
