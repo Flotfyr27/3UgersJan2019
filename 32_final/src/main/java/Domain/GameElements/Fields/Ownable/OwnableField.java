@@ -2,11 +2,14 @@ package Domain.GameElements.Fields.Ownable;
 
 import Domain.GameElements.Fields.Field;
 import Domain.GameElements.Entities.Player;
+
 import java.awt.*;
 
 public abstract class OwnableField extends Field {
     private Player owner;
+    protected boolean isPawned;
     protected int price, rent;
+
 
     /**
      * Constructor for all ownable fields
@@ -18,6 +21,7 @@ public abstract class OwnableField extends Field {
     public OwnableField(String name, String subtext, Color bgColour, int price){
         super(name, subtext, bgColour);
         this.price = price;
+        this.isPawned = false;
     }
 
     /**
@@ -52,14 +56,14 @@ public abstract class OwnableField extends Field {
     public Player getOwner(){
         return owner;
     }
+
+
     public void buyField(Player p){
-        if(getOwner() == null){
             if(p.getAccount().getScore() >= getPrice()){
                 setOwner(p);
                 p.getAccount().changeScore(-getPrice());
                 p.getOwnedFields().add(this);
             }
-        }
     }
     /**
      * Method to determine what happens when a player lands on a field.
@@ -67,17 +71,35 @@ public abstract class OwnableField extends Field {
      */
     @Override
     public void landOnAction(Player current) {
-        if(getOwner() == null){
-            buyField(current);
+        if(getOwner() == null) {
+            String choice = guiHandler.makeButtons("Do you want to buy this house?", "yes", "no");
+            if (choice.equalsIgnoreCase("yes")) {
+                buyField(current);
+            }
+            else {
+                //guiHandler.giveMsg("This field is now up for auction");
+                //auctionCon.auction();
+            }
         }else if(getOwner() == current){
+            guiHandler.giveMsg("You own this field");
             return;
-        }else{
+        }
+        else if (isPawned){
+            guiHandler.giveMsg("This property has been pawned off");
+            return;
+
+        } else{
             //TODO check to see if player has enough money to pay rent, else pawn!
+            guiHandler.giveMsg("You pay rent to "+ getOwner().getName());
             getOwner().getAccount().changeScore(getRent(current));
             current.getAccount().changeScore(-getRent(current));
         }
 
     }
+
+    public boolean getIsPawned(){return isPawned;}
+
+    public void setIsPawned(boolean changeTo){isPawned = changeTo;}
 
     public abstract int getRent(Player player);
 

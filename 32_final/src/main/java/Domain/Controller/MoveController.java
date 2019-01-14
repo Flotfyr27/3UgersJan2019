@@ -7,7 +7,7 @@ import UI.GUI.GuiHandler;
 
 public class MoveController {
     private Board board;
-    private DiceTray dice = new DiceTray();
+    private DiceTray dice;
     private GuiHandler guiHandler;
 
 

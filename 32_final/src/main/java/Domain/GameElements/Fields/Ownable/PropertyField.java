@@ -6,7 +6,6 @@ import TechnicalServices.GameLogic.Values;
 import UI.GUI.GuiHandler;
 
 public class PropertyField extends OwnableField {
-    GuiHandler guiHandler;
 
     /**
      * Constructor for PropertyField
@@ -20,7 +19,6 @@ public class PropertyField extends OwnableField {
     public PropertyField(String name, String subtext, Color bgColour, int price, int housePrice) {
         super(name, subtext, bgColour, price);
         this.housePrice = housePrice;
-        guiHandler = GuiHandler.getInstance();
     }
 
     private int numberOfHouses = 0, housePrice;
@@ -83,7 +81,7 @@ public class PropertyField extends OwnableField {
         numberOfHouses -= value;
     }
 
-
+/*
     @Override
     public void sell() {
 
@@ -98,38 +96,17 @@ public class PropertyField extends OwnableField {
     public void pawn() {
 
     }
+*/
 
-    @Override
-    public void payRent() {
-
-    }
 
     /**
      * Method to determine what happens when a player lands on a field.
      *
      * @param current The current player
      */
-    @Override
-    public void landOnAction(Player current) {
-        if (getOwner() == null) {
-            String choice = guiHandler.makeButtons("Do you want to buy this house?", "yes", "no");
-            if (choice.equalsIgnoreCase("yes")) {
-                if (current.getAccount().canBuy(-getPrice())) {
-                    current.getAccount().changeScore(-getPrice());
-                    setOwner(current);
-                    current.getOwnedFields().add(this);
-                } else {
-                    guiHandler.giveMsg("You can't afford this property");
-                    //TODO call an auctionController here
-                }
-            } else {
-                //call an auctionController here
-            }
-        } else {
-            current.getAccount().canBuy(-rent);
-        }
 
-    }
+
+
     /**
      * This method calculates the rent of a property
      * @param p The player who lands on the field

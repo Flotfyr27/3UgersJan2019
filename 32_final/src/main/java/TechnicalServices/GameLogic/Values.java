@@ -3,9 +3,8 @@ package TechnicalServices.GameLogic;
 import Domain.GameElements.Entities.DiceTray;
 
 public class Values {
-    private static DiceTray dicetray;;
+    private static DiceTray dicetray;
     public Values(){
-        DiceTray dicetray = new DiceTray();
     }
 
 
@@ -222,7 +221,7 @@ public class Values {
                 {150,800,2000,6000,9000,12000},
                 {0},
                 {200,1000,3000,9000,12500,15000},
-                {(100*dicetray.getSum()),(200*dicetray.getSum())},
+                {100,200},
                 {200,1000,3000,9000,12500,15000},
                 {250,1250,3750,10000,14000,18000},
                 {500,1000,2000,4000},
@@ -238,7 +237,7 @@ public class Values {
                 {500,1000,2000,4000},
                 {450,2200,6600,16000,19500,23000},
                 {450,2200,6600,16000,19500,23000},
-                {(100*dicetray.getSum()),(200*dicetray.getSum())},
+                {100,200},
                 {500,2400,7200,17000,20500,24000},
                 {0},
                 {550,2600,7800,18000,22000,25000},

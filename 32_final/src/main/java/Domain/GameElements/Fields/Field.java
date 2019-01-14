@@ -1,6 +1,7 @@
 package Domain.GameElements.Fields;
 
 import Domain.GameElements.Entities.Player;
+import UI.GUI.GuiHandler;
 
 import java.awt.*;
 
@@ -10,6 +11,7 @@ public abstract class Field {
      */
     private String name, subtext;
     private Color bgColour;
+    protected GuiHandler guiHandler;
 
     /**
      * Constructor for the base parent field. This has a name, subtext and color.
@@ -21,6 +23,7 @@ public abstract class Field {
         this.name = name;
         this.subtext = subtext;
         this.bgColour = bgColour;
+        guiHandler = GuiHandler.getInstance();
     }
 
     /**

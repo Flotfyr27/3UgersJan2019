@@ -1,5 +1,6 @@
 package Domain.GameElements;
 import Domain.GameElements.Entities.ChanceCardStack;
+import Domain.GameElements.Entities.DiceTray;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.ChanceField.ChanceField;
 import Domain.GameElements.Fields.EmptyField;
@@ -15,6 +16,7 @@ import java.awt.*;
 public class Board {
     private Field[] fields;
     private Player[] players;
+    private DiceTray diceTray;
 
     private static Board boardInstance;
 
@@ -29,6 +31,7 @@ public class Board {
         } else {
             return boardInstance;
         }
+
     }
 
     /**
@@ -36,6 +39,7 @@ public class Board {
      */
     private Board() {
         setFields();
+        diceTray = new DiceTray();
     }
 
     /**
@@ -95,7 +99,7 @@ public class Board {
         fields[17] = (new ChanceField("Prøv lykken", "?", Color.BLACK));
         fields[18] = (new PropertyField("Hellerupvej", "kr. 3.600", Color.LIGHT_GRAY, 3600, 2000));
         fields[19] = (new PropertyField("Strandvejen", "kr. 4.000", Color.LIGHT_GRAY, 4000, 1000));
-        fields[20] = (new EmptyField("Gratis Parkering", "Det gratis", Color.white));
+        fields[20] = (new EmptyField("Gratis Parkering", "Det gratis", Color.WHITE));
         fields[21] = (new PropertyField("Trianglen", "kr. 4.400", Color.RED, 4400, 3000));
         fields[22] = (new ChanceField("Prøv lykken", "?", Color.BLACK));
         fields[23] = (new PropertyField("Østerbrogade", "kr. 4.400", Color.RED, 4400, 3000));
@@ -119,5 +123,9 @@ public class Board {
 
     public Field[] getFields() {
         return fields;
+    }
+
+    public DiceTray getDiceTray(){
+        return diceTray;
     }
 }
