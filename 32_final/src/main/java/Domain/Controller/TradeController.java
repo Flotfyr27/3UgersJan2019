@@ -21,13 +21,13 @@ public class TradeController {
         String[] fieldNames = new String[playerTrading.getOwnedFields().size()];
         //Save all player names
         for(int n = 0; n < board.getPlayers().length; n++){
-           names[n] = board.getPlayerAtIndex(n).getName();
+           names[n] = board.getPlayers()[n].getName();
         }
         //Choose a player based on user selected name
         targetPlayer = guiHandler.makeButtons("Select a player to trade with", names);
         for(int n = 0; n < board.getPlayers().length; n++){
-            if(targetPlayer.equals(board.getPlayerAtIndex(n).getName())){
-                chosenPlayer = board.getPlayerAtIndex(n);
+            if(targetPlayer.equals(board.getPlayers()[n].getName())){
+                chosenPlayer = board.getPlayers()[n];
             }
         }
         //Save all field names
