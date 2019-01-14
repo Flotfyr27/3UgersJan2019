@@ -24,7 +24,7 @@ public class ChanceField extends Field {
 
     @Override
     public void landOnAction(Player current) {
+        guiHandler.msgInMiddle(stack.getCurrent().toString());
         stack.next().action(current);
-        System.out.println(stack.getCurrent().toString());
     }
 }
