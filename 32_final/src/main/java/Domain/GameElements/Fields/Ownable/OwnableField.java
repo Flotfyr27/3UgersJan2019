@@ -71,9 +71,10 @@ public abstract class OwnableField extends Field {
      */
     @Override
     public void landOnAction(Player current) {
+        guiHandler.giveMsg("Du er landet på " + getName());
         if(getOwner() == null) {
-            String choice = guiHandler.makeButtons("Do you want to buy this house?", "yes", "no");
-            if (choice.equalsIgnoreCase("yes")) {
+            String choice = guiHandler.makeButtons("Vil du købe denne grund? Den koster " + price, "Ja", "Nej");
+            if (choice.equalsIgnoreCase("Ja")) {
                 buyField(current);
             }
             else {
@@ -81,16 +82,16 @@ public abstract class OwnableField extends Field {
                 //auctionCon.auction();
             }
         }else if(getOwner() == current){
-            guiHandler.giveMsg("You own this field");
+            guiHandler.giveMsg("Du ejer dette felt");
             return;
         }
         else if (isPawned){
-            guiHandler.giveMsg("This property has been pawned off");
+            guiHandler.giveMsg("Denne grund er blevet pantet");
             return;
 
         } else{
             //TODO check to see if player has enough money to pay rent, else pawn!
-            guiHandler.giveMsg("You pay rent to "+ getOwner().getName());
+            guiHandler.giveMsg("Du skal betaler leje til  "+ getOwner().getName());
             getOwner().getAccount().changeScore(getRent(current));
             current.getAccount().changeScore(-getRent(current));
         }
