@@ -13,8 +13,8 @@ public class MainController {
     private Player currentPlayer;
     private MoveController moveCon;
     private JailController jailController;
-    /*private PawnController pawnCon;
-    private TradeController tradeCon;*/
+    /*private PawnController pawnCon;*/
+    private TradeController tradeCon;
 
     public MainController(Player[] players){
         this.players = players;
@@ -24,8 +24,8 @@ public class MainController {
 
         moveCon = MoveController.getInstance();
         jailController = JailController.getInstance();
-        /*pawnCon = new PawnController.getInstance;
-        tradeCon = new TradeController.getInstance;*/
+        /*pawnCon = new PawnController.getInstance;*/
+        tradeCon = new TradeController();
     }
 
     public void runCase(){
@@ -39,17 +39,16 @@ public class MainController {
                     if (choice.equalsIgnoreCase("Slip fri"))
                         jailController.runCase(currentPlayer);
                     if (choice.equalsIgnoreCase("Handel"))
-                        ;//tradeCon.runCase();
+                        tradeCon.runCase(currentPlayer);
                     if (choice.equalsIgnoreCase("Pantsætning"))
                         ;//pawnCon.runCase();
                 } else {
                     choice = guiHandler.makeButtons("vælg en handling " + currentPlayer.getName(),
                             "Slå terninger", "Handel", "Pantsætning");
-                    if (choice.equalsIgnoreCase("Slå terning"))
-                        System.out.println("move!");
+                    if (choice.equalsIgnoreCase("Slå terninger"))
                         moveCon.runCase(currentPlayer);
                     if (choice.equalsIgnoreCase("Handel"))
-                        ; //tradeCon.runCase();
+                        tradeCon.runCase(currentPlayer);
                     if (choice.equalsIgnoreCase("Pantsætning"))
                         ; //pawnCon.runCase();
                 }

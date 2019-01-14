@@ -8,12 +8,13 @@ import UI.GUI.GuiHandler;
 public class TradeController {
     private GuiHandler guiHandler;
     private Board board;
+
     public TradeController(){
         guiHandler = GuiHandler.getInstance();
         board = Board.getInstance();
     }
 
-    public void tradeWithPlayer(Player playerTrading){
+    public void runCase(Player playerTrading){
         String targetPlayer, fieldString;
         OwnableField chosenField = null;
         Player chosenPlayer = null;
