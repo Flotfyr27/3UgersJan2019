@@ -16,7 +16,7 @@ public class JailController {
      * @return
      */
     public static JailController getInstance(){
-        if(instance==null){
+        if(instance == null){
             instance = new JailController();
             return instance;
         }else{

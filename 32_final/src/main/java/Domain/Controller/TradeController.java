@@ -18,11 +18,14 @@ public class TradeController {
         String targetPlayer, fieldString;
         OwnableField chosenField = null;
         Player chosenPlayer = null;
-        String[] names = new String[board.getPlayers().length];
+        String[] names = new String[board.getPlayers().length - 1];
         String[] fieldNames = new String[playerTrading.getOwnedFields().size()];
+        int i = 0;
+
         //Save all player names
         for(int n = 0; n < board.getPlayers().length; n++){
-           names[n] = board.getPlayerAtIndex(n).getName();
+            if (!playerTrading.equals(board.getPlayers()[n]))
+                names[i++] = board.getPlayerAtIndex(n).getName();
         }
         //Choose a player based on user selected name
         targetPlayer = guiHandler.makeButtons("Select a player to trade with", names);
@@ -31,17 +34,26 @@ public class TradeController {
                 chosenPlayer = board.getPlayerAtIndex(n);
             }
         }
+
         //Save all field names
         for(int n = 0; n < playerTrading.getOwnedFields().size(); n++){
             fieldNames[n] = playerTrading.getOwnedFields().get(n).getName();
         }
+
         //Select a field to trade based on user input
-        fieldString = guiHandler.makeButtons("Select field to trade", fieldNames);
-        for(int n = 0; n < playerTrading.getOwnedFields().size(); n++){
-            if(fieldString.equals(fieldNames[n])){
-                chosenField = playerTrading.getOwnedFields().get(n);
+        if (fieldNames.length > 0) {
+            fieldString = guiHandler.makeButtons("Select field to trade", fieldNames);
+            for (int n = 0; n < playerTrading.getOwnedFields().size(); n++) {
+                if (fieldString.equals(fieldNames[n])) {
+                    chosenField = playerTrading.getOwnedFields().get(n);
+                }
             }
+        } else {
+            guiHandler.makeButtons("Du har ingen grunde at handle med", "Ok");
+            return;
         }
+
+
         //Discuss price until a price is found or purchase is aborted
         int salesPrice = 0;
         String confirmationOfSale = "";
