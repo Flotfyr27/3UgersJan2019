@@ -2,6 +2,7 @@ package Domain.GameElements.Fields.Ownable;
 
 import java.awt.*;
 import Domain.GameElements.Entities.Player;
+import TechnicalServices.GameLogic.Values;
 
 public class CompanyField extends OwnableField {
     public CompanyField(String name, String subtext, Color bgColour, int price){
@@ -9,23 +10,15 @@ public class CompanyField extends OwnableField {
     }
 
     @Override
-    public void buy() {
-
-    }
-
-    @Override
-    public void sell() {
-
-    }
-
-    @Override
-    public void pawn() {
-
-    }
-
-    @Override
-    public void payRent() {
-
+    public int getRent(Player p) {
+        int count = 0;
+        for(int n = 0; n < getOwner().getOwnedFields().size(); n++){
+            if(getOwner().getOwnedFields().get(n).getClass().equals(CompanyField.class)){
+                count++;
+            }
+        }
+        int rent = Values.rentPrice(p.getPos(), count);
+        return rent;
     }
 
     public void landOnAction(Player current) {

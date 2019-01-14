@@ -3,6 +3,7 @@ package Domain.GameElements.Fields.Ownable;
 import java.awt.*;
 import Domain.GameElements.Entities.Player;
 import UI.GUI.GuiHandler;
+import TechnicalServices.GameLogic.Values;
 
 public class PropertyField extends OwnableField{
     GuiHandler guiHandler;
@@ -76,25 +77,15 @@ public class PropertyField extends OwnableField{
         numberOfHouses -= value;
     }
 
-
+    /**
+     * This method calculates the rent of a property
+     * @param p The player who lands on the field
+     * @return Returns an integer value of rent
+     */
     @Override
-    public void sell() {
-
-    }
-
-    @Override
-    public void buy() {
-
-    }
-
-    @Override
-    public void pawn() {
-
-    }
-
-    @Override
-    public void payRent() {
-
+    public int getRent(Player p) {
+        int rent = Values.rentPrice(p.getPos(), numberOfHouses);
+        return rent;
     }
 
     /**

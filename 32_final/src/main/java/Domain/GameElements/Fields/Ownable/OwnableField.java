@@ -52,9 +52,33 @@ public abstract class OwnableField extends Field {
     public Player getOwner(){
         return owner;
     }
-    public abstract void pawn();
-    public abstract void payRent();
-    public abstract void buy();
-    public abstract void sell();
+    public void buyField(Player p){
+        if(getOwner() == null){
+            if(p.getAccount().getScore() >= getPrice()){
+                setOwner(p);
+                p.getAccount().changeScore(-getPrice());
+                p.getOwnedFields().add(this);
+            }
+        }
+    }
+    /**
+     * Method to determine what happens when a player lands on a field.
+     * @param current The current player
+     */
+    @Override
+    public void landOnAction(Player current) {
+        if(getOwner() == null){
+            buyField(current);
+        }else if(getOwner() == current){
+            return;
+        }else{
+            //TODO check to see if player has enough money to pay rent, else pawn!
+            getOwner().getAccount().changeScore(getRent(current));
+            current.getAccount().changeScore(-getRent(current));
+        }
+
+    }
+
+    public abstract int getRent(Player player);
 
 }
