@@ -29,6 +29,8 @@ public class PropertyField extends OwnableField {
      *
      * @return integer value of number of houses
      */
+
+    @Override
     public int getHouses() {
         return numberOfHouses;
     }
@@ -77,6 +79,8 @@ public class PropertyField extends OwnableField {
      *
      * @param value The amount of houses to remove
      */
+
+    @Override
     public void removeHouse(int value) {
         numberOfHouses -= value;
     }
