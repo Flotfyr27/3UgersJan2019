@@ -10,14 +10,4 @@ public class AuctionController {
     }
 
     public void initAuction(){}
-    private int getPlayerIndex(Player player){
-        int index = 0;
-        for(int n = 0; n < board.getPlayers().length; n++){
-            if(board.getPlayerAtIndex(n).equals(player)){
-                index = n;
-                break;
-            }
-        }
-        return index;
-    }
 }
