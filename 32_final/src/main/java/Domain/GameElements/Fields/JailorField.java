@@ -4,7 +4,6 @@ import Domain.GameElements.Entities.Player;
 
 import java.awt.*;
 
-
 public class JailorField extends Field {
     /**
      *
@@ -32,11 +31,7 @@ public class JailorField extends Field {
 
         }else{
             player.setPos(10);
-
-            //TODO create jailcontroller
-            /* For use with jailController
-            player.jail = 0;
-            */
+            player.setJailTime(0);
         }
 
 

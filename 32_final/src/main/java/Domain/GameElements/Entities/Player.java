@@ -13,6 +13,7 @@ public class Player {
     private ArrayList<OwnableField> ownedFields; /*we used an ArrayList instead of an array because
     this list will change size often over the course of a game*/
     private int jailCards;
+    private int jail;
 
 
     /**
@@ -27,11 +28,12 @@ public class Player {
         lost = false;
         ownedFields = new ArrayList<OwnableField>();
         jailCards = 0;
+        jail = -1;
     }
 
     /**
      * sets the isActive boolean used for control of when the player should be able to move and act no more.
-     * @param isActive
+     * @param isActive a boolean that decides if the player can act again.
      */
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
@@ -55,6 +57,14 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public void setJailTime(int jail) {
+        this.jail = jail;
+    }
+
+    public int getJailTime() {
+        return jail;
     }
 
     /**

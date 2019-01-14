@@ -3,6 +3,7 @@
  */
 package UI.GUI;
 
+
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.*;
 import Domain.GameElements.Fields.Ownable.*;
@@ -12,7 +13,7 @@ import gui_fields.*;
 import gui_main.GUI;
 
 import java.awt.*;
-import java.security.PrivateKey;
+
 
 public class GuiHandler {
     private GUI gui;
@@ -41,22 +42,36 @@ public class GuiHandler {
      * @param fields the fields in the board class
      * @return The instance of the object
      */
-    public GuiHandler instantiateGui(Field[] fields) throws IllegalStateException{
+    public void initGuiFields(Domain.GameElements.Fields.Field[] fields) throws IllegalStateException{
         for(int i = 0; i < gui_fields.length; i++){
             if(fields[i].getClass().equals(EmptyField.class) && i == 0){
                 gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
-            }else if(fields[i].getClass().equals(PropertyField.class)){
+
+            } else if(fields[i].getClass().equals(PropertyField.class)){
                 PropertyField propertyField = (PropertyField) fields[i];
                 gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", Integer.toString(propertyField.getPrice()), fields[i].getBgColor(), null));
-            }else if(fields[i].getClass().equals(EmptyField.class)){
+
+            } else if(fields[i].getClass().equals(EmptyField.class)){
                 gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
-            }else if(fields[i].getClass().equals(ChanceField.class)){
-                gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
+
+            } else if(fields[i].getClass().equals(ChanceField.class)){
+                gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), Color.white));
+
+            } else if (fields[i].getClass().equals(TaxField.class)) {
+               gui_fields[i] = new GUI_Tax(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(),null);
+
+            } else if (fields[i].getClass().equals(ShippingField.class)) {
+                gui_fields[i] = new GUI_Shipping("", fields[i].getName(), fields[i].getSubtext(), "", "",fields[i].getBgColor(),null);
+
+            } else if (fields[i].getClass().equals(CompanyField.class)) {
+                gui_fields[i] = new GUI_Brewery("", fields[i].getName(), fields[i].getSubtext(), "", "",fields[i].getBgColor(),null);
+
+            } else if (fields[i].getClass().equals(JailorField.class)) {
+                gui_fields[i] = new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null);
             }
         }
 
         gui = new GUI(gui_fields, Color.lightGray);
-        return this;
     }
 
     /**
@@ -83,7 +98,7 @@ public class GuiHandler {
      * Creates players and set car types.
      * @param p
      */
-    public void initGui(Player[] p){
+    public void initGuiPlayers(Player[] p){
         GUI_Car.Type carType;
         Color primaryColor;
         //Create players
@@ -142,9 +157,9 @@ public class GuiHandler {
      * @param pArr
      * @param f
      */
-    public void updateGui(Player[] pArr, Field[] f){
+    public void updateGui(Player[] pArr, Domain.GameElements.Fields.Field[] f){
 
-        /**
+        /*
          * Move the players on the map, field by field
          */
         boolean carMoved = false;
@@ -176,14 +191,14 @@ public class GuiHandler {
         }
 
 
-        /**
+        /*
          * Updates the player balance.
          */
         for(int i = 0; i < pArr.length; i++){
             guiPlayers[i].setBalance(pArr[i].getAccount().getScore());
         }
 
-        /**
+        /*
          * updates ownership of tile
          */
         Player owner;
@@ -258,6 +273,9 @@ public class GuiHandler {
     public String makeButtons(String msg, String... buttonName){
         return gui.getUserButtonPressed(msg, buttonName);
     }
+
+    //todo make a teleportGui_player mehod to move player car instantly
+    //todo make method that changes balance more slowly
 }
 
 

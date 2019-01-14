@@ -104,7 +104,12 @@ class ChanceCardTest {
         assertEquals(50, p.getAccount().getScore());
     }
 
-
+    /**
+     * Tests the TaxCard
+     *
+     * Testing
+     * that only the houses on PropertyFields affect the return value
+     */
     @Test
     void taxCardTest(){
         Player p = new Player("p1");
@@ -144,8 +149,6 @@ class ChanceCardTest {
      *  testing:
      *  the recipient has the right amount
      *  the others have lost right amount
-     *
-     *  TODO should also add a test for whether it handles players with too little money correctly.
      */
     @Test
     void birthdayCardTest(){

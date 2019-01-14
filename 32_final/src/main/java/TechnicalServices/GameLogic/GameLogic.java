@@ -16,7 +16,7 @@ public class GameLogic {
      * @param destination The destination of the move
      */
     public static void movingPastStart(Player player, int destination){
-       if(player.getPos()> destination)
+       if(player.getPos()> destination%40)
         player.getAccount().changeScore(4000);
     }
 

@@ -17,4 +17,9 @@ public abstract class ChanceCard {
      * @param player
      */
     public abstract void action (Player player);
+
+    @Override
+    public String toString(){
+        return description;
+    }
 }
