@@ -7,7 +7,7 @@ import UI.GUI.GuiHandler;
 
 public class MoveController {
     private Board board;
-    private DiceTray dice = new DiceTray();
+    private DiceTray dice;
     private GuiHandler guiHandler;
 
 
@@ -34,6 +34,7 @@ public class MoveController {
 
     public MoveController initiate(Board board){
         this.board = board;
+        this.dice = board.getDiceTray();
         return this;
     }
 

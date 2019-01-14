@@ -24,14 +24,13 @@ public class JailorField extends Field {
 
     @Override
     public void landOnAction(Player player){
-/*
- * If the player has a "get out of jail free" card, this removes the card in a method in players. Then next player.
- */
-        if(player.getJailCards() >= 1){
 
+        if(player.getJailCards() >= 1){
+            guiHandler.giveMsg("Du bliver anholdt, men har kontkater til de rigtige mennesker, så politiet lader dig gå");
             player.removeJailCards();
 
         }else{
+            guiHandler.giveMsg("Du bliver anholdt, og bliver sendt i fængsel");
             player.setPos(10);
             player.setJailTime(0);
 

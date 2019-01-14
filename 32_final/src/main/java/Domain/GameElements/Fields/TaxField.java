@@ -46,6 +46,7 @@ public class TaxField extends Field {
          * Ekstraordinær statsskat
          */
         if (taxType == 1) {
+            guiHandler.giveMsg("Betaling af skatter: 2000 kr");
             player.getAccount().changeScore(-2000);
         } else {
             /*
