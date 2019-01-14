@@ -19,7 +19,6 @@ public class GuiHandler {
     private GUI gui;
     private GUI_Field[] gui_fields = new GUI_Field[40];
     private GUI_Player[] guiPlayers;
-    private int[] dicefacevalues = new int[2];
     private GUI_BoardController bc;
 
     private static GuiHandler guiHandlerInstance;
@@ -281,7 +280,7 @@ public class GuiHandler {
      * @param faceValue2 The value of the second dice
      */
     public void showDice(int faceValue1, int faceValue2){
-        gui.setDice(faceValue1, faceValue2);
+        gui.setDice(faceValue1, 4,8,faceValue2,5,8);
     }
 
     /**
