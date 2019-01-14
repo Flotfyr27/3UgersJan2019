@@ -85,7 +85,7 @@ public class GuiHandler {
      * @param min The minimum number of players
      * @param max The maximum number of players
      */
-    public int getNumberOfPlayers(int min, int max){
+    public int getUserInt(int min, int max){
         int output;
 
         do { //Made this loop due to us sometimes being able to choose any number of players despite min/max value
@@ -273,7 +273,9 @@ public class GuiHandler {
     public String makeButtons(String msg, String... buttonName){
         return gui.getUserButtonPressed(msg, buttonName);
     }
-
+    public String getUserString(String text){
+        return gui.getUserString(text);
+    }
     //todo make a teleportGui_player mehod to move player car instantly
     //todo make method that changes balance more slowly
 }
