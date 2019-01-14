@@ -1,4 +1,5 @@
 package Domain.GameElements;
+import Domain.GameElements.Entities.ChanceCardStack;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.ChanceField.ChanceField;
 import Domain.GameElements.Fields.EmptyField;
@@ -38,15 +39,17 @@ public class Board {
     }
 
     /**
-     * Internal method to initialize all players
+     * Method to initialize all externally dependent variables when board is first created
      *
      * @param numberOfPlayers Integer to determine number of players
      */
-    public void initPlayers(int numberOfPlayers) {
+    public void initBoard(int numberOfPlayers) {
         players = new Player[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++) {
             players[i] = new Player("Player" + (i + 1));
         }
+
+        ChanceCardStack.getStackInstance().initializeCards(players, fields);
     }
 
     /**

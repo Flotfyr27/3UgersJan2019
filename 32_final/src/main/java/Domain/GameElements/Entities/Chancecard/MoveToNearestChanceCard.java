@@ -31,7 +31,7 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
      * @param payDouble should the player pay double rent when getting there?
      * @param description The text displayed when the card is drawn.
      */
-    public MoveToNearestChanceCard(Class<OwnableField> type, Field[] fields, boolean payDouble, String description){
+    public MoveToNearestChanceCard(Class<?> type, Field[] fields, boolean payDouble, String description){
         super(0, description);
         this.type = type;
         this.fields = fields;

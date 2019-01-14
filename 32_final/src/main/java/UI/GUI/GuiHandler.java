@@ -275,6 +275,7 @@ public class GuiHandler {
     }
 
     //todo make a teleportGui_player mehod to move player car instantly
+    //todo make method that changes balance more slowly
 }
 
 
