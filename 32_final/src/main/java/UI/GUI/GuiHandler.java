@@ -157,14 +157,14 @@ public class GuiHandler {
      * @param pArr
      * @param f
      */
-    public void updateGui(Player[] pArr, Domain.GameElements.Fields.Field[] f){
+    public void updateGui(Player curentPlayer, Player[] pArr, Domain.GameElements.Fields.Field[] f){
 
         /*
          * Move the players on the map, field by field
          */
         boolean carMoved = false;
         //moves players step by step
-        for (int i = 0; i < gui_fields.length; i++) {
+        for (int i = curentPlayer.getPos() + 1; i < gui_fields.length; i++) {
             for (int j = 0; j < guiPlayers.length; j++) {
                 if (gui_fields[i].hasCar(guiPlayers[j]) && pArr[j].getPos() != i){
                     gui_fields[(i+1)% gui_fields.length].setCar(guiPlayers[j], true);
@@ -180,16 +180,27 @@ public class GuiHandler {
             }
 
 
-            try {
-                if (carMoved){
-                    carMoved = false;
-                    Thread.sleep(100);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            carMoved = onCarMoved(carMoved);
         }
 
+        for (int i = 0; i < curentPlayer.getPos(); i++) {
+            for (int j = 0; j < guiPlayers.length; j++) {
+                if (gui_fields[i].hasCar(guiPlayers[j]) && pArr[j].getPos() != i){
+                    gui_fields[(i+1)% gui_fields.length].setCar(guiPlayers[j], true);
+                    carMoved = true;
+                }
+            }
+
+            gui_fields[i].removeAllCars();
+            for (int j = 0; j < guiPlayers.length; j++) {
+                if (pArr[j].getPos() == i){
+                    gui_fields[i].setCar(guiPlayers[j], true);
+                }
+            }
+
+
+            carMoved = onCarMoved(carMoved);
+        }
 
         /*
          * Updates the player balance.
@@ -212,6 +223,25 @@ public class GuiHandler {
                 }
             }
         }
+
+    }
+
+    /**
+     * A method for when a car has moved in the gui
+     * @param carMoved boolean, true if a car has moved since last call of this method
+     * @return
+     */
+    private boolean onCarMoved(boolean carMoved) {
+        try {
+            if (carMoved){
+                carMoved = false;
+                Thread.sleep(100);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return carMoved;
+
 
     }
 
@@ -273,6 +303,7 @@ public class GuiHandler {
     public String makeButtons(String msg, String... buttonName){
         return gui.getUserButtonPressed(msg, buttonName);
     }
+
 
     //todo make a teleportGui_player mehod to move player car instantly
     //todo make method that changes balance more slowly
