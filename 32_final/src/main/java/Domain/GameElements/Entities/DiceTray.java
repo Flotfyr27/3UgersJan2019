@@ -1,14 +1,16 @@
 package Domain.GameElements.Entities;
 
-public class DieTray {
+public class DiceTray {
     private int value1;
     private int value2;
-    public int sum;
+    private int sum;
     Die die;
 
-    public DieTray() {
+    /**
+     * Constructor for the dicetray
+     */
+    public DiceTray() {
         die = new Die();
-        Roll();
     }
 
     /**
@@ -39,7 +41,21 @@ public class DieTray {
             return false;
     }
 
+    /**
+     * returns the value of the first die
+     * @return value
+     */
+    public int getValue1() {
+        return value1;
+    }
 
+    /**
+     * returns the value of the second die
+     * @return value
+     */
+    public int getValue2() {
+        return value2;
+    }
 }
 
 

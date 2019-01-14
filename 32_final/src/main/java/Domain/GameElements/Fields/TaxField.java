@@ -14,6 +14,7 @@ public class TaxField extends Field {
 
     /**
      * Constructor for taxField
+     *
      * @param name
      * @param subtext
      * @param bgColour
@@ -26,35 +27,36 @@ public class TaxField extends Field {
 
         try {
             guiHandler = GuiHandler.getInstance();
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }
 
     /**
      * LandOnAction that handles the two taxation fields
+     *
      * @param player
      */
 
     @Override
-    public void landOnAction(Player player){
+    public void landOnAction(Player player) {
 
         int sum = 0;
-/*
- * Ekstraordinær statsskat
- */
-        if(taxType == 1){
+        /*
+         * Ekstraordinær statsskat
+         */
+        if (taxType == 1) {
             player.getAccount().changeScore(-2000);
-        }else{
-/*
- * Indkomstskat
- */
+        } else {
+            /*
+             * Indkomstskat
+             */
             String buttons = guiHandler.makeButtons("Betal indskomstskat: 10% eller kr.4.000", "10%", "kr.4.000");
-            if(buttons.equals("10%")){
+            if (buttons.equals("10%")) {
                 /*
-                 * For loop which calculates the tax of 10% if that option is selected. Using the ownedFields arraylist in player.
+                 * For loop which calculates the tax of 10% if that option is selected. Using the ownedFields arrayList in player.
                  */
-                for(OwnableField field : player.getOwnedFields()){
+                for (OwnableField field : player.getOwnedFields()) {
                     sum += field.getWorth();
                 }
                 sum = (int) Math.round(sum * 0.1);
@@ -63,19 +65,13 @@ public class TaxField extends Field {
                 /*
                  * Selected option of paying kr.4.000
                  */
-            }else if(buttons.equals("kr.4.000")){
+            } else if (buttons.equals("kr.4.000")) {
                 player.getAccount().changeScore(-4000);
-            }else{
-                try{
-                //TODO check exception type
-                }catch(NullPointerException e){
-                    e.printStackTrace();
-                    System.out.println("Wrong value");
-                }
-
+            } else {
+                throw new IllegalArgumentException("Value doesn't correspond to either button choice");
             }
 
         }
-    }
 
+    }
 }

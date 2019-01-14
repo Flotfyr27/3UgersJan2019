@@ -4,6 +4,7 @@ import java.util.Random;
 
 import Domain.GameElements.Entities.Chancecard.*;
 import Domain.GameElements.Fields.Field;
+import Domain.GameElements.Fields.Ownable.ShippingField;
 
 public class ChanceCardStack {
     private ChanceCard[] chanceCards;
@@ -31,7 +32,7 @@ public class ChanceCardStack {
         cardNum = 0;
     }
 
-    public void initializeCards(Player[] players){
+    public void initializeCards(Player[] players, Field[] fields){
         chanceCards = new ChanceCard[]{
                 new MoveChanceCard(-3, "Ryk tre felter tilbage."),
                 new MoveChanceCard(-3, "Ryk tre felter tilbage."),
@@ -96,14 +97,14 @@ public class ChanceCardStack {
                         "Dette kort kan opbevares, indtil De får brug for det eller De kan sælge det."),
                 new GetOutOfJailCard("I andledning af kongens fødselsdag benådes de herved for fængsel. " +
                         "Dette kort kan opbevares, indtil De får brug for det eller De kan sælge det."),
-                /*new MoveToNearestChanceCard(ShippingField.class, fields,"Tag med den nærmeste færge. " +
+                new MoveToNearestChanceCard(ShippingField.class, fields,"Tag med den nærmeste færge. " +
                         "Flyt brikken frem, og hvis De passerer \"START\", indkassér da kr. 4.000."),
                 new MoveToNearestChanceCard(ShippingField.class, fields, true, "Ryke brikkem frem " +
                         "til det nærmeste rederi og betal ejeren to gange den leje, han ellers er berretiget til. " +
                         "Hvis selskabet ikke ejes af nogen, kan De købe det af banken."),
                 new MoveToNearestChanceCard(ShippingField.class, fields, true, "Ryke brikkem frem " +
                         "til det nærmeste rederi og betal ejeren to gange den leje, han ellers er berretiget til. " +
-                        "Hvis selskabet ikke ejes af nogen, kan De købe det af banken."),*/
+                        "Hvis selskabet ikke ejes af nogen, kan De købe det af banken."),
                 new MatadorLegateChanceCard(40000, "De modtager \"Matador-legatet for værdigt " +
                         "trængende\" på kr. 40.000. Ved værdigt trængende forstås, at Deres formue, dv.s Deres " +
                         "kontante penge + skøder + bygninger, ikke overstiger kr. 15.000.")
@@ -137,7 +138,7 @@ public class ChanceCardStack {
      */
     public ChanceCard next() {
         if (!hasNext()) {
-            cardNum = 0; //TODO this will always exclude the first card, fix it.
+            cardNum = 0;
         }
 
         return chanceCards[cardNum++];

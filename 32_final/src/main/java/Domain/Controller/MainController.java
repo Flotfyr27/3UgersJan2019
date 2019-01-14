@@ -12,9 +12,9 @@ public class MainController {
     private int currentPlayerNum;
     private Player currentPlayer;
     private MoveController moveCon;
-    private PrisonController prisonCon;
-    private PawnController pawnCon;
-    private TradeController tradeCon;
+    private JailController jailController;
+    /*private PawnController pawnCon;
+    private TradeController tradeCon;*/
 
     public MainController(Player[] players){
         this.players = players;
@@ -22,10 +22,10 @@ public class MainController {
 
         guiHandler = GuiHandler.getInstance();
 
-        moveCon = new MoveController(players);
-        prisonCon = new PrisonController(players);
-        pawnCon = new PawnController(players);
-        tradeCon = new TradeController(players);
+        moveCon = MoveController.getInstance();
+        jailController = JailController.getInstance();
+        /*pawnCon = new PawnController.getInstance;
+        tradeCon = new TradeController.getInstance;*/
     }
 
     public void runCase(){
@@ -33,29 +33,30 @@ public class MainController {
             currentPlayer = players[currentPlayerNum];
             do{
                 String choice;
-                if (currentPlayer.getIsJaieled) {
-                    choice = guiHandler.makeButtons("vælg en handling",
+                if (currentPlayer.getJailTime() >=0) {
+                    choice = guiHandler.makeButtons("Vælg en handling " + currentPlayer.getName(),
                             "Slip fri", "Handel", "Pantsætning");
                     if (choice.equalsIgnoreCase("Slip fri"))
-                        prisonCon.runCase();
+                        jailController.runCase(currentPlayer);
                     if (choice.equalsIgnoreCase("Handel"))
-                        tradeCon.runCase();
+                        ;//tradeCon.runCase();
                     if (choice.equalsIgnoreCase("Pantsætning"))
-                        pawnCon.runCase();
+                        ;//pawnCon.runCase();
                 } else {
-                    choice = guiHandler.makeButtons("vælg en handling",
+                    choice = guiHandler.makeButtons("vælg en handling " + currentPlayer.getName(),
                             "Slå terninger", "Handel", "Pantsætning");
                     if (choice.equalsIgnoreCase("Slå terning"))
-                        moveCon.runCase();
+                        System.out.println("move!");
+                        moveCon.runCase(currentPlayer);
                     if (choice.equalsIgnoreCase("Handel"))
-                        tradeCon.runCase();
+                        ; //tradeCon.runCase();
                     if (choice.equalsIgnoreCase("Pantsætning"))
-                        pawnCon.runCase();
+                        ; //pawnCon.runCase();
                 }
 
             }while (currentPlayer.getIsActive());
 
-            currentPlayerNum++;
+            currentPlayerNum = ++currentPlayerNum % players.length;
         }
     }
 

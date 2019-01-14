@@ -1,4 +1,5 @@
 package Domain.GameElements;
+import Domain.GameElements.Entities.ChanceCardStack;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.ChanceField.ChanceField;
 import Domain.GameElements.Fields.EmptyField;
@@ -34,19 +35,21 @@ public class Board {
      * Constructor for Board
      */
     private Board() {
-
+        setFields();
     }
 
     /**
-     * Internal method to initialize all players
+     * Method to initialize all externally dependent variables when board is first created
      *
      * @param numberOfPlayers Integer to determine number of players
      */
-    public void initPlayers(int numberOfPlayers) {
+    public void initBoard(int numberOfPlayers) {
+        players = new Player[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++) {
             players[i] = new Player("Player" + (i + 1));
-            players[i].getAccount().changeScore(30000);
         }
+
+        ChanceCardStack.getStackInstance().initializeCards(players, fields);
     }
 
     /**
@@ -82,16 +85,16 @@ public class Board {
         fields[7] = (new ChanceField("Prøv lykken", "?", Color.BLACK));
         fields[8] = (new PropertyField("Valby Langgade", "kr. 2.000", Color.ORANGE, 2000, 1000));
         fields[9] = (new PropertyField("Allégade", "kr. 2.400", Color.ORANGE, 2400, 1000));
-        fields[10] = (new EmptyField("På besøg", "I fængsel", Color.BLACK));
+        fields[10] = (new EmptyField("På besøg\nI fængsel", "", Color.DARK_GRAY));
         fields[11] = (new PropertyField("Frederiksberg Allé", "kr. 2.800", Color.GREEN, 2800, 2000));
         fields[12] = (new CompanyField("Tuborg Squash", "kr. 3.000", Color.RED, 3000));
         fields[13] = (new PropertyField("Bülowsvej", "kr. 2.800", Color.GREEN, 2800, 2000));
         fields[14] = (new PropertyField("Gl. Kongevej", "kr. 3.200", Color.GREEN, 3200, 2000));
         fields[15] = (new ShippingField("Mols-Linien", "kr. 4.000", Color.RED, 4000));
-        fields[16] = (new PropertyField("Bernstorffsvej", "kr. 3.600", Color.GRAY, 3600, 2000));
+        fields[16] = (new PropertyField("Bernstorffsvej", "kr. 3.600", Color.LIGHT_GRAY, 3600, 2000));
         fields[17] = (new ChanceField("Prøv lykken", "?", Color.BLACK));
-        fields[18] = (new PropertyField("Hellerupvej", "kr. 3.600", Color.GRAY, 3600, 2000));
-        fields[19] = (new PropertyField("Strandvejen", "kr. 4.000", Color.GRAY, 4000, 1000));
+        fields[18] = (new PropertyField("Hellerupvej", "kr. 3.600", Color.LIGHT_GRAY, 3600, 2000));
+        fields[19] = (new PropertyField("Strandvejen", "kr. 4.000", Color.LIGHT_GRAY, 4000, 1000));
         fields[20] = (new EmptyField("Gratis Parkering", "Det gratis", Color.white));
         fields[21] = (new PropertyField("Trianglen", "kr. 4.400", Color.RED, 4400, 3000));
         fields[22] = (new ChanceField("Prøv lykken", "?", Color.BLACK));
@@ -102,7 +105,7 @@ public class Board {
         fields[27] = (new PropertyField("Kgs. Nytorv", "kr. 5.200", Color.WHITE, 5200, 3000));
         fields[28] = (new CompanyField("Coca-Cola", "kr. 3.000", Color.RED, 3000));
         fields[29] = (new PropertyField("Østergade", "kr. 5.600", Color.WHITE, 5600, 3000));
-        fields[30] = (new JailorField("De fængsles", "", Color.BLACK));
+        fields[30] = (new JailorField("De fængsles", "", Color.DARK_GRAY));
         fields[31] = (new PropertyField("Amagertorv", "kr. 6.000", Color.YELLOW, 6000, 4000));
         fields[32] = (new PropertyField("Vimmelskaftet", "kr. 6.000", Color.YELLOW, 6000, 4000));
         fields[33] = (new ChanceField("Prøv lykken", "?", Color.BLACK));
@@ -112,5 +115,9 @@ public class Board {
         fields[37] = (new PropertyField("Frederiksberggade", "kr. 7.000", Color.MAGENTA, 7000, 4000));
         fields[38] = (new TaxField("Ekstraordinær statsskat: Betal", "kr. 2.000", Color.GREEN, 1));
         fields[39] = (new PropertyField("Rådhuspladsen", "kr. 8.000", Color.MAGENTA, 8000, 4000));
+    }
+
+    public Field[] getFields() {
+        return fields;
     }
 }

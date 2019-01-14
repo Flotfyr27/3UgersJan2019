@@ -6,7 +6,7 @@ import java.awt.*;
 
 public abstract class OwnableField extends Field {
     private Player owner;
-    private int price, rent;
+    protected int price, rent;
 
     /**
      * Constructor for all ownable fields
