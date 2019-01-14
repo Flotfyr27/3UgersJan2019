@@ -202,31 +202,8 @@ public class GuiHandler {
             carMoved = onCarMoved(carMoved);
         }
 
+        updateBalance(pArr);
 
-        /*
-         * Updates the player balance.
-         */
-        boolean updated = false;
-
-         do {
-             for (int j = 0; j < pArr.length; j++) {
-                 if (pArr[j].getAccount().getScore() != guiPlayers[j].getBalance()) {
-                     updated = false;
-                     break;
-                 } else {
-                     updated = true;
-                 }
-             }
-
-             if (updated)
-                 break;
-
-            for (int i = 0; i < pArr.length; i++) {
-                //TODO add a Lerp function
-
-                guiPlayers[i].setBalance(pArr[i].getAccount().getScore());
-            }
-        } while (!updated);
 
         /*
          * updates ownership of tile
@@ -245,6 +222,34 @@ public class GuiHandler {
 
     }
 
+    /**
+     * updates only the balance in the gui
+     *
+     * @param players all players in the game
+     */
+    public void updateBalance(Player[] players){
+        boolean updated = false;
+
+        do {
+            for (int j = 0; j < players.length; j++) {
+                if (players[j].getAccount().getScore() != guiPlayers[j].getBalance()) {
+                    updated = false;
+                    break;
+                } else {
+                    updated = true;
+                }
+            }
+
+            if (updated)
+                break;
+
+            for (int i = 0; i < players.length; i++) {
+                //TODO add a Lerp function
+
+                guiPlayers[i].setBalance(players[i].getAccount().getScore());
+            }
+        } while (!updated);
+    }
 
     public void teleportPlayer(int destination, Player player, Player[] players){
         gui_fields[player.getPos()].setCar(findGuiPlayer(player, players), false);
