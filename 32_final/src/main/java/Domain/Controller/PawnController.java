@@ -24,10 +24,19 @@ public class PawnController {
     private Field[] field;
 
 
+    /**
+     * constructor
+     * @param players
+     * @param fields
+     */
     public PawnController(Player[] players, Field[] fields) {
 
     }
 
+    /**
+     * Boolean checking if the field has any hotels or houses
+     * @return
+     */
     private boolean FieldIsEmpty() {
         if (propertyField.getHouses() == 0 || propertyField.getHotel()) {
             fieldIsEmpty = true;
@@ -37,6 +46,10 @@ public class PawnController {
         return false;
     }
 
+    /**
+     * Boolean checking if it is a Property field
+     * @return
+     */
     private boolean ifFieldIsPropertyField(){
         if (ownableField.getClass()==PropertyField.class){
             fieldIsPropertyField = true;
@@ -47,10 +60,13 @@ public class PawnController {
         return false;
     }
 
+    /**
+     * Method that pawn our properties.
+     */
     private void pawnProperty() {
         int buildingsWorth = 0;
-        buildingsWorth = field.getWorth() - field.getPrice();
-        if (fieldIsPropertyField && !fieldIsEmpty){
+        buildingsWorth = propertyField.getWorth() - propertyField.getPrice();
+        if (fieldIsPropertyField && !fieldIsEmpty) { //removes the houses before pawning it
 
             int numberOfHouses = propertyField.getHouses();
             propertyField.removeHouse(numberOfHouses);
@@ -60,15 +76,31 @@ public class PawnController {
 
             pawnValue = ownableField.getPrice() / 2;
 
-            account.changeScore(-pawnValue);
+            account.changeScore(pawnValue);
         }
 
-    private void unPawn(){
-            account.changeScore(pawnValue);
-            
-        }
     }
+
+    /**
+     * Unpawning the properties.
+     */
+    private void buyPawnBack(){
+        account.changeScore((int) (-pawnValue*1.1-((int)(pawnValue*1.1)%50)));
+
+
+
+    }
+    private void unPawn(){
+   if(ownableField.setIsPawned(false)){
+       buyPawnBack();
+
+    }
+
+   }
+
 }
+
+
 
 
 

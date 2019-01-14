@@ -32,7 +32,7 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
      * @param payDouble
      * @param description
      */
-    public MoveToNearestChanceCard(Class<OwnableField> type, Field[] fields, boolean payDouble, String description){
+    public MoveToNearestChanceCard(Class<?> type, Field[] fields, boolean payDouble, String description){
         super(0, description);
         this.type = type;
         this.fields = fields;
