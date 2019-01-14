@@ -34,6 +34,7 @@ public class MoveController {
 
     public MoveController initiate(Board board){
         this.board = board;
+        this.dice = board.getDiceTray();
         return this;
     }
 

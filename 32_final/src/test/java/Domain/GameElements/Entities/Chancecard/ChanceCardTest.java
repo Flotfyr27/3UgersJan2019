@@ -119,8 +119,8 @@ class ChanceCardTest {
                 new PropertyField("1", "", Color.BLUE, 100, 10),
                 new PropertyField("2", "", Color.BLUE, 100, 10),
                 new PropertyField("3", "", Color.BLUE, 100, 10),
-                new CompanyField("4", "", Color.BLUE, 100),
-                new CompanyField("4", "", Color.BLUE, 100),
+                //new CompanyField("4", "", Color.BLUE, 100),
+               // new CompanyField("4", "", Color.BLUE, 100),
                 new ShippingField("6", "", Color.BLUE,100)
         };
 

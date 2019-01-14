@@ -91,7 +91,7 @@ public class Board {
         fields[9] = (new PropertyField("Allégade", "kr. 2.400", Color.ORANGE, 2400, 1000));
         fields[10] = (new EmptyField("På besøg\nI fængsel", "", Color.DARK_GRAY));
         fields[11] = (new PropertyField("Frederiksberg Allé", "kr. 2.800", Color.GREEN, 2800, 2000));
-        fields[12] = (new CompanyField("Tuborg Squash", "kr. 3.000", Color.RED, 3000));
+        fields[12] = (new CompanyField("Tuborg Squash", "kr. 3.000", Color.RED, 3000, diceTray));
         fields[13] = (new PropertyField("Bülowsvej", "kr. 2.800", Color.GREEN, 2800, 2000));
         fields[14] = (new PropertyField("Gl. Kongevej", "kr. 3.200", Color.GREEN, 3200, 2000));
         fields[15] = (new ShippingField("Mols-Linien", "kr. 4.000", Color.RED, 4000));
@@ -107,7 +107,7 @@ public class Board {
         fields[25] = (new ShippingField("Scandlines, Gedser-Rostock", "kr. 4.000", Color.BLUE, 4000));
         fields[26] = (new PropertyField("Bredgade", "kr. 5.200", Color.WHITE, 5200, 3000));
         fields[27] = (new PropertyField("Kgs. Nytorv", "kr. 5.200", Color.WHITE, 5200, 3000));
-        fields[28] = (new CompanyField("Coca-Cola", "kr. 3.000", Color.RED, 3000));
+        fields[28] = (new CompanyField("Coca-Cola", "kr. 3.000", Color.RED, 3000, diceTray));
         fields[29] = (new PropertyField("Østergade", "kr. 5.600", Color.WHITE, 5600, 3000));
         fields[30] = (new JailorField("De fængsles", "", Color.DARK_GRAY));
         fields[31] = (new PropertyField("Amagertorv", "kr. 6.000", Color.YELLOW, 6000, 4000));
