@@ -51,7 +51,7 @@ public class Board {
     public void initBoard(int numberOfPlayers) {
         players = new Player[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++) {
-            String name = GuiHandler.getInstance().getUserString("Indtast dit nanvn");
+            String name = GuiHandler.getInstance().getUserString("Indtast dit navn");
             players[i] = new Player(name);
         }
 

@@ -75,6 +75,8 @@ public class Player {
         return lost;
     }
 
+    public void setLost(boolean state){lost = state;}
+
     /**
      * returns the ArrayList of the fields owned by the player.
      * @return

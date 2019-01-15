@@ -80,8 +80,12 @@ public class TradeController {
     private void makeTransaction(int price, Object chosenTradeObject, Player owner, Player receiver) {
         //Take money from the buying player and add to selling player
         if (receiver.getAccount().getScore() >= price) {
-            receiver.getAccount().changeScore(-price);
-            owner.getAccount().changeScore(price);
+           // try {
+                receiver.getAccount().changeScore(-price);
+                owner.getAccount().changeScore(price);
+           /* } catch (RuntimeException e) {
+                e.getMessage().equalsIgnoreCase("Error: Score would drop below zero");
+            }*/
             if (chosenTradeObject.getClass() == OwnableField.class) {
                 owner.getOwnedFields().remove((OwnableField) chosenTradeObject);
                 receiver.getOwnedFields().add((OwnableField) chosenTradeObject);
