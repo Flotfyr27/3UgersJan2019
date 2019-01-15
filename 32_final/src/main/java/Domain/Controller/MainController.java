@@ -1,5 +1,6 @@
 package Domain.Controller;
 
+import Domain.GameElements.Board;
 import Domain.GameElements.Entities.Player;
 import TechnicalServices.GameLogic.GameLogic;
 import UI.GUI.GuiHandler;
@@ -15,6 +16,7 @@ public class MainController {
     private JailController jailController;
     private PawnController pawnCon;
     private TradeController tradeCon;
+    private int turnsInARow;
 
     public MainController(Player[] players){
         this.players = players;
@@ -30,6 +32,7 @@ public class MainController {
 
     public void runCase(){
         while (!GameLogic.lastManStanding(players)){
+            turnsInARow = 0;
             currentPlayer = players[currentPlayerNum];
             do{
                 String choice;
@@ -47,9 +50,18 @@ public class MainController {
                 } else {
                     choice = guiHandler.makeButtons("Vælg en handling " + currentPlayer.getName(),
                             "Slå terninger", "Handel", "Pantsætning");
-                    if (choice.equalsIgnoreCase("Slå terninger"))
+                    if (choice.equalsIgnoreCase("Slå terninger")) {
+                        turnsInARow++;
+                        if (turnsInARow == 3) {
+                            currentPlayer.setIsActive(false);
+                            currentPlayer.setJailTime(0);
+                            currentPlayer.setPos(10);
+                            guiHandler.giveMsg("Du kører for hurtigt! Vi må tage dig med på stationen.");
+                            guiHandler.updatePlayerPos(currentPlayer, Board.getInstance().getPlayers());
+                            break;
+                        }
                         moveCon.runCase(currentPlayer);
-                    if (choice.equalsIgnoreCase("Handel")) {
+                    } if (choice.equalsIgnoreCase("Handel")) {
                         tradeCon.runCase(currentPlayer);
                         currentPlayer.setIsActive(true);
                     }

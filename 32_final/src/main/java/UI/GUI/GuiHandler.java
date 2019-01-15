@@ -184,36 +184,7 @@ public class GuiHandler {
      */
     public void updateGui(Player currentPlayer, Player[] pArr, Domain.GameElements.Fields.Field[] f) {
 
-        /*
-         * Move the players on the map, field by field
-         */
-        boolean carMoved = false;
-        //moves the active player up until start
-        for (int i = currentPlayer.getPos() + 1; i < gui_fields.length; i++) {
-            for (int j = 0; j < guiPlayers.length; j++) {
-                if (gui_fields[i].hasCar(guiPlayers[j]) && pArr[j].getPos() != i) {
-                    gui_fields[(i + 1) % gui_fields.length].setCar(guiPlayers[j], true);
-                    carMoved = true;
-                }
-            }
-
-            gui_fields[i].setCar(findGuiPlayer(currentPlayer, pArr), false);
-
-            carMoved = onCarMoved(carMoved);
-        }
-        //moves the active player after start
-        for (int i = 0; i < currentPlayer.getPos(); i++) {
-            for (int j = 0; j < guiPlayers.length; j++) {
-                if (gui_fields[i].hasCar(guiPlayers[j]) && pArr[j].getPos() != i) {
-                    gui_fields[(i + 1) % gui_fields.length].setCar(guiPlayers[j], true);
-                    carMoved = true;
-                }
-            }
-
-            gui_fields[i].setCar(findGuiPlayer(currentPlayer, pArr), false);
-
-            carMoved = onCarMoved(carMoved);
-        }
+        updatePlayerPos(currentPlayer, pArr);
 
         updateBalance(pArr);
 
