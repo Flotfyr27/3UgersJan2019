@@ -78,7 +78,7 @@ public abstract class OwnableField extends Field {
                 buyField(current);
             }
             else {
-                //guiHandler.giveMsg("This field is now up for auction");
+                guiHandler.giveMsg("Grunden sættes op for auktion");
                 //auctionCon.auction();
             }
         }else if(getOwner() == current){

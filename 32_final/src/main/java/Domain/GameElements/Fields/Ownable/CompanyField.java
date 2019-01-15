@@ -24,8 +24,4 @@ public class CompanyField extends OwnableField {
         int rent = Values.rentPrice(p.getPos(), count);
         return rent * diceTray.getSum();
     }
-
-    public void landOnAction(Player current) {
-
-    }
 }

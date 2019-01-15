@@ -133,7 +133,7 @@ public class TradeController {
     private OwnableField getChosenField(Player owner, String[] fieldNames) {
         //Select a field to trade based on user input
         if (fieldNames.length > 0) {
-            String fieldString = guiHandler.makeButtons("Select field to trade", fieldNames);
+            String fieldString = guiHandler.makeButtons("Vælg felt du vil handle med", fieldNames);
             for (int n = 0; n < owner.getOwnedFields().size(); n++) {
                 if (fieldString.equals(fieldNames[n])) {
                     return owner.getOwnedFields().get(n);
@@ -166,10 +166,10 @@ public class TradeController {
      * @return selected player
      */
     private Player getChosenPlayer(String[] names) {
-        String targetPlayer = guiHandler.makeButtons("Select a player to trade with", names);
+        String targetPlayer = guiHandler.makeButtons("Vælg spiller du vil handle med", names);
         for (int n = 0; n < board.getPlayers().length; n++) {
-            if (targetPlayer.equals(board.getPlayerAtIndex(n).getName())) {
-                return board.getPlayerAtIndex(n);
+            if (targetPlayer.equals(board.getPlayers()[n].getName())) {
+                return board.getPlayers()[n];
             }
         }
 
@@ -189,7 +189,7 @@ public class TradeController {
 
         for (int n = 0; n < board.getPlayers().length; n++) {
             if (!playerTrading.equals(board.getPlayers()[n]))
-                names[i++] = board.getPlayerAtIndex(n).getName();
+                names[i++] = board.getPlayers()[n].getName();
         }
         return names;
     }

@@ -68,15 +68,6 @@ public class Board {
     }
 
     /**
-     * Method to pull a single player from the player array
-     * @param index Index is used to choose which player to pull
-     * @return A Player object at given index.
-     */
-    public Player getPlayerAtIndex(int index){
-        return players[index];
-    }
-
-    /**
      * Initial method to set all fields to the game board
      */
     private void setFields() {

@@ -109,7 +109,7 @@ public class ChanceCardStack {
                         "trængende\" på kr. 40.000. Ved værdigt trængende forstås, at Deres formue, dvs. Deres " +
                         "kontante penge + skøder + bygninger, ikke overstiger kr. 15.000.")
         };
-
+        // shuffles the cards once
         shuffleCards(chanceCards);
     }
 
