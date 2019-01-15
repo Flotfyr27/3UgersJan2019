@@ -9,7 +9,6 @@ import UI.GUI.GuiHandler;
 
 public class PawnController {
 
-    private boolean fieldIsPropertyField;
     private GuiHandler guiHandler;
     private Board board;
     private static PawnController instance;
