@@ -99,11 +99,18 @@ public abstract class OwnableField extends Field {
 
     }
 
+    /**
+     * Goes through all fields on the board and returns all the OwnableFields of a specific color.
+     *
+     * @param color The color of the fields returned
+     * @return all the OwnableFields of a specific color
+     */
     public OwnableField[] getFieldsOfColor(Color color){
         Field[] fields = Board.getInstance().getFields();
         int colorFieldNum = 0;
         OwnableField[] fieldsOfColor;
 
+        //counts the number OwnableFields of the specified color
         for (Field field : fields) {
             if (field.getClass().equals(OwnableField.class)) {
                 if (((OwnableField) field).getBgColor() == color) {
@@ -112,13 +119,13 @@ public abstract class OwnableField extends Field {
             }
         }
 
+        //Fills the array with the colored fields
         fieldsOfColor = new OwnableField[colorFieldNum];
-
         int colorIndex = 0;
-        for (int i = 0; i < fieldsOfColor.length; i++) {
-            if (fields[i].getClass().equals(OwnableField.class)) {
-                if (((OwnableField) fields[i]).getBgColor() == color) {
-                    fieldsOfColor[colorIndex++] = (OwnableField) fields[i];
+        for (Field field : fields) {
+            if (field.getClass().equals(OwnableField.class)) {
+                if (((OwnableField) field).getBgColor() == color) {
+                    fieldsOfColor[colorIndex++] = (OwnableField) field;
                 }
             }
         }
