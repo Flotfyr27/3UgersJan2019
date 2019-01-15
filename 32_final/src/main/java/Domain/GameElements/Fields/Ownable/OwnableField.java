@@ -104,4 +104,9 @@ public abstract class OwnableField extends Field {
 
     public abstract int getRent(Player player);
 
+    @Override
+    public String toString(){
+        return getName();
+    }
+
 }

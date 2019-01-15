@@ -104,4 +104,5 @@ public class Player {
     public int getJailCards(){
         return jailCards;
     }
+
 }
