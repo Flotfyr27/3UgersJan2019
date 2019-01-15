@@ -91,7 +91,7 @@ public abstract class OwnableField extends Field {
 
         } else{
             //TODO check to see if player has enough money to pay rent, else pawn!
-            guiHandler.giveMsg("Du skal betaler leje til  "+ getOwner().getName());
+            guiHandler.giveMsg("Du skal betale "+getRent(current) +"kr leje til  "+ getOwner().getName());
             getOwner().getAccount().changeScore(getRent(current));
             current.getAccount().changeScore(-getRent(current));
         }
@@ -103,6 +103,10 @@ public abstract class OwnableField extends Field {
     public void setIsPawned(boolean changeTo){isPawned = changeTo;}
 
     public abstract int getRent(Player player);
+
+    public int getHouses(){return 0;}
+    public boolean getHotel(){return false;}
+    public void removeHouse(int value){}
 
     @Override
     public String toString(){
