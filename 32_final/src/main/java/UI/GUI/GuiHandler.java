@@ -19,7 +19,6 @@ public class GuiHandler {
     private GUI gui;
     private GUI_Field[] gui_fields = new GUI_Field[40];
     private GUI_Player[] guiPlayers;
-    private int[] dicefacevalues = new int[2];
     private GUI_BoardController bc;
 
     private static GuiHandler guiHandlerInstance;
@@ -81,17 +80,30 @@ public class GuiHandler {
     }
 
     /**
-     * Methods returns an integer given by a player
+     * Methods returns an integer given by a player within the bounds of min and max
+     *
+     * @param message The message given to the player before they give their input
      * @param min The minimum number of players
      * @param max The maximum number of players
+     * @return The user chosen int
      */
-    public int getUserInt(int min, int max){
+    public int getUserInt(String message, int min, int max){
         int output;
 
         do { //Made this loop due to us sometimes being able to choose any number of players despite min/max value
-            output = gui.getUserInteger("Choose between 3 and 6 players", min, max);
+            output = gui.getUserInteger(message, min, max);
         } while (output < min || output > max);
         return output;
+    }
+
+    /**
+     * Methods returns an integer given by a player
+     *
+     * @param message The message given to the player before they give their input
+     * @return The user chosen int
+     */
+    public int getUserInt(String message) {
+        return gui.getUserInteger(message);
     }
 
     /**
@@ -106,7 +118,7 @@ public class GuiHandler {
         for(int i = 0; i < p.length; i++){
             switch (i){
                 case 0:{
-                    carType = GUI_Car.Type.CAR;
+                    carType = GUI_Car.Type.RACECAR;
                     primaryColor = Color.RED;
                     break;
                 }
@@ -116,27 +128,27 @@ public class GuiHandler {
                     break;
                 }
                 case 2:{
-                    carType = GUI_Car.Type.TRACTOR;
+                    carType = GUI_Car.Type.RACECAR;
                     primaryColor = Color.CYAN;
                     break;
                 }
                 case 3:{
-                    carType = GUI_Car.Type.UFO;
+                    carType = GUI_Car.Type.RACECAR;
                     primaryColor = Color.MAGENTA;
                     break;
                 }
                 case 4:{
-                    carType = GUI_Car.Type.CAR;
+                    carType = GUI_Car.Type.RACECAR;
                     primaryColor = Color.yellow;
                 break;
                 }
                 case 5:{
-                    carType = GUI_Car.Type.UFO;
+                    carType = GUI_Car.Type.RACECAR;
                     primaryColor = Color.ORANGE;
                     break;
                 }
                 default:{
-                    carType = GUI_Car.Type.CAR;
+                    carType = GUI_Car.Type.RACECAR;
                     primaryColor = Color.BLUE;
                     break;
                 }
@@ -149,7 +161,6 @@ public class GuiHandler {
             gui_fields[0].setCar(guiPlayers[i], true);
         }
 
-
     }
 
     /**
@@ -157,14 +168,27 @@ public class GuiHandler {
      * @param pArr
      * @param f
      */
-    public void updateGui(Player[] pArr, Domain.GameElements.Fields.Field[] f){
+    public void updateGui(Player currentPlayer, Player[] pArr, Domain.GameElements.Fields.Field[] f){
 
         /*
          * Move the players on the map, field by field
          */
         boolean carMoved = false;
-        //moves players step by step
-        for (int i = 0; i < gui_fields.length; i++) {
+        //moves the active player up until start
+        for (int i = currentPlayer.getPos() + 1; i < gui_fields.length; i++) {
+            for (int j = 0; j < guiPlayers.length; j++) {
+                if (gui_fields[i].hasCar(guiPlayers[j]) && pArr[j].getPos() != i) {
+                    gui_fields[(i + 1) % gui_fields.length].setCar(guiPlayers[j], true);
+                    carMoved = true;
+                }
+            }
+
+            gui_fields[i].setCar(findGuiPlayer(currentPlayer, pArr), false);
+
+            carMoved = onCarMoved(carMoved);
+        }
+        //moves the active player after start
+        for (int i = 0; i < currentPlayer.getPos(); i++) {
             for (int j = 0; j < guiPlayers.length; j++) {
                 if (gui_fields[i].hasCar(guiPlayers[j]) && pArr[j].getPos() != i){
                     gui_fields[(i+1)% gui_fields.length].setCar(guiPlayers[j], true);
@@ -172,31 +196,13 @@ public class GuiHandler {
                 }
             }
 
-            gui_fields[i].removeAllCars();
-            for (int j = 0; j < guiPlayers.length; j++) {
-                if (pArr[j].getPos() == i){
-                    gui_fields[i].setCar(guiPlayers[j], true);
-                }
-            }
+            gui_fields[i].setCar(findGuiPlayer(currentPlayer, pArr), false);
 
-
-            try {
-                if (carMoved){
-                    carMoved = false;
-                    Thread.sleep(100);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            carMoved = onCarMoved(carMoved);
         }
 
+        updateBalance(pArr);
 
-        /*
-         * Updates the player balance.
-         */
-        for(int i = 0; i < pArr.length; i++){
-            guiPlayers[i].setBalance(pArr[i].getAccount().getScore());
-        }
 
         /*
          * updates ownership of tile
@@ -216,12 +222,65 @@ public class GuiHandler {
     }
 
     /**
+     * updates only the balance in the gui
+     *
+     * @param players all players in the game
+     */
+    public void updateBalance(Player[] players){
+        boolean updated = false;
+
+        do {
+            for (int j = 0; j < players.length; j++) {
+                if (players[j].getAccount().getScore() != guiPlayers[j].getBalance()) {
+                    updated = false;
+                    break;
+                } else {
+                    updated = true;
+                }
+            }
+
+            if (updated)
+                break;
+
+            for (int i = 0; i < players.length; i++) {
+                //TODO add a Lerp function
+
+                guiPlayers[i].setBalance(players[i].getAccount().getScore());
+            }
+        } while (!updated);
+    }
+
+    public void teleportPlayer(int destination, Player player, Player[] players){
+        gui_fields[player.getPos()].setCar(findGuiPlayer(player, players), false);
+        gui_fields[destination].setCar(findGuiPlayer(player, players), true);
+    }
+
+    /**
+     * A method for when a car has moved in the gui
+     * @param carMoved boolean, true if a car has moved since last call of this method
+     * @return
+     */
+    private boolean onCarMoved(boolean carMoved) {
+        try {
+            if (carMoved){
+                carMoved = false;
+                Thread.sleep(100);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return carMoved;
+
+
+    }
+
+    /**
      * Shows the roll of the  two dices.
      * @param faceValue1 The value of the first dice
      * @param faceValue2 The value of the second dice
      */
     public void showDice(int faceValue1, int faceValue2){
-        gui.setDice(faceValue1, faceValue2);
+        gui.setDice(faceValue1, 4,8,faceValue2,5,8);
     }
 
     /**
@@ -273,9 +332,26 @@ public class GuiHandler {
     public String makeButtons(String msg, String... buttonName){
         return gui.getUserButtonPressed(msg, buttonName);
     }
-    public String getUserString(String text){
-        return gui.getUserString(text);
+
+    /**
+     * Translates a player from the domain into it's corresponding guiPlayer
+     *
+     * @param domainPlayer the player from the domain package
+     * @param domainPlayers the player array in board
+     * @return the corresponding guiPlayer
+     */
+    private GUI_Player findGuiPlayer (Player domainPlayer, Player[] domainPlayers){
+        GUI_Player guiPlayer = null;
+
+        for (int i = 0; i < domainPlayers.length; i++) {
+            if (domainPlayers[i].equals(domainPlayer))
+                guiPlayer = guiPlayers[i];
+        }
+        return guiPlayer;
     }
+
+
+
     //todo make a teleportGui_player mehod to move player car instantly
     //todo make method that changes balance more slowly
 }

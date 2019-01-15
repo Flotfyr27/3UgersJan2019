@@ -1,6 +1,8 @@
 package Domain.GameElements.Fields;
 
+import Domain.GameElements.Board;
 import Domain.GameElements.Entities.Player;
+import UI.GUI.GuiHandler;
 
 import java.awt.*;
 
@@ -31,6 +33,13 @@ public class JailorField extends Field {
             guiHandler.giveMsg("Du bliver anholdt, og bliver sendt i fængsel");
             player.setPos(10);
             player.setJailTime(0);
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            GuiHandler.getInstance().teleportPlayer(10, player, Board.getInstance().getPlayers());
         }
 
 
