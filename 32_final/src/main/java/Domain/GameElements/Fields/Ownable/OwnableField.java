@@ -106,4 +106,10 @@ public abstract class OwnableField extends Field {
 
     public int getHouses(){return 0;}
     public void removeHouse(int value){}
+
+    @Override
+    public String toString(){
+        return getName();
+    }
+
 }

@@ -2,7 +2,6 @@ package Domain.Controller;
 
 import Domain.GameElements.Board;
 import Domain.GameElements.Entities.Player;
-import Domain.GameElements.Fields.Field;
 import Domain.GameElements.Fields.Ownable.OwnableField;
 import UI.GUI.GuiHandler;
 
@@ -16,7 +15,7 @@ public class TradeController {
     }
 
     public void runCase(Player playerTrading) {
-        OwnableField chosenField;
+        Object chosenTradeObject;
         Player chosenPlayer;
         String[] names;
         String[] fieldNames;
@@ -36,22 +35,37 @@ public class TradeController {
             receiver = playerTrading;
         }
 
-        fieldNames = getTradeFields(owner);
-        chosenField = getChosenField(owner, fieldNames);
+        String tradeObject = guiHandler.makeButtons("Hvad vil du handle med?", "Benådninger", "Ejendomme");
 
-        if (chosenField == null) {
-            guiHandler.makeButtons("Du har ingen grunde at handle med", "Ok");
+        if (tradeObject.equalsIgnoreCase("Benådninger")){
+            chosenTradeObject = owner.getJailCards();
+        } else {
+            fieldNames = getTradeFields(owner);
+            chosenTradeObject = getChosenField(owner, fieldNames);
+        }
+
+        if (chosenTradeObject == null ||
+                (chosenTradeObject.getClass() == Integer.class && ((Integer) chosenTradeObject) <= 0)) {
+            StringBuilder msg = new StringBuilder();
+                   msg.append(owner.getName());
+                    msg.append(" har ikke nogen ");
+            if (tradeObject.equalsIgnoreCase("Ejendomme"))
+                msg.append("grunde");
+            else
+                msg.append("benådninger");
+            msg.append(" at handle med.");
+            guiHandler.giveMsg(msg.toString());
             return;
         }
 
         try {
-            price = getUserPrice(owner, receiver, chosenField);
+            price = getUserPrice(owner, receiver, chosenTradeObject);
         } catch (Exception e) {
             e.printStackTrace();
             return;
         }
 
-        makeTransaction(price, chosenField, owner, receiver);
+        makeTransaction(price, chosenTradeObject, owner, receiver);
         guiHandler.updateBalance(board.getPlayers());
     }
 
@@ -59,23 +73,28 @@ public class TradeController {
      * Moves the money and the ownership of a tile from one party to the other.
      *
      * @param price The amount of money paid for the OwnableField
-     * @param chosenField The field being traded
+     * @param chosenTradeObject The field being traded
      * @param owner The one owning the field before the trade
      * @param receiver The one getting the field
      */
-    private void makeTransaction(int price, OwnableField chosenField, Player owner, Player receiver) {
+    private void makeTransaction(int price, Object chosenTradeObject, Player owner, Player receiver) {
         //Take money from the buying player and add to selling player
         if (receiver.getAccount().getScore() >= price) {
             receiver.getAccount().changeScore(-price);
             owner.getAccount().changeScore(price);
-            owner.getOwnedFields().remove(chosenField);
-            receiver.getOwnedFields().add(chosenField);
-            chosenField.setOwner(receiver);
+            if (chosenTradeObject.getClass() == OwnableField.class) {
+                owner.getOwnedFields().remove((OwnableField) chosenTradeObject);
+                receiver.getOwnedFields().add((OwnableField) chosenTradeObject);
+                ((OwnableField)chosenTradeObject).setOwner(receiver);
+            } else {
+                owner.removeJailCards();
+                receiver.addJailCards();
+            }
         } else {
             guiHandler.giveMsg(receiver.getName() + " har ikke råd til denne handel.");
             return;
         }
-        guiHandler.giveMsg(receiver.getName() + " har købt " + chosenField.getName() +
+        guiHandler.giveMsg(receiver.getName() + " har købt " + chosenTradeObject.toString() +
                 " for kr. " + price + " af " + owner.getName());
     }
 
@@ -84,17 +103,17 @@ public class TradeController {
      *
      * @param owner The owner of the field
      * @param receiver The one standing to receive the field
-     * @param chosenField The field being traded
+     * @param chosenTradeObject The field being traded
      * @return The agreed upon price
      */
-    private int getUserPrice(Player owner, Player receiver, Field chosenField) {
+    private int getUserPrice(Player owner, Player receiver, Object chosenTradeObject) {
         int salesPrice;
         String confirmationOfSale;
         do {
             salesPrice = guiHandler.getUserInt("Indtast salgsprisen: ");
 
             confirmationOfSale = guiHandler.makeButtons(owner.getName() + " sælger " +
-                    chosenField.getName() + " til " + receiver.getName() + " for kr. " + salesPrice +
+                    chosenTradeObject.toString() + " til " + receiver.getName() + " for kr. " + salesPrice +
                     "." + "Er dette korrekt?", "Ja", "Nej", "Afbryd køb");
             if (confirmationOfSale.equals("Afbryd køb")) {
                 guiHandler.giveMsg("Køb afbrudt!");
