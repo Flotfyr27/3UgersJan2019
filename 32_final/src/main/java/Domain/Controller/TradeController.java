@@ -168,8 +168,8 @@ public class TradeController {
     private Player getChosenPlayer(String[] names) {
         String targetPlayer = guiHandler.makeButtons("Select a player to trade with", names);
         for (int n = 0; n < board.getPlayers().length; n++) {
-            if (targetPlayer.equals(board.getPlayerAtIndex(n).getName())) {
-                return board.getPlayerAtIndex(n);
+            if (targetPlayer.equals(board.getPlayers()[n].getName())) {
+                return board.getPlayers()[n];
             }
         }
 
@@ -189,7 +189,7 @@ public class TradeController {
 
         for (int n = 0; n < board.getPlayers().length; n++) {
             if (!playerTrading.equals(board.getPlayers()[n]))
-                names[i++] = board.getPlayerAtIndex(n).getName();
+                names[i++] = board.getPlayers()[n].getName();
         }
         return names;
     }
