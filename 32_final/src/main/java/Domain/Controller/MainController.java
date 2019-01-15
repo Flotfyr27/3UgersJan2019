@@ -53,10 +53,10 @@ public class MainController {
                         tradeCon.runCase(currentPlayer);
                         currentPlayer.setIsActive(true);
                     }
-                    if (choice.equalsIgnoreCase("Pantsætning"))
+                    if (choice.equalsIgnoreCase("Pantsætning")) {
                         pawnCon.runCase(currentPlayer);
                         currentPlayer.setIsActive(true);
-
+                    }
                 }
 
             }while (currentPlayer.getIsActive());
