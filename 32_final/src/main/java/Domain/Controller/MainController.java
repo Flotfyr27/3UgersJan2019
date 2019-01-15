@@ -17,6 +17,7 @@ public class MainController {
     private PawnController pawnCon;
     private TradeController tradeCon;
     private int turnsInARow;
+    private BuySellController buySellCon;
 
     public MainController(Player[] players){
         this.players = players;
@@ -28,6 +29,7 @@ public class MainController {
         jailController = JailController.getInstance();
         pawnCon = PawnController.getInstance();
         tradeCon = new TradeController();
+        buySellCon = BuySellController.getInstance();
     }
 
     public void runCase(){
@@ -40,7 +42,7 @@ public class MainController {
                 //hvis i fængsel
                 if (currentPlayer.getJailTime() >=0) {
                     choice = guiHandler.makeButtons("Vælg en handling " + currentPlayer.getName(),
-                            "Slip fri", "Handel", "Pantsætning");
+                            "Slip fri", "Handel", "Pantsætning", "Køb/sælg hus");
                     if (choice.equalsIgnoreCase("Slip fri"))
                         jailController.runCase(currentPlayer);
                     if (choice.equalsIgnoreCase("Handel")) {
@@ -49,9 +51,12 @@ public class MainController {
                     }
                     if (choice.equalsIgnoreCase("Pantsætning"))
                         ;//pawnCon.runCase();
+                    if (choice.equalsIgnoreCase("Køb/sælg hus")){
+                        buySellCon.runCase(currentPlayer);
+                    }
                 } else {
                     choice = guiHandler.makeButtons("Vælg en handling " + currentPlayer.getName(),
-                            "Slå terninger", "Handel", "Pantsætning");
+                            "Slå terninger", "Handel", "Pantsætning", "Køb/sælg hus");
                     if (choice.equalsIgnoreCase("Slå terninger")) {
                         turnsInARow++;
                         if (turnsInARow == 3) {
@@ -70,6 +75,9 @@ public class MainController {
                     if (choice.equalsIgnoreCase("Pantsætning")) {
                         pawnCon.runCase(currentPlayer);
                         currentPlayer.setIsActive(true);
+                    }
+                    if (choice.equalsIgnoreCase("Køb/sælg hus")){
+                        buySellCon.runCase(currentPlayer);
                     }
                 }
 

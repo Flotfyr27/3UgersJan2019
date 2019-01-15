@@ -9,7 +9,6 @@ import UI.GUI.GuiHandler;
 
 public class PawnController {
 
-    private boolean fieldIsPropertyField;
     private GuiHandler guiHandler;
     private Board board;
     private static PawnController instance;
@@ -139,8 +138,8 @@ public class PawnController {
      *
      * @return
      */
-    private boolean hasBuildings(OwnableField ownableField) {
-        if (ownableField.getHouses() == 0 && ownableField.getHotel()) {
+    private boolean hasBuildings(PropertyField propertyField) {
+        if (propertyField.getHouses() == 0 && propertyField.getHotel()) {
             return true;
         } else {
             return false;
@@ -172,9 +171,9 @@ public class PawnController {
         int buildingsWorth;
         buildingsWorth = ownableField.getWorth() - ownableField.getPrice();
 
-        if (hasBuildings(ownableField) && isPropertyField(ownableField)) {
-            int numberOfHouses = ownableField.getHouses();
-            ownableField.removeHouse(numberOfHouses);
+        if (isPropertyField(ownableField) && hasBuildings((PropertyField)ownableField)) {
+            int numberOfHouses = ((PropertyField)ownableField).getHouses();
+            ((PropertyField)ownableField).removeHouse(numberOfHouses);
             p.getAccount().changeScore(buildingsWorth);
         } else {
             p.getAccount().changeScore(pawnValue(ownableField));
