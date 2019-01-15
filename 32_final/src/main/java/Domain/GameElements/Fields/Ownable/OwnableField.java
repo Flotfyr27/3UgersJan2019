@@ -92,33 +92,44 @@ public abstract class OwnableField extends Field {
 
         } else{
             //TODO check to see if player has enough money to pay rent, else pawn!
-            guiHandler.giveMsg("Du skal betaler leje til  "+ getOwner().getName());
-            getOwner().getAccount().changeScore(getRent(current));
-            current.getAccount().changeScore(-getRent(current));
+            if (owner.getJailTime() < 0) {
+                guiHandler.giveMsg("Du skal betaler leje til  " + getOwner().getName());
+                getOwner().getAccount().changeScore(getRent(current));
+                current.getAccount().changeScore(-getRent(current));
+            } else {
+                guiHandler.giveMsg(getOwner().getName() + " er i fængsel og kan derfor ikke kræve leje.");
+            }
         }
 
     }
 
-    public OwnableField[] getFieldsOfColor(Color color){
+    /**
+     * Goes through all fields on the board and returns all the fields of the same
+     * type and color as the one the method was called on.
+     *
+     * @return All fields of same color and class as the object
+     */
+    public OwnableField[] getFieldsOfColor(){
         Field[] fields = Board.getInstance().getFields();
         int colorFieldNum = 0;
         OwnableField[] fieldsOfColor;
 
+        //counts the number fields of the same color and class as the object
         for (Field field : fields) {
-            if (field.getClass().equals(OwnableField.class)) {
-                if (((OwnableField) field).getBgColor() == color) {
+            if (field.getClass().equals(this.getClass())) {
+                if (((OwnableField) field).getBgColor() == this.getBgColor()) {
                     colorFieldNum++;
                 }
             }
         }
 
+        //Fills the array with the colored fields
         fieldsOfColor = new OwnableField[colorFieldNum];
-
         int colorIndex = 0;
-        for (int i = 0; i < fieldsOfColor.length; i++) {
-            if (fields[i].getClass().equals(OwnableField.class)) {
-                if (((OwnableField) fields[i]).getBgColor() == color) {
-                    fieldsOfColor[colorIndex++] = (OwnableField) fields[i];
+        for (Field field : fields) {
+            if (field.getClass().equals(this.getClass())) {
+                if (((OwnableField) field).getBgColor() == this.getBgColor()) {
+                    fieldsOfColor[colorIndex++] = (OwnableField) field;
                 }
             }
         }
