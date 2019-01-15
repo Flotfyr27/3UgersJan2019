@@ -53,9 +53,14 @@ public class AuctionController {
                 String answer = guiHandler.makeButtons("Vil de købe " + field.getName() + ", " + buyers.get(currentPlayer).getName() + "?", "Ja", "Nej");
                 if(answer.equals("Nej")) {
                     buyers.remove(currentPlayer);
+
+                    if(buyers.size() <= currentPlayer){
+                        currentPlayer = 0;
+                        nextPlayer = currentPlayer + 1;
+                    }
                 }else{
                     if(buyers.get(currentPlayer).getAccount().getScore() >= highestBid) {
-                        highestBid = guiHandler.getUserInt("Hvad vil De byde på ejendommen?", highestBid, highestBid * 2);
+                        highestBid = guiHandler.getUserInt("Hvad vil De byde på ejendommen? Højeste bud: " + highestBid, highestBid, highestBid * 2);
                         currentPlayer = nextPlayer++;
                         if((nextPlayer%buyers.size()) == 0){
                             nextPlayer = 0;
