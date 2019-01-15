@@ -93,7 +93,7 @@ public class PropertyField extends OwnableField {
     @Override
     public void landOnAction(Player current) {
         if (getOwner() == null) {
-            String choice = guiHandler.makeButtons("Vil du købe de her huse?", "Ja", "Nej");
+            String choice = guiHandler.makeButtons("Vil du købe denne grund?", "Ja", "Nej");
             if (choice.equalsIgnoreCase("Ja")) {
                 if (current.getAccount().canBuy(-getPrice())) {
                     current.getAccount().changeScore(-getPrice());
