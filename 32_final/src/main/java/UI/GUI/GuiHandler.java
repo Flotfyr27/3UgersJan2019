@@ -227,27 +227,9 @@ public class GuiHandler {
      * @param players all players in the game
      */
     public void updateBalance(Player[] players){
-        boolean updated = false;
-
-        do {
-            for (int j = 0; j < players.length; j++) {
-                if (players[j].getAccount().getScore() != guiPlayers[j].getBalance()) {
-                    updated = false;
-                    break;
-                } else {
-                    updated = true;
-                }
-            }
-
-            if (updated)
-                break;
-
-            for (int i = 0; i < players.length; i++) {
-                //TODO add a Lerp function
-
-                guiPlayers[i].setBalance(players[i].getAccount().getScore());
-            }
-        } while (!updated);
+        for (int i = 0; i < guiPlayers.length; i++) {
+            guiPlayers[i].setBalance(players[i].getAccount().getScore());
+        }
     }
 
     public void teleportPlayer(int destination, Player player, Player[] players){
