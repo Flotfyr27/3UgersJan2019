@@ -7,21 +7,16 @@ import Domain.GameElements.Fields.Ownable.OwnableField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
 import Domain.GameElements.Fields.Field;
 import Domain.GameElements.Entities.Account;
+import Domain.GameElements.Board;
 import UI.GUI.GuiHandler;
 
 public class PawnController {
 
-   // private int pawnValue;
-    private boolean fieldIsEmpty;
     private boolean fieldIsPropertyField;
-    private MoveToNearestChanceCard moveToNearestChanceCard;
-    private Class<OwnableField> type;
-
-    Player[] players;
     private PropertyField propertyField;
-
+    private GuiHandler guiHandler;
     private Account account = new Account();
-    private Field[] field;
+    private Board board;
 
 
     /**
@@ -29,24 +24,95 @@ public class PawnController {
      *
      */
     public PawnController() {
-
+        guiHandler = GuiHandler.getInstance();
+        board = Board.getInstance();
     }
 
+    /**
+     *
+     * @param player
+     */
     public void runCase(Player player){
-        String pawnedField = null;
-        OwnableField field = null;
-        String fieldNames[] = new String[28];
-        for(int n = 0; n < player.getOwnedFields().size(); n++){
-            fieldNames[n] = player.getOwnedFields().get(n).getName();
-        }
-        //Select a field to pawn based on user input
-        pawnedField = GuiHandler.getInstance().makeButtons("Vælg et felt du vil pante", fieldNames);
-        for(int n = 0; n < player.getOwnedFields().size(); n++){
-            if(pawnedField.equals(fieldNames[n])){
-                field = player.getOwnedFields().get(n);
+        OwnableField chosenField;
+        String[] fieldNames;
+
+        String pawnChoice = guiHandler.makeButtons("VIl du pante en grund eller købe en grund tilbage?","Pante", "Købe tilbage");
+        if(pawnChoice.equalsIgnoreCase("Pante")) {
+            fieldNames = getTradeFields(player);
+            chosenField = getChosenUnpawnedField(player, fieldNames);
+            if (chosenField == null) {
+                guiHandler.makeButtons("Du har ingen grunde at pante", "Ok");
+                return;
             }
-            pawnProperty(field);
+
+            pawnProperty(chosenField);
         }
+        else {
+            fieldNames = getTradeFields(player);
+            chosenField = getChosenPawnedField(player, fieldNames);
+            if (chosenField == null) {
+                guiHandler.makeButtons("Du har ingen grunde, du kan købe tilbage", "Ok");
+                return;
+            }
+            unPawn(chosenField);
+        }
+
+        guiHandler.updateBalance(board.getPlayers());
+    }
+    /**
+     * Creates a button for each ownableField which hasn't been pawned and returns the field chosen by the user
+     *
+     * @param owner      The player who's fields can be chosen
+     * @param fieldNames An array of all the possible fields to trade
+     * @return the chosen field
+     */
+    private OwnableField getChosenUnpawnedField(Player owner, String[] fieldNames) {
+        //Select a field to trade based on user input
+        if (fieldNames.length > 0) {
+            String fieldString = guiHandler.makeButtons("Vælg et felt at pante", fieldNames);
+            for (int n = 0; n < owner.getOwnedFields().size(); n++) {
+                if (fieldString.equals(fieldNames[n]) && !owner.getOwnedFields().get(n).getIsPawned()) {
+                    return owner.getOwnedFields().get(n);
+                }
+            }
+        } else {
+            return null;
+        }
+        throw new RuntimeException("getChosenField() returned no value");
+    }
+    /**
+     * Creates a button for each ownableField which has been pawned and returns the field chosen by the user
+     *
+     * @param owner      The player who's fields can be chosen
+     * @param fieldNames An array of all the possible fields to trade
+     * @return the chosen field
+     */
+    private OwnableField getChosenPawnedField(Player owner, String[] fieldNames) {
+        //Select a field to trade based on user input
+        if (fieldNames.length > 0) {
+            String fieldString = guiHandler.makeButtons("Vælg et felt at købe tilbage", fieldNames);
+            for (int n = 0; n < owner.getOwnedFields().size(); n++) {
+                if (fieldString.equals(fieldNames[n]) && owner.getOwnedFields().get(n).getIsPawned()) {
+                    return owner.getOwnedFields().get(n);
+                }
+            }
+        } else {
+            return null;
+        }
+        throw new RuntimeException("getChosenField() returned no value");
+    }
+
+    /**
+     * Creates a list of the fields owned by a player
+     * @param owner the player
+     * @return list of fields
+     */
+    private String[] getTradeFields(Player owner) {
+        String[] fieldNames = new String[owner.getOwnedFields().size()];
+        for (int n = 0; n < owner.getOwnedFields().size(); n++) {
+            fieldNames[n] = owner.getOwnedFields().get(n).getName();
+        }
+        return fieldNames;
     }
     /**
      * Boolean checking if the field has any hotels or houses
@@ -84,7 +150,7 @@ public class PawnController {
      * Method that pawn our properties.
      */
     private void pawnProperty(OwnableField ownableField) {
-        int buildingsWorth = 0;
+        int buildingsWorth;
         buildingsWorth = ownableField.getWorth() - ownableField.getPrice();
 
         if (!hasBuildings() && isPropertyField(ownableField)) {
