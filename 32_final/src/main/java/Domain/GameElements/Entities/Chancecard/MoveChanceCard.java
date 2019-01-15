@@ -1,5 +1,6 @@
 package Domain.GameElements.Entities.Chancecard;
 
+import Domain.GameElements.Board;
 import Domain.GameElements.Entities.Player;
 import TechnicalServices.GameLogic.GameLogic;
 

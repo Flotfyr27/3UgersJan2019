@@ -10,6 +10,7 @@ import Domain.GameElements.Fields.Ownable.CompanyField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
 import Domain.GameElements.Fields.Ownable.ShippingField;
 import Domain.GameElements.Fields.TaxField;
+import UI.GUI.GuiHandler;
 
 import java.awt.*;
 
@@ -50,7 +51,8 @@ public class Board {
     public void initBoard(int numberOfPlayers) {
         players = new Player[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++) {
-            players[i] = new Player("Player" + (i + 1));
+            String name = GuiHandler.getInstance().getUserString("Indtast dit navn " +(i+1));
+            players[i] = new Player(name);
         }
 
         ChanceCardStack.getStackInstance().initializeCards(players, fields);
@@ -63,15 +65,6 @@ public class Board {
      */
     public Player[] getPlayers() {
         return players;
-    }
-
-    /**
-     * Method to pull a single player from the player array
-     * @param index Index is used to choose which player to pull
-     * @return A Player object at given index.
-     */
-    public Player getPlayerAtIndex(int index){
-        return players[index];
     }
 
     /**
