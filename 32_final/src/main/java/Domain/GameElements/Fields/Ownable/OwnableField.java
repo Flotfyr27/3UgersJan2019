@@ -91,11 +91,31 @@ public abstract class OwnableField extends Field {
             return;
 
         } else{
-            //TODO check to see if player has enough money to pay rent, else pawn!
             if (owner.getJailTime() < 0) {
                 guiHandler.giveMsg("Du skal betaler leje til  " + getOwner().getName());
-                getOwner().getAccount().changeScore(getRent(current));
-                current.getAccount().changeScore(-getRent(current));
+                boolean ownsAll = false;
+                for (OwnableField field : this.getFieldsOfColor()) {
+                    if (field.getOwner() != null && field.getOwner().equals(owner))
+                        ownsAll = true;
+                    else {
+                        ownsAll = false;
+                        break;
+                    }
+                }
+
+                if (ownsAll) {
+                    if ((!this.getClass().equals(PropertyField.class)) || ((PropertyField) this).getHouses() == 0) {
+                        current.getAccount().changeScore(-getRent(current) * 2);
+                        getOwner().getAccount().changeScore(getRent(current) * 2); //TODO test that this works
+                    } else {
+                        current.getAccount().changeScore(-getRent(current));
+                        getOwner().getAccount().changeScore(getRent(current));
+                    }
+                } else {
+                    current.getAccount().changeScore(-getRent(current));
+                    getOwner().getAccount().changeScore(getRent(current));
+                }
+
             } else {
                 guiHandler.giveMsg(getOwner().getName() + " er i fængsel og kan derfor ikke kræve leje.");
             }
