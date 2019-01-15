@@ -12,6 +12,7 @@ public class AuctionController {
     private GuiHandler guiHandler;
     private ArrayList<Player> buyers;
     private static AuctionController instance;
+    private Player highestBidder = null;
 
     private AuctionController(){
         board = Board.getInstance();
@@ -60,7 +61,12 @@ public class AuctionController {
                     }
                 }else{
                     if(buyers.get(currentPlayer).getAccount().getScore() >= highestBid) {
+                        if(highestBidder == null){
                         highestBid = guiHandler.getUserInt("Hvad vil De byde på ejendommen? Højeste bud: " + highestBid, highestBid, highestBid * 2);
+                        }else{
+                            highestBid = guiHandler.getUserInt("Hvad vil De byde på ejendommen? Højeste bud: " + highestBid + " (" + highestBidder.getName() + ")", highestBid+50, highestBid * 2);
+                        }
+                        highestBidder = buyers.get(currentPlayer);
                         currentPlayer = nextPlayer++;
                         if((nextPlayer%buyers.size()) == 0){
                             nextPlayer = 0;
