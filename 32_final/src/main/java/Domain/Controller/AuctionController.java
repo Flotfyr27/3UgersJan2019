@@ -62,9 +62,9 @@ public class AuctionController {
                 }else{
                     if(buyers.get(currentPlayer).getAccount().getScore() >= highestBid) {
                         if(highestBidder == null){
-                        highestBid = guiHandler.getUserInt("Hvad vil De byde på ejendommen? Højeste bud: " + highestBid, highestBid, highestBid * 2);
+                        highestBid = guiHandler.getUserInt("Hvad vil De byde på ejendommen? Højeste bud: " + highestBid, highestBid, buyers.get(currentPlayer).getAccount().getScore());
                         }else{
-                            highestBid = guiHandler.getUserInt("Hvad vil De byde på ejendommen? Højeste bud: " + highestBid + " (" + highestBidder.getName() + ")", highestBid+50, highestBid * 2);
+                            highestBid = guiHandler.getUserInt("Hvad vil De byde på ejendommen? Højeste bud: " + highestBid + " (" + highestBidder.getName() + ")", highestBid+50, buyers.get(currentPlayer).getAccount().getScore());
                         }
                         highestBidder = buyers.get(currentPlayer);
                         currentPlayer = nextPlayer++;
