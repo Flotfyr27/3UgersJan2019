@@ -13,7 +13,7 @@ public class MainController {
     private Player currentPlayer;
     private MoveController moveCon;
     private JailController jailController;
-    /*private PawnController pawnCon;*/
+    private PawnController pawnCon;
     private TradeController tradeCon;
 
     public MainController(Player[] players){
@@ -24,7 +24,7 @@ public class MainController {
 
         moveCon = MoveController.getInstance();
         jailController = JailController.getInstance();
-        /*pawnCon = new PawnController.getInstance;*/
+        pawnCon = PawnController.getInstance();
         tradeCon = new TradeController();
     }
 
@@ -54,7 +54,9 @@ public class MainController {
                         currentPlayer.setIsActive(true);
                     }
                     if (choice.equalsIgnoreCase("Pantsætning"))
-                        ; //pawnCon.runCase();
+                        pawnCon.runCase(currentPlayer);
+                        currentPlayer.setIsActive(true);
+
                 }
 
             }while (currentPlayer.getIsActive());

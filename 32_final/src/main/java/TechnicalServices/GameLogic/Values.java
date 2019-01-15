@@ -3,7 +3,6 @@ package TechnicalServices.GameLogic;
 import Domain.GameElements.Entities.DiceTray;
 
 public class Values {
-    private static DiceTray dicetray;
     public Values(){
     }
 
@@ -258,4 +257,3 @@ return rent;
 
 
 }
-/*TODO Make methods for all property, which provides the current rent (streets, faeries and breweries)*/

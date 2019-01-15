@@ -26,7 +26,11 @@ public class PropertyField extends OwnableField {
      * Method retrieves number of houses on the field
      * @return integer value of number of houses
      */
-    public int getHouses(){
+
+
+    @Override
+    public int getHouses() {
+
         return numberOfHouses;
     }
 
@@ -34,7 +38,10 @@ public class PropertyField extends OwnableField {
      * Method returns boolean value depending on the presence of a hotel
      * @return True/false if field has a hotel
      */
-    public boolean getHotel(){
+
+    @Override
+    public boolean getHotel() {
+
         return hasHotel;
     }
 
@@ -71,7 +78,11 @@ public class PropertyField extends OwnableField {
      * Removes a house based on the numeric value given
      * @param value The amount of houses to remove
      */
-    public void removeHouse(int value){
+
+
+    @Override
+    public void removeHouse(int value) {
+
         numberOfHouses -= value;
     }
 
