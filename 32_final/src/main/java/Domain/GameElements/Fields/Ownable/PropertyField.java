@@ -28,7 +28,11 @@ public class PropertyField extends OwnableField {
      * Method retrieves number of houses on the field
      * @return integer value of number of houses
      */
-    public int getHouses(){
+
+
+    @Override
+    public int getHouses() {
+
         return numberOfHouses;
     }
 
@@ -36,7 +40,10 @@ public class PropertyField extends OwnableField {
      * Method returns boolean value depending on the presence of a hotel
      * @return True/false if field has a hotel
      */
-    public boolean getHotel(){
+
+    @Override
+    public boolean getHotel() {
+
         return hasHotel;
     }
 
@@ -73,7 +80,11 @@ public class PropertyField extends OwnableField {
      * Removes a house based on the numeric value given
      * @param value The amount of houses to remove
      */
-    public void removeHouse(int value){
+
+
+    @Override
+    public void removeHouse(int value) {
+
         numberOfHouses -= value;
     }
 
@@ -95,14 +106,14 @@ public class PropertyField extends OwnableField {
     @Override
     public void landOnAction(Player current) {
         if (getOwner() == null) {
-            String choice = guiHandler.makeButtons("Do you want to buy this house?", "yes", "no");
-            if (choice.equalsIgnoreCase("yes")) {
+            String choice = guiHandler.makeButtons("Vil du købe denne grund?", "Ja", "Nej");
+            if (choice.equalsIgnoreCase("Ja")) {
                 if (current.getAccount().canBuy(-getPrice())) {
                     current.getAccount().changeScore(-getPrice());
                     setOwner(current);
                     current.getOwnedFields().add(this);
                 } else {
-                    guiHandler.giveMsg("You can't afford this property");
+                    guiHandler.giveMsg("Du har desværre ikke råd til denne ejendom");
                     //TODO call an auctionController here
                 }
             } else {
