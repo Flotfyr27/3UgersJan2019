@@ -1,5 +1,6 @@
 package Domain.GameElements.Fields.Ownable;
 
+import Domain.Controller.AuctionController;
 import Domain.GameElements.Fields.Field;
 import Domain.GameElements.Entities.Player;
 
@@ -7,6 +8,7 @@ import java.awt.*;
 
 public abstract class OwnableField extends Field {
     private Player owner;
+    private AuctionController auctionController;
     protected boolean isPawned;
     protected int price, rent;
 
@@ -22,6 +24,7 @@ public abstract class OwnableField extends Field {
         super(name, subtext, bgColour);
         this.price = price;
         this.isPawned = false;
+        auctionController = AuctionController.getInstance();
     }
 
     /**
@@ -79,7 +82,7 @@ public abstract class OwnableField extends Field {
             }
             else {
                 guiHandler.giveMsg("Grunden sættes op for auktion");
-                //auctionCon.auction();
+                auctionController.runCase(current);
             }
         }else if(getOwner() == current){
             guiHandler.giveMsg("Du ejer dette felt");

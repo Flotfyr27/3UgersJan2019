@@ -11,12 +11,26 @@ public class AuctionController {
     private Board board;
     private GuiHandler guiHandler;
     private ArrayList<Player> buyers;
-    public AuctionController(){
+
+    private AuctionController(){
         board = Board.getInstance();
         guiHandler = GuiHandler.getInstance();
     }
+    private static AuctionController instance;
 
-    public void initAuction(Player startingPlayer){
+    /**
+     * Creates this class as a singleton
+     * @return
+     */
+    public static AuctionController getInstance(){
+        if(instance == null){
+            instance = new AuctionController();
+            return instance;
+        }
+        else return instance;
+    }
+
+    public void runCase(Player startingPlayer){
 
 
         //TODO skift til arrayList
