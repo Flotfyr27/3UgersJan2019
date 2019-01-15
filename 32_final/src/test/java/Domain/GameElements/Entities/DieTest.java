@@ -35,12 +35,12 @@ class DieTest {
         System.out.println("Antal 6'ere: " + nr6);
 
         //Examines if any die values are below one or above six
-        assertEquals(100000, nr1, 300);
-        assertEquals(100000, nr2,300);
-        assertEquals(100000, nr3,300);
-        assertEquals(100000, nr4,300);
-        assertEquals(100000, nr5,300);
-        assertEquals(100000, nr6,300);
+        assertEquals(100000, nr1, 500);
+        assertEquals(100000, nr2,500);
+        assertEquals(100000, nr3,500);
+        assertEquals(100000, nr4,500);
+        assertEquals(100000, nr5,500);
+        assertEquals(100000, nr6,500);
 
 
     }
