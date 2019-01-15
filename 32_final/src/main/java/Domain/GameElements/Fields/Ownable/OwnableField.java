@@ -1,5 +1,6 @@
 package Domain.GameElements.Fields.Ownable;
 
+import Domain.GameElements.Board;
 import Domain.GameElements.Fields.Field;
 import Domain.GameElements.Entities.Player;
 
@@ -96,6 +97,41 @@ public abstract class OwnableField extends Field {
             current.getAccount().changeScore(-getRent(current));
         }
 
+    }
+
+    public OwnableField[] getFieldsOfColor(Color color){
+        Field[] fields = Board.getInstance().getFields();
+        int colorFieldNum = 0;
+        OwnableField[] fieldsOfColor;
+
+        for (Field field : fields) {
+            if (field.getClass().equals(OwnableField.class)) {
+                if (((OwnableField) field).getBgColor() == color) {
+                    colorFieldNum++;
+                }
+            }
+        }
+
+        fieldsOfColor = new OwnableField[colorFieldNum];
+
+        int colorIndex = 0;
+        for (int i = 0; i < fieldsOfColor.length; i++) {
+            if (fields[i].getClass().equals(OwnableField.class)) {
+                if (((OwnableField) fields[i]).getBgColor() == color) {
+                    fieldsOfColor[colorIndex++] = (OwnableField) fields[i];
+                }
+            }
+        }
+        return fieldsOfColor;
+    }
+
+    /**
+     * returns the background color
+     * @return
+     */
+    @Override
+    public Color getBgColor() {
+        return super.getBgColor();
     }
 
     public boolean getIsPawned(){return isPawned;}
