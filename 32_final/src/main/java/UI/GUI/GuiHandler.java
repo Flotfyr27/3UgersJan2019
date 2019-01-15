@@ -8,9 +8,11 @@ import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.*;
 import Domain.GameElements.Fields.Ownable.*;
 import Domain.GameElements.Fields.ChanceField.*;
+import TechnicalServices.GameLogic.Values;
 import gui_codebehind.GUI_BoardController;
 import gui_fields.*;
 import gui_main.GUI;
+import jdk.nashorn.internal.objects.annotations.Property;
 
 import java.awt.*;
 
@@ -26,6 +28,7 @@ public class GuiHandler {
     /**
      * returns the instance of the GuiHandler
      * this method ensures that all classes can access the same GuiHandler instance (singleton)
+     *
      * @return
      */
     public static GuiHandler getInstance() {
@@ -38,32 +41,33 @@ public class GuiHandler {
 
     /**
      * creates the gui_fields
+     *
      * @param fields the fields in the board class
      * @return The instance of the object
      */
-    public void initGuiFields(Domain.GameElements.Fields.Field[] fields) throws IllegalStateException{
-        for(int i = 0; i < gui_fields.length; i++){
-            if(fields[i].getClass().equals(EmptyField.class) && i == 0){
+    public void initGuiFields(Domain.GameElements.Fields.Field[] fields) throws IllegalStateException {
+        for (int i = 0; i < gui_fields.length; i++) {
+            if (fields[i].getClass().equals(EmptyField.class) && i == 0) {
                 gui_fields[i] = (new GUI_Start(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null));
 
-            } else if(fields[i].getClass().equals(PropertyField.class)){
+            } else if (fields[i].getClass().equals(PropertyField.class)) {
                 PropertyField propertyField = (PropertyField) fields[i];
                 gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", Integer.toString(propertyField.getPrice()), fields[i].getBgColor(), null));
 
-            } else if(fields[i].getClass().equals(EmptyField.class)){
+            } else if (fields[i].getClass().equals(EmptyField.class)) {
                 gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
 
-            } else if(fields[i].getClass().equals(ChanceField.class)){
+            } else if (fields[i].getClass().equals(ChanceField.class)) {
                 gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), Color.white));
 
             } else if (fields[i].getClass().equals(TaxField.class)) {
-               gui_fields[i] = new GUI_Tax(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(),null);
+                gui_fields[i] = new GUI_Tax(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null);
 
             } else if (fields[i].getClass().equals(ShippingField.class)) {
-                gui_fields[i] = new GUI_Shipping("", fields[i].getName(), fields[i].getSubtext(), "", "",fields[i].getBgColor(),null);
+                gui_fields[i] = new GUI_Shipping("", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
 
             } else if (fields[i].getClass().equals(CompanyField.class)) {
-                gui_fields[i] = new GUI_Brewery("", fields[i].getName(), fields[i].getSubtext(), "", "",fields[i].getBgColor(),null);
+                gui_fields[i] = new GUI_Brewery("", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
 
             } else if (fields[i].getClass().equals(JailorField.class)) {
                 gui_fields[i] = new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null);
@@ -76,18 +80,18 @@ public class GuiHandler {
     /**
      * Constructor. it is private to make sure it cannot be used externally.
      */
-    private GuiHandler(){
+    private GuiHandler() {
     }
 
     /**
      * Methods returns an integer given by a player within the bounds of min and max
      *
      * @param message The message given to the player before they give their input
-     * @param min The minimum number of players
-     * @param max The maximum number of players
+     * @param min     The minimum number of players
+     * @param max     The maximum number of players
      * @return The user chosen int
      */
-    public int getUserInt(String message, int min, int max){
+    public int getUserInt(String message, int min, int max) {
         int output;
 
         do { //Made this loop due to us sometimes being able to choose any number of players despite min/max value
@@ -108,52 +112,53 @@ public class GuiHandler {
 
     /**
      * Creates players and set car types.
+     *
      * @param p
      */
-    public void initGuiPlayers(Player[] p){
+    public void initGuiPlayers(Player[] p) {
         GUI_Car.Type carType;
         Color primaryColor;
         //Create players
         guiPlayers = new GUI_Player[p.length];
-        for(int i = 0; i < p.length; i++){
-            switch (i){
-                case 0:{
+        for (int i = 0; i < p.length; i++) {
+            switch (i) {
+                case 0: {
                     carType = GUI_Car.Type.RACECAR;
                     primaryColor = Color.RED;
                     break;
                 }
-                case 1:{
+                case 1: {
                     carType = GUI_Car.Type.RACECAR;
                     primaryColor = Color.GREEN;
                     break;
                 }
-                case 2:{
+                case 2: {
                     carType = GUI_Car.Type.RACECAR;
                     primaryColor = Color.CYAN;
                     break;
                 }
-                case 3:{
+                case 3: {
                     carType = GUI_Car.Type.RACECAR;
                     primaryColor = Color.MAGENTA;
                     break;
                 }
-                case 4:{
+                case 4: {
                     carType = GUI_Car.Type.RACECAR;
                     primaryColor = Color.yellow;
-                break;
+                    break;
                 }
-                case 5:{
+                case 5: {
                     carType = GUI_Car.Type.RACECAR;
                     primaryColor = Color.ORANGE;
                     break;
                 }
-                default:{
+                default: {
                     carType = GUI_Car.Type.RACECAR;
                     primaryColor = Color.BLUE;
                     break;
                 }
             }
-            guiPlayers[i] = new GUI_Player("Player" + (i+1), p[i].getAccount().getScore(), new GUI_Car(primaryColor, Color.WHITE, carType, GUI_Car.Pattern.HORIZONTAL_LINE));
+            guiPlayers[i] = new GUI_Player("Player" + (i + 1), p[i].getAccount().getScore(), new GUI_Car(primaryColor, Color.WHITE, carType, GUI_Car.Pattern.HORIZONTAL_LINE));
             //Add players to GUI
             gui.addPlayer(guiPlayers[i]);
             guiPlayers[i].setBalance(p[i].getAccount().getScore());
@@ -165,10 +170,11 @@ public class GuiHandler {
 
     /**
      * Updates where the player(s) are located on the field.
+     *
      * @param pArr
      * @param f
      */
-    public void updateGui(Player currentPlayer, Player[] pArr, Domain.GameElements.Fields.Field[] f){
+    public void updateGui(Player currentPlayer, Player[] pArr, Domain.GameElements.Fields.Field[] f) {
 
         /*
          * Move the players on the map, field by field
@@ -190,8 +196,8 @@ public class GuiHandler {
         //moves the active player after start
         for (int i = 0; i < currentPlayer.getPos(); i++) {
             for (int j = 0; j < guiPlayers.length; j++) {
-                if (gui_fields[i].hasCar(guiPlayers[j]) && pArr[j].getPos() != i){
-                    gui_fields[(i+1)% gui_fields.length].setCar(guiPlayers[j], true);
+                if (gui_fields[i].hasCar(guiPlayers[j]) && pArr[j].getPos() != i) {
+                    gui_fields[(i + 1) % gui_fields.length].setCar(guiPlayers[j], true);
                     carMoved = true;
                 }
             }
@@ -204,21 +210,32 @@ public class GuiHandler {
         updateBalance(pArr);
 
 
-        /*
+        /**
          * updates ownership of tile
          */
         Player owner;
-        for(int i = 0; i < gui_fields.length; i++){
+        for (int i = 0; i < gui_fields.length; i++) {
             if (f[i].getClass().equals(PropertyField.class)) {
                 owner = ((PropertyField) f[i]).getOwner();
                 if (owner != null) {
-                    gui_fields[i].setDescription("Owner: " + owner.getName());
-                } else {
-                    gui_fields[i].setDescription("No owner");
+                    gui_fields[i].setDescription("Ejer: " + owner.getName());
                 }
             }
-        }
+            if (f[i].getClass().equals(ShippingField.class)) {
+                owner = ((ShippingField) f[i]).getOwner();
+                if (owner != null) {
+                    gui_fields[i].setDescription("Ejer: " + owner.getName());
+                }
+            }
+            if (f[i].getClass().equals(CompanyField.class)) {
+                owner = ((CompanyField) f[i]).getOwner();
+                if (owner != null) {
+                    gui_fields[i].setDescription("Ejer: " + owner.getName());
+                }
+            }
 
+
+        }
     }
 
     /**
@@ -278,7 +295,7 @@ public class GuiHandler {
      * @param msg
      */
     public void waitForRoll(String msg){
-        gui.getUserButtonPressed(msg, "Roll");
+        gui.getUserButtonPressed(msg, "Kast terningerne");
     }
 
     /**

@@ -93,14 +93,14 @@ public class PropertyField extends OwnableField {
     @Override
     public void landOnAction(Player current) {
         if (getOwner() == null) {
-            String choice = guiHandler.makeButtons("Do you want to buy this house?", "yes", "no");
-            if (choice.equalsIgnoreCase("yes")) {
+            String choice = guiHandler.makeButtons("Vil du købe de her huse?", "Ja", "Nej");
+            if (choice.equalsIgnoreCase("Ja")) {
                 if (current.getAccount().canBuy(-getPrice())) {
                     current.getAccount().changeScore(-getPrice());
                     setOwner(current);
                     current.getOwnedFields().add(this);
                 } else {
-                    guiHandler.giveMsg("You can't afford this property");
+                    guiHandler.giveMsg("Du har desværre ikke råd til denne ejendom");
                     //TODO call an auctionController here
                 }
             } else {
