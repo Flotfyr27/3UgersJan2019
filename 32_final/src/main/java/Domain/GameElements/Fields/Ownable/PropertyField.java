@@ -1,6 +1,8 @@
 package Domain.GameElements.Fields.Ownable;
 
 import java.awt.*;
+
+import Domain.Controller.AuctionController;
 import Domain.GameElements.Entities.Player;
 import TechnicalServices.GameLogic.Values;
 import UI.GUI.GuiHandler;
@@ -115,7 +117,7 @@ public class PropertyField extends OwnableField {
                     //TODO call an auctionController here
                 }
             } else {
-                //call an auctionController here
+                AuctionController.getInstance().runCase(current);
             }
         } else {
             current.getAccount().canBuy(-rent);

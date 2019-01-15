@@ -1,5 +1,6 @@
 package Domain.GameElements.Fields.Ownable;
 
+import Domain.Controller.AuctionController;
 import Domain.GameElements.Fields.Field;
 import Domain.GameElements.Entities.Player;
 
@@ -79,7 +80,7 @@ public abstract class OwnableField extends Field {
             }
             else {
                 guiHandler.giveMsg("Grunden sættes op for auktion");
-                //auctionCon.auction();
+                AuctionController.getInstance().runCase(current);
             }
         }else if(getOwner() == current){
             guiHandler.giveMsg("Du ejer dette felt");
