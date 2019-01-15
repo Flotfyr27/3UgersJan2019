@@ -107,6 +107,13 @@ public class GuiHandler {
     }
 
     /**
+     * Takes user input in the form of a String and returns it to the system
+     * @param message
+     * @return user String
+     */
+    public String getUserString(String message){return gui.getUserString(message);}
+
+    /**
      * Creates players and set car types.
      * @param p
      */
@@ -153,7 +160,7 @@ public class GuiHandler {
                     break;
                 }
             }
-            guiPlayers[i] = new GUI_Player("Player" + (i+1), p[i].getAccount().getScore(), new GUI_Car(primaryColor, Color.WHITE, carType, GUI_Car.Pattern.HORIZONTAL_LINE));
+            guiPlayers[i] = new GUI_Player(p[i].getName(), p[i].getAccount().getScore(), new GUI_Car(primaryColor, Color.WHITE, carType, GUI_Car.Pattern.HORIZONTAL_LINE));
             //Add players to GUI
             gui.addPlayer(guiPlayers[i]);
             guiPlayers[i].setBalance(p[i].getAccount().getScore());

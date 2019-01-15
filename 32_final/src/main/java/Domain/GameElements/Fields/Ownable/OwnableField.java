@@ -91,7 +91,7 @@ public abstract class OwnableField extends Field {
 
         } else{
             //TODO check to see if player has enough money to pay rent, else pawn!
-            guiHandler.giveMsg("Du skal betaler leje til  "+ getOwner().getName());
+            guiHandler.giveMsg("Du skal betale "+getRent(current) +"kr leje til  "+ getOwner().getName());
             getOwner().getAccount().changeScore(getRent(current));
             current.getAccount().changeScore(-getRent(current));
         }
