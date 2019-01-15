@@ -116,4 +116,14 @@ public class PropertyField extends OwnableField {
         int rent = Values.rentPrice(p.getPos(), numberOfHouses);
         return rent;
     }
+
+    /**
+     * This method gives the price of buying a house
+     * @param p The player who lands on the field
+     * @return Returns an integer with the price of buying a house on current propertyField
+     */
+    public int getHousePrice(Player p){
+        int priceOfHouse = housePrice;
+        return priceOfHouse;
+    }
 }
