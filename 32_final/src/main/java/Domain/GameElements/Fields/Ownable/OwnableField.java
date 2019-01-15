@@ -8,7 +8,6 @@ import java.awt.*;
 
 public abstract class OwnableField extends Field {
     private Player owner;
-    private AuctionController auctionController;
     protected boolean isPawned;
     protected int price, rent;
 
@@ -24,7 +23,6 @@ public abstract class OwnableField extends Field {
         super(name, subtext, bgColour);
         this.price = price;
         this.isPawned = false;
-        auctionController = AuctionController.getInstance();
     }
 
     /**
@@ -82,7 +80,7 @@ public abstract class OwnableField extends Field {
             }
             else {
                 guiHandler.giveMsg("Grunden sættes op for auktion");
-                auctionController.runCase(current);
+                AuctionController.getInstance().runCase(current);
             }
         }else if(getOwner() == current){
             guiHandler.giveMsg("Du ejer dette felt");
