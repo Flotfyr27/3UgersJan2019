@@ -17,7 +17,7 @@ public class PawnController {
     private GuiHandler guiHandler;
     private Account account = new Account();
     private Board board;
-
+    private static PawnController instance;
 
     /**
      * constructor
@@ -30,6 +30,17 @@ public class PawnController {
 
     /**
      *
+     */
+    public static PawnController getInstance(){
+        if (instance == null) {
+            instance = new PawnController();
+            return instance;
+        }
+        else return instance;
+    }
+
+    /**
+     *
      * @param player
      */
     public void runCase(Player player){
@@ -38,7 +49,7 @@ public class PawnController {
 
         String pawnChoice = guiHandler.makeButtons("VIl du pante en grund eller købe en grund tilbage?","Pante", "Købe tilbage");
         if(pawnChoice.equalsIgnoreCase("Pante")) {
-            fieldNames = getTradeFields(player);
+            fieldNames = getUnpawnedTradeFields(player);
             chosenField = getChosenUnpawnedField(player, fieldNames);
             if (chosenField == null) {
                 guiHandler.makeButtons("Du har ingen grunde at pante", "Ok");
@@ -48,7 +59,7 @@ public class PawnController {
             pawnProperty(chosenField);
         }
         else {
-            fieldNames = getTradeFields(player);
+            fieldNames = getPawnedTradeFields(player);
             chosenField = getChosenPawnedField(player, fieldNames);
             if (chosenField == null) {
                 guiHandler.makeButtons("Du har ingen grunde, du kan købe tilbage", "Ok");
@@ -71,7 +82,7 @@ public class PawnController {
         if (fieldNames.length > 0) {
             String fieldString = guiHandler.makeButtons("Vælg et felt at pante", fieldNames);
             for (int n = 0; n < owner.getOwnedFields().size(); n++) {
-                if (fieldString.equals(fieldNames[n]) && !owner.getOwnedFields().get(n).getIsPawned()) {
+                if (fieldString.equals(fieldNames[n])) {
                     return owner.getOwnedFields().get(n);
                 }
             }
@@ -92,7 +103,7 @@ public class PawnController {
         if (fieldNames.length > 0) {
             String fieldString = guiHandler.makeButtons("Vælg et felt at købe tilbage", fieldNames);
             for (int n = 0; n < owner.getOwnedFields().size(); n++) {
-                if (fieldString.equals(fieldNames[n]) && owner.getOwnedFields().get(n).getIsPawned()) {
+                if (fieldString.equals(fieldNames[n])) {
                     return owner.getOwnedFields().get(n);
                 }
             }
@@ -107,10 +118,24 @@ public class PawnController {
      * @param owner the player
      * @return list of fields
      */
-    private String[] getTradeFields(Player owner) {
+    private String[] getUnpawnedTradeFields(Player owner) {
         String[] fieldNames = new String[owner.getOwnedFields().size()];
         for (int n = 0; n < owner.getOwnedFields().size(); n++) {
+            if(!owner.getOwnedFields().get(n).getIsPawned())
             fieldNames[n] = owner.getOwnedFields().get(n).getName();
+        }
+        return fieldNames;
+    }
+    /**
+     * Creates a list of the fields owned by a player
+     * @param owner the player
+     * @return list of fields
+     */
+    private String[] getPawnedTradeFields(Player owner) {
+        String[] fieldNames = new String[owner.getOwnedFields().size()];
+        for (int n = 0; n < owner.getOwnedFields().size(); n++) {
+            if(owner.getOwnedFields().get(n).getIsPawned())
+                fieldNames[n] = owner.getOwnedFields().get(n).getName();
         }
         return fieldNames;
     }
@@ -119,8 +144,8 @@ public class PawnController {
      *
      * @return
      */
-    private boolean hasBuildings() {
-        if (propertyField.getHouses() == 0 && propertyField.getHotel()) {
+    private boolean hasBuildings(OwnableField ownableField) {
+        if (ownableField.getHouses() == 0 && ownableField.getHotel()) {
             return true;
         } else {
             return false;
@@ -153,7 +178,7 @@ public class PawnController {
         int buildingsWorth;
         buildingsWorth = ownableField.getWorth() - ownableField.getPrice();
 
-        if (!hasBuildings() && isPropertyField(ownableField)) {
+        if (!hasBuildings(ownableField) && isPropertyField(ownableField)) {
             int numberOfHouses = ownableField.getHouses();
             ownableField.removeHouse(numberOfHouses);
             account.changeScore(buildingsWorth);

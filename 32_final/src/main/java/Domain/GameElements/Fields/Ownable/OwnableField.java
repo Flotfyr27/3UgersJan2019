@@ -105,6 +105,7 @@ public abstract class OwnableField extends Field {
     public abstract int getRent(Player player);
 
     public int getHouses(){return 0;}
+    public boolean getHotel(){return false;}
     public void removeHouse(int value){}
 
     @Override

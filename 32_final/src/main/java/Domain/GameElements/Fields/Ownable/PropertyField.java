@@ -40,6 +40,7 @@ public class PropertyField extends OwnableField {
      *
      * @return True/false if field has a hotel
      */
+    @Override
     public boolean getHotel() {
         return hasHotel;
     }
