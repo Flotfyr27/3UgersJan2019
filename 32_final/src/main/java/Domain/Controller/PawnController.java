@@ -1,21 +1,16 @@
 package Domain.Controller;
 
 
-import Domain.GameElements.Entities.Chancecard.MoveToNearestChanceCard;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Ownable.OwnableField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
-import Domain.GameElements.Fields.Field;
-import Domain.GameElements.Entities.Account;
 import Domain.GameElements.Board;
 import UI.GUI.GuiHandler;
 
 public class PawnController {
 
     private boolean fieldIsPropertyField;
-    private PropertyField propertyField;
     private GuiHandler guiHandler;
-    private Account account = new Account();
     private Board board;
     private static PawnController instance;
 
@@ -47,25 +42,25 @@ public class PawnController {
         OwnableField chosenField;
         String[] fieldNames;
 
-        String pawnChoice = guiHandler.makeButtons("VIl du pante en grund eller købe en grund tilbage?","Pante", "Købe tilbage");
+        String pawnChoice = guiHandler.makeButtons("Vil du pante en grund eller købe en grund tilbage?","Pante", "Købe tilbage");
         if(pawnChoice.equalsIgnoreCase("Pante")) {
             fieldNames = getUnpawnedTradeFields(player);
-            chosenField = getChosenUnpawnedField(player, fieldNames);
-            if (chosenField == null) {
+            if(fieldNames.length > 0 && !(fieldNames[0]==null)) {
+                chosenField = getChosenUnpawnedField(player, fieldNames);
+                pawnProperty(chosenField, player);
+            }
+            else{
                 guiHandler.makeButtons("Du har ingen grunde at pante", "Ok");
                 return;
             }
-
-            pawnProperty(chosenField);
         }
         else {
             fieldNames = getPawnedTradeFields(player);
-            chosenField = getChosenPawnedField(player, fieldNames);
-            if (chosenField == null) {
-                guiHandler.makeButtons("Du har ingen grunde, du kan købe tilbage", "Ok");
-                return;
-            }
-            unPawn(chosenField);
+            if(fieldNames.length > 0 && !(fieldNames[0] == null)) {
+                chosenField = getChosenPawnedField(player, fieldNames);
+                unPawn(chosenField, player);
+            } else { guiHandler.makeButtons("Du har ingen grunde, du kan købe tilbage", "Ok");
+                return;}
         }
 
         guiHandler.updateBalance(board.getPlayers());
@@ -122,7 +117,7 @@ public class PawnController {
         String[] fieldNames = new String[owner.getOwnedFields().size()];
         for (int n = 0; n < owner.getOwnedFields().size(); n++) {
             if(!owner.getOwnedFields().get(n).getIsPawned())
-            fieldNames[n] = owner.getOwnedFields().get(n).getName();
+                fieldNames[n] = owner.getOwnedFields().get(n).getName();
         }
         return fieldNames;
     }
@@ -159,11 +154,10 @@ public class PawnController {
      */
     private boolean isPropertyField(OwnableField ownableField) {
         if (ownableField.getClass() == PropertyField.class) {
-            fieldIsPropertyField = true;
+            return true;
         } else {
-            fieldIsPropertyField = false;
+            return false;
         }
-        return fieldIsPropertyField;
     }
 
     private int pawnValue(OwnableField ownableField) {
@@ -174,16 +168,16 @@ public class PawnController {
     /**
      * Method that pawn our properties.
      */
-    private void pawnProperty(OwnableField ownableField) {
+    private void pawnProperty(OwnableField ownableField, Player p) {
         int buildingsWorth;
         buildingsWorth = ownableField.getWorth() - ownableField.getPrice();
 
-        if (!hasBuildings(ownableField) && isPropertyField(ownableField)) {
+        if (hasBuildings(ownableField) && isPropertyField(ownableField)) {
             int numberOfHouses = ownableField.getHouses();
             ownableField.removeHouse(numberOfHouses);
-            account.changeScore(buildingsWorth);
+            p.getAccount().changeScore(buildingsWorth);
         } else {
-            account.changeScore(pawnValue(ownableField));
+            p.getAccount().changeScore(pawnValue(ownableField));
         }
             ownableField.setIsPawned(true);
     }
@@ -192,18 +186,18 @@ public class PawnController {
      * Multiplication of
      * Cast the double as an int.
      */
-    private void buyPawnBack(OwnableField ownableField) {
+    private void buyPawnBack(OwnableField ownableField, Player p) {
 
-        account.changeScore((int) (-pawnValue(ownableField) * 1.1 - ((int) (pawnValue(ownableField) * 1.1) % 50)));
+        p.getAccount().changeScore((int) (-pawnValue(ownableField) * 1.1 - ((int) (pawnValue(ownableField) * 1.1) % 50)));
 
     }
 
     /**
      * Getting boolean from ownableField and allows you to unpawn it.
      */
-    private void unPawn(OwnableField ownableField) {
+    private void unPawn(OwnableField ownableField, Player p) {
         if (ownableField.getIsPawned()) {
-            buyPawnBack(ownableField);
+            buyPawnBack(ownableField,p);
             ownableField.setIsPawned(false);
         }
 
