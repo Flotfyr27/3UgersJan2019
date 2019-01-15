@@ -77,13 +77,13 @@ public class AuctionController {
                 return;
             } else if (buyers.size() == 1 && isFirstRound) {
                 Player lastBuyer = buyers.get(0);
-                String answer2 = guiHandler.makeButtons(lastBuyer.getName() + " vil De købe " + field.getName() + " for kr " + field.getPrice() + "?", "Ja", "Nej");
+                String answer2 = guiHandler.makeButtons(lastBuyer.getName() + " vil De købe " + field.getName() + " for kr " + highestBid + "?", "Ja", "Nej");
                 if(answer2.equals("Ja")){
-                    if(lastBuyer.getAccount().getScore() >= field.getPrice()){
-                        lastBuyer.getAccount().changeScore(field.getPrice());
+                    if(lastBuyer.getAccount().getScore() >= highestBid){
+                        lastBuyer.getAccount().changeScore(-highestBid);
                         lastBuyer.getOwnedFields().add(field);
                         field.setOwner(lastBuyer);
-                        guiHandler.giveMsg(lastBuyer.getName() + " har købt " + field.getName() + " for kr. " + field.getPrice());
+                        guiHandler.giveMsg(lastBuyer.getName() + " har købt " + field.getName() + " for kr. " + highestBid);
                         return;
                     }
 
