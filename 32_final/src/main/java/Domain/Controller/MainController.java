@@ -33,6 +33,8 @@ public class MainController {
             currentPlayer = players[currentPlayerNum];
             do{
                 String choice;
+
+                //hvis i fængsel
                 if (currentPlayer.getJailTime() >=0) {
                     choice = guiHandler.makeButtons("Vælg en handling " + currentPlayer.getName(),
                             "Slip fri", "Handel", "Pantsætning");
@@ -45,8 +47,9 @@ public class MainController {
                     if (choice.equalsIgnoreCase("Pantsætning"))
                         ;//pawnCon.runCase();
                 } else {
+                    // hvis ikke i fængsel
                     choice = guiHandler.makeButtons("vælg en handling " + currentPlayer.getName(),
-                            "Slå terninger", "Handel", "Pantsætning");
+                            "Slå terninger", "Handel", "Pantsætning", "Køb/salg af hus");
                     if (choice.equalsIgnoreCase("Slå terninger"))
                         moveCon.runCase(currentPlayer);
                     if (choice.equalsIgnoreCase("Handel")) {
@@ -55,6 +58,9 @@ public class MainController {
                     }
                     if (choice.equalsIgnoreCase("Pantsætning"))
                         ; //pawnCon.runCase();
+                    if (choice.equalsIgnoreCase("Køb/salg af hus")){
+                        BuySellController.runCase(currentPlayer);
+                    }
                 }
 
             }while (currentPlayer.getIsActive());
