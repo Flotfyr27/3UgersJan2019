@@ -54,11 +54,11 @@ public class Board {
         players = new Player[numberOfPlayers];
         String name;
         for (int i = 0; i < numberOfPlayers; i++) {
-            do {
-                name = GuiHandler.getInstance().getUserString("Indtast dit navn " + (i + 1));
-                if (name.equalsIgnoreCase(""))
-                    GuiHandler.getInstance().giveMsg("Der blev givet et tomt input. Indtast venligst et navn");
-            }while(name.equalsIgnoreCase(""));
+                do {
+                    name = GuiHandler.getInstance().getUserString("Indtast dit navn " + (i + 1));
+                    if (name.equalsIgnoreCase("") || isNameTaken(name, players))
+                        GuiHandler.getInstance().giveMsg("Dit navn er enten tomt eller optaget. Indtast venligst et nyt navn");
+                } while (name.equalsIgnoreCase("") || isNameTaken(name, players));
             players[i] = new Player(name);
         }
 
@@ -145,5 +145,17 @@ public class Board {
         } else {
             throw new IllegalArgumentException("Only OwnableField's allowed");
         }
+    }
+
+    private boolean isNameTaken(String name, Player[] players){
+        for (int i = 0; i < players.length; i++){
+            for (int j = 0; j < i; j++) {
+                if(players[j] != null) {
+                    if(players[j].getName().equalsIgnoreCase(name))
+                        return true;
+                }
+            }
+        }
+        return false;
     }
 }

@@ -80,10 +80,8 @@ public abstract class OwnableField extends Field {
             }
         }
     }
-
     /**
      * Method to determine what happens when a player lands on a field.
-     *
      * @param current The current player
      */
     @Override
@@ -162,63 +160,60 @@ public abstract class OwnableField extends Field {
         int colorFieldNum = 0;
         OwnableField[] fieldsOfColor;
 
-        //counts the number fields of the same color and class as the object
-        for (Field field : fields) {
-            if (field.getClass().equals(this.getClass())) {
-                if (((OwnableField) field).getBgColor() == this.getBgColor()) {
-                    colorFieldNum++;
+            //counts the number fields of the same color and class as the object
+            for (Field field : fields) {
+                if (field.getClass().equals(this.getClass())) {
+                    if (((OwnableField) field).getBgColor() == this.getBgColor()) {
+                        colorFieldNum++;
+                    }
                 }
             }
-        }
 
-        //Fills the array with the colored fields
-        fieldsOfColor = new OwnableField[colorFieldNum];
-        int colorIndex = 0;
-        for (Field field : fields) {
-            if (field.getClass().equals(this.getClass())) {
-                if (((OwnableField) field).getBgColor() == this.getBgColor()) {
-                    fieldsOfColor[colorIndex++] = (OwnableField) field;
+            //Fills the array with the colored fields
+            fieldsOfColor = new OwnableField[colorFieldNum];
+            int colorIndex = 0;
+            for (Field field : fields) {
+                if (field.getClass().equals(this.getClass())) {
+                    if (((OwnableField) field).getBgColor() == this.getBgColor()) {
+                        fieldsOfColor[colorIndex++] = (OwnableField) field;
+                    }
                 }
             }
+            return fieldsOfColor;
         }
-        return fieldsOfColor;
-    }
 
-    /**
-     * returns the background color
-     *
-     * @return
-     */
-    @Override
-    public Color getBgColor() {
-        return super.getBgColor();
-    }
+        /**
+         * returns the background color
+         * @return
+         */
+        @Override
+        public Color getBgColor () {
+            return super.getBgColor();
+        }
 
-    public boolean getIsPawned() {
-        return isPawned;
-    }
+        public boolean getIsPawned () {
+            return isPawned;
+        }
 
-    public void setIsPawned(boolean changeTo) {
-        isPawned = changeTo;
-    }
+        public void setIsPawned ( boolean changeTo){
+            isPawned = changeTo;
+        }
 
-    public abstract int getRent(Player player);
+        public abstract int getRent (Player player);
 
-    public int getHouses() {
-        return 0;
-    }
+        public int getHouses () {
+            return 0;
+        }
+        public boolean getHotel () {
+            return false;
+        }
+        public void removeHouse ( int value){
+        }
 
-    public boolean getHotel() {
-        return false;
-    }
-
-    public void removeHouse(int value) {
-    }
-
-    @Override
-    public String toString() {
-        return getName();
-    }
+        @Override
+        public String toString () {
+            return getName();
+        }
 
 }
 
