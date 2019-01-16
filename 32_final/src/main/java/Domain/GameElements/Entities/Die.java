@@ -19,7 +19,7 @@ public class Die {
      * @return
      */
     public int Roll (){
-        faceValue = 2; //Math.abs(random.nextInt(dieFaces)+1);
-       return 2; //faceValue;
+        faceValue = Math.abs(random.nextInt(dieFaces)+1);
+       return faceValue;
     }
 }

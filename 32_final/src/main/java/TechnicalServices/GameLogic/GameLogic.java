@@ -50,35 +50,27 @@ public class GameLogic {
             else return false;
     }
     public static void cantPay(Player player, int amount){
-        String choice = GuiHandler.getInstance().makeButtons("Vil du pante eller give op?", "Pante", "Handle" ,"Give op");
-        if(choice.equalsIgnoreCase("Pante")){
-            if(player.getOwnedFields().size() > 0) {
-                do {
+        do {
+            String choice = GuiHandler.getInstance().makeButtons("Vil du pante eller give op?",
+                                                            "Pante", "Handle", "Give op");
+            if (choice.equalsIgnoreCase("Pante")) {
+                if (player.getOwnedFields().size() > 0)
                     PawnController.getInstance().runCase(player);
-                } while (player.getAccount().getScore() + amount < 0);
-                player.getAccount().changeScore(amount);
-            }
-            else {
+                 else
+                    GuiHandler.getInstance().giveMsg("Du har ikke noget at pante");
+
+            } else if (choice.equalsIgnoreCase("Handle")) {
+                if (player.getOwnedFields().size() > 0 || player.getJailCards() > 0)
+                        TradeController.getInstance().runCase(player);
+                 else
+                    GuiHandler.getInstance().giveMsg("Du har ikke noget at sælge");
+
+            } else {
                 player.setLost(true);
                 player.setIsActive(false);
-                GuiHandler.getInstance().giveMsg("Du har ikke noget at pante, og er derfor gået farlit. Du er nu ude af spillet");
             }
-        }else if(choice.equalsIgnoreCase("Handle")){
-            if(player.getOwnedFields().size() > 0 || player.getJailCards()>0) {
-                do {
-                    TradeController.getInstance().runCase(player);
-                } while (player.getAccount().getScore() + amount < 0);
-                player.getAccount().changeScore(amount);
-            }
-            else {
-                player.setLost(true);
-                player.setIsActive(false);
-                GuiHandler.getInstance().giveMsg("Du har ikke noget at pante, og er derfor gået farlit. Du er nu ude af spillet");
-            }
-        } else{
-            player.setLost(true);
-            player.setIsActive(false);
-        }
+        }while (player.getAccount().getScore() + amount < 0);
+        player.getAccount().changeScore(-amount);
     }
 
 }
