@@ -8,10 +8,17 @@ import UI.GUI.GuiHandler;
 public class TradeController {
     private GuiHandler guiHandler;
     private Board board;
+    private static TradeController instance;
 
     public TradeController() {
         guiHandler = GuiHandler.getInstance();
         board = Board.getInstance();
+    }
+
+    public static TradeController getInstance(){
+        if(instance == null)
+            instance = new TradeController();
+        return instance;
     }
 
     public void runCase(Player playerTrading) {

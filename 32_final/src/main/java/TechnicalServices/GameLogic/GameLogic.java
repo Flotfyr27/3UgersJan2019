@@ -1,6 +1,7 @@
 package TechnicalServices.GameLogic;
 
 import Domain.Controller.PawnController;
+import Domain.Controller.TradeController;
 import Domain.GameElements.Entities.Player;
 import UI.GUI.GuiHandler;
 
@@ -49,12 +50,31 @@ public class GameLogic {
             else return false;
     }
     public static void cantPay(Player player, int amount){
-        String choice = GuiHandler.getInstance().makeButtons("Vil du pante eller give op?", "Pante", "Give op");
+        String choice = GuiHandler.getInstance().makeButtons("Vil du pante eller give op?", "Pante", "Handle" ,"Give op");
         if(choice.equalsIgnoreCase("Pante")){
-            do {
-                PawnController.getInstance().runCase(player);
-            }while(player.getAccount().getScore()+amount<0);
-            player.getAccount().changeScore(amount);
+            if(player.getOwnedFields().size() > 0) {
+                do {
+                    PawnController.getInstance().runCase(player);
+                } while (player.getAccount().getScore() + amount < 0);
+                player.getAccount().changeScore(amount);
+            }
+            else {
+                player.setLost(true);
+                player.setIsActive(false);
+                GuiHandler.getInstance().giveMsg("Du har ikke noget at pante, og er derfor gået farlit. Du er nu ude af spillet");
+            }
+        }else if(choice.equalsIgnoreCase("Handle")){
+            if(player.getOwnedFields().size() > 0 || player.getJailCards()>0) {
+                do {
+                    TradeController.getInstance().runCase(player);
+                } while (player.getAccount().getScore() + amount < 0);
+                player.getAccount().changeScore(amount);
+            }
+            else {
+                player.setLost(true);
+                player.setIsActive(false);
+                GuiHandler.getInstance().giveMsg("Du har ikke noget at pante, og er derfor gået farlit. Du er nu ude af spillet");
+            }
         } else{
             player.setLost(true);
             player.setIsActive(false);

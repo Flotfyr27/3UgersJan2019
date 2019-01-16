@@ -7,7 +7,7 @@ public class Account {
      * Sets account balance to 30.000 which is the starting score.
      */
     public Account() {
-        score = 30000;
+        score = 50;
     }
 
     /**
