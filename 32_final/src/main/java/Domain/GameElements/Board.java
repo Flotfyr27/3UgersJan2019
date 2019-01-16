@@ -147,6 +147,12 @@ public class Board {
         }
     }
 
+    /**
+     * This method checks wheteher a name already has been claimed by another player
+     * @param name The name of the current player entering their name
+     * @param players The lis tof players
+     * @return
+     */
     private boolean isNameTaken(String name, Player[] players){
         for (int i = 0; i < players.length; i++){
             for (int j = 0; j < i; j++) {

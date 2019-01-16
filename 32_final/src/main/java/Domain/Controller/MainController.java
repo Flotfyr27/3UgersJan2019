@@ -31,12 +31,13 @@ public class MainController {
     }
 
     public void runCase(){
-        while (!GameLogic.lastManStanding(players)){
+        while (!GameLogic.lastManStanding(players)) {
             turnsInARow = 0;
             currentPlayer = players[currentPlayerNum];
-            do{
+            if (!currentPlayer.getLost()) {
+            do {
                 String choice;
-                if (currentPlayer.getJailTime() >=0) {
+                if (currentPlayer.getJailTime() >= 0) {
                     choice = guiHandler.makeButtons("Vælg en handling " + currentPlayer.getName(),
                             "Slip fri", "Handel", "Pantsætning");
                     if (choice.equalsIgnoreCase("Slip fri"))
@@ -61,7 +62,8 @@ public class MainController {
                             break;
                         }
                         moveCon.runCase(currentPlayer);
-                    } if (choice.equalsIgnoreCase("Handel")) {
+                    }
+                    if (choice.equalsIgnoreCase("Handel")) {
                         tradeCon.runCase(currentPlayer);
                         currentPlayer.setIsActive(true);
                     }
@@ -71,8 +73,10 @@ public class MainController {
                     }
                 }
 
-            }while (currentPlayer.getIsActive());
-
+            } while (currentPlayer.getIsActive());
+           }
+            else
+                guiHandler.giveMsg(currentPlayer.getName() + " er ude af spillet");
             currentPlayerNum = ++currentPlayerNum % players.length;
         }
     }

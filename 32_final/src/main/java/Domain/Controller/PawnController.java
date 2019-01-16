@@ -196,15 +196,12 @@ public class PawnController {
      * Getting boolean from ownableField and allows you to unpawn it.
      */
     private void unPawn(OwnableField ownableField, Player p) {
-        if (ownableField.getIsPawned()) {
-           try {
+        if (p.getAccount().getScore() - buyPawnBackValue(ownableField, p) > 0) {
                p.getAccount().changeScore(buyPawnBackValue(ownableField, p));
                ownableField.setIsPawned(false);
-           }catch(RuntimeException e){
-               GameLogic.cantPay(p,buyPawnBackValue(ownableField,p));
-            }
         }
-
+        else
+            guiHandler.giveMsg("Du har ikke råd til at købe denne grund tilbage");
     }
 
 }
