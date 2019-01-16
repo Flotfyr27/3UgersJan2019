@@ -121,7 +121,7 @@ public class GuiHandler {
     public String getUserString(String message){return gui.getUserString(message);}
 
     /**
-     * Creates players and set car types.
+     * Creates players, set car types and colours.
      *
      * @param p
      */
@@ -194,7 +194,7 @@ public class GuiHandler {
 
 
         /**
-         * updates ownership of tile
+         * Updates the owner of the fields and telling what the rental of the field.
          */
         Player owner;
         String rent;
@@ -205,12 +205,10 @@ public class GuiHandler {
                 if (owner != null) {
                 gui_fields[i].setDescription("Ejer: " + owner.getName() + " - " + "Leje: " + rent);
                 } else
-                    gui_fields[i].setDescription("Ingen ejer");
+                gui_fields[i].setDescription("Ingen ejer");
             }
-
-
         }
-    }
+ }
 
     /**
      * Moves a player on the board
@@ -250,7 +248,6 @@ public class GuiHandler {
             carMoved = onCarMoved(carMoved);
         }
     }
-
     /**
      * Moves a player on the board in a counter clockwise direction
      *

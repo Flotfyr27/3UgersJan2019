@@ -65,7 +65,10 @@ public abstract class OwnableField extends Field {
         return owner;
     }
 
-
+    /**
+     * Method to allow us to buy the fields
+     * @param p
+     */
     public void buyField(Player p) {
         if (p.getAccount().getScore() >= getPrice()) {
             try {
@@ -77,15 +80,12 @@ public abstract class OwnableField extends Field {
             }
         }
     }
-
     /**
      * Method to determine what happens when a player lands on a field.
-     *
      * @param current The current player
      */
     @Override
     public void landOnAction(Player current) {
-        guiHandler.giveMsg("Du er landet på " + getName());
         if (getOwner() == null) {
             String choice = guiHandler.makeButtons("Vil du købe denne grund? Den koster " + price, "Ja", "Nej");
             if (choice.equalsIgnoreCase("Ja")) {
@@ -102,24 +102,22 @@ public abstract class OwnableField extends Field {
             return;
 
         } else {
-            guiHandler.giveMsg("Du skal betale " + getRent(current) + "kr leje til  " + getOwner().getName());
             try {
                 if (owner.getJailTime() < 0) {
-                    guiHandler.giveMsg("Du skal betale " + getRent(current) + " i leje til  " + getOwner().getName());
-                    boolean ownsAll = false;
-                    for (OwnableField field : this.getFieldsOfColor()) {
-                        if (field.getOwner() != null && field.getOwner().equals(owner))
-                            ownsAll = true;
-                        else {
-                            ownsAll = false;
-                            break;
-                        }
-                    }
 
-                    if (ownsAll) {
+
+                    int payedRent;
+                    if (ownsAll())
+                        payedRent = getRent(current) * 2;
+                    else
+                        payedRent = getRent(current);
+
+                    guiHandler.giveMsg("Du er landet på " + getName() + "\n" + "Du skal betale " + payedRent + " kr. i leje til  " + getOwner().getName());
+
+                    if (ownsAll()) {
                         if ((!this.getClass().equals(PropertyField.class)) || ((PropertyField) this).getHouses() == 0) {
                             current.getAccount().changeScore(-getRent(current) * 2);
-                            getOwner().getAccount().changeScore(getRent(current) * 2); //TODO test that this works
+                            getOwner().getAccount().changeScore(getRent(current) * 2);
                         } else {
                             current.getAccount().changeScore(-getRent(current));
                             getOwner().getAccount().changeScore(getRent(current));
@@ -138,6 +136,19 @@ public abstract class OwnableField extends Field {
         }
     }
 
+    public boolean ownsAll(){
+        boolean ownsAll = false;
+        for (OwnableField field : this.getFieldsOfColor()) {
+            if (field.getOwner() != null && field.getOwner().equals(owner))
+                ownsAll = true;
+            else {
+                ownsAll = false;
+                break;
+            }
+        }
+        return ownsAll;
+    }
+
     /**
      * Goes through all fields on the board and returns all the fields of the same
      * type and color as the one the method was called on.
@@ -149,63 +160,60 @@ public abstract class OwnableField extends Field {
         int colorFieldNum = 0;
         OwnableField[] fieldsOfColor;
 
-        //counts the number fields of the same color and class as the object
-        for (Field field : fields) {
-            if (field.getClass().equals(this.getClass())) {
-                if (((OwnableField) field).getBgColor() == this.getBgColor()) {
-                    colorFieldNum++;
+            //counts the number fields of the same color and class as the object
+            for (Field field : fields) {
+                if (field.getClass().equals(this.getClass())) {
+                    if (((OwnableField) field).getBgColor() == this.getBgColor()) {
+                        colorFieldNum++;
+                    }
                 }
             }
-        }
 
-        //Fills the array with the colored fields
-        fieldsOfColor = new OwnableField[colorFieldNum];
-        int colorIndex = 0;
-        for (Field field : fields) {
-            if (field.getClass().equals(this.getClass())) {
-                if (((OwnableField) field).getBgColor() == this.getBgColor()) {
-                    fieldsOfColor[colorIndex++] = (OwnableField) field;
+            //Fills the array with the colored fields
+            fieldsOfColor = new OwnableField[colorFieldNum];
+            int colorIndex = 0;
+            for (Field field : fields) {
+                if (field.getClass().equals(this.getClass())) {
+                    if (((OwnableField) field).getBgColor() == this.getBgColor()) {
+                        fieldsOfColor[colorIndex++] = (OwnableField) field;
+                    }
                 }
             }
+            return fieldsOfColor;
         }
-        return fieldsOfColor;
-    }
 
-    /**
-     * returns the background color
-     *
-     * @return
-     */
-    @Override
-    public Color getBgColor() {
-        return super.getBgColor();
-    }
+        /**
+         * returns the background color
+         * @return
+         */
+        @Override
+        public Color getBgColor () {
+            return super.getBgColor();
+        }
 
-    public boolean getIsPawned() {
-        return isPawned;
-    }
+        public boolean getIsPawned () {
+            return isPawned;
+        }
 
-    public void setIsPawned(boolean changeTo) {
-        isPawned = changeTo;
-    }
+        public void setIsPawned ( boolean changeTo){
+            isPawned = changeTo;
+        }
 
-    public abstract int getRent(Player player);
+        public abstract int getRent (Player player);
 
-    public int getHouses() {
-        return 0;
-    }
+        public int getHouses () {
+            return 0;
+        }
+        public boolean getHotel () {
+            return false;
+        }
+        public void removeHouse ( int value){
+        }
 
-    public boolean getHotel() {
-        return false;
-    }
-
-    public void removeHouse(int value) {
-    }
-
-    @Override
-    public String toString() {
-        return getName();
-    }
+        @Override
+        public String toString () {
+            return getName();
+        }
 
 }
 
