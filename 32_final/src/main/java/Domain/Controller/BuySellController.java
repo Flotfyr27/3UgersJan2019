@@ -123,7 +123,7 @@ public class BuySellController {
             }
 
             if (!isChecked) {
-                triedColors = (Color[]) arrayAddition(triedColors, new Color[]{ownedField.getBgColor()});
+                triedColors = colorArrayAddition(triedColors, new Color[]{ownedField.getBgColor()}); //TODO look at me!!!
 
 
                 boolean sameOwner;
@@ -145,7 +145,7 @@ public class BuySellController {
                     }
 
                     //add the array of newly found field names to the full list of fields able to get houses
-                    ownableFields = (String[]) arrayAddition(ownableFields, colorFields);
+                    ownableFields = stringArrayAddition(ownableFields, colorFields);
                 }
             }
         }
@@ -158,7 +158,7 @@ public class BuySellController {
         if (ownableFields.length <= 0) {
             guiHandler.giveMsg("Du har ingen grunde du kan købe huse på.");
         } else {
-            chosenField = (PropertyField) getChosenField(player, ownableFields);
+            chosenField = getChosenField(player, ownableFields);
             //Checks if the player wants to by the house
             if (guiHandler.makeButtons("Vil du bygge et hus/hotel på " + chosenField.getName() + " for kr. " +
                             Values.housePrice(chosenField.getHouses() + 1) + "?",
@@ -176,13 +176,13 @@ public class BuySellController {
     }
 
 
-    private OwnableField getChosenField(Player owner, String[] fieldNames) {
+    private PropertyField getChosenField(Player owner, String[] fieldNames) {
         //Select a field to trade based on user input
         if (fieldNames.length > 0) {
             String fieldString = guiHandler.makeButtons("Vælg felt du vil købe/sælge huse på", fieldNames);
             for (int n = 0; n < owner.getOwnedFields().size(); n++) {
                 if (fieldString.equals(fieldNames[n])) {
-                    return owner.getOwnedFields().get(n);
+                    return (PropertyField) owner.getOwnedFields().get(n);
                 }
             }
         } else {
@@ -191,8 +191,22 @@ public class BuySellController {
         throw new RuntimeException("getChosenField() returned no value");
     }
 
-    private Object arrayAddition(Object[] arr1, Object[] arr2){
-        Object[] temp = new Object[arr1.length + arr2.length];
+    private String[] stringArrayAddition(String[] arr1, String[] arr2){
+        String[] temp = new String[arr1.length + arr2.length];
+
+        for (int i = 0; i < arr1.length; i++) {
+            temp[i] = arr1[i];
+        }
+
+        for (int i = 0; i < arr2.length; i++) {
+            temp[arr1.length + i] = arr2[i];
+        }
+        return temp;
+    }
+
+
+    private Color[] colorArrayAddition(Color[] arr1, Color[] arr2){
+        Color[] temp = new Color[arr1.length + arr2.length];
 
         for (int i = 0; i < arr1.length; i++) {
             temp[i] = arr1[i];
