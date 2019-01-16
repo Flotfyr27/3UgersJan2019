@@ -79,7 +79,7 @@ public class TaxField extends Field {
                 try{
                 player.getAccount().changeScore(-4000);
                 }catch(RuntimeException e){
-                    GameLogic.cantPay(player,4000);
+                    GameLogic.cantPay(player,-4000);
                 }
             } else {
                 throw new IllegalArgumentException("Value doesn't correspond to either button choice");
