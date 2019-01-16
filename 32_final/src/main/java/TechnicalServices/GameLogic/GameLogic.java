@@ -1,6 +1,8 @@
 package TechnicalServices.GameLogic;
 
+import Domain.Controller.PawnController;
 import Domain.GameElements.Entities.Player;
+import UI.GUI.GuiHandler;
 
 /*
 * Make list of prices through out the game in separate methods
@@ -46,6 +48,17 @@ public class GameLogic {
                 return true;
             else return false;
     }
-
+    public static void cantPay(Player player, int amount){
+        String choice = GuiHandler.getInstance().makeButtons("Vil du pante eller give op?", "Pante", "Give op");
+        if(choice.equalsIgnoreCase("Pante")){
+            do {
+                PawnController.getInstance().runCase(player);
+            }while(player.getAccount().getScore()+amount<0);
+            player.getAccount().changeScore(amount);
+        } else{
+            player.setLost(true);
+            player.setIsActive(false);
+        }
+    }
 
 }

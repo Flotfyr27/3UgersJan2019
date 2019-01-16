@@ -60,7 +60,7 @@ public class MoveController {
         guiHandler.updateGui(p, board.getPlayers(), board.getFields());
     }
 
-    public void runcase(Player p, int dist, boolean isDouble){
+    public void runCase(Player p, int dist, boolean isDouble){
         int currentPos = p.getPos();
         GameLogic.movingPastStart(p,p.getPos()+dist);
         currentPos = (currentPos + dist)%board.getFields().length;

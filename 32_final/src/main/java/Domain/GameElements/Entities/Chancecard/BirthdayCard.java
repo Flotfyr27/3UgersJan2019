@@ -1,6 +1,7 @@
 package Domain.GameElements.Entities.Chancecard;
 
 import Domain.GameElements.Entities.Player;
+import TechnicalServices.GameLogic.GameLogic;
 import UI.GUI.GuiHandler;
 
 public class BirthdayCard extends TransactionCard {
@@ -37,7 +38,7 @@ public class BirthdayCard extends TransactionCard {
                         guiHandler.msgInMiddle(p.getName() + "kan ikke betale, pantsæt eller sælg en grund så du kan betale");
                         String str = guiHandler.makeButtons("Hvordan vil du skaffe pengene?", "Pantsæt", "Handel");
                         if (str.equalsIgnoreCase("Pantsæt")) {
-                            //TODO insert pawnController call here
+                            GameLogic.cantPay(p,-super.amount);
                         } else {
                             //TODO insert tradeController call here
                         }

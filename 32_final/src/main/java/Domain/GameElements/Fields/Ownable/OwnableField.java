@@ -1,10 +1,10 @@
 package Domain.GameElements.Fields.Ownable;
 
-import Domain.Controller.PawnController;
+import Domain.GameElements.Entities.Player;
 import Domain.Controller.AuctionController;
 import Domain.GameElements.Board;
 import Domain.GameElements.Fields.Field;
-import Domain.GameElements.Entities.Player;
+import TechnicalServices.GameLogic.GameLogic;
 
 import java.awt.*;
 
@@ -16,12 +16,13 @@ public abstract class OwnableField extends Field {
 
     /**
      * Constructor for all ownable fields
-     * @param name The name of the field
-     * @param subtext The fields subtext
+     *
+     * @param name     The name of the field
+     * @param subtext  The fields subtext
      * @param bgColour The background colour of the field
-     * @param price The price of the field
+     * @param price    The price of the field
      */
-    public OwnableField(String name, String subtext, Color bgColour, int price){
+    public OwnableField(String name, String subtext, Color bgColour, int price) {
         super(name, subtext, bgColour);
         this.price = price;
         this.isPawned = false;
@@ -29,47 +30,57 @@ public abstract class OwnableField extends Field {
 
     /**
      * Returns the value of a field
+     *
      * @return The total value of a field
      */
-    public int getWorth(){
+    public int getWorth() {
         int worth = price;
         return worth;
     }
 
     /**
      * Method to get the price of a field
+     *
      * @return Integer value of the price of a field
      */
-    public int getPrice(){
+    public int getPrice() {
         return price;
     }
 
     /**
      * Method set the owner of a field.
+     *
      * @param player Player to own the field
      */
-    public void setOwner(Player player){
+    public void setOwner(Player player) {
         owner = player;
     }
 
     /**
      * Method to get the owner
+     *
      * @return Player who is the owner
      */
-    public Player getOwner(){
+    public Player getOwner() {
         return owner;
     }
 
 
-    public void buyField(Player p){
-            if(p.getAccount().getScore() >= getPrice()){
+    public void buyField(Player p) {
+        if (p.getAccount().getScore() >= getPrice()) {
+            try {
                 setOwner(p);
                 p.getAccount().changeScore(-getPrice());
                 p.getOwnedFields().add(this);
+            } catch (RuntimeException e) {
+                GameLogic.cantPay(p, getPrice());
             }
+        }
     }
+
     /**
      * Method to determine what happens when a player lands on a field.
+     *
      * @param current The current player
      */
     @Override
@@ -91,7 +102,6 @@ public abstract class OwnableField extends Field {
             return;
 
         } else {
-            //TODO check to see if player has enough money to pay rent, else pawn!
             guiHandler.giveMsg("Du skal betale " + getRent(current) + "kr leje til  " + getOwner().getName());
             try {
                 if (owner.getJailTime() < 0) {
@@ -123,15 +133,7 @@ public abstract class OwnableField extends Field {
                     guiHandler.giveMsg(getOwner().getName() + " er i fængsel og kan derfor ikke kræve leje.");
                 }
             } catch (RuntimeException e) {
-                String choice = guiHandler.makeButtons("Vil du pante eller give op?", "Pante", "Give op");
-                if (choice.equalsIgnoreCase("Pante")) {
-                    do {
-                        PawnController.getInstance().runCase(current);
-                    } while (current.getAccount().getScore() - getRent(current) < 0);
-                } else {
-                    current.setLost(true);
-                    current.setIsActive(false);
-                }
+                GameLogic.cantPay(current, getRent(current));
             }
         }
     }
@@ -142,7 +144,7 @@ public abstract class OwnableField extends Field {
      *
      * @return All fields of same color and class as the object
      */
-    public OwnableField[] getFieldsOfColor(){
+    public OwnableField[] getFieldsOfColor() {
         Field[] fields = Board.getInstance().getFields();
         int colorFieldNum = 0;
         OwnableField[] fieldsOfColor;
@@ -171,6 +173,7 @@ public abstract class OwnableField extends Field {
 
     /**
      * returns the background color
+     *
      * @return
      */
     @Override
@@ -178,19 +181,32 @@ public abstract class OwnableField extends Field {
         return super.getBgColor();
     }
 
-    public boolean getIsPawned(){return isPawned;}
+    public boolean getIsPawned() {
+        return isPawned;
+    }
 
-    public void setIsPawned(boolean changeTo){isPawned = changeTo;}
+    public void setIsPawned(boolean changeTo) {
+        isPawned = changeTo;
+    }
 
     public abstract int getRent(Player player);
 
-    public int getHouses(){return 0;}
-    public boolean getHotel(){return false;}
-    public void removeHouse(int value){}
+    public int getHouses() {
+        return 0;
+    }
+
+    public boolean getHotel() {
+        return false;
+    }
+
+    public void removeHouse(int value) {
+    }
 
     @Override
-    public String toString(){
+    public String toString() {
         return getName();
     }
 
 }
+
+
