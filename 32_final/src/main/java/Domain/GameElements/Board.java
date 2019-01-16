@@ -84,12 +84,12 @@ public class Board {
         fields[2] = (new ChanceField("?", "Prøv lykken", Color.BLACK));
         fields[3] = (new PropertyField("Hvidovrevej", "kr. 1.200", Color.CYAN, 1200, 1000));
         fields[4] = (new TaxField("Betal indkomstskat: 10% eller kr. 4.000", "Skat", Color.GREEN, 2));
-        fields[5] = (new ShippingField("Scandlines, Helsingør-Helsingborg", "kr. 4.000", Color.BLUE, 4000));
+        fields[5] = (new ShippingField("Helsingør-Helsingborg", "kr. 4.000", Color.BLUE, 4000));
         fields[6] = (new PropertyField("Roskildevej", "kr. 2.000", Color.ORANGE, 2000, 1000));
         fields[7] = (new ChanceField("?", "Prøv lykken", Color.BLACK));
         fields[8] = (new PropertyField("Valby Langgade", "kr. 2.000", Color.ORANGE, 2000, 1000));
         fields[9] = (new PropertyField("Allégade", "kr. 2.400", Color.ORANGE, 2400, 1000));
-        fields[10] = (new EmptyField("På besøg\nI fængsel", "", Color.DARK_GRAY));
+        fields[10] = (new EmptyField("På besøg\nI fængsel", "På besøg", Color.DARK_GRAY));
         fields[11] = (new PropertyField("Frederiksberg Allé", "kr. 2.800", Color.GREEN, 2800, 2000));
         fields[12] = (new CompanyField("Tuborg Squash", "kr. 3.000", Color.RED, 3000, diceTray));
         fields[13] = (new PropertyField("Bülowsvej", "kr. 2.800", Color.GREEN, 2800, 2000));
@@ -104,7 +104,7 @@ public class Board {
         fields[22] = (new ChanceField("?", "Prøv lykken", Color.BLACK));
         fields[23] = (new PropertyField("Østerbrogade", "kr. 4.400", Color.RED, 4400, 3000));
         fields[24] = (new PropertyField("Grønningen", "kr. 4.800", Color.RED, 4800, 3000));
-        fields[25] = (new ShippingField("Scandlines, Gedser-Rostock", "kr. 4.000", Color.BLUE, 4000));
+        fields[25] = (new ShippingField("Gedser-Rostock", "kr. 4.000", Color.BLUE, 4000));
         fields[26] = (new PropertyField("Bredgade", "kr. 5.200", Color.WHITE, 5200, 3000));
         fields[27] = (new PropertyField("Kgs. Nytorv", "kr. 5.200", Color.WHITE, 5200, 3000));
         fields[28] = (new CompanyField("Coca-Cola", "kr. 3.000", Color.RED, 3000, diceTray));
@@ -114,7 +114,7 @@ public class Board {
         fields[32] = (new PropertyField("Vimmelskaftet", "kr. 6.000", Color.YELLOW, 6000, 4000));
         fields[33] = (new ChanceField("?", "Prøv lykken", Color.BLACK));
         fields[34] = (new PropertyField("Nygade", "kr. 6.400", Color.YELLOW, 6400, 4000));
-        fields[35] = (new ShippingField("Scandlines, Rødby-Puttgarden", "kr. 4.000", Color.BLUE, 4000));
+        fields[35] = (new ShippingField("Rødby-Puttgarden", "kr. 4.000", Color.BLUE, 4000));
         fields[36] = (new ChanceField("?", "Prøv lykken", Color.BLACK));
         fields[37] = (new PropertyField("Frederiksberggade", "kr. 7.000", Color.MAGENTA, 7000, 4000));
         fields[38] = (new TaxField("Ekstraordinær statsskat: Betal", "kr. 2.000", Color.GREEN, 1));

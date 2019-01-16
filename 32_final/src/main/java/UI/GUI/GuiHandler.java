@@ -57,7 +57,11 @@ public class GuiHandler {
                 gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", Integer.toString(propertyField.getPrice()), fields[i].getBgColor(), null));
 
             } else if (fields[i].getClass().equals(EmptyField.class)) {
-                gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
+                if(fields[i].getName().equals("På besøg\nI fængsel")){
+                    gui_fields[i] = (new GUI_Jail("src\\main\\Resources\\jail.jpg", fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), Color.WHITE));
+                }else {
+                    gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
+                }
 
             } else if (fields[i].getClass().equals(ChanceField.class)) {
                 gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), Color.white));
@@ -66,13 +70,13 @@ public class GuiHandler {
                 gui_fields[i] = new GUI_Tax(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null);
 
             } else if (fields[i].getClass().equals(ShippingField.class)) {
-                gui_fields[i] = new GUI_Shipping("", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), Color.WHITE);
+                gui_fields[i] = new GUI_Shipping("src\\main\\Resources\\ferry.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), Color.WHITE);
 
             } else if (fields[i].getClass().equals(CompanyField.class)) {
                 gui_fields[i] = new GUI_Brewery("", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
 
             } else if (fields[i].getClass().equals(JailorField.class)) {
-                gui_fields[i] = new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null);
+                gui_fields[i] = new GUI_Jail("src\\main\\Resources\\jail.jpg", fields[i].getName(), fields[i].getSubtext(), "De fængsles", fields[i].getBgColor(), Color.WHITE);
             }
         }
 
