@@ -73,10 +73,14 @@ public class GuiHandler {
                 gui_fields[i] = new GUI_Shipping("src\\main\\Resources\\ferry.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), Color.WHITE);
 
             } else if (fields[i].getClass().equals(CompanyField.class)) {
-                gui_fields[i] = new GUI_Brewery("", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
+                if(fields[i].getName().equals("Tuborg")){
+                    gui_fields[i] = new GUI_Brewery("src\\main\\Resources\\squash.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
+                }else {
+                    gui_fields[i] = new GUI_Brewery("src\\main\\Resources\\cola.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
+                }
 
             } else if (fields[i].getClass().equals(JailorField.class)) {
-                gui_fields[i] = new GUI_Jail("src\\main\\Resources\\jail.jpg", fields[i].getName(), fields[i].getSubtext(), "De fængsles", fields[i].getBgColor(), Color.WHITE);
+                gui_fields[i] = new GUI_Jail("src\\main\\Resources\\politi.jpg", fields[i].getName(), fields[i].getSubtext(), "De fængsles", fields[i].getBgColor(), Color.WHITE);
             }
         }
 
