@@ -65,7 +65,10 @@ public abstract class OwnableField extends Field {
         return owner;
     }
 
-
+    /**
+     * Method to allow us to buy the fields
+     * @param p
+     */
     public void buyField(Player p) {
         if (p.getAccount().getScore() >= getPrice()) {
             try {
