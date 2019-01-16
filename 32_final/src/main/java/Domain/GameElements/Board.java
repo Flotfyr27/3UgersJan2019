@@ -83,7 +83,7 @@ public class Board {
         fields[1] = (new PropertyField("Rødovrevej", "kr. 1.200", Color.CYAN, 1200, 1000));
         fields[2] = (new ChanceField("?", "Prøv lykken", Color.BLACK));
         fields[3] = (new PropertyField("Hvidovrevej", "kr. 1.200", Color.CYAN, 1200, 1000));
-        fields[4] = (new TaxField("Skat", "Betal indkomstskat: 10% eller kr. 4.000", Color.GREEN, 2));
+        fields[4] = (new TaxField("Betal indkomstskat: 10% eller kr. 4.000", "Skat", Color.GREEN, 2));
         fields[5] = (new ShippingField("Scandlines, Helsingør-Helsingborg", "kr. 4.000", Color.BLUE, 4000));
         fields[6] = (new PropertyField("Roskildevej", "kr. 2.000", Color.ORANGE, 2000, 1000));
         fields[7] = (new ChanceField("?", "Prøv lykken", Color.BLACK));
