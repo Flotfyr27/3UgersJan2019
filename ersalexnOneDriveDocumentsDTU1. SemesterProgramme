@@ -1,0 +1,236 @@
+[33mcommit b095be40c4d9928accedbbaa6d33d830bdbcf325[m[33m ([m[1;36mHEAD -> [m[1;32mcotrollerMerge[m[33m)[m
+Merge: c76fc97 97d6014
+Author: Jens.Agersgaard <alex.norgaard@gmail.com>
+Date:   Wed Jan 16 11:27:29 2019 +0100
+
+    Merge branch 'cotrollerMerge' of https://github.com/LGramme/3UgersJan2019 into cotrollerMerge
+
+[33mcommit c76fc974ad8af5a59bf34b7522877c7ee0598136[m
+Author: Jens.Agersgaard <alex.norgaard@gmail.com>
+Date:   Wed Jan 16 11:27:11 2019 +0100
+
+    New AuctionController SD
+
+[33mcommit 97d601410b82f59d6a0d059bdf97b3271a3455e8[m[33m ([m[1;31morigin/cotrollerMerge[m[33m)[m
+Merge: 515c84b c7a342e
+Author: Mads Møller Jensen <mads1606@gmail.com>
+Date:   Wed Jan 16 11:09:18 2019 +0100
+
+    Merge branch 'cotrollerMerge' of https://github.com/LGramme/3UgersJan2019 into cotrollerMerge
+    
+    # Conflicts:
+    #       32_final/src/main/java/Domain/GameElements/Fields/Ownable/OwnableField.java
+    
+    *all conflicts resolved
+    
+    fixed error in Company.getRent() giving a runtimeException
+
+[33mcommit 515c84b1e3496c30a80ec96b3253ea29dc2f9f07[m
+Merge: 7b0a627 8c1e17e
+Author: Mads Møller Jensen <mads1606@gmail.com>
+Date:   Tue Jan 15 17:55:58 2019 +0100
+
+    Merge branch 'development' into cotrollerMerge
+    
+    # Conflicts:
+    #       32_final/src/main/java/Domain/GameElements/Fields/Ownable/OwnableField.java
+    
+    *all conflicts resolved
+
+[33mcommit 8c1e17e153945905018482105a8af008b065a70b[m
+Author: Mads Møller Jensen <mads1606@gmail.com>
+Date:   Tue Jan 15 17:47:25 2019 +0100
+
+    double rent implemented. no crash.
+
+[33mcommit c7a342ee9f9d18f59d717b87c1673b99b4ed2044[m
+Merge: 492f106 3c58319
+Author: Gustav Vang Klinker <gulle139@hotmail.com>
+Date:   Tue Jan 15 16:57:50 2019 +0100
+
+    Merge remote-tracking branch 'origin/cotrollerMerge' into Fixxit
+    
+    # Conflicts:
+    #       32_final/src/main/java/Domain/Controller/TradeController.java
+    #       32_final/src/main/java/Domain/GameElements/Board.java
+    #       32_final/src/main/java/Domain/GameElements/Fields/Ownable/OwnableField.java
+
+[33mcommit 3c583191cc9a0f35524672d5427587c70180cf24[m
+Author: Fredrik <s185130@student.dtu.dk>
+Date:   Tue Jan 15 16:50:06 2019 +0100
+
+    Changed comment on DieTest
+
+[33mcommit 492f106aa3a998e5e873cb3fa344f1c680960683[m
+Author: Gustav Vang Klinker <gulle139@hotmail.com>
+Date:   Tue Jan 15 16:49:04 2019 +0100
+
+    Implementing pawning when you would go below 0 money;
+
+[33mcommit 11005fd3e00a787380c1fc3c8d9c21b0880e4e22[m
+Author: Fredrik <s185130@student.dtu.dk>
+Date:   Tue Jan 15 16:45:25 2019 +0100
+
+    You can trade with players and the receive the property
+
+[33mcommit eeb28822c90ff207150f52ed345a5f842841b019[m
+Author: Gustav Vang Klinker <gulle139@hotmail.com>
+Date:   Tue Jan 15 16:42:13 2019 +0100
+
+    Implementing pawning when you would go below 0 money;
+
+[33mcommit 55d8df8025c2fbfd9d6e00036a48f184e4cd9674[m
+Author: Gustav Vang Klinker <gulle139@hotmail.com>
+Date:   Tue Jan 15 16:35:06 2019 +0100
+
+    Implementing pawning when you would go below 0 money;
+
+[33mcommit 7b0a6275859734eba8af4831bb58ca714f6753bf[m
+Merge: b262375 04908e5
+Author: Flotfyr27 <42938246+LGramme@users.noreply.github.com>
+Date:   Tue Jan 15 16:31:08 2019 +0100
+
+    Merge branch 'cotrollerMerge' of https://github.com/LGramme/3UgersJan2019 into cotrollerMerge
+
+[33mcommit b262375185282476241b9af3ad2020df08df85a0[m
+Author: Flotfyr27 <42938246+LGramme@users.noreply.github.com>
+Date:   Tue Jan 15 16:30:55 2019 +0100
+
+    Changed max value of bid to be max amount of cash on the player.
+
+[33mcommit 04908e59d9f16452e44adf036e5d75da2b97bece[m
+Merge: c5f8c42 19aa3ad
+Author: Fredrik <s185130@student.dtu.dk>
+Date:   Tue Jan 15 16:27:56 2019 +0100
+
+    Merge remote-tracking branch 'origin/cotrollerMerge' into cotrollerMerge
+
+[33mcommit c5f8c424c89d03575793ce7eb6307f2c426d82dc[m
+Author: Fredrik <s185130@student.dtu.dk>
+Date:   Tue Jan 15 16:27:50 2019 +0100
+
+    Made a DieTest to test the randomness of the dice.
+
+[33mcommit 19aa3ad3831f22a0175ec9b6e8bbd8519095b56a[m
+Author: Flotfyr27 <42938246+LGramme@users.noreply.github.com>
+Date:   Tue Jan 15 16:17:23 2019 +0100
+
+    Added feature to let players know who is the highest bidder on an auction.
+
+[33mcommit cc4d590027235ce6eb2a91d47cc2b7792d113532[m
+Author: Flotfyr27 <42938246+LGramme@users.noreply.github.com>
+Date:   Tue Jan 15 15:51:42 2019 +0100
+
+    Fixed values being displayed to be correct during auction
+
+[33mcommit ac10a7cfba613e2cb0b7618a96eed4e4354e5063[m[33m ([m[1;31morigin/doubleRentDevelopment[m[33m)[m
+Author: Mads Møller Jensen <mads1606@gmail.com>
+Date:   Tue Jan 15 15:46:28 2019 +0100
+
+    Improved getFieldsOfColor() method to require no parameters
+
+[33mcommit 89b81291d91a67f8a88acd4d94bb14fa85e1fcdb[m
+Merge: 07658a8 0558514
+Author: Flotfyr27 <42938246+LGramme@users.noreply.github.com>
+Date:   Tue Jan 15 15:27:01 2019 +0100
+
+    Merge branch 'cotrollerMerge' of https://github.com/LGramme/3UgersJan2019 into cotrollerMerge
+
+[33mcommit 07658a88b0578704688308ea64dce9b89975a868[m
+Author: Flotfyr27 <42938246+LGramme@users.noreply.github.com>
+Date:   Tue Jan 15 15:26:54 2019 +0100
+
+    Fixed off by one in AuctionController.java, program no longer crashes
+
+[33mcommit 05585142de2739bf8965e5751b2df51c2209b658[m
+Merge: acbf833 0d70cdf
+Author: Gustav Vang Klinker <gulle139@hotmail.com>
+Date:   Tue Jan 15 15:12:34 2019 +0100
+
+    Merge remote-tracking branch 'origin/cotrollerMerge' into Fixxit
+
+[33mcommit acbf8332a6e53a3459ba002d16c82bf8463a0d74[m
+Author: Gustav Vang Klinker <gulle139@hotmail.com>
+Date:   Tue Jan 15 15:12:19 2019 +0100
+
+    Turn order unscrewed;
+
+[33mcommit 0d70cdf47c63d28aa29236e3cd16ab2f23ab6c50[m
+Merge: 631b60a b58eacf
+Author: Fredrik <s185130@student.dtu.dk>
+Date:   Tue Jan 15 15:11:18 2019 +0100
+
+    Merge remote-tracking branch 'origin/cotrollerMerge' into cotrollerMerge
+
+[33mcommit 631b60a74dcb5f7175be134513ac17d040012120[m
+Author: Fredrik <s185130@student.dtu.dk>
+Date:   Tue Jan 15 15:11:09 2019 +0100
+
+    Made a method for getting 3 turns in a row result in prison.
+
+[33mcommit b58eacfc4e9d82153777ea805c2d674d80c03248[m
+Merge: b6e2380 ca34ec0
+Author: gklinker <43874951+gklinker@users.noreply.github.com>
+Date:   Tue Jan 15 15:09:35 2019 +0100
+
+    Merge pull request #2 from LGramme/PawnController
+    
+    Pawn controller
+
+[33mcommit ca34ec0660ff690797f648c0ca724895bf3c36e2[m
+Merge: 752688e b6e2380
+Author: gklinker <43874951+gklinker@users.noreply.github.com>
+Date:   Tue Jan 15 15:09:22 2019 +0100
+
+    Merge branch 'cotrollerMerge' into PawnController
+
+[33mcommit db18925cbb8e7f0b2be384361773386c9cccce44[m
+Author: Flotfyr27 <42938246+LGramme@users.noreply.github.com>
+Date:   Tue Jan 15 15:05:22 2019 +0100
+
+    Changed a fuck ton in AuctionController.java
+
+[33mcommit 752688e75656a690cfc814695f4f06c88d1f4687[m
+Author: Gustav Vang Klinker <gulle139@hotmail.com>
+Date:   Tue Jan 15 15:04:59 2019 +0100
+
+    PawnController working as intended;
+
+[33mcommit b6e2380751d3637dfdb7b7c49c83bc48c35f9356[m
+Author: Fredrik <s185130@student.dtu.dk>
+Date:   Tue Jan 15 14:31:10 2019 +0100
+
+    Made an landOnAction for the chancecards and updating on the GUI
+
+[33mcommit 9cd036ef7511b8b0ceb8eec19dd7aa6cd925036a[m
+Author: Gustav Vang Klinker <gulle139@hotmail.com>
+Date:   Tue Jan 15 13:50:29 2019 +0100
+
+    Working through PawnController errors;
+
+[33mcommit 0daa3da317e2ec28e3ddb15c29003e28248f144a[m
+Author: Mads Møller Jensen <mads1606@gmail.com>
+Date:   Tue Jan 15 13:49:42 2019 +0100
+
+    Fixed the getFieldsOfColor() method to return the wanted values.
+    
+    Added comments.
+
+[33mcommit c998fd412a1e159db3285f86b08c2b6a4c6e7803[m
+Author: Fredrik <s185130@student.dtu.dk>
+Date:   Tue Jan 15 13:14:01 2019 +0100
+
+    Changed a String
+
+[33mcommit 0d0a40124a93aa57c94c8c79f84f012887b3a8c9[m
+Merge: 7b6d27b 5f6c4ff
+Author: Gustav Vang Klinker <gulle139@hotmail.com>
+Date:   Tue Jan 15 13:09:50 2019 +0100
+
+    Merge remote-tracking branch 'origin/PawnController' into PawnController
+
+[33mcommit 7b6d27bfd620ead795ebad39e2e90f9d27fb301f[m
+Author: Gustav Vang Klinker <gulle139@hotmail.com>
+Date:   Tue Jan 15 13:09:21 2019 +0100
+
+    PawnController
