@@ -1,10 +1,9 @@
 package Domain.GameElements.Fields.Ownable;
 
-import Domain.Controller.PawnController;
+import Domain.GameElements.Entities.Player;
 import Domain.Controller.AuctionController;
 import Domain.GameElements.Board;
 import Domain.GameElements.Fields.Field;
-import Domain.GameElements.Entities.Player;
 import TechnicalServices.GameLogic.GameLogic;
 
 import java.awt.*;
@@ -78,10 +77,8 @@ public abstract class OwnableField extends Field {
             }
         }
     }
-
     /**
      * Method to determine what happens when a player lands on a field.
-     *
      * @param current The current player
      */
     @Override
@@ -139,16 +136,16 @@ public abstract class OwnableField extends Field {
         }
     }
 
-        /**
-         * Goes through all fields on the board and returns all the fields of the same
-         * type and color as the one the method was called on.
-         *
-         * @return All fields of same color and class as the object
-         */
-        public OwnableField[] getFieldsOfColor () {
-            Field[] fields = Board.getInstance().getFields();
-            int colorFieldNum = 0;
-            OwnableField[] fieldsOfColor;
+    /**
+     * Goes through all fields on the board and returns all the fields of the same
+     * type and color as the one the method was called on.
+     *
+     * @return All fields of same color and class as the object
+     */
+    public OwnableField[] getFieldsOfColor() {
+        Field[] fields = Board.getInstance().getFields();
+        int colorFieldNum = 0;
+        OwnableField[] fieldsOfColor;
 
             //counts the number fields of the same color and class as the object
             for (Field field : fields) {
@@ -205,6 +202,6 @@ public abstract class OwnableField extends Field {
             return getName();
         }
 
-
 }
+
 

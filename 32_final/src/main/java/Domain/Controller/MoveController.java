@@ -74,6 +74,9 @@ public class MoveController {
         guiHandler.updateGui(p, board.getPlayers(), board.getFields());
     }
 
+    public DiceTray getDiceTray() {
+        return dice;
+    }
 }
 
 

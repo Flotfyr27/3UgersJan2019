@@ -4,11 +4,13 @@
 package UI.GUI;
 
 
+import Domain.GameElements.Board;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.*;
 import Domain.GameElements.Fields.Ownable.*;
 import Domain.GameElements.Fields.ChanceField.*;
 import TechnicalServices.GameLogic.Values;
+import Domain.GameElements.Fields.Ownable.PropertyField;
 import gui_codebehind.GUI_BoardController;
 import gui_fields.*;
 import gui_main.GUI;
@@ -21,6 +23,7 @@ public class GuiHandler {
     private GUI_Field[] gui_fields = new GUI_Field[40];
     private GUI_Player[] guiPlayers;
     private GUI_BoardController bc;
+
 
     private static GuiHandler guiHandlerInstance;
 
@@ -80,6 +83,7 @@ public class GuiHandler {
      * Constructor. it is private to make sure it cannot be used externally.
      */
     private GuiHandler() {
+
     }
 
     /**
@@ -193,24 +197,15 @@ public class GuiHandler {
          * updates ownership of tile
          */
         Player owner;
+        String rent;
         for (int i = 0; i < gui_fields.length; i++) {
-            if (f[i].getClass().equals(PropertyField.class)) {
-                owner = ((PropertyField) f[i]).getOwner();
+            if (f[i].getClass().getSuperclass().equals(OwnableField.class)) {
+                owner = ((OwnableField) f[i]).getOwner();
+                rent = Board.getInstance().getRentString(i);
                 if (owner != null) {
-                    gui_fields[i].setDescription("Ejer: " + owner.getName());
-                }
-            }
-            if (f[i].getClass().equals(ShippingField.class)) {
-                owner = ((ShippingField) f[i]).getOwner();
-                if (owner != null) {
-                    gui_fields[i].setDescription("Ejer: " + owner.getName());
-                }
-            }
-            if (f[i].getClass().equals(CompanyField.class)) {
-                owner = ((CompanyField) f[i]).getOwner();
-                if (owner != null) {
-                    gui_fields[i].setDescription("Ejer: " + owner.getName());
-                }
+                gui_fields[i].setDescription("Ejer: " + owner.getName() + " - " + "Leje: " + rent);
+                } else
+                    gui_fields[i].setDescription("Ingen ejer");
             }
 
 
