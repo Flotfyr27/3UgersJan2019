@@ -71,13 +71,10 @@ public abstract class OwnableField extends Field {
      */
     public void buyField(Player p) {
         if (p.getAccount().getScore() >= getPrice()) {
-            try {
                 setOwner(p);
                 p.getAccount().changeScore(-getPrice());
                 p.getOwnedFields().add(this);
-            } catch (RuntimeException e) {
-                GameLogic.cantPay(p, getPrice());
-            }
+
         }
     }
     /**

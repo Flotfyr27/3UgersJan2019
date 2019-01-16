@@ -4,6 +4,7 @@ import Domain.Controller.PawnController;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Ownable.OwnableField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
+import TechnicalServices.GameLogic.GameLogic;
 import UI.GUI.GuiHandler;
 //import GUIHandler
 
@@ -51,17 +52,8 @@ public class TaxField extends Field {
             try {
                 player.getAccount().changeScore(-2000);
             } catch(RuntimeException e){
-            String choice = guiHandler.makeButtons("Vil du pante eller give op?", "Pante", "Give op");
-            if(choice.equalsIgnoreCase("Pante")){
-                do {
-                    PawnController.getInstance().runCase(player);
-                }while(player.getAccount().getScore()-2000<0);
+                GameLogic.cantPay(player,2000);
             }
-            else{
-                player.setLost(true);
-                player.setIsActive(false);
-            }
-        }
         } else {
             /*
              * Indkomstskat
@@ -78,16 +70,7 @@ public class TaxField extends Field {
                 try{
                 player.getAccount().changeScore(-sum);
                 }catch(RuntimeException e){
-                    String choice = guiHandler.makeButtons("Vil du pante eller give op?", "Pante", "Give op");
-                    if(choice.equalsIgnoreCase("Pante")){
-                        do {
-                            PawnController.getInstance().runCase(player);
-                        }while(player.getAccount().getScore()-sum<0);
-                    }
-                    else{
-                        player.setLost(true);
-                        player.setIsActive(false);
-                    }
+                    GameLogic.cantPay(player,-sum);
                 }
                 /*
                  * Selected option of paying kr.4.000
@@ -96,16 +79,7 @@ public class TaxField extends Field {
                 try{
                 player.getAccount().changeScore(-4000);
                 }catch(RuntimeException e){
-                    String choice = guiHandler.makeButtons("Vil du pante eller give op?", "Pante", "Give op");
-                    if(choice.equalsIgnoreCase("Pante")){
-                        do {
-                            PawnController.getInstance().runCase(player);
-                        }while(player.getAccount().getScore()-4000<0);
-                    }
-                    else{
-                        player.setLost(true);
-                        player.setIsActive(false);
-                    }
+                    GameLogic.cantPay(player,4000);
                 }
             } else {
                 throw new IllegalArgumentException("Value doesn't correspond to either button choice");

@@ -68,6 +68,7 @@ public class GameLogic {
             } else {
                 player.setLost(true);
                 player.setIsActive(false);
+                return;
             }
         }while (player.getAccount().getScore() + amount < 0);
         player.getAccount().changeScore(-amount);
