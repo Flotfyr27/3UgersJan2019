@@ -27,24 +27,16 @@ public class BirthdayCard extends TransactionCard {
         int count = 0;
         for (Player p : players){
             if (!p.getLost()) {
-                boolean hasPaid = false;
-                do {
-                    if (p.getAccount().canBuy(-super.amount)) {
+                if (p.getAccount().canBuy(-super.amount)) {
                         p.getAccount().changeScore(-super.amount);
                         count++;
-                        hasPaid = true;
-                    } else {
+                } else {
 
                         guiHandler.msgInMiddle(p.getName() + "kan ikke betale, pantsæt eller sælg en grund så du kan betale");
                         String str = guiHandler.makeButtons("Hvordan vil du skaffe pengene?", "Pantsæt", "Handel");
-                        if (str.equalsIgnoreCase("Pantsæt")) {
-                            GameLogic.cantPay(p,-super.amount);
-                        } else {
-                            //TODO insert tradeController call here
-                        }
-                    }
-
-                }while (!hasPaid);
+                        if (str.equalsIgnoreCase("Pantsæt"))
+                            GameLogic.cantPay(p, -super.amount);
+                }
             }
         }
 

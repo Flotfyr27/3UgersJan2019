@@ -47,7 +47,7 @@ public class MainController {
                         currentPlayer.setIsActive(true);
                     }
                     if (choice.equalsIgnoreCase("Pantsætning"))
-                        ;//pawnCon.runCase();
+                        pawnCon.runCase(currentPlayer);
                 } else {
                     choice = guiHandler.makeButtons("Vælg en handling " + currentPlayer.getName(),
                             "Slå terninger", "Handel", "Pantsætning");
