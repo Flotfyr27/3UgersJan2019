@@ -25,6 +25,13 @@ public class ChanceField extends Field {
     @Override
     public void landOnAction(Player current) {
         guiHandler.msgInMiddle(stack.getCurrent().toString());
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         stack.next().action(current);
     }
 }
