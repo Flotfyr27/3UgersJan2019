@@ -41,8 +41,8 @@ public class Board {
      * Constructor for Board
      */
     private Board() {
-        setFields();
         diceTray = new DiceTray();
+        setFields();
     }
 
     /**
