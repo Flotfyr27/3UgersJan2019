@@ -50,8 +50,13 @@ public class Board {
      */
     public void initBoard(int numberOfPlayers) {
         players = new Player[numberOfPlayers];
+        String name;
         for (int i = 0; i < numberOfPlayers; i++) {
-            String name = GuiHandler.getInstance().getUserString("Indtast dit navn " +(i+1));
+            do {
+                name = GuiHandler.getInstance().getUserString("Indtast dit navn " + (i + 1));
+                if (name == null)
+                    GuiHandler.getInstance().giveMsg("Der blev givet et tomt input. Indtast venligst et navn");
+            }while(name == null);
             players[i] = new Player(name);
         }
 

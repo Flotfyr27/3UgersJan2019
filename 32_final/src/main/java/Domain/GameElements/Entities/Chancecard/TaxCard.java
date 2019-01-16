@@ -1,6 +1,7 @@
 package Domain.GameElements.Entities.Chancecard;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Ownable.*;
+import TechnicalServices.GameLogic.GameLogic;
 
 
 public class TaxCard extends ChanceCard{
@@ -24,7 +25,11 @@ public class TaxCard extends ChanceCard{
                     sum++;
             }
         }
-        p.getAccount().changeScore(-sum);
+        try {
+            p.getAccount().changeScore(-sum);
+        } catch(RuntimeException e){
+            GameLogic.cantPay(p,-sum);
+        }
     }
 
 

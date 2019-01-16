@@ -5,6 +5,7 @@ import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Ownable.OwnableField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
 import Domain.GameElements.Board;
+import TechnicalServices.GameLogic.GameLogic;
 import UI.GUI.GuiHandler;
 
 public class PawnController {
@@ -200,17 +201,8 @@ public class PawnController {
                p.getAccount().changeScore(buyPawnBackValue(ownableField, p));
                ownableField.setIsPawned(false);
            }catch(RuntimeException e){
-            String choice = guiHandler.makeButtons("Vil du pante eller give op?", "Pante", "Give op");
-            if(choice.equalsIgnoreCase("Pante")){
-                do {
-                    PawnController.getInstance().runCase(p);
-                }while(p.getAccount().getScore()-buyPawnBackValue(ownableField,p)<0);
+               GameLogic.cantPay(p,buyPawnBackValue(ownableField,p));
             }
-            else{
-                p.setLost(true);
-                p.setIsActive(false);
-            }
-        }
         }
 
     }

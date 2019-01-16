@@ -1,7 +1,7 @@
 package Domain.GameElements.Entities.Chancecard;
-import Domain.Controller.PawnController;
 import Domain.GameElements.Entities.Player;
-import UI.GUI.GuiHandler;
+import TechnicalServices.GameLogic.GameLogic;
+
 
 public class TransactionCard extends ChanceCard {
 
@@ -25,16 +25,7 @@ public class TransactionCard extends ChanceCard {
         try{
         p.getAccount().changeScore(amount);
         }catch(RuntimeException e){
-            String choice = GuiHandler.getInstance().makeButtons("Vil du pante eller give op?", "Pante", "Give op");
-            if(choice.equalsIgnoreCase("Pante")){
-                do {
-                    PawnController.getInstance().runCase(p);
-                }while(p.getAccount().getScore()+amount < 0);
-            }
-            else{
-                p.setLost(true);
-                p.setIsActive(false);
-            }
+            GameLogic.cantPay(p, amount);
         }
     }
 

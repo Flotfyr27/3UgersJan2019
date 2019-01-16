@@ -4,6 +4,7 @@ import Domain.Controller.PawnController;
 import Domain.Controller.AuctionController;
 import Domain.GameElements.Fields.Field;
 import Domain.GameElements.Entities.Player;
+import TechnicalServices.GameLogic.GameLogic;
 
 import java.awt.*;
 
@@ -62,9 +63,13 @@ public abstract class OwnableField extends Field {
 
     public void buyField(Player p){
             if(p.getAccount().getScore() >= getPrice()){
-                setOwner(p);
-                p.getAccount().changeScore(-getPrice());
-                p.getOwnedFields().add(this);
+                try {
+                    setOwner(p);
+                    p.getAccount().changeScore(-getPrice());
+                    p.getOwnedFields().add(this);
+                }catch(RuntimeException e){
+                    GameLogic.cantPay(p, getPrice());
+                }
             }
     }
     /**
@@ -92,22 +97,12 @@ public abstract class OwnableField extends Field {
             return;
 
         } else{
-            //TODO check to see if player has enough money to pay rent, else pawn!
             guiHandler.giveMsg("Du skal betale "+getRent(current) +"kr leje til  "+ getOwner().getName());
             try {
                 getOwner().getAccount().changeScore(getRent(current));
                 current.getAccount().changeScore(-getRent(current));
             }catch(RuntimeException e){
-                String choice = guiHandler.makeButtons("Vil du pante eller give op?", "Pante", "Give op");
-                if(choice.equalsIgnoreCase("Pante")){
-                    do {
-                        PawnController.getInstance().runCase(current);
-                    }while(current.getAccount().getScore()-getRent(current)<0);
-                }
-                else{
-                    current.setLost(true);
-                    current.setIsActive(false);
-                }
+                GameLogic.cantPay(current,getRent(current));
             }
         }
 
@@ -129,3 +124,4 @@ public abstract class OwnableField extends Field {
     }
 
 }
+

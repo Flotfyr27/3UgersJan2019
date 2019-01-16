@@ -2,6 +2,7 @@ package Domain.Controller;
 
 import Domain.GameElements.Entities.DiceTray;
 import Domain.GameElements.Entities.Player;
+import TechnicalServices.GameLogic.GameLogic;
 import UI.GUI.GuiHandler;
 
 public class JailController {
@@ -13,13 +14,14 @@ public class JailController {
 
     /**
      * Making the JailController a singleton
+     *
      * @return
      */
-    public static JailController getInstance(){
-        if(instance == null){
+    public static JailController getInstance() {
+        if (instance == null) {
             instance = new JailController();
             return instance;
-        }else{
+        } else {
             return instance;
         }
     }
@@ -27,12 +29,13 @@ public class JailController {
     /**
      * Constructor
      */
-    private JailController(){
+    private JailController() {
         diceTray = new DiceTray();
     }
 
     /**
      * RunCase in which the player chooses between two options for getting out of jail.
+     *
      * @param player
      */
     public void runCase(Player player) {
@@ -41,9 +44,7 @@ public class JailController {
         if (player.getJailTime() == -1) { //Uses method in Player to determine whether the player is in jail or not.
             guiHandler.msgInMiddle("Du er på besøg i fængslet");
             return;
-        }
-
-        else if (player.getJailTime()>=0){
+        } else if (player.getJailTime() >= 0) {
 
             timeInJail = 0;
 
@@ -53,10 +54,10 @@ public class JailController {
 
                 //Choice of making bail and throwing the dice
                 if (buttons.equals("Betal kr.1.000, og ryk ud af fængsel")) {
-                    try{
-                    player.getAccount().changeScore(-1000);
-                    }catch(RuntimeException e){
-                        cantPay(player);
+                    try {
+                        player.getAccount().changeScore(-1000);
+                    } catch (RuntimeException e) {
+                        GameLogic.cantPay(player,-1000);
                     }
                     MoveController.getInstance().runCase(player); //The dice are thrown in the moveController
                     player.setJailTime(-1);
@@ -69,7 +70,7 @@ public class JailController {
 
                     //if/else statement which determines what to do when throwing double dice or not.
                     if (diceTray.IsDoubleValue()) {
-                        MoveController.getInstance().runcase(player, diceTray.getSum(), diceTray.IsDoubleValue()); //The dice are thrown in the moveController
+                        MoveController.getInstance().runCase(player, diceTray.getSum(), diceTray.IsDoubleValue()); //The dice are thrown in the moveController
                         player.setJailTime(-1);
                         return;
                     } else if (!diceTray.IsDoubleValue()) {
@@ -84,29 +85,16 @@ public class JailController {
 
             //The player is forced to make bail
             if (player.getJailTime() == 3) {
-                try{
-                player.getAccount().changeScore(-1000);
-                }catch(RuntimeException e){
-                    cantPay(player);
+                try {
+                    player.getAccount().changeScore(-1000);
+                } catch (RuntimeException e) {
+                    GameLogic.cantPay(player, -1000);
                 }
                 MoveController.getInstance().runCase(player); //The dice are thrown in the moveController
                 player.setJailTime(-1);
             }
 
         }
-    }
 
-    private void cantPay(Player player){
-        String choice = guiHandler.makeButtons("Vil du pante eller give op?", "Pante", "Give op");
-    if(choice.equalsIgnoreCase("Pante")){
-        do {
-            PawnController.getInstance().runCase(player);
-        }while(player.getAccount().getScore()-1000<0);
     }
-                        else{
-        player.setLost(true);
-        player.setIsActive(false);
-    }
-    }
-
 }
