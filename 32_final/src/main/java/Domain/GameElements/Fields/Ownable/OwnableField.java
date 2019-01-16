@@ -88,7 +88,6 @@ public abstract class OwnableField extends Field {
      */
     @Override
     public void landOnAction(Player current) {
-        guiHandler.giveMsg("Du er landet på " + getName());
         if (getOwner() == null) {
             String choice = guiHandler.makeButtons("Vil du købe denne grund? Den koster " + price, "Ja", "Nej");
             if (choice.equalsIgnoreCase("Ja")) {
@@ -105,24 +104,22 @@ public abstract class OwnableField extends Field {
             return;
 
         } else {
-            guiHandler.giveMsg("Du skal betale " + getRent(current) + "kr leje til  " + getOwner().getName());
             try {
                 if (owner.getJailTime() < 0) {
-                    guiHandler.giveMsg("Du skal betale " + getRent(current) + " i leje til  " + getOwner().getName());
-                    boolean ownsAll = false;
-                    for (OwnableField field : this.getFieldsOfColor()) {
-                        if (field.getOwner() != null && field.getOwner().equals(owner))
-                            ownsAll = true;
-                        else {
-                            ownsAll = false;
-                            break;
-                        }
-                    }
 
-                    if (ownsAll) {
+
+                    int payedRent;
+                    if (ownsAll())
+                        payedRent = getRent(current) * 2;
+                    else
+                        payedRent = getRent(current);
+
+                    guiHandler.giveMsg("Du er landet på " + getName() + "\n" + "Du skal betale " + payedRent + " kr. i leje til  " + getOwner().getName());
+
+                    if (ownsAll()) {
                         if ((!this.getClass().equals(PropertyField.class)) || ((PropertyField) this).getHouses() == 0) {
                             current.getAccount().changeScore(-getRent(current) * 2);
-                            getOwner().getAccount().changeScore(getRent(current) * 2); //TODO test that this works
+                            getOwner().getAccount().changeScore(getRent(current) * 2);
                         } else {
                             current.getAccount().changeScore(-getRent(current));
                             getOwner().getAccount().changeScore(getRent(current));
@@ -139,6 +136,19 @@ public abstract class OwnableField extends Field {
                 GameLogic.cantPay(current, getRent(current));
             }
         }
+    }
+
+    public boolean ownsAll(){
+        boolean ownsAll = false;
+        for (OwnableField field : this.getFieldsOfColor()) {
+            if (field.getOwner() != null && field.getOwner().equals(owner))
+                ownsAll = true;
+            else {
+                ownsAll = false;
+                break;
+            }
+        }
+        return ownsAll;
     }
 
     /**

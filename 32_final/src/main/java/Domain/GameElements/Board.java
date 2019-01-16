@@ -134,8 +134,12 @@ public class Board {
             if (fields[fieldPos].getClass().equals(PropertyField.class)) {
                 return "" + Values.rentPrice(fieldPos, ((PropertyField) fields[fieldPos]).getHouses());
             } else if (fields[fieldPos].getClass().equals(CompanyField.class)) {
-                return "Terningeslag * " + Values.rentPrice(fieldPos, 0);
+                int rent =  Values.rentPrice(fieldPos, 0);
+                if (((OwnableField)fields[fieldPos]).ownsAll())
+                    rent *= 2;
+                return "Terningeslag * " + rent;
             } else {
+
                 return "Antal ejede Rederier * " + Values.rentPrice(fieldPos, 0);
             }
         } else {

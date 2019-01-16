@@ -207,10 +207,8 @@ public class GuiHandler {
                 } else
                 gui_fields[i].setDescription("Ingen ejer");
             }
-
-
         }
-    }
+ }
 
     /**
      * Moves a player on the board
@@ -250,7 +248,6 @@ public class GuiHandler {
             carMoved = onCarMoved(carMoved);
         }
     }
-
     /**
      * updates only the balance in the gui
      *
