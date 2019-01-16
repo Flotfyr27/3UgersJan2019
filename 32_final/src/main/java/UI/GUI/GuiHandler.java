@@ -204,10 +204,12 @@ public class GuiHandler {
                 rent = Board.getInstance().getRentString(i);
                 if (owner != null) {
                 gui_fields[i].setDescription("Ejer: " + owner.getName() + " - " + "Leje: " + rent);
+                gui_fields[i].setSubText("Ejer: " + owner.getName());
                 } else
                 gui_fields[i].setDescription("Ingen ejer");
             }
         }
+
  }
 
     /**
