@@ -53,7 +53,11 @@ public class JailController {
 
                 //Choice of making bail and throwing the dice
                 if (buttons.equals("Betal kr.1.000, og ryk ud af fængsel")) {
+                    try{
                     player.getAccount().changeScore(-1000);
+                    }catch(RuntimeException e){
+                        cantPay(player);
+                    }
                     MoveController.getInstance().runCase(player); //The dice are thrown in the moveController
                     player.setJailTime(-1);
                     return;
@@ -80,12 +84,29 @@ public class JailController {
 
             //The player is forced to make bail
             if (player.getJailTime() == 3) {
+                try{
                 player.getAccount().changeScore(-1000);
+                }catch(RuntimeException e){
+                    cantPay(player);
+                }
                 MoveController.getInstance().runCase(player); //The dice are thrown in the moveController
                 player.setJailTime(-1);
             }
 
         }
+    }
+
+    private void cantPay(Player player){
+        String choice = guiHandler.makeButtons("Vil du pante eller give op?", "Pante", "Give op");
+    if(choice.equalsIgnoreCase("Pante")){
+        do {
+            PawnController.getInstance().runCase(player);
+        }while(player.getAccount().getScore()-1000<0);
+    }
+                        else{
+        player.setLost(true);
+        player.setIsActive(false);
+    }
     }
 
 }

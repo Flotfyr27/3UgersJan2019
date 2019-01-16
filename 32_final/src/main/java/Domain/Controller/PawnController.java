@@ -9,7 +9,6 @@ import UI.GUI.GuiHandler;
 
 public class PawnController {
 
-    private boolean fieldIsPropertyField;
     private GuiHandler guiHandler;
     private Board board;
     private static PawnController instance;
@@ -186,9 +185,9 @@ public class PawnController {
      * Multiplication of
      * Cast the double as an int.
      */
-    private void buyPawnBack(OwnableField ownableField, Player p) {
+    private int buyPawnBackValue(OwnableField ownableField, Player p) {
 
-        p.getAccount().changeScore((int) (-pawnValue(ownableField) * 1.1 - ((int) (pawnValue(ownableField) * 1.1) % 50)));
+        return (int) (-pawnValue(ownableField) * 1.1 - ((int) (pawnValue(ownableField) * 1.1) % 50));
 
     }
 
@@ -197,8 +196,21 @@ public class PawnController {
      */
     private void unPawn(OwnableField ownableField, Player p) {
         if (ownableField.getIsPawned()) {
-            buyPawnBack(ownableField,p);
-            ownableField.setIsPawned(false);
+           try {
+               p.getAccount().changeScore(buyPawnBackValue(ownableField, p));
+               ownableField.setIsPawned(false);
+           }catch(RuntimeException e){
+            String choice = guiHandler.makeButtons("Vil du pante eller give op?", "Pante", "Give op");
+            if(choice.equalsIgnoreCase("Pante")){
+                do {
+                    PawnController.getInstance().runCase(p);
+                }while(p.getAccount().getScore()-buyPawnBackValue(ownableField,p)<0);
+            }
+            else{
+                p.setLost(true);
+                p.setIsActive(false);
+            }
+        }
         }
 
     }

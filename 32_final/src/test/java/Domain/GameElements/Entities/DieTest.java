@@ -10,7 +10,7 @@ class DieTest {
     void roll() {
         Die die = new Die();
         int nr1 = 1, nr2= 2, nr3 = 3, nr4 = 4, nr5 = 5, nr6 = 6;
-        //Rolls die 100000 times and tracks the roll value
+        //Rolls die 600000 times and tracks the roll value
         for(int i = 0; i < 600000; i++){
             int value = die.Roll();
             if(value == 1){
@@ -34,13 +34,13 @@ class DieTest {
         System.out.println("Antal 5'ere: " + nr5);
         System.out.println("Antal 6'ere: " + nr6);
 
-        //Examines if any die values are below one or above six
-        assertEquals(100000, nr1, 300);
-        assertEquals(100000, nr2,300);
-        assertEquals(100000, nr3,300);
-        assertEquals(100000, nr4,300);
-        assertEquals(100000, nr5,300);
-        assertEquals(100000, nr6,300);
+        //Examines how accurate the dice is
+        assertEquals(100000, nr1, 500);
+        assertEquals(100000, nr2,500);
+        assertEquals(100000, nr3,500);
+        assertEquals(100000, nr4,500);
+        assertEquals(100000, nr5,500);
+        assertEquals(100000, nr6,500);
 
 
     }

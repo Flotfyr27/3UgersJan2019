@@ -1,5 +1,6 @@
 package Domain.GameElements.Fields.Ownable;
 
+import Domain.Controller.PawnController;
 import Domain.Controller.AuctionController;
 import Domain.GameElements.Board;
 import Domain.GameElements.Fields.Field;
@@ -92,37 +93,50 @@ public abstract class OwnableField extends Field {
             return;
 
         } else{
-            if (owner.getJailTime() < 0) {
-                guiHandler.giveMsg("Du skal betale " +getRent(current) + " i leje til  " + getOwner().getName());
-                boolean ownsAll = false;
-                for (OwnableField field : this.getFieldsOfColor()) {
-                    if (field.getOwner() != null && field.getOwner().equals(owner))
-                        ownsAll = true;
-                    else {
-                        ownsAll = false;
-                        break;
+            //TODO check to see if player has enough money to pay rent, else pawn!
+            guiHandler.giveMsg("Du skal betale "+getRent(current) +"kr leje til  "+ getOwner().getName());
+            try {
+                if (owner.getJailTime() < 0) {
+                    guiHandler.giveMsg("Du skal betale " +getRent(current) + " i leje til  " + getOwner().getName());
+                    boolean ownsAll = false;
+                    for (OwnableField field : this.getFieldsOfColor()) {
+                        if (field.getOwner() != null && field.getOwner().equals(owner))
+                            ownsAll = true;
+                        else {
+                            ownsAll = false;
+                            break;
+                        }
                     }
-                }
 
-                if (ownsAll) {
-                    if ((!this.getClass().equals(PropertyField.class)) || ((PropertyField) this).getHouses() == 0) {
-                        current.getAccount().changeScore(-getRent(current) * 2);
-                        getOwner().getAccount().changeScore(getRent(current) * 2); //TODO test that this works
+                    if (ownsAll) {
+                        if ((!this.getClass().equals(PropertyField.class)) || ((PropertyField) this).getHouses() == 0) {
+                            current.getAccount().changeScore(-getRent(current) * 2);
+                            getOwner().getAccount().changeScore(getRent(current) * 2); //TODO test that this works
+                        } else {
+                            current.getAccount().changeScore(-getRent(current));
+                            getOwner().getAccount().changeScore(getRent(current));
+                        }
                     } else {
                         current.getAccount().changeScore(-getRent(current));
                         getOwner().getAccount().changeScore(getRent(current));
                     }
-                } else {
-                    current.getAccount().changeScore(-getRent(current));
-                    getOwner().getAccount().changeScore(getRent(current));
-                }
 
-            } else {
-                guiHandler.giveMsg(getOwner().getName() + " er i fængsel og kan derfor ikke kræve leje.");
+                } else {
+                    guiHandler.giveMsg(getOwner().getName() + " er i fængsel og kan derfor ikke kræve leje.");
+                }
+            }catch(RuntimeException e){
+                String choice = guiHandler.makeButtons("Vil du pante eller give op?", "Pante", "Give op");
+                if(choice.equalsIgnoreCase("Pante")){
+                    do {
+                        PawnController.getInstance().runCase(current);
+                    }while(current.getAccount().getScore()-getRent(current)<0);
+                }
+                else{
+                    current.setLost(true);
+                    current.setIsActive(false);
+                }
             }
         }
-
-    }
 
     /**
      * Goes through all fields on the board and returns all the fields of the same
@@ -171,6 +185,10 @@ public abstract class OwnableField extends Field {
     public void setIsPawned(boolean changeTo){isPawned = changeTo;}
 
     public abstract int getRent(Player player);
+
+    public int getHouses(){return 0;}
+    public boolean getHotel(){return false;}
+    public void removeHouse(int value){}
 
     @Override
     public String toString(){
