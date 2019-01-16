@@ -153,6 +153,7 @@ public class BuySellController {
         //TODO Make check that ensures one can only build on fields that has the least amount of houses
         //TODO make check for number of houses to add hotels and cap the amount of times you can buy
         //TODO allow the player to buy multiple buildings at a time
+        //TODO use getBgColor in Values.getHousePrice instead of number of houses
 
         if (ownableFields.length <= 0) {
             guiHandler.giveMsg("Du har ingen grunde du kan købe huse på.");
