@@ -57,7 +57,13 @@ public class GuiHandler {
                 gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", Integer.toString(propertyField.getPrice()), fields[i].getBgColor(), null));
 
             } else if (fields[i].getClass().equals(EmptyField.class)) {
-                gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
+                if(fields[i].getName().equals("På besøg\nI fængsel")){
+                    gui_fields[i] = (new GUI_Jail("src\\main\\Resources\\jail.jpg", fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), Color.WHITE));
+                }else if(fields[i].getName().equals("Gratis Parkering")){
+                    gui_fields[i] = (new GUI_Refuge("src\\main\\Resources\\parking.jpg",fields[i].getName(), fields[i].getSubtext(), "De er beruset, parkér bilen til næste tur.", fields[i].getBgColor(), null));//This one be causing trouble
+                }else {
+                    gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
+                }
 
             } else if (fields[i].getClass().equals(ChanceField.class)) {
                 gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), Color.white));
@@ -66,13 +72,17 @@ public class GuiHandler {
                 gui_fields[i] = new GUI_Tax(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null);
 
             } else if (fields[i].getClass().equals(ShippingField.class)) {
-                gui_fields[i] = new GUI_Shipping("", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
+                gui_fields[i] = new GUI_Shipping("src\\main\\Resources\\ferry.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), Color.WHITE);
 
             } else if (fields[i].getClass().equals(CompanyField.class)) {
-                gui_fields[i] = new GUI_Brewery("", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
+                if(fields[i].getName().equals("Tuborg")){
+                    gui_fields[i] = new GUI_Brewery("src\\main\\Resources\\squash.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
+                }else {
+                    gui_fields[i] = new GUI_Brewery("src\\main\\Resources\\cola.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
+                }
 
             } else if (fields[i].getClass().equals(JailorField.class)) {
-                gui_fields[i] = new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null);
+                gui_fields[i] = new GUI_Jail("src\\main\\Resources\\politi.jpg", fields[i].getName(), fields[i].getSubtext(), "De fængsles", fields[i].getBgColor(), Color.WHITE);
             }
         }
 
@@ -204,10 +214,20 @@ public class GuiHandler {
                 rent = Board.getInstance().getRentString(i);
                 if (owner != null) {
                 gui_fields[i].setDescription("Ejer: " + owner.getName() + " - " + "Leje: " + rent);
+                gui_fields[i].setSubText("Ejer: " + owner.getName());
                 } else
                 gui_fields[i].setDescription("Ingen ejer");
             }
+            if(f[i].getClass().getSuperclass().equals(OwnableField.class)){
+                OwnableField field = (OwnableField)f[i];
+                if(field.getIsPawned()){
+                    gui_fields[i].setSubText("PANTSAT");
+                }else if(field.getOwner() != null){
+                   gui_fields[i].setSubText("Ejer: " + field.getOwner().getName());
+                }
+            }
         }
+
  }
 
     /**
