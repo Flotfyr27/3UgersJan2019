@@ -79,6 +79,12 @@ public class MainController {
                 guiHandler.giveMsg(currentPlayer.getName() + " er ude af spillet");
             currentPlayerNum = ++currentPlayerNum % players.length;
         }
+        String winner = "";
+        for (int i = 0; i < players.length; i++){
+            if (!players[i].getLost())
+                winner = players[i].getName();
+        }
+        guiHandler.giveMsg(winner + " har vundet spillet. Tillykke med sejren");
     }
 
 }
