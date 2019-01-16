@@ -44,5 +44,5 @@ public class MoveChanceCard extends ChanceCard {
         GuiHandler.getInstance().updatePlayerPos(player, Board.getInstance().getPlayers());
         Board.getInstance().getFields()[player.getPos()].landOnAction(player);
     }
-
+    //TODO make car go backwards
 }
