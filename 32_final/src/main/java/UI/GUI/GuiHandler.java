@@ -66,7 +66,7 @@ public class GuiHandler {
                 gui_fields[i] = new GUI_Tax(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null);
 
             } else if (fields[i].getClass().equals(ShippingField.class)) {
-                gui_fields[i] = new GUI_Shipping("", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
+                gui_fields[i] = new GUI_Shipping("", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), Color.WHITE);
 
             } else if (fields[i].getClass().equals(CompanyField.class)) {
                 gui_fields[i] = new GUI_Brewery("", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
