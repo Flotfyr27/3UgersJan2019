@@ -2,8 +2,10 @@ package Domain.GameElements.Fields.Ownable;
 
 import Domain.Controller.PawnController;
 import Domain.Controller.AuctionController;
+import Domain.GameElements.Board;
 import Domain.GameElements.Fields.Field;
 import Domain.GameElements.Entities.Player;
+import TechnicalServices.GameLogic.GameLogic;
 
 import java.awt.*;
 
@@ -62,9 +64,13 @@ public abstract class OwnableField extends Field {
 
     public void buyField(Player p){
             if(p.getAccount().getScore() >= getPrice()){
-                setOwner(p);
-                p.getAccount().changeScore(-getPrice());
-                p.getOwnedFields().add(this);
+                try {
+                    setOwner(p);
+                    p.getAccount().changeScore(-getPrice());
+                    p.getOwnedFields().add(this);
+                }catch(RuntimeException e){
+                    GameLogic.cantPay(p, getPrice());
+                }
             }
     }
     /**
@@ -92,25 +98,81 @@ public abstract class OwnableField extends Field {
             return;
 
         } else{
-            //TODO check to see if player has enough money to pay rent, else pawn!
             guiHandler.giveMsg("Du skal betale "+getRent(current) +"kr leje til  "+ getOwner().getName());
             try {
-                getOwner().getAccount().changeScore(getRent(current));
-                current.getAccount().changeScore(-getRent(current));
-            }catch(RuntimeException e){
-                String choice = guiHandler.makeButtons("Vil du pante eller give op?", "Pante", "Give op");
-                if(choice.equalsIgnoreCase("Pante")){
-                    do {
-                        PawnController.getInstance().runCase(current);
-                    }while(current.getAccount().getScore()-getRent(current)<0);
+                if (owner.getJailTime() < 0) {
+                    guiHandler.giveMsg("Du skal betale " +getRent(current) + " i leje til  " + getOwner().getName());
+                    boolean ownsAll = false;
+                    for (OwnableField field : this.getFieldsOfColor()) {
+                        if (field.getOwner() != null && field.getOwner().equals(owner))
+                            ownsAll = true;
+                        else {
+                            ownsAll = false;
+                            break;
+                        }
+                    }
+
+                    if (ownsAll) {
+                        if ((!this.getClass().equals(PropertyField.class)) || ((PropertyField) this).getHouses() == 0) {
+                            current.getAccount().changeScore(-getRent(current) * 2);
+                            getOwner().getAccount().changeScore(getRent(current) * 2); //TODO test that this works
+                        } else {
+                            current.getAccount().changeScore(-getRent(current));
+                            getOwner().getAccount().changeScore(getRent(current));
+                        }
+                    } else {
+                        current.getAccount().changeScore(-getRent(current));
+                        getOwner().getAccount().changeScore(getRent(current));
+                    }
+
+                } else {
+                    guiHandler.giveMsg(getOwner().getName() + " er i fængsel og kan derfor ikke kræve leje.");
                 }
-                else{
-                    current.setLost(true);
-                    current.setIsActive(false);
+            }catch(RuntimeException e){
+                GameLogic.cantPay(current,getRent(current));
+            }
+        }
+
+    /**
+     * Goes through all fields on the board and returns all the fields of the same
+     * type and color as the one the method was called on.
+     *
+     * @return All fields of same color and class as the object
+     */
+    public OwnableField[] getFieldsOfColor(){
+        Field[] fields = Board.getInstance().getFields();
+        int colorFieldNum = 0;
+        OwnableField[] fieldsOfColor;
+
+        //counts the number fields of the same color and class as the object
+        for (Field field : fields) {
+            if (field.getClass().equals(this.getClass())) {
+                if (((OwnableField) field).getBgColor() == this.getBgColor()) {
+                    colorFieldNum++;
                 }
             }
         }
 
+        //Fills the array with the colored fields
+        fieldsOfColor = new OwnableField[colorFieldNum];
+        int colorIndex = 0;
+        for (Field field : fields) {
+            if (field.getClass().equals(this.getClass())) {
+                if (((OwnableField) field).getBgColor() == this.getBgColor()) {
+                    fieldsOfColor[colorIndex++] = (OwnableField) field;
+                }
+            }
+        }
+        return fieldsOfColor;
+    }
+
+    /**
+     * returns the background color
+     * @return
+     */
+    @Override
+    public Color getBgColor() {
+        return super.getBgColor();
     }
 
     public boolean getIsPawned(){return isPawned;}
@@ -129,3 +191,4 @@ public abstract class OwnableField extends Field {
     }
 
 }
+
