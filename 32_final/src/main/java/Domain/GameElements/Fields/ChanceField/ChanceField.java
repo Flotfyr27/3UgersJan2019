@@ -26,11 +26,11 @@ public class ChanceField extends Field {
     public void landOnAction(Player current) {
         guiHandler.msgInMiddle(stack.getCurrent().toString());
         guiHandler.giveMsg("Du trækker et Chancekort");
-        try {
+       /* try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
 
         stack.next().action(current);
     }
