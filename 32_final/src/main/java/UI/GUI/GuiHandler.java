@@ -218,6 +218,14 @@ public class GuiHandler {
                 } else
                 gui_fields[i].setDescription("Ingen ejer");
             }
+            if(f[i].getClass().getSuperclass().equals(OwnableField.class)){
+                OwnableField field = (OwnableField)f[i];
+                if(field.getIsPawned()){
+                    gui_fields[i].setSubText("PANTSAT");
+                }else if(field.getOwner() != null){
+                   gui_fields[i].setSubText("Ejer: " + field.getOwner().getName());
+                }
+            }
         }
 
  }
