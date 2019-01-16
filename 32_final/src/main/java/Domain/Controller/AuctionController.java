@@ -31,6 +31,7 @@ public class AuctionController {
         else return instance;
     }
 
+
     public void runCase(Player startingPlayer){
 
 
@@ -50,7 +51,7 @@ public class AuctionController {
         boolean isFirstRound = true;
         int rounds = 0;
         do {
-
+                //Start off by asking to buy
                 String answer = guiHandler.makeButtons("Vil de købe " + field.getName() + ", " + buyers.get(currentPlayer).getName() + "?", "Ja", "Nej");
                 if(answer.equals("Nej")) {
                     buyers.remove(currentPlayer);
@@ -68,36 +69,29 @@ public class AuctionController {
                         }
                         highestBidder = buyers.get(currentPlayer);
                         currentPlayer = nextPlayer++;
-                        if((nextPlayer%buyers.size()) == 0){
-                            nextPlayer = 0;
-                        }
+                        nextPlayer = incrementNextPlayer(nextPlayer);
                     }else{
                         buyers.remove(currentPlayer);
                     }
                 }
             if(buyers.size() == 1 && !isFirstRound){
-                guiHandler.giveMsg(buyers.get(0).getName() + " har købt " + field.getName() + " for kr. " + highestBid);
-                buyers.get(0).getAccount().changeScore(-highestBid);
-                buyers.get(0).getOwnedFields().add(field);
-                field.setOwner(buyers.get(0));
+                finalizeAuction(field, highestBid, highestBidder);
                 return;
+                //This part handles the first round of auctions so that the last player also has a choice to purchase or not
             } else if (buyers.size() == 1 && isFirstRound) {
-                Player lastBuyer = buyers.get(0);
-                String answer2 = guiHandler.makeButtons(lastBuyer.getName() + " vil De købe " + field.getName() + " for kr " + highestBid + "?", "Ja", "Nej");
+
+                String answer2 = guiHandler.makeButtons(highestBidder.getName() + " vil De købe " + field.getName() + " for kr " + highestBid + "?", "Ja", "Nej");
                 if(answer2.equals("Ja")){
-                    if(lastBuyer.getAccount().getScore() >= highestBid){
-                        lastBuyer.getAccount().changeScore(-highestBid);
-                        lastBuyer.getOwnedFields().add(field);
-                        field.setOwner(lastBuyer);
-                        guiHandler.giveMsg(lastBuyer.getName() + " har købt " + field.getName() + " for kr. " + highestBid);
+                    if(highestBidder.getAccount().getScore() >= highestBid){
+                        finalizeAuction(field, highestBid, highestBidder);
                         return;
                     }
-
                 }else{
                     return;
                 }
             }
-            if(rounds >= board.getPlayers().length-1){
+            //increments number of players who have had their turn in the auction
+            if(rounds >= buyers.size()){
                 isFirstRound = false;
             }else{
                 rounds++;
@@ -105,5 +99,19 @@ public class AuctionController {
 
         }while(buyers.size() >= 1);
 
+    }
+
+    private int incrementNextPlayer(int nextPlayer) {
+        if((nextPlayer%buyers.size()) == 0){
+            nextPlayer = 0;
+        }
+        return nextPlayer;
+    }
+
+    private void finalizeAuction(OwnableField field, int highestBid, Player lastBuyer) {
+        lastBuyer.getAccount().changeScore(-highestBid);
+        lastBuyer.getOwnedFields().add(field);
+        field.setOwner(lastBuyer);
+        guiHandler.giveMsg(lastBuyer.getName() + " har købt " + field.getName() + " for kr. " + highestBid);
     }
 }
