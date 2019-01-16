@@ -1,5 +1,7 @@
 package Domain.GameElements.Entities.Chancecard;
 import Domain.GameElements.Entities.Player;
+import TechnicalServices.GameLogic.GameLogic;
+
 
 public class TransactionCard extends ChanceCard {
 
@@ -20,7 +22,11 @@ public class TransactionCard extends ChanceCard {
      */
     @Override
     public void action (Player p){
+        try{
         p.getAccount().changeScore(amount);
+        }catch(RuntimeException e){
+            GameLogic.cantPay(p, amount);
+        }
     }
 
 }

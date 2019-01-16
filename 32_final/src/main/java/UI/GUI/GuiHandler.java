@@ -4,11 +4,13 @@
 package UI.GUI;
 
 
+import Domain.GameElements.Board;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.*;
 import Domain.GameElements.Fields.Ownable.*;
 import Domain.GameElements.Fields.ChanceField.*;
 import TechnicalServices.GameLogic.Values;
+import Domain.GameElements.Fields.Ownable.PropertyField;
 import gui_codebehind.GUI_BoardController;
 import gui_fields.*;
 import gui_main.GUI;
@@ -21,6 +23,7 @@ public class GuiHandler {
     private GUI_Field[] gui_fields = new GUI_Field[40];
     private GUI_Player[] guiPlayers;
     private GUI_BoardController bc;
+
 
     private static GuiHandler guiHandlerInstance;
 
@@ -80,6 +83,7 @@ public class GuiHandler {
      * Constructor. it is private to make sure it cannot be used externally.
      */
     private GuiHandler() {
+
     }
 
     /**
@@ -117,7 +121,7 @@ public class GuiHandler {
     public String getUserString(String message){return gui.getUserString(message);}
 
     /**
-     * Creates players and set car types.
+     * Creates players, set car types and colours.
      *
      * @param p
      */
@@ -190,32 +194,21 @@ public class GuiHandler {
 
 
         /**
-         * updates ownership of tile
+         * Updates the owner of the fields and telling what the rental of the field.
          */
         Player owner;
+        String rent;
         for (int i = 0; i < gui_fields.length; i++) {
-            if (f[i].getClass().equals(PropertyField.class)) {
-                owner = ((PropertyField) f[i]).getOwner();
+            if (f[i].getClass().getSuperclass().equals(OwnableField.class)) {
+                owner = ((OwnableField) f[i]).getOwner();
+                rent = Board.getInstance().getRentString(i);
                 if (owner != null) {
-                    gui_fields[i].setDescription("Ejer: " + owner.getName());
-                }
+                gui_fields[i].setDescription("Ejer: " + owner.getName() + " - " + "Leje: " + rent);
+                } else
+                gui_fields[i].setDescription("Ingen ejer");
             }
-            if (f[i].getClass().equals(ShippingField.class)) {
-                owner = ((ShippingField) f[i]).getOwner();
-                if (owner != null) {
-                    gui_fields[i].setDescription("Ejer: " + owner.getName());
-                }
-            }
-            if (f[i].getClass().equals(CompanyField.class)) {
-                owner = ((CompanyField) f[i]).getOwner();
-                if (owner != null) {
-                    gui_fields[i].setDescription("Ejer: " + owner.getName());
-                }
-            }
-
-
         }
-    }
+ }
 
     /**
      * Moves a player on the board
@@ -255,6 +248,50 @@ public class GuiHandler {
             carMoved = onCarMoved(carMoved);
         }
     }
+    /**
+     * Moves a player on the board in a counter clockwise direction
+     *
+     * @param player The player to move
+     * @param pArr The array of all players
+     */
+    public void movePlayerBackwards(Player player, Player[] pArr) {
+        /*
+         * Move the players on the map, field by field
+         */
+        boolean carMoved = false;
+
+        //moves the active player up until start
+        for (int i = player.getPos(); i >= 0; i--) {
+            for (int j = 0; j < guiPlayers.length; j++) {
+                if (gui_fields[i].hasCar(guiPlayers[j]) && pArr[j].getPos() != i) {
+                    if (i > 0)
+                        gui_fields[i - 1].setCar(guiPlayers[j], true);
+                    else
+                        gui_fields[gui_fields.length - 1].setCar(guiPlayers[j], true);
+                    carMoved = true;
+                }
+            }
+
+            gui_fields[i].setCar(findGuiPlayer(player, pArr), false);
+
+            carMoved = onCarMoved(carMoved);
+        }
+
+        //moves the active player after start
+        for (int i =  gui_fields.length - 1; i >= player.getPos() + 1; i--) {
+            for (int j = 0; j < guiPlayers.length; j++) {
+                if (gui_fields[i].hasCar(guiPlayers[j]) && pArr[j].getPos() != i) {
+                    gui_fields[i - 1].setCar(guiPlayers[j], true);
+                    carMoved = true;
+                }
+            }
+
+            gui_fields[i].setCar(findGuiPlayer(player, pArr), false);
+
+            carMoved = onCarMoved(carMoved);
+        }
+    }
+
 
     /**
      * updates only the balance in the gui

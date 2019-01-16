@@ -5,6 +5,7 @@ import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Ownable.OwnableField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
 import Domain.GameElements.Board;
+import TechnicalServices.GameLogic.GameLogic;
 import UI.GUI.GuiHandler;
 
 public class PawnController {
@@ -185,9 +186,9 @@ public class PawnController {
      * Multiplication of
      * Cast the double as an int.
      */
-    private void buyPawnBack(OwnableField ownableField, Player p) {
+    private int buyPawnBackValue(OwnableField ownableField, Player p) {
 
-        p.getAccount().changeScore((int) (-pawnValue(ownableField) * 1.1 - ((int) (pawnValue(ownableField) * 1.1) % 50)));
+        return (int) (-pawnValue(ownableField) * 1.1 - ((int) (pawnValue(ownableField) * 1.1) % 50));
 
     }
 
@@ -196,8 +197,12 @@ public class PawnController {
      */
     private void unPawn(OwnableField ownableField, Player p) {
         if (ownableField.getIsPawned()) {
-            buyPawnBack(ownableField,p);
-            ownableField.setIsPawned(false);
+           try {
+               p.getAccount().changeScore(buyPawnBackValue(ownableField, p));
+               ownableField.setIsPawned(false);
+           }catch(RuntimeException e){
+               GameLogic.cantPay(p,buyPawnBackValue(ownableField,p));
+            }
         }
 
     }

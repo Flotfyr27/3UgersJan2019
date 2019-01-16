@@ -89,38 +89,4 @@ public class PropertyField extends OwnableField {
         return rent;
     }
 
-    /**
-     * Method to determine what happens when a player lands on a field.
-     * @param current The current player
-     */
-    @Override
-    public void landOnAction(Player current) {
-        if (getOwner() == null) {
-            String choice = guiHandler.makeButtons("Vil du købe denne grund?", "Ja", "Nej");
-            if (choice.equalsIgnoreCase("Ja")) {
-                if (current.getAccount().canBuy(-getPrice())) {
-                    current.getAccount().changeScore(-getPrice());
-                    setOwner(current);
-                    current.getOwnedFields().add(this);
-                } else {
-                    guiHandler.giveMsg("Du har desværre ikke råd til denne ejendom");
-                    //TODO call an auctionController here
-                }
-            } else {
-                AuctionController.getInstance().runCase(current);
-            }
-        } else {
-            current.getAccount().canBuy(-rent);
-        }
-    }
-
-    /**
-     * This method gives the price of buying a house
-     * @param p The player who lands on the field
-     * @return Returns an integer with the price of buying a house on current propertyField
-     */
-    public int getHousePrice(Player p){
-        int priceOfHouse = housePrice;
-        return priceOfHouse;
-    }
 }

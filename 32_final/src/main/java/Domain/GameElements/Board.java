@@ -7,9 +7,11 @@ import Domain.GameElements.Fields.EmptyField;
 import Domain.GameElements.Fields.Field;
 import Domain.GameElements.Fields.JailorField;
 import Domain.GameElements.Fields.Ownable.CompanyField;
+import Domain.GameElements.Fields.Ownable.OwnableField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
 import Domain.GameElements.Fields.Ownable.ShippingField;
 import Domain.GameElements.Fields.TaxField;
+import TechnicalServices.GameLogic.Values;
 import UI.GUI.GuiHandler;
 
 import java.awt.*;
@@ -39,8 +41,8 @@ public class Board {
      * Constructor for Board
      */
     private Board() {
-        setFields();
         diceTray = new DiceTray();
+        setFields();
     }
 
     /**
@@ -50,8 +52,13 @@ public class Board {
      */
     public void initBoard(int numberOfPlayers) {
         players = new Player[numberOfPlayers];
+        String name;
         for (int i = 0; i < numberOfPlayers; i++) {
-            String name = GuiHandler.getInstance().getUserString("Indtast dit navn " +(i+1));
+                do {
+                    name = GuiHandler.getInstance().getUserString("Indtast dit navn " + (i + 1));
+                    if (name.equalsIgnoreCase("") || isNameTaken(name, players))
+                        GuiHandler.getInstance().giveMsg("Dit navn er enten tomt eller optaget. Indtast venligst et nyt navn");
+                } while (name.equalsIgnoreCase("") || isNameTaken(name, players));
             players[i] = new Player(name);
         }
 
@@ -120,5 +127,35 @@ public class Board {
 
     public DiceTray getDiceTray(){
         return diceTray;
+    }
+
+    public String getRentString(int fieldPos){
+        if (fields[fieldPos].getClass().getSuperclass().equals(OwnableField.class)){
+            if (fields[fieldPos].getClass().equals(PropertyField.class)) {
+                return "" + Values.rentPrice(fieldPos, ((PropertyField) fields[fieldPos]).getHouses());
+            } else if (fields[fieldPos].getClass().equals(CompanyField.class)) {
+                int rent =  Values.rentPrice(fieldPos, 0);
+                if (((OwnableField)fields[fieldPos]).ownsAll())
+                    rent *= 2;
+                return "Terningeslag * " + rent;
+            } else {
+
+                return "Antal ejede Rederier * " + Values.rentPrice(fieldPos, 0);
+            }
+        } else {
+            throw new IllegalArgumentException("Only OwnableField's allowed");
+        }
+    }
+
+    private boolean isNameTaken(String name, Player[] players){
+        for (int i = 0; i < players.length; i++){
+            for (int j = 0; j < i; j++) {
+                if(players[j] != null) {
+                    if(players[j].getName().equalsIgnoreCase(name))
+                        return true;
+                }
+            }
+        }
+        return false;
     }
 }

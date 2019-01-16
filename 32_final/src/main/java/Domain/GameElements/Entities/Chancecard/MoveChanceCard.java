@@ -3,6 +3,7 @@ package Domain.GameElements.Entities.Chancecard;
 import Domain.GameElements.Board;
 import Domain.GameElements.Entities.Player;
 import TechnicalServices.GameLogic.GameLogic;
+import UI.GUI.GuiHandler;
 
 public class MoveChanceCard extends ChanceCard {
     protected int value;
@@ -36,9 +37,13 @@ public class MoveChanceCard extends ChanceCard {
         if (value >= 0){
             GameLogic.movingPastStart(player, destination);
             player.setPos(destination);
+            GuiHandler.getInstance().updatePlayerPos(player, Board.getInstance().getPlayers());
         } else {
             player.setPos(destination);
-        }
-    }
+            GuiHandler.getInstance().movePlayerBackwards(player, Board.getInstance().getPlayers());
 
+        }
+
+        Board.getInstance().getFields()[player.getPos()].landOnAction(player);
+    }
 }

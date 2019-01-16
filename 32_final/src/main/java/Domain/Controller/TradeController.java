@@ -82,7 +82,7 @@ public class TradeController {
         if (receiver.getAccount().getScore() >= price) {
             receiver.getAccount().changeScore(-price);
             owner.getAccount().changeScore(price);
-            if (chosenTradeObject.getClass() == OwnableField.class) {
+            if (!chosenTradeObject.getClass().equals(Integer.class)) {
                 owner.getOwnedFields().remove((OwnableField) chosenTradeObject);
                 receiver.getOwnedFields().add((OwnableField) chosenTradeObject);
                 ((OwnableField)chosenTradeObject).setOwner(receiver);
