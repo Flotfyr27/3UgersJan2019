@@ -126,7 +126,7 @@ public class BuySellController {
                 triedColors = colorArrayAddition(triedColors, new Color[]{ownedField.getBgColor()}); //TODO look at me!!!
 
 
-                boolean sameOwner;
+                boolean sameOwner = true;
                 for (OwnableField colorField : ownedField.getFieldsOfColor()) {
                     if (colorField.getOwner() == player)
                         sameOwner = true;
@@ -134,14 +134,16 @@ public class BuySellController {
                         sameOwner = false;
                         break;
                     }
+                }
 
+                if (sameOwner) {
                     //if you are here the player owns all fields of that color (for the specified type)
 
                     //fill the array with all the names of the fields of one color
                     String[] colorFields = new String[ownedField.getFieldsOfColor().length];
 
-                    for (int i = 0; i < colorField.getFieldsOfColor().length; i++) {
-                        colorFields[i] = colorField.getFieldsOfColor()[i].getName();
+                    for (int i = 0; i < ownedField.getFieldsOfColor().length; i++) {
+                        colorFields[i] = ownedField.getFieldsOfColor()[i].getName();
                     }
 
                     //add the array of newly found field names to the full list of fields able to get houses
@@ -159,16 +161,19 @@ public class BuySellController {
             guiHandler.giveMsg("Du har ingen grunde du kan købe huse på.");
         } else {
             chosenField = getChosenField(player, ownableFields);
-            //Checks if the player wants to by the house
-            if (guiHandler.makeButtons("Vil du bygge et hus/hotel på " + chosenField.getName() + " for kr. " +
-                            Values.housePrice(chosenField.getHouses() + 1) + "?",
-                    "Ja", "Nej").equalsIgnoreCase("Ja"))
-            {
-                if (player.getAccount().canBuy(Values.housePrice(chosenField.getHouses() + 1))){
-                    player.getAccount().changeScore(-Values.housePrice(chosenField.getHouses() + 1));
-                    chosenField.addHouse();
-                } else {
-                    guiHandler.giveMsg("Du har ikke råd til at bygge dette hus/hotel");
+            if (chosenField == null){
+                guiHandler.giveMsg("Noget gik galt :(");
+            } else {
+                //Checks if the player wants to by the house
+                if (guiHandler.makeButtons("Vil du bygge et hus/hotel på " + chosenField.getName() + " for kr. " +
+                                Values.housePrice(chosenField.getHouses() + 1) + "?",
+                        "Ja", "Nej").equalsIgnoreCase("Ja")) {
+                    if (player.getAccount().canBuy(Values.housePrice(chosenField.getHouses() + 1))) {
+                        player.getAccount().changeScore(-Values.housePrice(chosenField.getHouses() + 1));
+                        chosenField.addHouse();
+                    } else {
+                        guiHandler.giveMsg("Du har ikke råd til at bygge dette hus/hotel");
+                    }
                 }
             }
         }
@@ -182,7 +187,13 @@ public class BuySellController {
             String fieldString = guiHandler.makeButtons("Vælg felt du vil købe/sælge huse på", fieldNames);
             for (int n = 0; n < owner.getOwnedFields().size(); n++) {
                 if (fieldString.equals(fieldNames[n])) {
-                    return (PropertyField) owner.getOwnedFields().get(n);
+                    try {
+                        return (PropertyField) owner.getOwnedFields().get(n);
+                    } catch (ClassCastException e) {
+                        guiHandler.giveMsg("Noget gik galt :(");
+                        System.out.println("Field received was not a PropertyField");
+                        e.printStackTrace();
+                    }
                 }
             }
         } else {
