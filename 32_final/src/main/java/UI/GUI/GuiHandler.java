@@ -252,6 +252,51 @@ public class GuiHandler {
     }
 
     /**
+     * Moves a player on the board in a counter clockwise direction
+     *
+     * @param player The player to move
+     * @param pArr The array of all players
+     */
+    public void movePlayerBackwards(Player player, Player[] pArr) {
+        /*
+         * Move the players on the map, field by field
+         */
+        boolean carMoved = false;
+
+        //moves the active player up until start
+        for (int i = player.getPos(); i >= 0; i--) {
+            for (int j = 0; j < guiPlayers.length; j++) {
+                if (gui_fields[i].hasCar(guiPlayers[j]) && pArr[j].getPos() != i) {
+                    if (i > 0)
+                        gui_fields[i - 1].setCar(guiPlayers[j], true);
+                    else
+                        gui_fields[gui_fields.length - 1].setCar(guiPlayers[j], true);
+                    carMoved = true;
+                }
+            }
+
+            gui_fields[i].setCar(findGuiPlayer(player, pArr), false);
+
+            carMoved = onCarMoved(carMoved);
+        }
+
+        //moves the active player after start
+        for (int i =  gui_fields.length - 1; i >= player.getPos() + 1; i--) {
+            for (int j = 0; j < guiPlayers.length; j++) {
+                if (gui_fields[i].hasCar(guiPlayers[j]) && pArr[j].getPos() != i) {
+                    gui_fields[i - 1].setCar(guiPlayers[j], true);
+                    carMoved = true;
+                }
+            }
+
+            gui_fields[i].setCar(findGuiPlayer(player, pArr), false);
+
+            carMoved = onCarMoved(carMoved);
+        }
+    }
+
+
+    /**
      * updates only the balance in the gui
      *
      * @param players all players in the game

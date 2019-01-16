@@ -37,12 +37,12 @@ public class MoveChanceCard extends ChanceCard {
         if (value >= 0){
             GameLogic.movingPastStart(player, destination);
             player.setPos(destination);
+            GuiHandler.getInstance().movePlayerBackwards(player, Board.getInstance().getPlayers());
         } else {
             player.setPos(destination);
+            GuiHandler.getInstance().updatePlayerPos(player, Board.getInstance().getPlayers());
         }
 
-        GuiHandler.getInstance().updatePlayerPos(player, Board.getInstance().getPlayers());
         Board.getInstance().getFields()[player.getPos()].landOnAction(player);
     }
-    //TODO make car go backwards
 }
