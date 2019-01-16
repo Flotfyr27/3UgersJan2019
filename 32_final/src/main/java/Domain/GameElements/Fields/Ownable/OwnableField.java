@@ -75,29 +75,27 @@ public abstract class OwnableField extends Field {
     @Override
     public void landOnAction(Player current) {
         guiHandler.giveMsg("Du er landet på " + getName());
-        if(getOwner() == null) {
+        if (getOwner() == null) {
             String choice = guiHandler.makeButtons("Vil du købe denne grund? Den koster " + price, "Ja", "Nej");
             if (choice.equalsIgnoreCase("Ja")) {
                 buyField(current);
-            }
-            else {
+            } else {
                 guiHandler.giveMsg("Grunden sættes op for auktion");
                 AuctionController.getInstance().runCase(current);
             }
-        }else if(getOwner() == current){
+        } else if (getOwner() == current) {
             guiHandler.giveMsg("Du ejer dette felt");
             return;
-        }
-        else if (isPawned){
+        } else if (isPawned) {
             guiHandler.giveMsg("Denne grund er blevet pantet");
             return;
 
-        } else{
+        } else {
             //TODO check to see if player has enough money to pay rent, else pawn!
-            guiHandler.giveMsg("Du skal betale "+getRent(current) +"kr leje til  "+ getOwner().getName());
+            guiHandler.giveMsg("Du skal betale " + getRent(current) + "kr leje til  " + getOwner().getName());
             try {
                 if (owner.getJailTime() < 0) {
-                    guiHandler.giveMsg("Du skal betale " +getRent(current) + " i leje til  " + getOwner().getName());
+                    guiHandler.giveMsg("Du skal betale " + getRent(current) + " i leje til  " + getOwner().getName());
                     boolean ownsAll = false;
                     for (OwnableField field : this.getFieldsOfColor()) {
                         if (field.getOwner() != null && field.getOwner().equals(owner))
@@ -124,19 +122,19 @@ public abstract class OwnableField extends Field {
                 } else {
                     guiHandler.giveMsg(getOwner().getName() + " er i fængsel og kan derfor ikke kræve leje.");
                 }
-            }catch(RuntimeException e){
+            } catch (RuntimeException e) {
                 String choice = guiHandler.makeButtons("Vil du pante eller give op?", "Pante", "Give op");
-                if(choice.equalsIgnoreCase("Pante")){
+                if (choice.equalsIgnoreCase("Pante")) {
                     do {
                         PawnController.getInstance().runCase(current);
-                    }while(current.getAccount().getScore()-getRent(current)<0);
-                }
-                else{
+                    } while (current.getAccount().getScore() - getRent(current) < 0);
+                } else {
                     current.setLost(true);
                     current.setIsActive(false);
                 }
             }
         }
+    }
 
     /**
      * Goes through all fields on the board and returns all the fields of the same

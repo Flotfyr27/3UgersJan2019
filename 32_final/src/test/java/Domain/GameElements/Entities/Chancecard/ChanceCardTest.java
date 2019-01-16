@@ -92,28 +92,6 @@ class ChanceCardTest {
      */
     @Test
     void transactionCardTest(){
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         TransactionCard positiveCard = new TransactionCard(100, "text");
         TransactionCard negativeCard = new TransactionCard(-50, "text");
 
