@@ -51,7 +51,7 @@ public class AuctionController {
         boolean isFirstRound = true;
         int rounds = 0;
         do {
-
+                //Start off by asking to buy
                 String answer = guiHandler.makeButtons("Vil de købe " + field.getName() + ", " + buyers.get(currentPlayer).getName() + "?", "Ja", "Nej");
                 if(answer.equals("Nej")) {
                     buyers.remove(currentPlayer);
@@ -77,6 +77,7 @@ public class AuctionController {
             if(buyers.size() == 1 && !isFirstRound){
                 finalizeAuction(field, highestBid, highestBidder);
                 return;
+                //This part handles the first round of auctions so that the last player also has a choice to purchase or not
             } else if (buyers.size() == 1 && isFirstRound) {
 
                 String answer2 = guiHandler.makeButtons(highestBidder.getName() + " vil De købe " + field.getName() + " for kr " + highestBid + "?", "Ja", "Nej");
@@ -89,7 +90,8 @@ public class AuctionController {
                     return;
                 }
             }
-            if(rounds >= board.getPlayers().length-1){
+            //increments number of players who have had their turn in the auction
+            if(rounds >= buyers.size()){
                 isFirstRound = false;
             }else{
                 rounds++;
