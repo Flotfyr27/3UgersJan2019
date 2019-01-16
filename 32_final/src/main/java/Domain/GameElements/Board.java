@@ -54,9 +54,9 @@ public class Board {
         for (int i = 0; i < numberOfPlayers; i++) {
             do {
                 name = GuiHandler.getInstance().getUserString("Indtast dit navn " + (i + 1));
-                if (name == null)
+                if (name.equalsIgnoreCase(""))
                     GuiHandler.getInstance().giveMsg("Der blev givet et tomt input. Indtast venligst et navn");
-            }while(name == null);
+            }while(name.equalsIgnoreCase(""));
             players[i] = new Player(name);
         }
 
