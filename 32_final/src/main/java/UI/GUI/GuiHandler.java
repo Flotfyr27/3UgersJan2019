@@ -59,6 +59,8 @@ public class GuiHandler {
             } else if (fields[i].getClass().equals(EmptyField.class)) {
                 if(fields[i].getName().equals("På besøg\nI fængsel")){
                     gui_fields[i] = (new GUI_Jail("src\\main\\Resources\\jail.jpg", fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), Color.WHITE));
+                }else if(fields[i].getName().equals("Gratis Parkering")){
+                    gui_fields[i] = (new GUI_Refuge("src\\main\\Resources\\parking.jpg",fields[i].getName(), fields[i].getSubtext(), "De er beruset, parkér bilen til næste tur.", fields[i].getBgColor(), null));//This one be causing trouble
                 }else {
                     gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
                 }

@@ -99,7 +99,7 @@ public class Board {
         fields[17] = (new ChanceField("?", "Prøv lykken", Color.BLACK));
         fields[18] = (new PropertyField("Hellerupvej", "kr. 3.600", Color.LIGHT_GRAY, 3600, 2000));
         fields[19] = (new PropertyField("Strandvejen", "kr. 4.000", Color.LIGHT_GRAY, 4000, 1000));
-        fields[20] = (new EmptyField("Gratis Parkering", "Det gratis", Color.WHITE));
+        fields[20] = (new EmptyField("Gratis Parkering", "Gratis P", Color.WHITE));
         fields[21] = (new PropertyField("Trianglen", "kr. 4.400", Color.RED, 4400, 3000));
         fields[22] = (new ChanceField("?", "Prøv lykken", Color.BLACK));
         fields[23] = (new PropertyField("Østerbrogade", "kr. 4.400", Color.RED, 4400, 3000));
