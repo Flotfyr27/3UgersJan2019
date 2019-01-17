@@ -43,4 +43,8 @@ public class Account {
             return true;
         }
     }
+
+    public void setScore(int score){
+        this.score = score;
+    }
 }
