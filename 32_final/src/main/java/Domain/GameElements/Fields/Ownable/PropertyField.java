@@ -28,22 +28,16 @@ public class PropertyField extends OwnableField {
      * Method retrieves number of houses on the field
      * @return integer value of number of houses
      */
-
-
-    @Override
     public int getHouses() {
-
         return numberOfHouses;
     }
 
     /**
      * Method returns boolean value depending on the presence of a hotel
+     *
      * @return True/false if field has a hotel
      */
-
-    @Override
     public boolean getHotel() {
-
         return hasHotel;
     }
 
@@ -53,9 +47,9 @@ public class PropertyField extends OwnableField {
      */
     @Override
     public int getWorth() {
-        int worth = super.getWorth()+(numberOfHouses*housePrice);
-        if(hasHotel){
-            worth += housePrice*5;
+        int worth = super.getWorth() + (numberOfHouses * housePrice);
+        if (hasHotel) {
+            worth += housePrice * 5;
         }
         return worth;
     }
@@ -63,15 +57,15 @@ public class PropertyField extends OwnableField {
     /**
      * Method to add a house, if 4 houses already exists a hotel will be added and houses removed.
      */
-    public void addHouse(){
-        if(hasHotel){
+    public void addHouse() {
+        if (hasHotel) {
 
-        }else if(numberOfHouses < 4){
+        } else if (numberOfHouses < 4) {
             numberOfHouses++;
-        }else if(!hasHotel && numberOfHouses == 4){
+        } else if (!hasHotel && numberOfHouses == 4) {
             hasHotel = true;
             numberOfHouses = 0;
-        }else {
+        } else {
             return;
         }
     }
@@ -80,11 +74,7 @@ public class PropertyField extends OwnableField {
      * Removes a house based on the numeric value given
      * @param value The amount of houses to remove
      */
-
-
-    @Override
     public void removeHouse(int value) {
-
         numberOfHouses -= value;
     }
 

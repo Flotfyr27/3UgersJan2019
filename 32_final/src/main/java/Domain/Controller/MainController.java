@@ -16,6 +16,7 @@ public class MainController {
     private JailController jailController;
     private PawnController pawnCon;
     private TradeController tradeCon;
+    private BuySellController buySellCon;
     private int turnsInARow;
 
     public MainController(Player[] players){
@@ -28,6 +29,7 @@ public class MainController {
         jailController = JailController.getInstance();
         pawnCon = PawnController.getInstance();
         tradeCon = new TradeController();
+        buySellCon = BuySellController.getInstance();
     }
 
     public void runCase(){
@@ -35,46 +37,56 @@ public class MainController {
             turnsInARow = 0;
             currentPlayer = players[currentPlayerNum];
             if (!currentPlayer.getLost()) {
-            do {
-                String choice;
-                if (currentPlayer.getJailTime() >= 0) {
-                    choice = guiHandler.makeButtons("Vælg en handling " + currentPlayer.getName(),
-                            "Slip fri", "Handel", "Pantsætning");
-                    if (choice.equalsIgnoreCase("Slip fri"))
-                        jailController.runCase(currentPlayer);
-                    if (choice.equalsIgnoreCase("Handel")) {
-                        tradeCon.runCase(currentPlayer);
-                        currentPlayer.setIsActive(true);
-                    }
-                    if (choice.equalsIgnoreCase("Pantsætning"))
-                        pawnCon.runCase(currentPlayer);
-                } else {
-                    choice = guiHandler.makeButtons("Vælg en handling " + currentPlayer.getName(),
-                            "Slå terninger", "Handel", "Pantsætning");
-                    if (choice.equalsIgnoreCase("Slå terninger")) {
-                        turnsInARow++;
-                        if (turnsInARow == 3) {
-                            currentPlayer.setIsActive(false);
-                            currentPlayer.setJailTime(0);
-                            currentPlayer.setPos(10);
-                            guiHandler.giveMsg("Du kører for hurtigt! Vi må tage dig med på stationen.");
-                            guiHandler.updatePlayerPos(currentPlayer, Board.getInstance().getPlayers());
-                            break;
-                        }
-                        moveCon.runCase(currentPlayer);
-                    }
-                    if (choice.equalsIgnoreCase("Handel")) {
-                        tradeCon.runCase(currentPlayer);
-                        currentPlayer.setIsActive(true);
-                    }
-                    if (choice.equalsIgnoreCase("Pantsætning")) {
-                        pawnCon.runCase(currentPlayer);
-                        currentPlayer.setIsActive(true);
-                    }
-                }
+                do {
+                    String choice;
+                    if (currentPlayer.getJailTime() >= 0) {
 
-            } while (currentPlayer.getIsActive());
-           }
+                        //hvis i fængsel
+                        if (currentPlayer.getJailTime() >= 0) {
+                            choice = guiHandler.makeButtons("Vælg en handling " + currentPlayer.getName(),
+                                    "Slip fri", "Handel", "Pantsætning", "Køb/sælg hus");
+                            if (choice.equalsIgnoreCase("Slip fri"))
+                                jailController.runCase(currentPlayer);
+                            if (choice.equalsIgnoreCase("Handel")) {
+                                tradeCon.runCase(currentPlayer);
+                                currentPlayer.setIsActive(true);
+                            }
+                            if (choice.equalsIgnoreCase("Pantsætning"))
+                                pawnCon.runCase(currentPlayer);
+                            if (choice.equalsIgnoreCase("Køb/sælg hus")) {
+                                buySellCon.runCase(currentPlayer);
+                            }
+                        } else {
+                            choice = guiHandler.makeButtons("Vælg en handling " + currentPlayer.getName(),
+                                    "Slå terninger", "Handel", "Pantsætning", "Køb/sælg hus");
+                            if (choice.equalsIgnoreCase("Slå terninger")) {
+                                turnsInARow++;
+                                if (turnsInARow == 3) {
+                                    currentPlayer.setIsActive(false);
+                                    currentPlayer.setJailTime(0);
+                                    currentPlayer.setPos(10);
+                                    guiHandler.giveMsg("Du kører for hurtigt! Vi må tage dig med på stationen.");
+                                    guiHandler.updatePlayerPos(currentPlayer, Board.getInstance().getPlayers());
+                                    break;
+                                }
+                                moveCon.runCase(currentPlayer);
+                            }
+                            if (choice.equalsIgnoreCase("Handel")) {
+                                tradeCon.runCase(currentPlayer);
+                                currentPlayer.setIsActive(true);
+                            }
+                            if (choice.equalsIgnoreCase("Pantsætning")) {
+                                pawnCon.runCase(currentPlayer);
+                                currentPlayer.setIsActive(true);
+                            }
+                            if (choice.equalsIgnoreCase("Køb/sælg hus")) {
+                                buySellCon.runCase(currentPlayer);
+                            }
+                        }
+
+                    }
+                }while (currentPlayer.getIsActive()) ;
+            }
             else
                 guiHandler.giveMsg(currentPlayer.getName() + " er ude af spillet");
             currentPlayerNum = ++currentPlayerNum % players.length;
