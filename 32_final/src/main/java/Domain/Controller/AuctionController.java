@@ -47,7 +47,11 @@ public class AuctionController {
         //Loop going through all players choosing to bid or not for the initial bidding round
         runFirstRound();
         //Find the buyer of the field, go through loop until a single buyer is found.
+        while(buyers.size() > 1){
+            for(int n = 0; n < buyers.size()-1; n++){
 
+            }
+        }
 
     }
 
@@ -90,7 +94,7 @@ public class AuctionController {
 
     private Player getNextPlayer(){
         Player nextPlayer;
-        if(currentPlayer == buyers.get(buyers.size())){
+        if(currentPlayer == buyers.get(buyers.size()-1)){
             nextPlayer = buyers.get(0);
         }else{
             playerIndex++;
