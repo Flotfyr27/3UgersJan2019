@@ -59,6 +59,7 @@ public class AuctionController {
             currentPlayer.getAccount().changeScore(-chosenField.getPrice());
             currentPlayer.getOwnedFields().add(chosenField);
             chosenField.setOwner(currentPlayer);
+            guiHandler.giveMsg(currentPlayer.getName() + " har købt " + chosenField.getName() + " for kr. " + highestBid);
         }
     }
 
@@ -76,9 +77,7 @@ public class AuctionController {
                     wantsToBuy[n] = false;
                 }
                 updateCurrentPlayer();
-                if(wantsToBuy[n] == false){
-                    buyers.remove(n);
-                }
+                removeBuyers(n, wantsToBuy[n] == false);
             }
         }
     }
@@ -89,35 +88,42 @@ public class AuctionController {
 
             for(int n = 0; n < buyers.size(); n++){
                 String answerFirstRound = guiHandler.makeButtons(currentPlayer.getName() + " vil De byde på " + chosenField.getName() + "?", "Ja", "Nej");
-                if(answerFirstRound.equals("Ja")){
-                    wantsToBuy[n] = true;
-                    if(playerWithHighestBid == null){
-                        highestBid = guiHandler.getUserInt(currentPlayer.getName() + " hvor meget ønsker De at byde på " + chosenField.getName() + "? (Mindst " +highestBid + ")", highestBid, currentPlayer.getAccount().getScore());
-                        playerWithHighestBid = currentPlayer;
-                    }else if(playerWithHighestBid != null){
-                        highestBid = guiHandler.getUserInt(currentPlayer.getName() + " hvor meget ønsker De at byde på " + chosenField.getName() + "? (Højeste bud: kr. " + highestBid + " af " + playerWithHighestBid.getName(), highestBid+50, currentPlayer.getAccount().getScore());
-                        playerWithHighestBid = currentPlayer;
-                        System.out.println("Highest bidder " + playerWithHighestBid.getName());
-                    }
-
-                }else if(answerFirstRound.equals("Nej")){
-                    wantsToBuy[n] = false;
-                }
+                checkAnswer(wantsToBuy, n, answerFirstRound);
                 updateCurrentPlayer();
             }
             for(int n = 0; n < wantsToBuy.length-1; n++){
-                if(!wantsToBuy[n]){
-                    buyers.remove(n);
-                }
+                removeBuyers(n, !wantsToBuy[n]);
             }
 
+    }
+
+    private void removeBuyers(int n, boolean b) {
+        if (b) {
+            buyers.remove(n);
+        }
+    }
+
+    private void checkAnswer(boolean[] wantsToBuy, int n, String answerFirstRound) {
+        if(answerFirstRound.equals("Ja")){
+            wantsToBuy[n] = true;
+            if(playerWithHighestBid == null){
+                highestBid = guiHandler.getUserInt(currentPlayer.getName() + " hvor meget ønsker De at byde på " + chosenField.getName() + "? (Mindst " +highestBid + ")", highestBid, currentPlayer.getAccount().getScore());
+                playerWithHighestBid = currentPlayer;
+            }else if(playerWithHighestBid != null){
+                highestBid = guiHandler.getUserInt(currentPlayer.getName() + " hvor meget ønsker De at byde på " + chosenField.getName() + "? (Højeste bud: kr. " + highestBid + " af " + playerWithHighestBid.getName(), highestBid+50, currentPlayer.getAccount().getScore());
+                playerWithHighestBid = currentPlayer;
+                System.out.println("Highest bidder " + playerWithHighestBid.getName());
+            }
+
+        }else if(answerFirstRound.equals("Nej")){
+            wantsToBuy[n] = false;
+        }
     }
 
 
     private void initCurrentPlayer(){
         currentPlayer = buyers.get(0);
     }
-
     private void updateCurrentPlayer(){
         currentPlayer = getNextPlayer();
     }
@@ -128,8 +134,7 @@ public class AuctionController {
             nextPlayer = buyers.get(0);
             playerIndex = 0;
         }else{
-            playerIndex++;
-            nextPlayer = buyers.get(playerIndex);
+            nextPlayer = buyers.get(++playerIndex);
         }
         return nextPlayer;
     }
