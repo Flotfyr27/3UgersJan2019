@@ -13,6 +13,8 @@ import java.awt.*;
 public class BuySellController {
     private GuiHandler guiHandler = GuiHandler.getInstance();
     private Board board;
+    private final int MAX_HOUSES_IN_PLAY = 32; //TODO check these values are right
+    private final int MAX_HOTELS_IN_PLAY = 12;
 
     private static BuySellController instance;
 
@@ -149,7 +151,12 @@ public class BuySellController {
                         colorFields[i] = ownedField.getFieldsOfColor()[i].getName();
                     }
 
-                    colorFields = validateFields(player, colorFields);
+                    try {
+                        colorFields = validateFields(player, colorFields);
+                    } catch (RuntimeException e) {
+                        guiHandler.giveMsg(e.getMessage());
+                        return;
+                    }
 
                     //add the array of newly found field names to the full list of fields able to get houses
                     ownableFields = stringArrayAddition(ownableFields, colorFields);
@@ -158,9 +165,6 @@ public class BuySellController {
         }
 
         //TODO Make check that ensures one can only build on fields that has the least amount of houses
-        //TODO make check for number of houses to add hotels and cap the amount of times you can buy
-        //TODO allow the player to buy multiple buildings at a time
-        //TODO use getBgColor in Values.getHousePrice instead of number of houses
 
         if (ownableFields.length <= 0) {
             guiHandler.giveMsg("Du har ingen grunde du kan købe huse på.");
@@ -194,13 +198,26 @@ public class BuySellController {
      */
     private String[] validateFields(Player buyer, String[] fieldNames) {
         String[] validatedFields;
+
+        if (PropertyField.getHotelsInPlay() >= MAX_HOTELS_IN_PLAY && PropertyField.getHousesInPlay() >= MAX_HOUSES_IN_PLAY) {
+            throw new RuntimeException("Både hoteller og huse er udsolgt");
+        }/*else if (PropertyField.getHotelsInPlay() >= MAX_HOTELS_IN_PLAY) {
+            throw new RuntimeException("Hoteller er udsolgt");
+        } else if (PropertyField.getHousesInPlay() >= MAX_HOUSES_IN_PLAY) {
+            throw new RuntimeException("Huse er udsolgt");
+        }*/
+
         //checks how many fields live up to all rules
         int count = 0;
         PropertyField currentField;
         for (String field : fieldNames) {
             currentField = stringToField(field, buyer);
             if (currentField.getHouses() < 5 && !currentField.getHotel()){
-                count++;
+                if (currentField.getHouses() < 5 && PropertyField.getHousesInPlay() <= MAX_HOUSES_IN_PLAY) {
+                    count++;
+                } else if (currentField.getHouses() == 5 && PropertyField.getHotelsInPlay() <= MAX_HOTELS_IN_PLAY) {
+                    count++;
+                }
             }
         }
 
@@ -210,7 +227,11 @@ public class BuySellController {
         for (String field : fieldNames) {
             currentField = stringToField(field, buyer);
             if (currentField.getHouses() < 5 && !currentField.getHotel()){
-                validatedFields[j++] = field;
+                if (currentField.getHouses() < 5 && PropertyField.getHousesInPlay() <= MAX_HOUSES_IN_PLAY) {
+                    validatedFields[j++] = field;
+                } else if (currentField.getHouses() == 5 && PropertyField.getHotelsInPlay() <= MAX_HOTELS_IN_PLAY) {
+                    validatedFields[j++] = field;
+                }
             }
         }
 
