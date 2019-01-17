@@ -78,6 +78,7 @@ public class MainController {
                     }
                     if (choice.equalsIgnoreCase("Køb/sælg hus")){
                         buySellCon.runCase(currentPlayer);
+                        currentPlayer.setIsActive(true);
                     }
                 }
 

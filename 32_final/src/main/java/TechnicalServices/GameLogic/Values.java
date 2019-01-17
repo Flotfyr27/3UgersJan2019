@@ -1,6 +1,7 @@
 package TechnicalServices.GameLogic;
 
 import Domain.GameElements.Entities.DiceTray;
+import java.awt.Color;
 
 public class Values {
     public Values(){
@@ -150,11 +151,24 @@ public class Values {
      * Tier 2 = 2000
      * Tier 3 = 3000
      * Tier 4 = 4000
-     * @param tier
+     * @param bgColor The bgColor of the field.
      * @return price for a house
      */
-    public static int housePrice(int tier) {
-        int price = tier*1000;
+    public static int housePrice(Color bgColor) {
+        int price;
+
+        if (bgColor.equals(Color.CYAN) || bgColor.equals(Color.ORANGE)) {
+            price = 1000;
+        } else if (bgColor.equals(Color.GREEN) || bgColor.equals(Color.lightGray)) {
+            price = 2000;
+        } else if (bgColor.equals(Color.RED) || bgColor.equals(Color.WHITE)) {
+            price = 3000;
+        } else if (bgColor.equals(Color.YELLOW) || bgColor.equals(Color.MAGENTA)) {
+            price = 4000;
+        } else {
+            throw new  IllegalArgumentException("This color doesn't correspond to any price group");
+        }
+
         return price;
     }
 

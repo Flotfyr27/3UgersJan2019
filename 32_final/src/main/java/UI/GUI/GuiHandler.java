@@ -216,8 +216,16 @@ public class GuiHandler {
                 rent = Board.getInstance().getRentString(i);
                 if (owner != null) {
                     gui_fields[i].setDescription("Ejer: " + owner.getName() + " - " + "Leje: " + rent);
-                } else
+                } else {
                     gui_fields[i].setDescription("Ingen ejer");
+                }
+                if(f[i].getClass().equals(PropertyField.class))
+                    if (((PropertyField)f[i]).getHotel()) {
+                        setHouses((GUI_Street) gui_fields[i], 0);
+                        setHotel((GUI_Street) gui_fields[i],true);
+                    } else {
+                        setHouses((GUI_Street) gui_fields[i], ((PropertyField)f[i]).getHouses());
+                    }
             }
         }
     }
@@ -438,29 +446,12 @@ public class GuiHandler {
         l.setOpaque(false);
         return l;
     }
-    public void setHouses(int houseCount){
-        if (houseCount >= 0 && houseCount<= 4) {
-            ImageIcon icon;
-            if (houseCount ==0) {
-                icon = null;
-            } else {
-                String path = Attrs.getImagePath(String.format("GUI_Field.Image.House%d",houseCount));
-                icon = this.factory.createIcon(path);
-                }
-            this.houseLabel.setIcon(icon);
-        } else {
-            throw new IllegalArgumentException(Attrs.getString("Error.BadArgument.houseCount",new Object[] {houseCount}));        }
+    public void setHouses(GUI_Street street, int houseCount){
+        street.setHouses(houseCount);
     }
 
-    public void setHotel(boolean hasHotel) {
-        ImageIcon icon;
-        if (hasHotel){
-            String path = Attrs.getImagePath("GUI_Field.Image.Hotel");
-            icon = this.factory.createIcon(path);
-        } else {
-            icon = null;
-        }
-        this.houseLabel.setIcon(icon);
+    public void setHotel(GUI_Street street, boolean hasHotel) {
+        street.setHotel(hasHotel);
     }
 
 
