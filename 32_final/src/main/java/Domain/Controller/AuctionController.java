@@ -46,6 +46,8 @@ public class AuctionController {
         initCurrentPlayer();
         //Loop going through all players choosing to bid or not for the initial bidding round
         runFirstRound();
+        //Find the buyer of the field, go through loop until a single buyer is found.
+
 
     }
 
@@ -53,7 +55,7 @@ public class AuctionController {
         boolean wantsToBuy[] = new boolean[buyers.size()];
 
 
-            for(int n = 0; n < buyers.size(); n++){
+            for(int n = 0; n < buyers.size()-1; n++){
                 String answerFirstRound = guiHandler.makeButtons(currentPlayer.getName() + " vil De byde på " + chosenField.getName() + "?", "Ja", "Nej");
                 if(answerFirstRound.equals("Ja")){
                     wantsToBuy[n] = true;
@@ -67,6 +69,7 @@ public class AuctionController {
                 }else if(answerFirstRound.equals("Nej")){
                     wantsToBuy[n] = false;
                 }
+                updateCurrentPlayer();
             }
             for(int n = 0; n < wantsToBuy.length; n++){
                 if(!wantsToBuy[n]){
