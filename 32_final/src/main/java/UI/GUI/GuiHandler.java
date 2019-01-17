@@ -12,10 +12,15 @@ import Domain.GameElements.Fields.ChanceField.*;
 import TechnicalServices.GameLogic.Values;
 import Domain.GameElements.Fields.Ownable.PropertyField;
 import gui_codebehind.GUI_BoardController;
+import gui_codebehind.SwingComponentFactory;
 import gui_fields.*;
 import gui_main.GUI;
-
+import gui_resources.Attrs;
+import javax.swing.ImageIcon;
+import javax.swing.*;
 import java.awt.*;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants.*;
 
 
 public class GuiHandler {
@@ -23,6 +28,10 @@ public class GuiHandler {
     private GUI_Field[] gui_fields = new GUI_Field[40];
     private GUI_Player[] guiPlayers;
     private GUI_BoardController bc;
+    private JLabel houseLabel;
+    private SwingComponentFactory factory;
+    private Color bgColor;
+    private Color fgColor;
 
 
     private static GuiHandler guiHandlerInstance;
@@ -57,13 +66,7 @@ public class GuiHandler {
                 gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", Integer.toString(propertyField.getPrice()), fields[i].getBgColor(), null));
 
             } else if (fields[i].getClass().equals(EmptyField.class)) {
-                if(fields[i].getName().equals("På besøg\nI fængsel")){
-                    gui_fields[i] = (new GUI_Jail("src\\main\\Resources\\jail.jpg", fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), Color.WHITE));
-                }else if(fields[i].getName().equals("Gratis Parkering")){
-                    gui_fields[i] = (new GUI_Refuge("src\\main\\Resources\\parking.jpg",fields[i].getName(), fields[i].getSubtext(), "De er beruset, parkér bilen til næste tur.", fields[i].getBgColor(), null));//This one be causing trouble
-                }else {
-                    gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
-                }
+                gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
 
             } else if (fields[i].getClass().equals(ChanceField.class)) {
                 gui_fields[i] = (new GUI_Chance(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), Color.white));
@@ -72,17 +75,13 @@ public class GuiHandler {
                 gui_fields[i] = new GUI_Tax(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null);
 
             } else if (fields[i].getClass().equals(ShippingField.class)) {
-                gui_fields[i] = new GUI_Shipping("src\\main\\Resources\\ferry.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), Color.WHITE);
+                gui_fields[i] = new GUI_Shipping("", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
 
             } else if (fields[i].getClass().equals(CompanyField.class)) {
-                if(fields[i].getName().equals("Tuborg")){
-                    gui_fields[i] = new GUI_Brewery("src\\main\\Resources\\squash.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
-                }else {
-                    gui_fields[i] = new GUI_Brewery("src\\main\\Resources\\cola.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
-                }
+                gui_fields[i] = new GUI_Brewery("", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
 
             } else if (fields[i].getClass().equals(JailorField.class)) {
-                gui_fields[i] = new GUI_Jail("src\\main\\Resources\\politi.jpg", fields[i].getName(), fields[i].getSubtext(), "De fængsles", fields[i].getBgColor(), Color.WHITE);
+                gui_fields[i] = new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null);
             }
         }
 
@@ -125,10 +124,13 @@ public class GuiHandler {
 
     /**
      * Takes user input in the form of a String and returns it to the system
+     *
      * @param message
      * @return user String
      */
-    public String getUserString(String message){return gui.getUserString(message);}
+    public String getUserString(String message) {
+        return gui.getUserString(message);
+    }
 
     /**
      * Creates players, set car types and colours.
@@ -213,28 +215,26 @@ public class GuiHandler {
                 owner = ((OwnableField) f[i]).getOwner();
                 rent = Board.getInstance().getRentString(i);
                 if (owner != null) {
-                gui_fields[i].setDescription("Ejer: " + owner.getName() + " - " + "Leje: " + rent);
-                gui_fields[i].setSubText("Ejer: " + owner.getName());
-                } else
-                gui_fields[i].setDescription("Ingen ejer");
-            }
-            if(f[i].getClass().getSuperclass().equals(OwnableField.class)){
-                OwnableField field = (OwnableField)f[i];
-                if(field.getIsPawned()){
-                    gui_fields[i].setSubText("PANTSAT");
-                }else if(field.getOwner() != null){
-                   gui_fields[i].setSubText("Ejer: " + field.getOwner().getName());
+                    gui_fields[i].setDescription("Ejer: " + owner.getName() + " - " + "Leje: " + rent);
+                } else {
+                    gui_fields[i].setDescription("Ingen ejer");
                 }
+                if(f[i].getClass().equals(PropertyField.class))
+                    if (((PropertyField)f[i]).getHotel()) {
+                        setHouses((GUI_Street) gui_fields[i], 0);
+                        setHotel((GUI_Street) gui_fields[i],true);
+                    } else {
+                        setHouses((GUI_Street) gui_fields[i], ((PropertyField)f[i]).getHouses());
+                    }
             }
         }
-
- }
+    }
 
     /**
      * Moves a player on the board
      *
      * @param player The player to move
-     * @param pArr The array of all players
+     * @param pArr   The array of all players
      */
     public void updatePlayerPos(Player player, Player[] pArr) {
         /*
@@ -253,7 +253,6 @@ public class GuiHandler {
             gui_fields[i].setCar(findGuiPlayer(player, pArr), false);
 
             carMoved = onCarMoved(carMoved);
-
         }
         //moves the active player after start
         for (int i = 0; i < player.getPos(); i++) {
@@ -269,11 +268,12 @@ public class GuiHandler {
             carMoved = onCarMoved(carMoved);
         }
     }
+
     /**
      * Moves a player on the board in a counter clockwise direction
      *
      * @param player The player to move
-     * @param pArr The array of all players
+     * @param pArr   The array of all players
      */
     public void movePlayerBackwards(Player player, Player[] pArr) {
         /*
@@ -299,7 +299,7 @@ public class GuiHandler {
         }
 
         //moves the active player after start
-        for (int i =  gui_fields.length - 1; i >= player.getPos() + 1; i--) {
+        for (int i = gui_fields.length - 1; i >= player.getPos() + 1; i--) {
             for (int j = 0; j < guiPlayers.length; j++) {
                 if (gui_fields[i].hasCar(guiPlayers[j]) && pArr[j].getPos() != i) {
                     gui_fields[i - 1].setCar(guiPlayers[j], true);
@@ -319,25 +319,26 @@ public class GuiHandler {
      *
      * @param players all players in the game
      */
-    public void updateBalance(Player[] players){
+    public void updateBalance(Player[] players) {
         for (int i = 0; i < guiPlayers.length; i++) {
             guiPlayers[i].setBalance(players[i].getAccount().getScore());
         }
     }
 
-    public void teleportPlayer(int destination, Player player, Player[] players){
+    public void teleportPlayer(int destination, Player player, Player[] players) {
         gui_fields[player.getPos()].setCar(findGuiPlayer(player, players), false);
         gui_fields[destination].setCar(findGuiPlayer(player, players), true);
     }
 
     /**
      * A method for when a car has moved in the gui
+     *
      * @param carMoved boolean, true if a car has moved since last call of this method
      * @return
      */
     private boolean onCarMoved(boolean carMoved) {
         try {
-            if (carMoved){
+            if (carMoved) {
                 carMoved = false;
                 Thread.sleep(100);
             }
@@ -351,47 +352,52 @@ public class GuiHandler {
 
     /**
      * Shows the roll of the  two dices.
+     *
      * @param faceValue1 The value of the first dice
      * @param faceValue2 The value of the second dice
      */
-    public void showDice(int faceValue1, int faceValue2){
-        gui.setDice(faceValue1, 4,8,faceValue2,5,8);
+    public void showDice(int faceValue1, int faceValue2) {
+        gui.setDice(faceValue1, 4, 8, faceValue2, 5, 8);
     }
 
     /**
      * Writes a message in the midle of the Board
+     *
      * @param msg
      */
-    public void msgInMiddle(String msg){
+    public void msgInMiddle(String msg) {
         gui.displayChanceCard(msg);
     }
 
     /**
      * Message when a player has to press the roll button
+     *
      * @param msg
      */
-    public void waitForRoll(String msg){
+    public void waitForRoll(String msg) {
         gui.getUserButtonPressed(msg, "Kast terningerne");
     }
 
     /**
      * Gives message on the top left corner
+     *
      * @param msg
      */
-    public void giveMsg(String msg){
+    public void giveMsg(String msg) {
         gui.showMessage(msg);
     }
 
 
     /**
      * A string that builds the field.
+     *
      * @return
      */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
-        for (GUI_Field f : gui_fields){
+        for (GUI_Field f : gui_fields) {
             builder.append(f + "\n");
         }
 
@@ -400,22 +406,23 @@ public class GuiHandler {
 
     /**
      * This method lets any class create an arbitrary number of buttons and waits for the user to press one
+     *
      * @param msg
      * @param buttonName
      * @return the name of the user-selected button
      */
-    public String makeButtons(String msg, String... buttonName){
+    public String makeButtons(String msg, String... buttonName) {
         return gui.getUserButtonPressed(msg, buttonName);
     }
 
     /**
      * Translates a player from the domain into it's corresponding guiPlayer
      *
-     * @param domainPlayer the player from the domain package
+     * @param domainPlayer  the player from the domain package
      * @param domainPlayers the player array in board
      * @return the corresponding guiPlayer
      */
-    private GUI_Player findGuiPlayer (Player domainPlayer, Player[] domainPlayers){
+    private GUI_Player findGuiPlayer(Player domainPlayer, Player[] domainPlayers) {
         GUI_Player guiPlayer = null;
 
         for (int i = 0; i < domainPlayers.length; i++) {
@@ -424,8 +431,31 @@ public class GuiHandler {
         }
         return guiPlayer;
     }
-}
 
+    private JLabel makeLabel(int height) {
+        JLabel label = new JLabel();
+        this.factory.setSize(label, 61, height);
+        label.setHorizontalAlignment(0);
+        label.setBackground(this.bgColor);
+        label.setForeground(this.fgColor);
+        return label;
+    }
+
+    private JLabel makeHouseLabel() {
+        JLabel l = this.makeLabel(24);
+        l.setOpaque(false);
+        return l;
+    }
+    public void setHouses(GUI_Street street, int houseCount){
+        street.setHouses(houseCount);
+    }
+
+    public void setHotel(GUI_Street street, boolean hasHotel) {
+        street.setHotel(hasHotel);
+    }
+
+
+}
 
 
 

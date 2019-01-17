@@ -47,7 +47,7 @@ public class BuySellController {
         } else {
             sell(player);
         }
-
+        guiHandler.updateGui(player, board.getPlayers(), board.getFields());
     }
 
     private void sell(Player player) {
@@ -91,7 +91,7 @@ public class BuySellController {
             }
 
             if (chosenField != null) {
-                player.getAccount().changeScore(Values.housePrice(chosenField.getHouses()));
+                player.getAccount().changeScore(Values.housePrice(chosenField.getBgColor()) / 2);
                 chosenField.removeHouse(1);
             } else {
                 throw new NullPointerException("the chosen field was not found");
@@ -163,10 +163,10 @@ public class BuySellController {
             } else {
                 //Checks if the player wants to by the house
                 if (guiHandler.makeButtons("Vil du bygge et hus/hotel på " + chosenField.getName() + " for kr. " +
-                                Values.housePrice(chosenField.getHouses() + 1) + "?",
+                                Values.housePrice(chosenField.getBgColor()) + "?",
                         "Ja", "Nej").equalsIgnoreCase("Ja")) {
-                    if (player.getAccount().canBuy(Values.housePrice(chosenField.getHouses() + 1))) {
-                        player.getAccount().changeScore(-Values.housePrice(chosenField.getHouses() + 1));
+                    if (player.getAccount().canBuy(Values.housePrice(chosenField.getBgColor()))) {
+                        player.getAccount().changeScore(-Values.housePrice(chosenField.getBgColor()));
                         chosenField.addHouse();
                     } else {
                         guiHandler.giveMsg("Du har ikke råd til at bygge dette hus/hotel");
@@ -181,9 +181,7 @@ public class BuySellController {
     private PropertyField getChosenField(Player owner, String[] fieldNames) {
         //Select a field to trade based on user input
         if (fieldNames.length > 0) {
-
-            String fieldString = guiHandler.makeButtons("Vælg felt du vil købe/sælge huse på", addHouseCount(owner, fieldNames));
-            removeHouseCount(fieldString);
+            String fieldString = guiHandler.makeButtons("Vælg felt du vil købe/sælge huse på", fieldNames);
             for (int n = 0; n < owner.getOwnedFields().size(); n++) {
                 if (fieldString.equals(fieldNames[n])) {
                     try {
@@ -233,25 +231,5 @@ public class BuySellController {
      * @param fieldList the list of fields that is being changed
      * @return
      */
-    private String[] addHouseCount(Player player, String[] fieldList){
-        for (String fieldName : fieldList){
-            for (OwnableField field : player.getOwnedFields()){
-                if (field.getClass().equals(PropertyField.class)) {
-                    if (field.getName().equalsIgnoreCase(fieldName)) {
-                        fieldName = fieldName.concat("-(" + field.getHouses() + ")");
-                    }
-                }
-            }
-        }
-        return fieldList;
-    }
 
-    /**
-     * Removes the house count from the string to make it usefull for serching for a property again.
-     * use it on the returned value from a button press.
-     * @param returnedString the string returned by the makeButtons() function
-     */
-    private void removeHouseCount(String returnedString){
-        returnedString = returnedString.split("-")[0];
-    }
 }

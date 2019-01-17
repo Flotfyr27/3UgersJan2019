@@ -104,7 +104,7 @@ public abstract class OwnableField extends Field {
 
 
                     int payedRent;
-                    if (ownsAll())
+                    if (ownsAll() && getHouses() == 0)
                         payedRent = getRent(current) * 2;
                     else
                         payedRent = getRent(current);
