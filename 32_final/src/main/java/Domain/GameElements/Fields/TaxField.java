@@ -1,8 +1,10 @@
 package Domain.GameElements.Fields;
 
+import Domain.Controller.PawnController;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Ownable.OwnableField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
+import TechnicalServices.GameLogic.GameLogic;
 import UI.GUI.GuiHandler;
 //import GUIHandler
 
@@ -47,7 +49,11 @@ public class TaxField extends Field {
          */
         if (taxType == 1) {
             guiHandler.giveMsg("Betaling af skatter: 2000 kr");
-            player.getAccount().changeScore(-2000);
+            try {
+                player.getAccount().changeScore(-2000);
+            } catch(RuntimeException e){
+                GameLogic.cantPay(player,2000);
+            }
         } else {
             /*
              * Indkomstskat
@@ -60,14 +66,22 @@ public class TaxField extends Field {
                 for (OwnableField field : player.getOwnedFields()) {
                     sum += field.getWorth();
                 }
+                sum += player.getAccount().getScore();
                 sum = (int) Math.round(sum * 0.1);
+                try{
                 player.getAccount().changeScore(-sum);
-
+                }catch(RuntimeException e){
+                    GameLogic.cantPay(player,-sum);
+                }
                 /*
                  * Selected option of paying kr.4.000
                  */
             } else if (buttons.equals("kr.4.000")) {
+                try{
                 player.getAccount().changeScore(-4000);
+                }catch(RuntimeException e){
+                    GameLogic.cantPay(player,-4000);
+                }
             } else {
                 throw new IllegalArgumentException("Value doesn't correspond to either button choice");
             }

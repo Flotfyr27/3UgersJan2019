@@ -15,7 +15,7 @@ public class MoveToJailChanceCard extends MoveToChanceCard {
     @Override
     public void action(Player player) {
 
-        //Checks for getOutOfJail cards before moving player to jail
+        //Checks for GetOutOfJailFree card before moving the player to jail
         if (player.getJailCards() >= 1) {
             guiHandler.giveMsg("Du bliver anholdt, men har kontkater til de rigtige mennesker, så politiet lader dig gå");
             player.removeJailCards();
