@@ -208,15 +208,29 @@ public class BuySellController {
         }*/
 
         //checks how many fields live up to all rules
+        boolean sentMessage = false;
         int count = 0;
         PropertyField currentField;
         for (String field : fieldNames) {
             currentField = stringToField(field, buyer);
+            //checks that a field has no more than 5 houses / a hotel
             if (currentField.getHouses() < 5 && !currentField.getHotel()){
-                if (currentField.getHouses() < 5 && PropertyField.getHousesInPlay() <= MAX_HOUSES_IN_PLAY) {
-                    count++;
-                } else if (currentField.getHouses() == 5 && PropertyField.getHotelsInPlay() <= MAX_HOTELS_IN_PLAY) {
-                    count++;
+                //checks if there are any houses or hotels left to build
+                if (currentField.getHouses() < 5) {
+                    if (PropertyField.getHousesInPlay() <= MAX_HOUSES_IN_PLAY) {
+                        count++;
+                    } else if (!sentMessage) {
+                        guiHandler.giveMsg("Huse er udsolgt.");
+                        sentMessage = true;
+                    }
+
+                } else if (currentField.getHouses() == 5) {
+                    if (PropertyField.getHotelsInPlay() <= MAX_HOTELS_IN_PLAY) {
+                        count++;
+                    } else if (!sentMessage) {
+                        guiHandler.giveMsg("Huse er udsolgt.");
+                        sentMessage = true;
+                    }
                 }
             }
         }
