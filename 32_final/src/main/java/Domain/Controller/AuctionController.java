@@ -69,14 +69,14 @@ public class AuctionController {
     private void finishAuction() {
         while(buyers.size() > 1){
             initCurrentPlayer();
-
-            for(int n = 0; n < buyers.size(); n++){
+//TODO evt check dis out https://stackoverflow.com/questions/10738634/delete-data-from-arraylist-with-a-for-loop
+            for(int n = buyers.size()-1; n >= 0; n--){
                 boolean wantsToBuy[] = new boolean[buyers.size()];
                 for (int i = 0; i < wantsToBuy.length; i++) {
                     wantsToBuy[i] = true;
                 }
 
-                String answerEndRounds = guiHandler.makeButtons(currentPlayer.getName() + " vil De stadig byde på " + chosenField.getName() + "?", "Ja", "Nej");
+                String answerEndRounds = guiHandler.makeButtons(currentPlayer.getName() + " vil De byde over kr. " + highestBid +" på " + chosenField.getName() + "?", "Ja", "Nej");
                 if(answerEndRounds.equals("Ja")){
                     if (buyers.size() > 1) {
                         highestBid = guiHandler.getUserInt(currentPlayer.getName() + " hvor meget ønsker De at byde på " + chosenField.getName() + "? (Højeste bud: kr. " + highestBid + " af " + playerWithHighestBid.getName() + ")", highestBid + 50, currentPlayer.getAccount().getScore());
@@ -87,7 +87,8 @@ public class AuctionController {
                     wantsToBuy[n] = false;
                 }
                 updateCurrentPlayer();
-                removeBuyers(wantsToBuy);
+                buyers.remove(n);
+                //removeBuyers(wantsToBuy);
             }
 
         }
