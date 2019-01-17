@@ -64,8 +64,9 @@ public class AuctionController {
     }
 
     private void finishAuction() {
-        initCurrentPlayer();
         while(buyers.size() > 1){
+            initCurrentPlayer();
+
             boolean wantsToBuy[] = new boolean[buyers.size()];
             for(int n = 0; n < buyers.size(); n++){
                 String answerEndRounds = guiHandler.makeButtons(currentPlayer.getName() + " vil De stadig byde på " + chosenField.getName() + "?", "Ja", "Nej");
@@ -77,7 +78,7 @@ public class AuctionController {
                     wantsToBuy[n] = false;
                 }
                 updateCurrentPlayer();
-                removeBuyers(n, wantsToBuy[n] == false);
+                removeBuyers(wantsToBuy);
             }
         }
     }
@@ -91,16 +92,20 @@ public class AuctionController {
                 checkAnswer(wantsToBuy, n, answerFirstRound);
                 updateCurrentPlayer();
             }
-            for(int n = 0; n < wantsToBuy.length-1; n++){
-                removeBuyers(n, !wantsToBuy[n]);
-            }
+
+            removeBuyers(wantsToBuy);
 
     }
 
-    private void removeBuyers(int n, boolean b) {
-        if (b) {
-            buyers.remove(n);
+    private void removeBuyers(boolean[] wantsToBuy) {
+        int count = 0;
+        for (int i = 0; i < wantsToBuy.length; i++){
+            if (!wantsToBuy[i]){
+                System.out.println("Removed " + buyers.get(i - count).getName());
+                buyers.remove(i - count++);
+            }
         }
+
     }
 
     private void checkAnswer(boolean[] wantsToBuy, int n, String answerFirstRound) {
@@ -127,15 +132,11 @@ public class AuctionController {
     private void updateCurrentPlayer(){
         currentPlayer = getNextPlayer();
     }
-//TODO check size of buyers and playerIndex. The error is that playerIndex goes out of bounds...
+
     private Player getNextPlayer(){
         Player nextPlayer;
-        if(currentPlayer == buyers.get(buyers.size()-1)){
-            nextPlayer = buyers.get(0);
-            playerIndex = 0;
-        }else{
-            nextPlayer = buyers.get(++playerIndex);
-        }
+        playerIndex = ++playerIndex % buyers.size();
+        nextPlayer = buyers.get(playerIndex);
         return nextPlayer;
     }
     private void getFieldToBeAuctioned(Player startingPlayer) {
