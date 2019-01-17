@@ -120,7 +120,7 @@ public class BuySellController {
             }
 
             if (!isChecked) {
-                triedColors = colorArrayAddition(triedColors, new Color[]{ownedField.getBgColor()}); //TODO look at me!!!
+                triedColors = colorArrayAddition(triedColors, new Color[]{ownedField.getBgColor()});
 
 
                 boolean sameOwner = true;
