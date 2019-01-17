@@ -73,7 +73,7 @@ public class TradeController {
         }
 
         makeTransaction(price, chosenTradeObject, owner, receiver);
-        guiHandler.updateBalance(board.getPlayers());
+        guiHandler.updateGui(playerTrading, board.getPlayers(), board.getFields());
     }
 
     /**
