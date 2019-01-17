@@ -20,6 +20,6 @@ public class Die {
      */
     public int Roll (){
         faceValue = Math.abs(random.nextInt(dieFaces)+1);
-       return faceValue;
+       return 2;//faceValue;
     }
 }
