@@ -4,7 +4,6 @@ import Domain.GameElements.Entities.ChanceCardStack;
 import Domain.GameElements.Entities.Chancecard.ChanceCard;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Field;
-
 import java.awt.*;
 
 public class ChanceField extends Field {
