@@ -76,9 +76,7 @@ public class AuctionController {
                     wantsToBuy[n] = false;
                 }
                 updateCurrentPlayer();
-            }
-            for(int n = 0; n < wantsToBuy.length; n++){
-                if(!wantsToBuy[n]){
+                if(wantsToBuy[n] == false){
                     buyers.remove(n);
                 }
             }
@@ -95,9 +93,11 @@ public class AuctionController {
                     wantsToBuy[n] = true;
                     if(playerWithHighestBid == null){
                         highestBid = guiHandler.getUserInt(currentPlayer.getName() + " hvor meget ønsker De at byde på " + chosenField.getName() + "? (Mindst " +highestBid + ")", highestBid, currentPlayer.getAccount().getScore());
+                        playerWithHighestBid = currentPlayer;
                     }else if(playerWithHighestBid != null){
                         highestBid = guiHandler.getUserInt(currentPlayer.getName() + " hvor meget ønsker De at byde på " + chosenField.getName() + "? (Højeste bud: kr. " + highestBid + " af " + playerWithHighestBid.getName(), highestBid+50, currentPlayer.getAccount().getScore());
                         playerWithHighestBid = currentPlayer;
+                        System.out.println("Highest bidder " + playerWithHighestBid.getName());
                     }
 
                 }else if(answerFirstRound.equals("Nej")){
@@ -126,6 +126,7 @@ public class AuctionController {
         Player nextPlayer;
         if(currentPlayer == buyers.get(buyers.size()-1)){
             nextPlayer = buyers.get(0);
+            playerIndex = 0;
         }else{
             playerIndex++;
             nextPlayer = buyers.get(playerIndex);
