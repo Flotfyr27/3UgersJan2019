@@ -17,6 +17,10 @@ public class Main {
         MoveController.getInstance().initiate(board);
         JailController.getInstance();
 
+     /* Let a player start with some fields for testing TODO delete it
+        board.getFields()[6].landOnAction(board.getPlayers()[0]);
+        board.getFields()[8].landOnAction(board.getPlayers()[0]);
+        board.getFields()[9].landOnAction(board.getPlayers()[0]); */
         mainController.runCase();
     }
 }
