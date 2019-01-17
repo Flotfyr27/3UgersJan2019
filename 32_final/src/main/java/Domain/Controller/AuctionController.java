@@ -16,11 +16,13 @@ public class AuctionController {
     private OwnableField chosenField;
     private Player currentPlayer, playerWithHighestBid = null;
     private int playerIndex = 0, highestBid = 0;
+    private int caseRuns;
 
 
     private AuctionController(){
         board = Board.getInstance();
         guiHandler = GuiHandler.getInstance();
+        caseRuns = 0;
     }
 
     /**
@@ -38,10 +40,11 @@ public class AuctionController {
 
 
     public void runCase(Player startingPlayer) {
+        caseRuns++;
+        //Get field to be auctioned off
+        setUpAuction(startingPlayer);
         //Get list of buyers
         getListOfBuyers(startingPlayer);
-        //Get field to be auctioned off
-        getFieldToBeAuctioned(startingPlayer);
         //Initializes the current player
         initCurrentPlayer();
         //Loop going through all players choosing to bid or not for the initial bidding round
@@ -113,17 +116,21 @@ public class AuctionController {
         }
 
     }
-
     private void checkAnswer(boolean[] wantsToBuy, int n, String answerFirstRound) {
         if(answerFirstRound.equals("Ja")){
-            wantsToBuy[n] = true;
-            if(playerWithHighestBid == null){
-                highestBid = guiHandler.getUserInt(currentPlayer.getName() + " hvor meget ønsker De at byde på " + chosenField.getName() + "? (Mindst " +highestBid + ")", highestBid, currentPlayer.getAccount().getScore());
-                playerWithHighestBid = currentPlayer;
-            }else if(playerWithHighestBid != null){
-                highestBid = guiHandler.getUserInt(currentPlayer.getName() + " hvor meget ønsker De at byde på " + chosenField.getName() + "? (Højeste bud: kr. " + highestBid + " af " + playerWithHighestBid.getName(), highestBid+50, currentPlayer.getAccount().getScore());
-                playerWithHighestBid = currentPlayer;
-                System.out.println("Highest bidder " + playerWithHighestBid.getName());
+            if (currentPlayer.getAccount().canBuy(highestBid)) {
+                wantsToBuy[n] = true;
+                if (playerWithHighestBid == null) {
+                    highestBid = guiHandler.getUserInt(currentPlayer.getName() + " hvor meget ønsker De at byde på " + chosenField.getName() + "? (Mindst " + highestBid + ")", highestBid, currentPlayer.getAccount().getScore());
+                    playerWithHighestBid = currentPlayer;
+                } else if (playerWithHighestBid != null) {
+                    highestBid = guiHandler.getUserInt(currentPlayer.getName() + " hvor meget ønsker De at byde på " + chosenField.getName() + "? (Højeste bud: kr. " + highestBid + " af " + playerWithHighestBid.getName() + ")", highestBid + 50, currentPlayer.getAccount().getScore());
+                    playerWithHighestBid = currentPlayer;
+                    System.out.println("Highest bidder " + playerWithHighestBid.getName());
+                }
+            } else {
+                guiHandler.giveMsg("Du har ikke råd til at byde");
+                wantsToBuy[n] = false;
             }
 
         }else if(answerFirstRound.equals("Nej")){
@@ -145,9 +152,11 @@ public class AuctionController {
         nextPlayer = buyers.get(playerIndex);
         return nextPlayer;
     }
-    private void getFieldToBeAuctioned(Player startingPlayer) {
+    private void setUpAuction(Player startingPlayer) {
         chosenField = (OwnableField)board.getFields()[startingPlayer.getPos()];
         highestBid = chosenField.getPrice();
+        playerWithHighestBid = null;
+        currentPlayer = null;
     }
 
     private void getListOfBuyers(Player startingPlayer) {
