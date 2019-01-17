@@ -78,8 +78,8 @@ public class AuctionController {
                     wantsToBuy[n] = false;
                 }
                 updateCurrentPlayer();
-                removeBuyers(wantsToBuy);
             }
+            removeBuyers(wantsToBuy);
         }
     }
 
@@ -94,7 +94,6 @@ public class AuctionController {
             }
 
             removeBuyers(wantsToBuy);
-
     }
 
     private void removeBuyers(boolean[] wantsToBuy) {
