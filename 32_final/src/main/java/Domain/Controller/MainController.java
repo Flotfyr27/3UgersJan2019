@@ -56,6 +56,7 @@ public class MainController {
                             if (choice.equalsIgnoreCase("Køb/sælg hus")) {
                                 buySellCon.runCase(currentPlayer);
                             }
+                        }
                         } else {
                             choice = guiHandler.makeButtons("Vælg en handling " + currentPlayer.getName(),
                                     "Slå terninger", "Handel", "Pantsætning", "Køb/sælg hus");
@@ -83,8 +84,6 @@ public class MainController {
                                 buySellCon.runCase(currentPlayer);
                             }
                         }
-
-                    }
                 }while (currentPlayer.getIsActive()) ;
             }
             else

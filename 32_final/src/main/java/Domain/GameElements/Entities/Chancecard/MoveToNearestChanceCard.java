@@ -48,6 +48,7 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
     public void action(Player p) {
         for (int i = p.getPos(); i < fields.length; i++) {
             if (fields[i].getClass() == type) {
+                if(payDouble);
                 super.value = i;
                 super.action(p);
                 return;
@@ -58,6 +59,7 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
 
         for (int i = 0; i < p.getPos(); i++) {
             if (fields[i].getClass() == type) {
+                if (payDouble);
                 super.value = i;
                 super.action(p);
                 return;
