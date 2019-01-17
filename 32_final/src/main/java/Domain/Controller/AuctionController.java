@@ -127,7 +127,7 @@ public class AuctionController {
     private void updateCurrentPlayer(){
         currentPlayer = getNextPlayer();
     }
-
+//TODO check size of buyers and playerIndex. The error is that playerIndex goes out of bounds...
     private Player getNextPlayer(){
         Player nextPlayer;
         if(currentPlayer == buyers.get(buyers.size()-1)){
