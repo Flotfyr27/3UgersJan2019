@@ -21,12 +21,6 @@ public class MoveToJailChanceCard extends MoveToChanceCard {
             player.removeJailCards();
         }
         else {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
             player.setPos(super.value);
             player.setJailTime(0);
 

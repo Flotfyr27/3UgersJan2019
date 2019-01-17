@@ -44,11 +44,6 @@ public class MoveToChanceCard extends MoveChanceCard {
      */
     @Override
     public void action(Player player){
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         if (getsStartMoney)
             GameLogic.movingPastStart(player, super.value);
