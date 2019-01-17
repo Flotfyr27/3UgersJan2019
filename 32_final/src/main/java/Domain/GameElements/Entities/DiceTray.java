@@ -27,7 +27,7 @@ public class DiceTray {
      */
     public int getSum() {
         sum = value1 + value2;
-        return sum;
+        return 2;// sum;
     }
 
     /**

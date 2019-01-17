@@ -139,7 +139,6 @@ public class Values {
         int[] chanceCardValues = {
                 -3000, -2000, -1000, -1000, -1000 -300, -200, -200, -200, 200, 200, 500, 500, 500,
                 1000, 1000, 1000, 1000, 1000, 1000, 3000, 40000, -500, -2000, -800, -2300
-                /*TODO sørg for at de fire sidste priser er reguleret i henhold til antal huse og hoteller, samt de andre fælles puljer, markeret med stjerne */
         };
         value = chanceCardValues[i];
         return value;
@@ -220,7 +219,7 @@ public class Values {
 
 
     public static int rentPrice (int fieldPlacement, int numberOfHouses) {
-        int rent =0;
+        int rent;
               int rentPrice [][]  =
                 {{0},
                 {50, 250, 750, 2250, 4000, 6000},
