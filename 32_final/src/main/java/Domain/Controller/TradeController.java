@@ -117,7 +117,7 @@ public class TradeController {
         int salesPrice;
         String confirmationOfSale;
         do {
-            salesPrice = guiHandler.getUserInt("Indtast salgsprisen: ");
+            salesPrice = guiHandler.getUserInt("Indtast salgsprisen: ", 50 , receiver.getAccount().getScore());
 
             confirmationOfSale = guiHandler.makeButtons(owner.getName() + " sælger " +
                     chosenTradeObject.toString() + " til " + receiver.getName() + " for kr. " + salesPrice +
