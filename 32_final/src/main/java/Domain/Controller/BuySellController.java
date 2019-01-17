@@ -12,7 +12,6 @@ import java.awt.*;
 
 public class BuySellController {
     private GuiHandler guiHandler = GuiHandler.getInstance();
-    private boolean notDone;
     private Board board;
 
     private static BuySellController instance;
@@ -79,10 +78,8 @@ public class BuySellController {
 
         } else {
             //presents the player with their choices. String manipulation takes place for the sake of user experience.
-            addHouseCount(player, possibleFields);
             choice = guiHandler.makeButtons("Vælg en grund du vil sælge et hus fra. Antallet af huse på feltet " +
                     "står i parantes.", possibleFields);
-            removeHouseCount(choice);
 
             //Finds the chosen field and assigns it to chosenField
             chosenField = null;
@@ -184,7 +181,9 @@ public class BuySellController {
     private PropertyField getChosenField(Player owner, String[] fieldNames) {
         //Select a field to trade based on user input
         if (fieldNames.length > 0) {
-            String fieldString = guiHandler.makeButtons("Vælg felt du vil købe/sælge huse på", fieldNames);
+
+            String fieldString = guiHandler.makeButtons("Vælg felt du vil købe/sælge huse på", addHouseCount(owner, fieldNames));
+            removeHouseCount(fieldString);
             for (int n = 0; n < owner.getOwnedFields().size(); n++) {
                 if (fieldString.equals(fieldNames[n])) {
                     try {
@@ -234,16 +233,17 @@ public class BuySellController {
      * @param fieldList the list of fields that is being changed
      * @return
      */
-    private void addHouseCount(Player player, String[] fieldList){
+    private String[] addHouseCount(Player player, String[] fieldList){
         for (String fieldName : fieldList){
             for (OwnableField field : player.getOwnedFields()){
                 if (field.getClass().equals(PropertyField.class)) {
                     if (field.getName().equalsIgnoreCase(fieldName)) {
-                        fieldName = fieldName.concat("-(" + ((PropertyField)field).getHouses() + ")");
+                        fieldName = fieldName.concat("-(" + field.getHouses() + ")");
                     }
                 }
             }
         }
+        return fieldList;
     }
 
     /**
