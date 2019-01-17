@@ -56,7 +56,7 @@ public class AuctionController {
     private void sellPropertyToPlayer() {
         if(buyers.size() == 1) {
             initCurrentPlayer();
-            currentPlayer.getAccount().changeScore(-chosenField.getPrice());
+            currentPlayer.getAccount().changeScore(-highestBid);
             currentPlayer.getOwnedFields().add(chosenField);
             chosenField.setOwner(currentPlayer);
             guiHandler.giveMsg(currentPlayer.getName() + " har købt " + chosenField.getName() + " for kr. " + highestBid);
@@ -67,19 +67,26 @@ public class AuctionController {
         while(buyers.size() > 1){
             initCurrentPlayer();
 
-            boolean wantsToBuy[] = new boolean[buyers.size()];
             for(int n = 0; n < buyers.size(); n++){
+                boolean wantsToBuy[] = new boolean[buyers.size()];
+                for (int i = 0; i < wantsToBuy.length; i++) {
+                    wantsToBuy[i] = true;
+                }
+
                 String answerEndRounds = guiHandler.makeButtons(currentPlayer.getName() + " vil De stadig byde på " + chosenField.getName() + "?", "Ja", "Nej");
                 if(answerEndRounds.equals("Ja")){
-                    highestBid = guiHandler.getUserInt(currentPlayer.getName() + " hvor meget ønsker De at byde på " + chosenField.getName() + "? (Højeste bud: kr. " + highestBid + " af " + playerWithHighestBid.getName() + ")", highestBid+50, currentPlayer.getAccount().getScore());
-                    playerWithHighestBid = currentPlayer;
-                    wantsToBuy[n] = true;
+                    if (buyers.size() > 1) {
+                        highestBid = guiHandler.getUserInt(currentPlayer.getName() + " hvor meget ønsker De at byde på " + chosenField.getName() + "? (Højeste bud: kr. " + highestBid + " af " + playerWithHighestBid.getName() + ")", highestBid + 50, currentPlayer.getAccount().getScore());
+                        playerWithHighestBid = currentPlayer;
+                        wantsToBuy[n] = true;
+                    }
                 }else if(answerEndRounds.equals("Nej")){
                     wantsToBuy[n] = false;
                 }
                 updateCurrentPlayer();
+                removeBuyers(wantsToBuy);
             }
-            removeBuyers(wantsToBuy);
+
         }
     }
 
