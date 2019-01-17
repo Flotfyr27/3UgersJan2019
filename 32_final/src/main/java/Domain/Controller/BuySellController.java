@@ -41,12 +41,18 @@ public class BuySellController {
 
         String buttons = guiHandler.makeButtons("Vil du købe eller sælge huse/hoteller?", "Køb", "Sælg");
 
-
-        if (buttons.equalsIgnoreCase("Køb")) {
-            buy(player);
-        } else {
-            sell(player);
+        try {
+            if (buttons.equalsIgnoreCase("Køb")) {
+                buy(player);
+            } else {
+                sell(player);
+            }
+        } catch (RuntimeException e) {
+            System.out.println("An unhandled exception occurred");
+            e.printStackTrace();
+            guiHandler.giveMsg("Noget gik galt :(");
         }
+
         guiHandler.updateGui(player, board.getPlayers(), board.getFields());
     }
 
@@ -167,7 +173,7 @@ public class BuySellController {
                 if (guiHandler.makeButtons("Vil du bygge et hus/hotel på " + chosenField.getName() + " for kr. " +
                                 Values.housePrice(chosenField.getBgColor()) + "?",
                         "Ja", "Nej").equalsIgnoreCase("Ja")) {
-                    if (player.getAccount().canBuy(Values.housePrice(chosenField.getBgColor()))) {
+                    if (player.getAccount().canBuy(-Values.housePrice(chosenField.getBgColor()))) {
                         player.getAccount().changeScore(-Values.housePrice(chosenField.getBgColor()));
                         chosenField.addHouse();
                     } else {
@@ -217,7 +223,6 @@ public class BuySellController {
                 try {
                     return (PropertyField) owner.getOwnedFields().get(n);
                 } catch (ClassCastException e) {
-                    guiHandler.giveMsg("Noget gik galt :(");
                     System.out.println("Field received was not a PropertyField");
                     e.printStackTrace();
                 }
