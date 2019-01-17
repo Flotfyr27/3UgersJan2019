@@ -253,6 +253,7 @@ public class GuiHandler {
             gui_fields[i].setCar(findGuiPlayer(player, pArr), false);
 
             carMoved = onCarMoved(carMoved);
+
         }
         //moves the active player after start
         for (int i = 0; i < player.getPos(); i++) {
