@@ -54,10 +54,12 @@ public class AuctionController {
     }
 
     private void sellPropertyToPlayer() {
-        initCurrentPlayer();
-        currentPlayer.getAccount().changeScore(-chosenField.getPrice());
-        currentPlayer.getOwnedFields().add(chosenField);
-        chosenField.setOwner(currentPlayer);
+        if(buyers.size() == 1) {
+            initCurrentPlayer();
+            currentPlayer.getAccount().changeScore(-chosenField.getPrice());
+            currentPlayer.getOwnedFields().add(chosenField);
+            chosenField.setOwner(currentPlayer);
+        }
     }
 
     private void finishAuction() {
@@ -87,7 +89,7 @@ public class AuctionController {
         boolean wantsToBuy[] = new boolean[buyers.size()];
 
 
-            for(int n = 0; n < buyers.size()-1; n++){
+            for(int n = 0; n < buyers.size(); n++){
                 String answerFirstRound = guiHandler.makeButtons(currentPlayer.getName() + " vil De byde på " + chosenField.getName() + "?", "Ja", "Nej");
                 if(answerFirstRound.equals("Ja")){
                     wantsToBuy[n] = true;
@@ -103,7 +105,7 @@ public class AuctionController {
                 }
                 updateCurrentPlayer();
             }
-            for(int n = 0; n < wantsToBuy.length; n++){
+            for(int n = 0; n < wantsToBuy.length-1; n++){
                 if(!wantsToBuy[n]){
                     buyers.remove(n);
                 }
