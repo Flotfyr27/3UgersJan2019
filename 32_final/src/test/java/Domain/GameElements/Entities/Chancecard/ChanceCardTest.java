@@ -1,9 +1,7 @@
 package Domain.GameElements.Entities.Chancecard;
 
-import Domain.GameElements.Entities.Chancecard.TaxCard;
-import Domain.GameElements.Entities.DiceTray;
+import Domain.GameElements.Entities.diceTray;
 import Domain.GameElements.Entities.Player;
-import Domain.GameElements.Fields.Field;
 import Domain.GameElements.Fields.Ownable.CompanyField;
 import Domain.GameElements.Fields.Ownable.OwnableField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
@@ -120,8 +118,8 @@ class ChanceCardTest {
                 new PropertyField("1", "", Color.BLUE, 100, 10),
                 new PropertyField("2", "", Color.BLUE, 100, 10),
                 new PropertyField("3", "", Color.BLUE, 100, 10),
-                new CompanyField("4", "", Color.BLUE, 100, new DiceTray()),
-                new CompanyField("4", "", Color.BLUE, 100, new DiceTray()),
+                new CompanyField("4", "", Color.BLUE, 100, new diceTray()),
+                new CompanyField("4", "", Color.BLUE, 100, new diceTray()),
                 new ShippingField("6", "", Color.BLUE,100)
         };
 

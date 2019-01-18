@@ -1,6 +1,6 @@
 package Domain.Controller;
 
-import Domain.GameElements.Entities.DiceTray;
+import Domain.GameElements.Entities.diceTray;
 import Domain.GameElements.Entities.Player;
 import TechnicalServices.GameLogic.GameLogic;
 import UI.GUI.GuiHandler;
@@ -8,7 +8,7 @@ import UI.GUI.GuiHandler;
 public class JailController {
     private GuiHandler guiHandler = GuiHandler.getInstance();
     private int timeInJail;
-    private DiceTray diceTray;
+    private Domain.GameElements.Entities.diceTray diceTray;
 
     private static JailController instance;
 
@@ -30,7 +30,7 @@ public class JailController {
      * Constructor
      */
     private JailController() {
-        diceTray = new DiceTray();
+        diceTray = new diceTray();
     }
 
     /**
@@ -65,7 +65,7 @@ public class JailController {
                 }
                 //Throwing dice to get double values. If both dice are the same, the player gets out of jail.
                 else if (buttons.equals("Slå terninger")) {
-                    diceTray.Roll();
+                    diceTray.roll();
                     guiHandler.showDice(diceTray.getValue1(), diceTray.getValue2());
 
                     //if/else statement which determines what to do when throwing double dice or not.

@@ -1,6 +1,6 @@
 package Domain.GameElements;
 import Domain.GameElements.Entities.ChanceCardStack;
-import Domain.GameElements.Entities.DiceTray;
+import Domain.GameElements.Entities.diceTray;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.ChanceField.ChanceField;
 import Domain.GameElements.Fields.EmptyField;
@@ -19,7 +19,7 @@ import java.awt.*;
 public class Board {
     private Field[] fields;
     private Player[] players;
-    private DiceTray diceTray;
+    private Domain.GameElements.Entities.diceTray diceTray;
 
     private static Board boardInstance;
 
@@ -41,7 +41,7 @@ public class Board {
      * Constructor for Board
      */
     private Board() {
-        diceTray = new DiceTray();
+        diceTray = new diceTray();
         setFields();
     }
 
@@ -131,7 +131,7 @@ public class Board {
         return fields;
     }
 
-    public DiceTray getDiceTray(){
+    public Domain.GameElements.Entities.diceTray getDiceTray(){
         return diceTray;
     }
 

@@ -2,14 +2,12 @@ package Domain.GameElements.Fields.Ownable;
 
 import java.awt.*;
 
-import Domain.Controller.MoveController;
-import Domain.GameElements.Entities.DiceTray;
 import Domain.GameElements.Entities.Player;
 import TechnicalServices.GameLogic.Values;
 
 public class CompanyField extends OwnableField {
-    DiceTray diceTray;
-    public CompanyField(String name, String subtext, Color bgColour, int price, DiceTray diceTray){
+    Domain.GameElements.Entities.diceTray diceTray;
+    public CompanyField(String name, String subtext, Color bgColour, int price, Domain.GameElements.Entities.diceTray diceTray){
         super(name, subtext, bgColour, price);
         this.diceTray = diceTray;
     }

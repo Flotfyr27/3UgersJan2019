@@ -1,7 +1,5 @@
 package TechnicalServices.GameLogic;
 
-import Domain.GameElements.Entities.DiceTray;
-
 public class Values {
     public Values(){
     }

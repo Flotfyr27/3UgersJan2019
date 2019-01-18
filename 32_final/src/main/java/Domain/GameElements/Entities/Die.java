@@ -15,7 +15,7 @@ public class Die {
     }
 
     /**
-     * Roll method allow us to roll us to roll the dice and makes it random with the math.abs() method
+     * roll method allow us to roll us to roll the dice and makes it random with the math.abs() method
      * @return
      */
     public int Roll (){

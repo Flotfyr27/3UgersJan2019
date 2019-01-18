@@ -2,12 +2,8 @@ import Domain.Controller.JailController;
 import Domain.Controller.MainController;
 import Domain.Controller.MoveController;
 import Domain.GameElements.Board;
-import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Ownable.OwnableField;
-import Domain.GameElements.Fields.Ownable.PropertyField;
-import TechnicalServices.DiceTrayRigged;
 import UI.GUI.GuiHandler;
-import gui_fields.GUI_Player;
 
 public class Main {
     public static void main(String[] args) {
@@ -47,6 +43,7 @@ public class Main {
         board.initBoard(4, true);
         guiHandler.initGuiPlayers(board.getPlayers());
 
+
         //Sets accountScore for all dummy players
         for (int i = 0; i < board.getPlayers().length; i++) {
             board.getPlayers()[i].getAccount().setScore(10000);
@@ -61,10 +58,10 @@ public class Main {
         setFieldOwner(board, 1, 14);
         setFieldOwner(board, 0, 19);
 
-        switch(MoveController.getInstance().getRoundNr()){
+        /*switch(MoveController.getInstance().getRoundNr()){
             case 1:
-                DiceTrayRigged.roll(2,3);
-        }
+                diceTrayRigged.roll(2,3);
+        }*/
 
 
 
@@ -75,7 +72,7 @@ public class Main {
 
 
         MainController mainController = new MainController(board.getPlayers());
-        MoveController.getInstance().initiate(board);
+        MoveController.getInstance().initiatePresentation(board);
         JailController.getInstance();
 
         mainController.runCase();
