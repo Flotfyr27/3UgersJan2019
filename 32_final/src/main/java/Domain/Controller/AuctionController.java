@@ -17,7 +17,9 @@ public class AuctionController {
     private Player currentPlayer, playerWithHighestBid = null;
     private int highestBid = 0;
 
-
+    /**
+     * Constructor for the singleton of AuctionController
+     */
     private AuctionController(){
         board = Board.getInstance();
         guiHandler = GuiHandler.getInstance();
@@ -25,7 +27,7 @@ public class AuctionController {
 
     /**
      * Creates this class as a singleton
-     * @return
+     * @return An instance of AuctionController
      */
     public static AuctionController getInstance(){
         if(instance == null){
@@ -36,7 +38,16 @@ public class AuctionController {
     }
 
 
-
+    /**
+     * This method is the main run method of the AuctionController
+     * The method will go through an ArrayList of potential buyers of a field
+     * It will do so in a few steps
+     * 1. Ask a player if they want to bid on the property
+     * 2. Ask the player to enter an amount if yes and remove the player if no.
+     * 3. Repeat step 2 until only one buyer remains
+     * 4. If possible sell the property to last buyer (In case at least one said yes)
+     * @param startingPlayer This is the player who initially landed on the field
+     */
     public void runCase(Player startingPlayer) {
         //Get field to be auctioned off
         setUpAuction(startingPlayer);
@@ -98,6 +109,9 @@ public class AuctionController {
 
     }
 
+    /**
+     * This method sells the property up for auction and adds it to a players inventory
+     */
     private void sellPropertyToPlayer() {
             currentPlayer.getAccount().changeScore(-highestBid);
             currentPlayer.getOwnedFields().add(chosenField);
@@ -105,6 +119,10 @@ public class AuctionController {
             guiHandler.giveMsg(currentPlayer.getName() + " har købt " + chosenField.getName() + " for kr. " + highestBid);
     }
 
+    /**
+     * This method sets up the auction by getting the field, setting the current player and who has the highest bid
+     * @param startingPlayer The player who first landed on the field
+     */
    private void setUpAuction(Player startingPlayer) {
         chosenField = (OwnableField)board.getFields()[startingPlayer.getPos()];
         highestBid = chosenField.getPrice();
@@ -112,6 +130,10 @@ public class AuctionController {
         currentPlayer = null;
     }
 
+    /**
+     * This method creates an ArrayList of buyers to be used in runCase()-method
+     * @param startingPlayer This player will not be added to the list of buyers, since they said no in the first place.
+     */
     private void getListOfBuyers(Player startingPlayer) {
         buyers = new ArrayList<Player>();
         for (int n = 0; n < board.getPlayers().length; n++) {

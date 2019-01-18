@@ -52,7 +52,7 @@ public class TaxField extends Field {
             try {
                 player.getAccount().changeScore(-2000);
             } catch(RuntimeException e){
-                GameLogic.cantPay(player,2000);
+                GameLogic.cantPay(player,-2000);
             }
         } else {
             /*
