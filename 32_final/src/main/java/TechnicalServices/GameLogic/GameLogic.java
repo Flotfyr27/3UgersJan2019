@@ -70,7 +70,7 @@ public class GameLogic {
                 player.setIsActive(false);
                 return;
             }
-        }while (player.getAccount().canBuy(-amount));
+        }while (!player.getAccount().canBuy(-amount));
         player.getAccount().changeScore(-amount);
     }
 

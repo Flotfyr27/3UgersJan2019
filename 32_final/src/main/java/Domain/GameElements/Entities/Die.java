@@ -18,8 +18,8 @@ public class Die {
      * Roll method allow us to roll us to roll the dice and makes it random with the math.abs() method
      * @return
      */
-    public int Roll (){
-        faceValue = Math.abs(random.nextInt(dieFaces)+1);
-       return faceValue;
+    public int Roll () {
+        faceValue = Math.abs(random.nextInt(dieFaces) + 1);
+        return faceValue;
     }
 }

@@ -67,16 +67,22 @@ public abstract class OwnableField extends Field {
 
     /**
      * Method to allow us to buy the fields
+     *
      * @param p
      */
     public void buyField(Player p) {
         if (p.getAccount().getScore() >= getPrice()) {
-                setOwner(p);
-                p.getAccount().changeScore(-getPrice());
-                p.getOwnedFields().add(this);
+            setOwner(p);
+            p.getAccount().changeScore(-getPrice());
+            p.getOwnedFields().add(this);
 
+        } else {
+            guiHandler.giveMsg("Du har ikke råd til at købe denne grund. Derfor sættes den på auktion.");
+            AuctionController.getInstance().runCase(p);
         }
     }
+
+
     /**
      * Method to determine what happens when a player lands on a field.
      * @param current The current player
