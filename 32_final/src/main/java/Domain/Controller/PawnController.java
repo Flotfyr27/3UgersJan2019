@@ -114,8 +114,14 @@ public class PawnController {
      * @return list of fields
      */
     private String[] getUnpawnedTradeFields(Player owner) {
-        String[] fieldNames = new String[owner.getOwnedFields().size()];
-        for (int n = 0; n < owner.getOwnedFields().size(); n++) {
+        String[] fieldNames;
+        int count = 0;
+        for(int i= 0; i< owner.getOwnedFields().size(); i++){
+            if(!owner.getOwnedFields().get(i).getIsPawned())
+                count++;
+        }
+        fieldNames = new String[count];
+        for (int n = 0; n < fieldNames.length; n++) {
             if(!owner.getOwnedFields().get(n).getIsPawned())
                 fieldNames[n] = owner.getOwnedFields().get(n).getName();
         }
@@ -126,9 +132,20 @@ public class PawnController {
      * @param owner the player
      * @return list of fields
      */
+    /**
+     * Creates a list of the fields owned by a player
+     * @param owner the player
+     * @return list of fields
+     */
     private String[] getPawnedTradeFields(Player owner) {
-        String[] fieldNames = new String[owner.getOwnedFields().size()];
-        for (int n = 0; n < owner.getOwnedFields().size(); n++) {
+        String[] fieldNames;
+        int count = 0;
+        for(int i= 0; i< owner.getOwnedFields().size(); i++){
+            if(owner.getOwnedFields().get(i).getIsPawned())
+                count++;
+        }
+        fieldNames = new String[count];
+        for (int n = 0; n < fieldNames.length; n++) {
             if(owner.getOwnedFields().get(n).getIsPawned())
                 fieldNames[n] = owner.getOwnedFields().get(n).getName();
         }
@@ -186,7 +203,7 @@ public class PawnController {
      * Multiplication of
      * Cast the double as an int.
      */
-    private int buyPawnBackValue(OwnableField ownableField, Player p) {
+    private int buyPawnBackValue(OwnableField ownableField) {
 
         return (int) (-pawnValue(ownableField) * 1.1 - ((int) (pawnValue(ownableField) * 1.1) % 50));
 
@@ -196,8 +213,8 @@ public class PawnController {
      * Getting boolean from ownableField and allows you to unpawn it.
      */
     private void unPawn(OwnableField ownableField, Player p) {
-        if (p.getAccount().getScore() - buyPawnBackValue(ownableField, p) > 0) {
-               p.getAccount().changeScore(buyPawnBackValue(ownableField, p));
+        if (p.getAccount().getScore() - buyPawnBackValue(ownableField) > 0) {
+               p.getAccount().changeScore(buyPawnBackValue(ownableField));
                ownableField.setIsPawned(false);
         }
         else
