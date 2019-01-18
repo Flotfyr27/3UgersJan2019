@@ -88,6 +88,21 @@ public class PropertyField extends OwnableField {
     }
 
     /**
+     * Removes multiple houses or hotels
+     */
+    public void removeHouse(int numberRemoved) {
+        if (numberOfHouses >= 0 && numberOfHouses <= 4) {
+            numberOfHouses -= numberRemoved;
+            housesInPlay -= numberRemoved;
+        } else if (numberOfHouses == 5) {
+            numberOfHouses -= 5;
+            hotelsInPlay--;
+        } else {
+            throw new RuntimeException("Minimum amount of houses already reached.");
+        }
+    }
+
+    /**
      * This method calculates the rent of a property
      * @param p The player who lands on the field
      * @return Returns an integer value of rent
