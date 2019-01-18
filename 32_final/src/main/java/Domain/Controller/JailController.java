@@ -7,7 +7,6 @@ import UI.GUI.GuiHandler;
 
 public class JailController {
     private GuiHandler guiHandler = GuiHandler.getInstance();
-    private int timeInJail;
     private DiceTray diceTray;
 
     private static JailController instance;
@@ -40,51 +39,12 @@ public class JailController {
      */
     public void runCase(Player player) {
 
-        //If/else statement to differentiate between the "visit in jail" and "go to jail" fields.
-        if (player.getJailTime() == -1) { //Uses method in Player to determine whether the player is in jail or not.
-            guiHandler.msgInMiddle("Du er på besøg i fængslet");
-            return;
-        } else if (player.getJailTime() >= 0) {
+        if (player.getJailTime() < 2){
+            player.setJailTime(player.getJailTime() + 1); //adds 1 to timeInJail. After 3 rounds the player is forced to pay bail to get out.
+            String buttons = guiHandler.makeButtons("Du er i fængsel. hvad vil du foretage dig?", "Betal kr.1.000, og ryk ud af fængsel", "Slå terninger");
 
-            timeInJail = 0;
-
-            do {
-                player.setJailTime(++timeInJail); //adds 1 to timeInJail. After 3 rounds the player is forced to pay bail to get out.
-                String buttons = guiHandler.makeButtons("Du er i fængsel. hvad vil du foretage dig?", "Betal kr.1.000, og ryk ud af fængsel", "Slå terninger");
-
-                //Choice of making bail and throwing the dice
-                if (buttons.equals("Betal kr.1.000, og ryk ud af fængsel")) {
-                    try {
-                        player.getAccount().changeScore(-1000);
-                    } catch (RuntimeException e) {
-                        GameLogic.cantPay(player,-1000);
-                    }
-                    MoveController.getInstance().runCase(player); //The dice are thrown in the moveController
-                    player.setJailTime(-1);
-                    return;
-                }
-                //Throwing dice to get double values. If both dice are the same, the player gets out of jail.
-                else if (buttons.equals("Slå terninger")) {
-                    diceTray.Roll();
-                    guiHandler.showDice(diceTray.getValue1(), diceTray.getValue2());
-
-                    //if/else statement which determines what to do when throwing double dice or not.
-                    if (diceTray.IsDoubleValue()) {
-                        MoveController.getInstance().runCase(player, diceTray.getSum(), diceTray.IsDoubleValue()); //The dice are thrown in the moveController
-                        player.setJailTime(-1);
-                        return;
-                    } else if (!diceTray.IsDoubleValue()) {
-
-                        guiHandler.msgInMiddle("Du slog desværre ikke dobbelt. Bedre held næste gang");
-                        return;
-
-                    }
-                }
-
-            } while (player.getJailTime() < 3);
-
-            //The player is forced to make bail
-            if (player.getJailTime() == 3) {
+            //Choice of making bail and throwing the dice
+            if (buttons.equals("Betal kr.1.000, og ryk ud af fængsel")) {
                 try {
                     player.getAccount().changeScore(-1000);
                 } catch (RuntimeException e) {
@@ -92,9 +52,39 @@ public class JailController {
                 }
                 MoveController.getInstance().runCase(player); //The dice are thrown in the moveController
                 player.setJailTime(-1);
+                return;
+            }
+            //Throwing dice to get double values. If both dice are the same, the player gets out of jail.
+            else if (buttons.equals("Slå terninger")) {
+                diceTray.Roll();
+                guiHandler.showDice(diceTray.getValue1(), diceTray.getValue2());
+
+                //if/else statement which determines what to do when throwing double dice or not.
+                if (diceTray.IsDoubleValue()) {
+                    guiHandler.giveMsg("Du slog dobbelt, tillyke! Du kommer ud af fængslet.");
+                    MoveController.getInstance().runCase(player, diceTray.getSum(), diceTray.IsDoubleValue()); //The dice are thrown in the moveController
+                    player.setJailTime(-1);
+                    return;
+                } else if (!diceTray.IsDoubleValue()) {
+                    guiHandler.giveMsg("Du slog desværre ikke dobbelt. Bedre held næste gang");
+                    return;
+
+                }
             }
 
         }
 
+
+        //The player is forced to make bail
+        if (player.getJailTime() == 2) {
+            guiHandler.giveMsg("Du slog desværre ikke dobbelt. Du har ikke flere forsøg, du er nødt til at betale kr. 1000 og slipper så fri.");
+            try {
+                player.getAccount().changeScore(-1000);
+            } catch (RuntimeException e) {
+                GameLogic.cantPay(player, -1000);
+            }
+            MoveController.getInstance().runCase(player); //The dice are thrown in the moveController
+            player.setJailTime(-1);
+        }
     }
 }

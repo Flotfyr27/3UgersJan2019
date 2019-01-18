@@ -113,15 +113,6 @@ public class GuiHandler {
         return output;
     }
 
-    /**
-     * Methods returns an integer given by a player
-     *
-     * @param message The message given to the player before they give their input
-     * @return The user chosen int
-     */
-    public int getUserInt(String message) {
-        return gui.getUserInteger(message);
-    }
 
     /**
      * Takes user input in the form of a String and returns it to the system
@@ -335,9 +326,11 @@ public class GuiHandler {
         }
     }
 
-    public void teleportPlayer(int destination, Player player, Player[] players) {
-        gui_fields[player.getPos()].setCar(findGuiPlayer(player, players), false);
-        gui_fields[destination].setCar(findGuiPlayer(player, players), true);
+    public void teleportPlayer(Player player, Player[] players) {
+        for (int i = 0; i < gui_fields.length; i++) {
+            gui_fields[i].setCar(findGuiPlayer(player, players), false);
+        }
+        gui_fields[player.getPos()].setCar(findGuiPlayer(player, players), true);
     }
 
     /**
