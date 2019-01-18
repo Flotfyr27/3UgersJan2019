@@ -74,8 +74,14 @@ public class AuctionController {
                         //This part focuses on the first bid for everyone
                         answer = guiHandler.makeButtons(currentPlayer.getName() + " vil De byde på " + chosenField.getName() + "?", "Ja", "Nej");
                         if (answer.equals("Ja")) {
+                            if(buyers.get(n).getAccount().getScore() < highestBid){
                             highestBid = guiHandler.getUserInt(currentPlayer.getName() + " De skal mindst byde kr. " + highestBid, highestBid, currentPlayer.getAccount().getScore());
                             playerWithHighestBid = currentPlayer;
+                            }
+                            else{
+                                guiHandler.giveMsg("Du har ikke råd til at købe denne grund");
+                                buyers.remove(n);
+                            }
                         } else if (answer.equals("Nej")) {
                             System.out.println("Removed " + currentPlayer.getName());
                             buyers.remove(n);
