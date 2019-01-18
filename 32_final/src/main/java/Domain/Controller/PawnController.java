@@ -45,7 +45,7 @@ public class PawnController {
         String pawnChoice = guiHandler.makeButtons("Vil du pante en grund eller købe en grund tilbage?","Pante", "Købe tilbage");
         if(pawnChoice.equalsIgnoreCase("Pante")) {
             fieldNames = getUnpawnedTradeFields(player);
-            if(fieldNames.length > 0 && !(fieldNames[0]==null)) {
+            if(fieldNames.length > 0) {
                 chosenField = getChosenUnpawnedField(player, fieldNames);
                 pawnProperty(chosenField, player);
             }
@@ -63,7 +63,7 @@ public class PawnController {
                 return;}
         }
 
-        guiHandler.updateBalance(board.getPlayers());
+        guiHandler.updateGui(player, board.getPlayers(), board.getFields());
     }
     /**
      * Creates a button for each ownableField which hasn't been pawned and returns the field chosen by the user
@@ -77,7 +77,7 @@ public class PawnController {
         if (fieldNames.length > 0) {
             String fieldString = guiHandler.makeButtons("Vælg et felt at pante", fieldNames);
             for (int n = 0; n < owner.getOwnedFields().size(); n++) {
-                if (fieldString.equals(fieldNames[n])) {
+                if (fieldString.equals(owner.getOwnedFields().get(n).getName())) {
                     return owner.getOwnedFields().get(n);
                 }
             }
@@ -98,7 +98,7 @@ public class PawnController {
         if (fieldNames.length > 0) {
             String fieldString = guiHandler.makeButtons("Vælg et felt at købe tilbage", fieldNames);
             for (int n = 0; n < owner.getOwnedFields().size(); n++) {
-                if (fieldString.equals(fieldNames[n])) {
+                if (fieldString.equals(owner.getOwnedFields().get(n).getName())) {
                     return owner.getOwnedFields().get(n);
                 }
             }
@@ -120,10 +120,12 @@ public class PawnController {
             if(!owner.getOwnedFields().get(i).getIsPawned())
                 count++;
         }
+
         fieldNames = new String[count];
-        for (int n = 0; n < fieldNames.length; n++) {
+        int j = 0;
+        for (int n = 0; n < owner.getOwnedFields().size(); n++) {
             if(!owner.getOwnedFields().get(n).getIsPawned())
-                fieldNames[n] = owner.getOwnedFields().get(n).getName();
+                fieldNames[j++] = owner.getOwnedFields().get(n).getName();
         }
         return fieldNames;
     }
@@ -145,9 +147,10 @@ public class PawnController {
                 count++;
         }
         fieldNames = new String[count];
-        for (int n = 0; n < fieldNames.length; n++) {
+        int j = 0;
+        for (int n = 0; n < owner.getOwnedFields().size(); n++) {
             if(owner.getOwnedFields().get(n).getIsPawned())
-                fieldNames[n] = owner.getOwnedFields().get(n).getName();
+                fieldNames[j++] = owner.getOwnedFields().get(n).getName();
         }
         return fieldNames;
     }
@@ -179,24 +182,18 @@ public class PawnController {
 
     private int pawnValue(OwnableField ownableField) {
         return ownableField.getPrice() / 2;
-
     }
 
     /**
      * Method that pawn our properties.
      */
     private void pawnProperty(OwnableField ownableField, Player p) {
-        int buildingsWorth;
-        buildingsWorth = ownableField.getWorth() - ownableField.getPrice();
-
         if (isPropertyField(ownableField) && hasBuildings((PropertyField)ownableField)) {
-            int numberOfHouses = ((PropertyField)ownableField).getHouses();
-            ((PropertyField)ownableField).removeHouse(numberOfHouses);
-            p.getAccount().changeScore(buildingsWorth);
+            guiHandler.giveMsg("Du er nødt til at sælge dine bygninger før du kan pante.");
         } else {
             p.getAccount().changeScore(pawnValue(ownableField));
-        }
             ownableField.setIsPawned(true);
+        }
     }
 
     /**
