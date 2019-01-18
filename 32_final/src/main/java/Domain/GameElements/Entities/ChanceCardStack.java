@@ -86,9 +86,9 @@ public class ChanceCardStack {
                 new MoveToChanceCard(11, "Ryk frem til Frederiksberg Allé. Hvis De passerer \"START\", " +
                         "indkassér da kr. 4.000."),
                 new MoveToChanceCard(0, "Ryk frem til \"START\"."),
-                new MoveToChanceCard(30, false, "Gå i fængsel. Selv om de passerer \"START\"," +
+                new MoveToJailChanceCard(10, "Gå i fængsel. Selv om de passerer \"START\"," +
                         " indkasserer De ikke kr. 4.000."),
-                new MoveToChanceCard(30, false, "Gå i fængsel. Selv om de passerer \"START\"," +
+                new MoveToJailChanceCard(10, "Gå i fængsel. Selv om de passerer \"START\"," +
                         " indkasserer De ikke kr. 4.000."),
                 new MoveToChanceCard(39, "Tag ind på Rådhuspladsen."),
                 new MoveToChanceCard(15, "Tag med Mols-Linien. Flyt brikken frem, og hvis " +
@@ -99,17 +99,17 @@ public class ChanceCardStack {
                         "Dette kort kan opbevares, indtil De får brug for det eller De kan sælge det."),
                 new MoveToNearestChanceCard(ShippingField.class, fields,"Tag med den nærmeste færge. " +
                         "Flyt brikken frem, og hvis De passerer \"START\", indkassér da kr. 4.000."),
-                new MoveToNearestChanceCard(ShippingField.class, fields, true, "Ryke brikkem frem " +
+                new MoveToNearestChanceCard(ShippingField.class, fields, true, "Ryk brikken frem " +
                         "til det nærmeste rederi og betal ejeren to gange den leje, han ellers er berretiget til. " +
                         "Hvis selskabet ikke ejes af nogen, kan De købe det af banken."),
-                new MoveToNearestChanceCard(ShippingField.class, fields, true, "Ryke brikkem frem " +
+                new MoveToNearestChanceCard(ShippingField.class, fields, true, "Ryk brikken frem " +
                         "til det nærmeste rederi og betal ejeren to gange den leje, han ellers er berretiget til. " +
                         "Hvis selskabet ikke ejes af nogen, kan De købe det af banken."),
                 new MatadorLegateChanceCard(40000, "De modtager \"Matador-legatet for værdigt " +
-                        "trængende\" på kr. 40.000. Ved værdigt trængende forstås, at Deres formue, dv.s Deres " +
+                        "trængende\" på kr. 40.000. Ved værdigt trængende forstås, at Deres formue, dvs. Deres " +
                         "kontante penge + skøder + bygninger, ikke overstiger kr. 15.000.")
         };
-
+        // shuffles the cards once before the start of the game
         shuffleCards(chanceCards);
     }
 

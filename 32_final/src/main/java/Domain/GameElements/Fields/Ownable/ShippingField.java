@@ -24,7 +24,7 @@ public class ShippingField extends OwnableField {
      */
     @Override
     public int getRent(Player p) {
-        int count = 0;
+        int count = -1;
         for(int n = 0; n < getOwner().getOwnedFields().size(); n++){
             if(getOwner().getOwnedFields().get(n).getClass().equals(ShippingField.class)){
                 count++;

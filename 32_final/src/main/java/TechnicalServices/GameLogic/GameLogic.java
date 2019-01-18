@@ -1,6 +1,9 @@
 package TechnicalServices.GameLogic;
 
+import Domain.Controller.PawnController;
+import Domain.Controller.TradeController;
 import Domain.GameElements.Entities.Player;
+import UI.GUI.GuiHandler;
 
 /*
 * Make list of prices through out the game in separate methods
@@ -46,6 +49,29 @@ public class GameLogic {
                 return true;
             else return false;
     }
+    public static void cantPay(Player player, int amount){
+        do {
+            String choice = GuiHandler.getInstance().makeButtons("Vil du pante eller give op?",
+                                                            "Pante", "Handle", "Give op");
+            if (choice.equalsIgnoreCase("Pante")) {
+                if (player.getOwnedFields().size() > 0)
+                    PawnController.getInstance().runCase(player);
+                 else
+                    GuiHandler.getInstance().giveMsg("Du har ikke noget at pante");
 
+            } else if (choice.equalsIgnoreCase("Handle")) {
+                if (player.getOwnedFields().size() > 0 || player.getJailCards() > 0)
+                        TradeController.getInstance().runCase(player);
+                 else
+                    GuiHandler.getInstance().giveMsg("Du har ikke noget at sælge");
+
+            } else {
+                player.setLost(true);
+                player.setIsActive(false);
+                return;
+            }
+        }while (player.getAccount().getScore() + amount < 0);
+        player.getAccount().changeScore(-amount);
+    }
 
 }

@@ -1,9 +1,13 @@
 package Domain.GameElements.Entities.Chancecard;
+import Domain.GameElements.Board;
 import Domain.GameElements.Entities.Player;
+import Domain.GameElements.Fields.Field;
 import TechnicalServices.GameLogic.GameLogic;
+import UI.GUI.GuiHandler;
+import com.oracle.deploy.update.Updater;
+import com.sun.deploy.config.AutoUpdater;
 
 public class MoveToChanceCard extends MoveChanceCard {
-
     private boolean getsStartMoney;
 
     /**
@@ -40,15 +44,13 @@ public class MoveToChanceCard extends MoveChanceCard {
      */
     @Override
     public void action(Player player){
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         if (getsStartMoney)
             GameLogic.movingPastStart(player, super.value);
 
         player.setPos(super.value);
+        GuiHandler.getInstance().updatePlayerPos(player, Board.getInstance().getPlayers());
+        Board.getInstance().getFields()[player.getPos()].landOnAction(player);
     }
 }
+

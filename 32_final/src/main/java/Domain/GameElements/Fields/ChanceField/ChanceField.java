@@ -4,7 +4,6 @@ import Domain.GameElements.Entities.ChanceCardStack;
 import Domain.GameElements.Entities.Chancecard.ChanceCard;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Field;
-
 import java.awt.*;
 
 public class ChanceField extends Field {
@@ -25,6 +24,13 @@ public class ChanceField extends Field {
     @Override
     public void landOnAction(Player current) {
         guiHandler.msgInMiddle(stack.getCurrent().toString());
+        guiHandler.giveMsg("Du trækker et Chancekort");
+       /* try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+
         stack.next().action(current);
     }
 }

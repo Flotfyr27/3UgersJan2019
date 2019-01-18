@@ -2,6 +2,7 @@ package Domain.GameElements.Fields.Ownable;
 
 import java.awt.*;
 
+import Domain.Controller.MoveController;
 import Domain.GameElements.Entities.DiceTray;
 import Domain.GameElements.Entities.Player;
 import TechnicalServices.GameLogic.Values;
@@ -15,17 +16,7 @@ public class CompanyField extends OwnableField {
 
     @Override
     public int getRent(Player p) {
-        int count = 0;
-        for(int n = 0; n < getOwner().getOwnedFields().size(); n++){
-            if(getOwner().getOwnedFields().get(n).getClass().equals(CompanyField.class)){
-                count++;
-            }
-        }
-        int rent = Values.rentPrice(p.getPos(), count);
+        int rent = Values.rentPrice(p.getPos(), 0);
         return rent * diceTray.getSum();
-    }
-
-    public void landOnAction(Player current) {
-
     }
 }

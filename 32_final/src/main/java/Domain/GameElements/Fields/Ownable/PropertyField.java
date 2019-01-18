@@ -1,50 +1,50 @@
 package Domain.GameElements.Fields.Ownable;
 
 import java.awt.*;
+
+import Domain.Controller.AuctionController;
 import Domain.GameElements.Entities.Player;
 import TechnicalServices.GameLogic.Values;
 import UI.GUI.GuiHandler;
 
 public class PropertyField extends OwnableField {
 
+    private int numberOfHouses = 0, housePrice;
+    private boolean hasHotel = false;
+    private static int housesInPlay;
+    private static int hotelsInPlay;
+
     /**
      * Constructor for PropertyField
-     *
-     * @param name       Name of the field
-     * @param subtext    Subtext for the field
-     * @param bgColour   background colour for the field
-     * @param price      Price of the field
+     * @param name Name of the field
+     * @param subtext Subtext for the field
+     * @param bgColour background colour for the field
+     * @param price Price of the field
      * @param housePrice Price per house on the field
      */
-    public PropertyField(String name, String subtext, Color bgColour, int price, int housePrice) {
+    public PropertyField(String name, String subtext, Color bgColour, int price, int housePrice){
         super(name, subtext, bgColour, price);
         this.housePrice = housePrice;
     }
 
-    private int numberOfHouses = 0, housePrice;
-    private boolean hasHotel = false;
 
     /**
      * Method retrieves number of houses on the field
-     *
      * @return integer value of number of houses
      */
     public int getHouses() {
         return numberOfHouses;
     }
 
-    /**
-     * Method returns boolean value depending on the presence of a hotel
-     *
-     * @return True/false if field has a hotel
-     */
-    public boolean getHotel() {
-        return hasHotel;
+    public boolean getHotel(){
+        if (numberOfHouses == 5) {
+            return true;
+        }
+        return false;
     }
 
     /**
      * Method returns the total value of a property, which includes houses and hotels.
-     *
      * @return Integer value of the total property value.
      */
     @Override
@@ -60,60 +60,64 @@ public class PropertyField extends OwnableField {
      * Method to add a house, if 4 houses already exists a hotel will be added and houses removed.
      */
     public void addHouse() {
-        if (hasHotel) {
-
-        } else if (numberOfHouses < 4) {
+        if (numberOfHouses <= 4) {
             numberOfHouses++;
-        } else if (!hasHotel && numberOfHouses == 4) {
-            hasHotel = true;
-            numberOfHouses = 0;
+            housesInPlay++;
+        } else if (numberOfHouses == 5) {
+            numberOfHouses++;
+            housesInPlay -= 4;
+            hotelsInPlay++;
         } else {
-            return;
+            throw new RuntimeException("Maximum amount of houses already reached.");
         }
     }
 
     /**
-     * Removes a house based on the numeric value given
-     *
-     * @param value The amount of houses to remove
+     * Removes a house or hotel
      */
-    public void removeHouse(int value) {
-        numberOfHouses -= value;
+    public void removeHouse() {
+        if (numberOfHouses >= 0 && numberOfHouses <= 4) {
+            numberOfHouses--;
+            housesInPlay--;
+        } else if (numberOfHouses == 5) {
+            numberOfHouses -= 5;
+            hotelsInPlay--;
+        } else {
+            throw new RuntimeException("Minimum amount of houses already reached.");
+        }
     }
-
-/*
-    @Override
-    public void sell() {
-
-    }
-
-    @Override
-    public void buy() {
-
-    }
-
-    @Override
-    public void pawn() {
-
-    }
-*/
-
 
     /**
-     * Method to determine what happens when a player lands on a field.
-     *
-     * @param current The current player
+     * Removes multiple houses or hotels
      */
-
-
+    public void removeHouse(int numberRemoved) {
+        if (numberOfHouses >= 0 && numberOfHouses <= 4) {
+            numberOfHouses -= numberRemoved;
+            housesInPlay -= numberRemoved;
+        } else if (numberOfHouses == 5) {
+            numberOfHouses -= 5;
+            hotelsInPlay--;
+        } else {
+            throw new RuntimeException("Minimum amount of houses already reached.");
+        }
+    }
 
     /**
      * This method calculates the rent of a property
      * @param p The player who lands on the field
      * @return Returns an integer value of rent
      */
+    @Override
     public int getRent(Player p) {
         int rent = Values.rentPrice(p.getPos(), numberOfHouses);
         return rent;
+    }
+
+    public static int getHousesInPlay() {
+        return housesInPlay;
+    }
+
+    public static int getHotelsInPlay() {
+        return hotelsInPlay;
     }
 }
