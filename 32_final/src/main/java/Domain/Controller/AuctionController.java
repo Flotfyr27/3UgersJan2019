@@ -86,6 +86,7 @@ public class AuctionController {
                 }
             }
         }
+        currentPlayer = buyers.get(0);
         if (buyers.size() == 1 && playerWithHighestBid != null) {
             currentPlayer.getAccount().changeScore(-highestBid);
             currentPlayer.getOwnedFields().add(chosenField);
