@@ -48,10 +48,10 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
      * TODO implement the payDouble feature
      */
     public void action(Player p) {
-        Field f;
         for (int i = p.getPos(); i < fields.length; i++) {
             if (fields[i].getClass() == type) {
-                payDouble(p, i);
+                if (payDouble && ((ShippingField) fields[i]).getOwner() != null && p.getJailTime() < 0)
+                    payDouble(p, i);
                 super.value = i;
                 super.action(p);
                 return;
@@ -72,10 +72,11 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
     }
 
     private void payDouble(Player p, int i) {
-        Field f;
-        f = fields[i];
-        if (payDouble && ((ShippingField) f).getOwner() != null)
-            p.getAccount().changeScore(((ShippingField) f).getRent(p));
+        ShippingField f;
+        f = (ShippingField)fields[i];
+        p.setPos(i);
+        p.getAccount().changeScore(-f.getRent(p));
+        f.getOwner().getAccount().changeScore(f.getRent(p));
     }
 
 }

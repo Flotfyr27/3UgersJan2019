@@ -34,7 +34,7 @@ public class ChanceCardStack {
 
     public void initializeCards(Player[] players, Field[] fields){
         chanceCards = new ChanceCard[]{
-             /*   new MoveChanceCard(-3, "Ryk tre felter tilbage."),
+                new MoveChanceCard(-3, "Ryk tre felter tilbage."),
                 new MoveChanceCard(-3, "Ryk tre felter tilbage."),
                 new MoveChanceCard(3, "Ryk tre felter frem."),
                 new BirthdayCard(500, players, "De har lagt penge ud til et sammenskudsgilde. " +
@@ -96,7 +96,7 @@ public class ChanceCardStack {
                 new GetOutOfJailCard("I andledning af kongens fødselsdag benådes de herved for fængsel. " +
                         "Dette kort kan opbevares, indtil De får brug for det eller De kan sælge det."),
                 new GetOutOfJailCard("I andledning af kongens fødselsdag benådes de herved for fængsel. " +
-                        "Dette kort kan opbevares, indtil De får brug for det eller De kan sælge det."),*/
+                        "Dette kort kan opbevares, indtil De får brug for det eller De kan sælge det."),
                 new MoveToNearestChanceCard(ShippingField.class, fields,"Tag med den nærmeste færge. " +
                         "Flyt brikken frem, og hvis De passerer \"START\", indkassér da kr. 4.000."),
                 new MoveToNearestChanceCard(ShippingField.class, fields, true, "Ryk brikken frem " +
@@ -104,10 +104,10 @@ public class ChanceCardStack {
                         "Hvis selskabet ikke ejes af nogen, kan De købe det af banken."),
                 new MoveToNearestChanceCard(ShippingField.class, fields, true, "Ryk brikken frem " +
                         "til det nærmeste rederi og betal ejeren to gange den leje, han ellers er berretiget til. " +
-                        "Hvis selskabet ikke ejes af nogen, kan De købe det af banken.")/*,
+                        "Hvis selskabet ikke ejes af nogen, kan De købe det af banken."),
                 new MatadorLegateChanceCard(40000, "De modtager \"Matador-legatet for værdigt " +
                         "trængende\" på kr. 40.000. Ved værdigt trængende forstås, at Deres formue, dvs. Deres " +
-                        "kontante penge + skøder + bygninger, ikke overstiger kr. 15.000.")*/
+                        "kontante penge + skøder + bygninger, ikke overstiger kr. 15.000.")
         };
         // shuffles the cards once before the start of the game
         shuffleCards(chanceCards);
