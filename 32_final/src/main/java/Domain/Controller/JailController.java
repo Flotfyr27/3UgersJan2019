@@ -77,7 +77,7 @@ public class JailController {
 
         //The player is forced to make bail
         if (player.getJailTime() == 2) {
-            guiHandler.giveMsg("Du slog desværre ikke dobbelt. Du har ikke flere forsøg, du er nødt til at betale.");
+            guiHandler.giveMsg("Du slog desværre ikke dobbelt. Du har ikke flere forsøg, du er nødt til at betale kr. 1000 og slipper så fri.");
             try {
                 player.getAccount().changeScore(-1000);
             } catch (RuntimeException e) {
