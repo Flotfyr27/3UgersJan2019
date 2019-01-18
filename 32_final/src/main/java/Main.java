@@ -16,20 +16,6 @@ public class Main {
         MainController mainController = new MainController(board.getPlayers());
         MoveController.getInstance().initiate(board);
         JailController.getInstance();
-
-     /* Let a player start with some fields for testing TODO delete it*/
-        board.getFields()[1].landOnAction(board.getPlayers()[0]);
-        board.getFields()[3].landOnAction(board.getPlayers()[0]);
-        board.getFields()[6].landOnAction(board.getPlayers()[0]);
-        board.getFields()[8].landOnAction(board.getPlayers()[0]);
-        board.getFields()[9].landOnAction(board.getPlayers()[0]);
-        board.getFields()[11].landOnAction(board.getPlayers()[0]);
-        board.getFields()[13].landOnAction(board.getPlayers()[0]);
-        board.getFields()[14].landOnAction(board.getPlayers()[0]);
-        board.getFields()[16].landOnAction(board.getPlayers()[0]);
-        board.getFields()[18].landOnAction(board.getPlayers()[0]);
-        board.getFields()[19].landOnAction(board.getPlayers()[0]);
-        board.getPlayers()[0].getAccount().changeScore(3000000);
         mainController.runCase();
     }
 }

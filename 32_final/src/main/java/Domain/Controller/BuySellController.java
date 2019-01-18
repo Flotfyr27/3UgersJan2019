@@ -201,11 +201,7 @@ public class BuySellController {
 
         if (PropertyField.getHotelsInPlay() >= MAX_HOTELS_IN_PLAY && PropertyField.getHousesInPlay() >= MAX_HOUSES_IN_PLAY) {
             throw new RuntimeException("Både hoteller og huse er udsolgt");
-        }/*else if (PropertyField.getHotelsInPlay() >= MAX_HOTELS_IN_PLAY) {
-            throw new RuntimeException("Hoteller er udsolgt");
-        } else if (PropertyField.getHousesInPlay() >= MAX_HOUSES_IN_PLAY) {
-            throw new RuntimeException("Huse er udsolgt");
-        }*/
+        }
 
         //checks how many fields live up to all rules
         boolean sentMessage = false;
@@ -215,21 +211,33 @@ public class BuySellController {
             currentField = stringToField(field, buyer);
             //checks that a field has no more than 5 houses / a hotel
             if (currentField.getHouses() < 5 && !currentField.getHotel()){
-                //checks if there are any houses or hotels left to build
-                if (currentField.getHouses() < 5) {
-                    if (PropertyField.getHousesInPlay() <= MAX_HOUSES_IN_PLAY) {
-                        count++;
-                    } else if (!sentMessage) {
-                        guiHandler.giveMsg("Huse er udsolgt.");
-                        sentMessage = true;
-                    }
 
-                } else if (currentField.getHouses() == 5) {
-                    if (PropertyField.getHotelsInPlay() <= MAX_HOTELS_IN_PLAY) {
-                        count++;
-                    } else if (!sentMessage) {
-                        guiHandler.giveMsg("Huse er udsolgt.");
-                        sentMessage = true;
+                //Checks if any fields of that color has less houses than this one
+                boolean hasFewest = true;
+                for (String otherField : fieldNames) {
+                    if (currentField.getHouses() > stringToField(otherField, buyer).getHouses()) {
+                        hasFewest = false;
+                        break;
+                    }
+                }
+
+                if (hasFewest) {
+                    //checks if there are any houses or hotels left to build
+                    if (currentField.getHouses() < 5) {
+                        if (PropertyField.getHousesInPlay() <= MAX_HOUSES_IN_PLAY) {
+                            count++;
+                        } else if (!sentMessage) {
+                            guiHandler.giveMsg("Huse er udsolgt.");
+                            sentMessage = true;
+                        }
+
+                    } else if (currentField.getHouses() == 5) {
+                        if (PropertyField.getHotelsInPlay() <= MAX_HOTELS_IN_PLAY) {
+                            count++;
+                        } else if (!sentMessage) {
+                            guiHandler.giveMsg("Huse er udsolgt.");
+                            sentMessage = true;
+                        }
                     }
                 }
             }
@@ -240,11 +248,24 @@ public class BuySellController {
         int j = 0;
         for (String field : fieldNames) {
             currentField = stringToField(field, buyer);
-            if (currentField.getHouses() < 5 && !currentField.getHotel()){
-                if (currentField.getHouses() < 5 && PropertyField.getHousesInPlay() <= MAX_HOUSES_IN_PLAY) {
-                    validatedFields[j++] = field;
-                } else if (currentField.getHouses() == 5 && PropertyField.getHotelsInPlay() <= MAX_HOTELS_IN_PLAY) {
-                    validatedFields[j++] = field;
+            //checks if it has less than max houses and doesn't have a hotel
+            if (currentField.getHouses() < 5 && !currentField.getHotel()) {
+                //checks if any fields of the same color has fewer fields than this one
+                boolean hasFewest = true;
+                for (String otherField : fieldNames) {
+                    if (currentField.getHouses() > stringToField(otherField, buyer).getHouses()) {
+                        hasFewest = false;
+                        break;
+                    }
+                }
+
+                if (hasFewest) {
+                    //checks if there are any houses or hotels left depending on what you are about to buy
+                    if (currentField.getHouses() < 5 && PropertyField.getHousesInPlay() <= MAX_HOUSES_IN_PLAY) {
+                        validatedFields[j++] = field;
+                    } else if (currentField.getHouses() == 5 && PropertyField.getHotelsInPlay() <= MAX_HOTELS_IN_PLAY) {
+                        validatedFields[j++] = field;
+                    }
                 }
             }
         }
