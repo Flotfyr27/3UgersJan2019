@@ -84,7 +84,7 @@ public abstract class OwnableField extends Field {
     @Override
     public void landOnAction(Player current) {
         if (getOwner() == null) {
-            String choice = guiHandler.makeButtons("Vil du købe denne grund? Den koster " + price, "Ja", "Nej");
+            String choice = guiHandler.makeButtons("Vil du købe "+getName() + "? Den koster " + price, "Ja", "Nej, sæt grunden på aktion");
             if (choice.equalsIgnoreCase("Ja")) {
                 buyField(current);
             } else {
