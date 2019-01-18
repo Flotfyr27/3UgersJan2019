@@ -105,10 +105,7 @@ public class AuctionController {
             guiHandler.giveMsg(currentPlayer.getName() + " har købt " + chosenField.getName() + " for kr. " + highestBid);
     }
 
-
-//TODO evt check dis out https://stackoverflow.com/questions/10738634/delete-data-from-arraylist-with-a-for-loop
-
-    private void setUpAuction(Player startingPlayer) {
+   private void setUpAuction(Player startingPlayer) {
         chosenField = (OwnableField)board.getFields()[startingPlayer.getPos()];
         highestBid = chosenField.getPrice();
         playerWithHighestBid = null;
