@@ -1,5 +1,9 @@
 package TechnicalServices.GameLogic;
 
+
+import Domain.GameElements.Entities.DiceTray;
+import java.awt.Color;
+
 public class Values {
     public Values(){
     }
@@ -132,11 +136,10 @@ public class Values {
      * @return Returns the value effect of the chancecard
      */
     public static int chanceCardValue(int i){
-        int value = 0;
+        int value;
         int[] chanceCardValues = {
                 -3000, -2000, -1000, -1000, -1000 -300, -200, -200, -200, 200, 200, 500, 500, 500,
                 1000, 1000, 1000, 1000, 1000, 1000, 3000, 40000, -500, -2000, -800, -2300
-                /*TODO sørg for at de fire sidste priser er reguleret i henhold til antal huse og hoteller, samt de andre fælles puljer, markeret med stjerne */
         };
         value = chanceCardValues[i];
         return value;
@@ -148,11 +151,24 @@ public class Values {
      * Tier 2 = 2000
      * Tier 3 = 3000
      * Tier 4 = 4000
-     * @param tier
+     * @param bgColor The bgColor of the field.
      * @return price for a house
      */
-    public static int housePrice(int tier) {
-        int price = tier*1000;
+    public static int housePrice(Color bgColor) {
+        int price;
+
+        if (bgColor.equals(Color.CYAN) || bgColor.equals(Color.ORANGE)) {
+            price = 1000;
+        } else if (bgColor.equals(Color.GREEN) || bgColor.equals(Color.lightGray)) {
+            price = 2000;
+        } else if (bgColor.equals(Color.RED) || bgColor.equals(Color.WHITE)) {
+            price = 3000;
+        } else if (bgColor.equals(Color.YELLOW) || bgColor.equals(Color.MAGENTA)) {
+            price = 4000;
+        } else {
+            throw new  IllegalArgumentException("This color doesn't correspond to any price group");
+        }
+
         return price;
     }
 
@@ -204,7 +220,7 @@ public class Values {
 
 
     public static int rentPrice (int fieldPlacement, int numberOfHouses) {
-        int rent =0;
+        int rent;
               int rentPrice [][]  =
                 {{0},
                 {50, 250, 750, 2250, 4000, 6000},

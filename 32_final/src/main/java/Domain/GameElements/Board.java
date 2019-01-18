@@ -50,25 +50,19 @@ public class Board {
      *
      * @param numberOfPlayers Integer to determine number of players
      */
-    public void initBoard(int numberOfPlayers, boolean isPresentation) {
+    public void initBoard(int numberOfPlayers) {
         players = new Player[numberOfPlayers];
         String name;
-            for (int i = 0; i < numberOfPlayers; i++) {
-                if(!isPresentation) {
-                    do {
-                        name = GuiHandler.getInstance().getUserString("Indtast dit navn " + (i + 1));
-                        if (name.equalsIgnoreCase("") || isNameTaken(name, players))
-                            GuiHandler.getInstance().giveMsg("Dit navn er enten tomt eller optaget. Indtast venligst et nyt navn");
-                    } while (name.equalsIgnoreCase("") || isNameTaken(name, players));
-                }else{
-                    name = "Player" + i;
-                }
-                players[i] = new Player(name);
-            }
+        for (int i = 0; i < numberOfPlayers; i++) {
+                do {
+                    name = GuiHandler.getInstance().getUserString("Indtast dit navn " + (i + 1));
+                    if (name.equalsIgnoreCase("") || isNameTaken(name, players))
+                        GuiHandler.getInstance().giveMsg("Dit navn er enten tomt eller optaget. Indtast venligst et nyt navn");
+                } while (name.equalsIgnoreCase("") || isNameTaken(name, players));
+            players[i] = new Player(name);
+        }
 
-
-            ChanceCardStack.getStackInstance().initializeCards(players, fields);
-
+        ChanceCardStack.getStackInstance().initializeCards(players, fields);
     }
 
     /**

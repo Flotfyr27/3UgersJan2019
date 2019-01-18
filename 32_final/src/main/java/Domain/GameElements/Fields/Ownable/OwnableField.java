@@ -104,15 +104,25 @@ public abstract class OwnableField extends Field {
 
 
                     int payedRent;
-                    if (ownsAll())
-                        payedRent = getRent(current) * 2;
-                    else
+                    if (ownsAll()) {
+                        if ((this.getClass().equals(PropertyField.class)) && ((PropertyField) this).getHouses() == 0) {
+                            payedRent = getRent(current) * 2;
+                        } else if (this.getClass().equals(CompanyField.class)) {
+                            payedRent = getRent(current) * 2;
+                        } else {
+                            payedRent = getRent(current);
+                        }
+                    } else {
                         payedRent = getRent(current);
+                    }
 
                     guiHandler.giveMsg("Du er landet på " + getName() + "\n" + "Du skal betale " + payedRent + " kr. i leje til  " + getOwner().getName());
 
                     if (ownsAll()) {
-                        if ((!this.getClass().equals(PropertyField.class)) || ((PropertyField) this).getHouses() == 0) {
+                        if ((this.getClass().equals(PropertyField.class)) && ((PropertyField) this).getHouses() == 0) {
+                            current.getAccount().changeScore(-getRent(current) * 2);
+                            getOwner().getAccount().changeScore(getRent(current) * 2);
+                        } else if (this.getClass().equals(CompanyField.class)) {
                             current.getAccount().changeScore(-getRent(current) * 2);
                             getOwner().getAccount().changeScore(getRent(current) * 2);
                         } else {
@@ -197,15 +207,6 @@ public abstract class OwnableField extends Field {
         }
 
         public abstract int getRent (Player player);
-
-        public int getHouses () {
-            return 0;
-        }
-        public boolean getHotel () {
-            return false;
-        }
-        public void removeHouse ( int value){
-        }
 
         @Override
         public String toString () {

@@ -9,6 +9,11 @@ import UI.GUI.GuiHandler;
 
 public class PropertyField extends OwnableField {
 
+    private int numberOfHouses = 0, housePrice;
+    private boolean hasHotel = false;
+    private static int housesInPlay;
+    private static int hotelsInPlay;
+
     /**
      * Constructor for PropertyField
      * @param name Name of the field
@@ -21,30 +26,21 @@ public class PropertyField extends OwnableField {
         super(name, subtext, bgColour, price);
         this.housePrice = housePrice;
     }
-    private int numberOfHouses = 0, housePrice;
-    private boolean hasHotel = false;
+
 
     /**
      * Method retrieves number of houses on the field
      * @return integer value of number of houses
      */
-
-
-    @Override
     public int getHouses() {
-
         return numberOfHouses;
     }
 
-    /**
-     * Method returns boolean value depending on the presence of a hotel
-     * @return True/false if field has a hotel
-     */
-
-    @Override
-    public boolean getHotel() {
-
-        return hasHotel;
+    public boolean getHotel(){
+        if (numberOfHouses == 5) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -53,9 +49,9 @@ public class PropertyField extends OwnableField {
      */
     @Override
     public int getWorth() {
-        int worth = super.getWorth()+(numberOfHouses*housePrice);
-        if(hasHotel){
-            worth += housePrice*5;
+        int worth = super.getWorth() + (numberOfHouses * housePrice);
+        if (hasHotel) {
+            worth += housePrice * 5;
         }
         return worth;
     }
@@ -63,29 +59,47 @@ public class PropertyField extends OwnableField {
     /**
      * Method to add a house, if 4 houses already exists a hotel will be added and houses removed.
      */
-    public void addHouse(){
-        if(hasHotel){
-
-        }else if(numberOfHouses < 4){
+    public void addHouse() {
+        if (numberOfHouses <= 4) {
             numberOfHouses++;
-        }else if(!hasHotel && numberOfHouses == 4){
-            hasHotel = true;
-            numberOfHouses = 0;
-        }else {
-            return;
+            housesInPlay++;
+        } else if (numberOfHouses == 5) {
+            numberOfHouses++;
+            housesInPlay -= 4;
+            hotelsInPlay++;
+        } else {
+            throw new RuntimeException("Maximum amount of houses already reached.");
         }
     }
 
     /**
-     * Removes a house based on the numeric value given
-     * @param value The amount of houses to remove
+     * Removes a house or hotel
      */
+    public void removeHouse() {
+        if (numberOfHouses >= 0 && numberOfHouses <= 4) {
+            numberOfHouses--;
+            housesInPlay--;
+        } else if (numberOfHouses == 5) {
+            numberOfHouses -= 5;
+            hotelsInPlay--;
+        } else {
+            throw new RuntimeException("Minimum amount of houses already reached.");
+        }
+    }
 
-
-    @Override
-    public void removeHouse(int value) {
-
-        numberOfHouses -= value;
+    /**
+     * Removes multiple houses or hotels
+     */
+    public void removeHouse(int numberRemoved) {
+        if (numberOfHouses >= 0 && numberOfHouses <= 4) {
+            numberOfHouses -= numberRemoved;
+            housesInPlay -= numberRemoved;
+        } else if (numberOfHouses == 5) {
+            numberOfHouses -= 5;
+            hotelsInPlay--;
+        } else {
+            throw new RuntimeException("Minimum amount of houses already reached.");
+        }
     }
 
     /**
@@ -99,4 +113,11 @@ public class PropertyField extends OwnableField {
         return rent;
     }
 
+    public static int getHousesInPlay() {
+        return housesInPlay;
+    }
+
+    public static int getHotelsInPlay() {
+        return hotelsInPlay;
+    }
 }

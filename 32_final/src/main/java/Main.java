@@ -3,6 +3,7 @@ import Domain.Controller.MainController;
 import Domain.Controller.MoveController;
 import Domain.GameElements.Board;
 import Domain.GameElements.Fields.Ownable.OwnableField;
+
 import UI.GUI.GuiHandler;
 
 public class Main {
@@ -10,37 +11,8 @@ public class Main {
         Board board = Board.getInstance();
         GuiHandler guiHandler = GuiHandler.getInstance();
         guiHandler.initGuiFields(board.getFields());
-        boolean isPresentation = true;
 
-        String valg = guiHandler.makeButtons("Vil du spille spillet eller køre præsentationen?", "Spil spillet", "Præsentation");
-
-        if (valg.equalsIgnoreCase("Spil spillet")) {
-            isPresentation = false;
-        }
-        if (!isPresentation) {
-
-            standardMode(board, guiHandler);
-        } else {
-            presentationMode(board, guiHandler);
-
-        }
-
-
-    }
-
-    private static void standardMode(Board board, GuiHandler guiHandler) {
-        board.initBoard(guiHandler.getUserInt("Vælg mellem 3 og 6 spillere", 3, 6), false);
-        guiHandler.initGuiPlayers(board.getPlayers());
-
-        MainController mainController = new MainController(board.getPlayers());
-        MoveController.getInstance().initiate(board);
-        JailController.getInstance();
-
-        mainController.runCase();
-    }
-
-    private static void presentationMode(Board board, GuiHandler guiHandler){
-        board.initBoard(4, true);
+        board.initBoard(guiHandler.getUserInt("Vælg mellem 3 og 6 spillere", 3, 6));
         guiHandler.initGuiPlayers(board.getPlayers());
 
 
@@ -58,24 +30,10 @@ public class Main {
         setFieldOwner(board, 1, 14);
         setFieldOwner(board, 0, 19);
 
+
         MainController mainController = new MainController(board.getPlayers());
         MoveController.getInstance().initiatePresentation(board);
         JailController.getInstance();
-
         mainController.runCase();
-
-    }
-
-    //Method to set a players starting position
-    private static void setPlayerStartPosition(Board board, GuiHandler guiHandler, int playerNum, int pPos){
-        board.getPlayers()[playerNum].setPos(pPos);
-        guiHandler.updateGui(board.getPlayers()[playerNum], board.getPlayers(), board.getFields());
-    }
-
-    //Method to assign ownable fields to a player
-    private static void setFieldOwner(Board board, int playerNum, int FieldNum){
-        board.getPlayers()[playerNum].getOwnedFields().add((OwnableField)board.getFields()[FieldNum]);
-        ((OwnableField)board.getFields()[FieldNum]).setOwner(board.getPlayers()[playerNum]);
-
     }
 }

@@ -12,8 +12,14 @@ public class AuctionController {
     private GuiHandler guiHandler;
     private ArrayList<Player> buyers;
     private static AuctionController instance;
-    private Player highestBidder = null;
 
+    private OwnableField chosenField;
+    private Player currentPlayer, playerWithHighestBid = null;
+    private int highestBid = 0;
+
+    /**
+     * Constructor for the singleton of AuctionController
+     */
     private AuctionController(){
         board = Board.getInstance();
         guiHandler = GuiHandler.getInstance();
@@ -21,7 +27,7 @@ public class AuctionController {
 
     /**
      * Creates this class as a singleton
-     * @return
+     * @return An instance of AuctionController
      */
     public static AuctionController getInstance(){
         if(instance == null){
@@ -32,86 +38,108 @@ public class AuctionController {
     }
 
 
-    public void runCase(Player startingPlayer){
-
-
-        //TODO skift til arrayList
-        buyers = new ArrayList<Player>();
-        OwnableField field = (OwnableField) board.getFields()[startingPlayer.getPos()];
-        int nextPlayer = 1, currentPlayer = 0;
+    /**
+     * This method is the main run method of the AuctionController
+     * The method will go through an ArrayList of potential buyers of a field
+     * It will do so in a few steps
+     * 1. Ask a player if they want to bid on the property
+     * 2. Ask the player to enter an amount if yes and remove the player if no.
+     * 3. Repeat step 2 until only one buyer remains
+     * 4. If possible sell the property to last buyer (In case at least one said yes)
+     * @param startingPlayer This is the player who initially landed on the field
+     */
+    public void runCase(Player startingPlayer) {
+        //Get field to be auctioned off
+        setUpAuction(startingPlayer);
         //Get list of buyers
-        for(int n = 0; n < board.getPlayers().length; n++){
-            if(!board.getPlayers()[n].equals(startingPlayer)){
+        getListOfBuyers(startingPlayer);
+        //Initializes
+        while(buyers.size() > 1) {
+            for (int n = buyers.size() - 1; n >= 0; n--) {
+                currentPlayer = buyers.get(n);
+                String answer;
+                //When only 1 remains and all others before have said no
+                if (buyers.size() == 1 && playerWithHighestBid == null) {
+                    answer = guiHandler.makeButtons(currentPlayer.getName() + " vil De købe " + chosenField.getName() + " for kr. " + highestBid + "?", "Ja", "Nej");
+                    if (answer.equals("Ja")) {
+                        sellPropertyToPlayer();
+                    } else if (answer.equals("Nej")) {
+                        buyers.remove(n);
+                        guiHandler.giveMsg("Ingen købte skødet");
+                        return;
+                    }
+
+                } else if (buyers.size() > 1) { //This part is where everything but the "all no scenario" goes on
+                    if (playerWithHighestBid == null) {
+                        //This part focuses on the first bid for everyone
+                        answer = guiHandler.makeButtons(currentPlayer.getName() + " vil De byde på " + chosenField.getName() + "?", "Ja", "Nej");
+                        if (answer.equals("Ja")) {
+                            highestBid = guiHandler.getUserInt(currentPlayer.getName() + " De skal mindst byde kr. " + highestBid, highestBid, currentPlayer.getAccount().getScore());
+                            playerWithHighestBid = currentPlayer;
+                        } else if (answer.equals("Nej")) {
+                            System.out.println("Removed " + currentPlayer.getName());
+                            buyers.remove(n);
+                        }
+                        //This part focuses on what happens after the first player to bid has done so
+                    } else if (playerWithHighestBid != null) {
+                        answer = guiHandler.makeButtons(currentPlayer.getName() + " højeste bud er kr. " + highestBid
+                                + " budt af " + playerWithHighestBid.getName() + ". Ønsker De at byde over?", "Ja", "Nej");
+                        if (answer.equals("Ja")) {
+                            highestBid = guiHandler.getUserInt("Indtast bud. (Højeste bud kr. " + highestBid + " af "
+                                    + playerWithHighestBid.getName() + ")", highestBid + 50, currentPlayer.getAccount().getScore());
+                            playerWithHighestBid = currentPlayer;
+                        } else if (answer.equals("Nej")) {
+                            System.out.println("Removed " + currentPlayer.getName());
+                            buyers.remove(n);
+                        }
+                    }
+
+                }
+            }
+        }
+        currentPlayer = buyers.get(0);
+        if (buyers.size() == 1 && playerWithHighestBid != null) {
+            currentPlayer.getAccount().changeScore(-highestBid);
+            currentPlayer.getOwnedFields().add(chosenField);
+            chosenField.setOwner(currentPlayer);
+            guiHandler.giveMsg(currentPlayer.getName() + " har købt " + chosenField.getName() + " for kr. " + highestBid + "!");
+            buyers.remove(0);
+            return;
+        }
+
+    }
+
+    /**
+     * This method sells the property up for auction and adds it to a players inventory
+     */
+    private void sellPropertyToPlayer() {
+            currentPlayer.getAccount().changeScore(-highestBid);
+            currentPlayer.getOwnedFields().add(chosenField);
+            chosenField.setOwner(currentPlayer);
+            guiHandler.giveMsg(currentPlayer.getName() + " har købt " + chosenField.getName() + " for kr. " + highestBid);
+    }
+
+    /**
+     * This method sets up the auction by getting the field, setting the current player and who has the highest bid
+     * @param startingPlayer The player who first landed on the field
+     */
+   private void setUpAuction(Player startingPlayer) {
+        chosenField = (OwnableField)board.getFields()[startingPlayer.getPos()];
+        highestBid = chosenField.getPrice();
+        playerWithHighestBid = null;
+        currentPlayer = null;
+    }
+
+    /**
+     * This method creates an ArrayList of buyers to be used in runCase()-method
+     * @param startingPlayer This player will not be added to the list of buyers, since they said no in the first place.
+     */
+    private void getListOfBuyers(Player startingPlayer) {
+        buyers = new ArrayList<Player>();
+        for (int n = 0; n < board.getPlayers().length; n++) {
+            if (!board.getPlayers()[n].equals(startingPlayer)) {
                 buyers.add(board.getPlayers()[n]);
             }
         }
-
-        int highestBid = field.getPrice();
-        //Asks players if they want to buy the property
-        boolean isFirstRound = true;
-        int rounds = 0;
-        do {
-                //Start off by asking to buy
-                String answer = guiHandler.makeButtons("Vil de købe " + field.getName() + ", " + buyers.get(currentPlayer).getName() + "?", "Ja", "Nej");
-                if(answer.equals("Nej")) {
-                    buyers.remove(currentPlayer);
-
-                    if(buyers.size() <= currentPlayer){
-                        currentPlayer = 0;
-                        nextPlayer = currentPlayer + 1;
-                    }
-                }else{
-                    if(buyers.get(currentPlayer).getAccount().getScore() >= highestBid) {
-                        if(highestBidder == null){
-                        highestBid = guiHandler.getUserInt("Hvad vil De byde på ejendommen? Højeste bud: " + highestBid, highestBid, buyers.get(currentPlayer).getAccount().getScore());
-                        }else{
-                            highestBid = guiHandler.getUserInt("Hvad vil De byde på ejendommen? Højeste bud: " + highestBid + " (" + highestBidder.getName() + ")", highestBid+50, buyers.get(currentPlayer).getAccount().getScore());
-                        }
-                        highestBidder = buyers.get(currentPlayer);
-                        currentPlayer = nextPlayer++;
-                        nextPlayer = incrementNextPlayer(nextPlayer);
-                    }else{
-                        buyers.remove(currentPlayer);
-                    }
-                }
-            if(buyers.size() == 1 && !isFirstRound){
-                finalizeAuction(field, highestBid, highestBidder);
-                return;
-                //This part handles the first round of auctions so that the last player also has a choice to purchase or not
-            } else if (buyers.size() == 1 && isFirstRound) {
-
-                String answer2 = guiHandler.makeButtons(highestBidder.getName() + " vil De købe " + field.getName() + " for kr " + highestBid + "?", "Ja", "Nej");
-                if(answer2.equals("Ja")){
-                    if(highestBidder.getAccount().getScore() >= highestBid){
-                        finalizeAuction(field, highestBid, highestBidder);
-                        return;
-                    }
-                }else{
-                    return;
-                }
-            }
-            //increments number of players who have had their turn in the auction
-            if(rounds >= buyers.size()){
-                isFirstRound = false;
-            }else{
-                rounds++;
-            }
-
-        }while(buyers.size() >= 1);
-
-    }
-
-    private int incrementNextPlayer(int nextPlayer) {
-        if((nextPlayer%buyers.size()) == 0){
-            nextPlayer = 0;
-        }
-        return nextPlayer;
-    }
-
-    private void finalizeAuction(OwnableField field, int highestBid, Player lastBuyer) {
-        lastBuyer.getAccount().changeScore(-highestBid);
-        lastBuyer.getOwnedFields().add(field);
-        field.setOwner(lastBuyer);
-        guiHandler.giveMsg(lastBuyer.getName() + " har købt " + field.getName() + " for kr. " + highestBid);
     }
 }
