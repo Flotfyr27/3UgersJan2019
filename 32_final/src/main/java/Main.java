@@ -5,6 +5,7 @@ import Domain.GameElements.Board;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.Ownable.OwnableField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
+import TechnicalServices.DiceTrayRigged;
 import UI.GUI.GuiHandler;
 import gui_fields.GUI_Player;
 
@@ -59,6 +60,13 @@ public class Main {
 
         setFieldOwner(board, 1, 14);
         setFieldOwner(board, 0, 19);
+
+        switch(MoveController.getInstance().getRoundNr()){
+            case 1:
+                DiceTrayRigged.roll(2,3);
+        }
+
+
 
 
         //guiHandler.updateGui(board.getPlayers()[0], board.getPlayers(), board.getFields());

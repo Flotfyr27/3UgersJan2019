@@ -2,6 +2,7 @@ package Domain.Controller;
 import Domain.GameElements.Entities.DiceTray;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Board;
+import TechnicalServices.DiceTrayRigged;
 import TechnicalServices.GameLogic.GameLogic;
 import UI.GUI.GuiHandler;
 
@@ -9,6 +10,7 @@ public class MoveController {
     private Board board;
     private DiceTray dice;
     private GuiHandler guiHandler;
+    private int roundNr = 0;
 
 
     private static MoveController instance;
@@ -58,6 +60,9 @@ public class MoveController {
             p.setIsActive(false);
         }
         guiHandler.updateGui(p, board.getPlayers(), board.getFields());
+
+        //For use in PresentationMode
+        roundNr++;
     }
 
     public void runCase(Player p, int dist, boolean isDouble){
@@ -72,11 +77,19 @@ public class MoveController {
             p.setIsActive(false);
         }
         guiHandler.updateGui(p, board.getPlayers(), board.getFields());
+
+        //For use in presentationMode
+        roundNr++;
     }
 
     public DiceTray getDiceTray() {
         return dice;
     }
+
+    public int getRoundNr(){
+        return roundNr;
+    }
+
 }
 
 
