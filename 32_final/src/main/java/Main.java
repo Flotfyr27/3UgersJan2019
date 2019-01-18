@@ -3,6 +3,7 @@ import Domain.Controller.MainController;
 import Domain.Controller.MoveController;
 import Domain.GameElements.Board;
 import Domain.GameElements.Fields.Ownable.OwnableField;
+import Domain.GameElements.Fields.Ownable.PropertyField;
 import UI.GUI.GuiHandler;
 
 public class Main {
@@ -51,13 +52,16 @@ public class Main {
         }
         guiHandler.updateBalance(board.getPlayers());
 
-        setPlayerStartPosition(board, guiHandler, 0, 13);
+        setPlayerStartPosition(board, guiHandler, 0, 12);
         setPlayerStartPosition(board, guiHandler, 1, 18);
         setPlayerStartPosition(board, guiHandler, 2, 20);
         setPlayerStartPosition(board, guiHandler, 3, 1);
 
         setFieldOwner(board, 1, 14);
         setFieldOwner(board, 0, 19);
+
+        setHouses(board, guiHandler, 1, 14, 5);
+        setHouses(board, guiHandler, 0, 19, 1);
 
 
         MainController mainController = new MainController(board.getPlayers());
@@ -81,16 +85,28 @@ public class Main {
 
 
     }
-       /* Board board = Board.getInstance();
-        GuiHandler guiHandler = GuiHandler.getInstance();
-        guiHandler.initGuiFields(board.getFields());
 
-        board.initBoard(guiHandler.getUserInt("Vælg mellem 3 og 6 spillere", 3, 6));
-        guiHandler.initGuiPlayers(board.getPlayers());
+    /**
+     *Method which sets houses on the board from start
+     * @param board
+     * @param guiHandler
+     * @param playerNum = Which player
+     * @param buyHouseOnField = Which field should the house be on
+     * @param houseAmount = How many houses should be there
+     */
+    private static void setHouses(Board board, GuiHandler guiHandler, int playerNum, int buyHouseOnField, int houseAmount){
+        PropertyField pf = ((PropertyField)board.getFields()[buyHouseOnField]);
 
-        MainController mainController = new MainController(board.getPlayers());
-        MoveController.getInstance().initiate(board);
-        JailController.getInstance();
-        mainController.runCase();
-    } */
+        if(pf.getOwner()==board.getPlayers()[playerNum]){
+
+            for (int i = 0; i < houseAmount ; i++) {
+                pf.addHouse();
+                guiHandler.updateGui(board.getPlayers()[playerNum], board.getPlayers(), board.getFields());
+            }
+
+
+
+        }
+    }
+
 }

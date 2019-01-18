@@ -32,6 +32,8 @@ public class Account {
         return score;
     }
 
+
+    //Setting the score for Presentation Mode
     public int setScore(int score){
         this.score = score;
         return score;
