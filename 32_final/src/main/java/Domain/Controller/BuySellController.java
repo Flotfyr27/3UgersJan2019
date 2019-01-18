@@ -13,6 +13,8 @@ import java.awt.*;
 public class BuySellController {
     private GuiHandler guiHandler = GuiHandler.getInstance();
     private Board board;
+    private final int MAX_HOUSES_IN_PLAY = 32; //TODO check these values are right
+    private final int MAX_HOTELS_IN_PLAY = 12;
 
     private static BuySellController instance;
 
@@ -41,12 +43,18 @@ public class BuySellController {
 
         String buttons = guiHandler.makeButtons("Vil du købe eller sælge huse/hoteller?", "Køb", "Sælg");
 
-
-        if (buttons.equalsIgnoreCase("Køb")) {
-            buy(player);
-        } else {
-            sell(player);
+        try {
+            if (buttons.equalsIgnoreCase("Køb")) {
+                buy(player);
+            } else {
+                sell(player);
+            }
+        } catch (RuntimeException e) {
+            System.out.println("An unhandled exception occurred");
+            e.printStackTrace();
+            guiHandler.giveMsg("Noget gik galt :(");
         }
+
         guiHandler.updateGui(player, board.getPlayers(), board.getFields());
     }
 
@@ -68,7 +76,7 @@ public class BuySellController {
         for (int i = 0; i < player.getOwnedFields().size(); i++){
             OwnableField field = player.getOwnedFields().get(i);
             if (field.getClass().equals(PropertyField.class))
-                if (((PropertyField)field).getHouses() > 0)
+                if (field.getHouses() > 0)
                     possibleFields[i] = field.getName();
         }
 
@@ -143,6 +151,13 @@ public class BuySellController {
                         colorFields[i] = ownedField.getFieldsOfColor()[i].getName();
                     }
 
+                    try {
+                        colorFields = validateFields(player, colorFields);
+                    } catch (RuntimeException e) {
+                        guiHandler.giveMsg(e.getMessage());
+                        return;
+                    }
+
                     //add the array of newly found field names to the full list of fields able to get houses
                     ownableFields = stringArrayAddition(ownableFields, colorFields);
                 }
@@ -150,9 +165,6 @@ public class BuySellController {
         }
 
         //TODO Make check that ensures one can only build on fields that has the least amount of houses
-        //TODO make check for number of houses to add hotels and cap the amount of times you can buy
-        //TODO allow the player to buy multiple buildings at a time
-        //TODO use getBgColor in Values.getHousePrice instead of number of houses
 
         if (ownableFields.length <= 0) {
             guiHandler.giveMsg("Du har ingen grunde du kan købe huse på.");
@@ -165,7 +177,7 @@ public class BuySellController {
                 if (guiHandler.makeButtons("Vil du bygge et hus/hotel på " + chosenField.getName() + " for kr. " +
                                 Values.housePrice(chosenField.getBgColor()) + "?",
                         "Ja", "Nej").equalsIgnoreCase("Ja")) {
-                    if (player.getAccount().canBuy(Values.housePrice(chosenField.getBgColor()))) {
+                    if (player.getAccount().canBuy(-Values.housePrice(chosenField.getBgColor()))) {
                         player.getAccount().changeScore(-Values.housePrice(chosenField.getBgColor()));
                         chosenField.addHouse();
                     } else {
@@ -177,12 +189,111 @@ public class BuySellController {
 
     }
 
+    /**
+     * A method for checking that all rules applying to a field to buy a house are upheld.
+     * 
+     * @param buyer The buyer of the field.
+     * @param fieldNames The array to be checked.
+     * @return Only the fields that live up to all rules are returned in an array.
+     */
+    private String[] validateFields(Player buyer, String[] fieldNames) {
+        String[] validatedFields;
+
+        if (PropertyField.getHotelsInPlay() >= MAX_HOTELS_IN_PLAY && PropertyField.getHousesInPlay() >= MAX_HOUSES_IN_PLAY) {
+            throw new RuntimeException("Både hoteller og huse er udsolgt");
+        }
+
+        //checks how many fields live up to all rules
+        boolean sentMessage = false;
+        int count = 0;
+        PropertyField currentField;
+        for (String field : fieldNames) {
+            currentField = stringToField(field, buyer);
+            //checks that a field has no more than 5 houses / a hotel
+            if (currentField.getHouses() < 5 && !currentField.getHotel()){
+
+                //Checks if any fields of that color has less houses than this one
+                boolean hasFewest = true;
+                for (String otherField : fieldNames) {
+                    if (currentField.getHouses() > stringToField(otherField, buyer).getHouses()) {
+                        hasFewest = false;
+                        break;
+                    }
+                }
+
+                if (hasFewest) {
+                    //checks if there are any houses or hotels left to build
+                    if (currentField.getHouses() < 5) {
+                        if (PropertyField.getHousesInPlay() <= MAX_HOUSES_IN_PLAY) {
+                            count++;
+                        } else if (!sentMessage) {
+                            guiHandler.giveMsg("Huse er udsolgt.");
+                            sentMessage = true;
+                        }
+
+                    } else if (currentField.getHouses() == 5) {
+                        if (PropertyField.getHotelsInPlay() <= MAX_HOTELS_IN_PLAY) {
+                            count++;
+                        } else if (!sentMessage) {
+                            guiHandler.giveMsg("Huse er udsolgt.");
+                            sentMessage = true;
+                        }
+                    }
+                }
+            }
+        }
+
+        //puts validated fields in array
+        validatedFields = new String[count];
+        int j = 0;
+        for (String field : fieldNames) {
+            currentField = stringToField(field, buyer);
+            //checks if it has less than max houses and doesn't have a hotel
+            if (currentField.getHouses() < 5 && !currentField.getHotel()) {
+                //checks if any fields of the same color has fewer fields than this one
+                boolean hasFewest = true;
+                for (String otherField : fieldNames) {
+                    if (currentField.getHouses() > stringToField(otherField, buyer).getHouses()) {
+                        hasFewest = false;
+                        break;
+                    }
+                }
+
+                if (hasFewest) {
+                    //checks if there are any houses or hotels left depending on what you are about to buy
+                    if (currentField.getHouses() < 5 && PropertyField.getHousesInPlay() <= MAX_HOUSES_IN_PLAY) {
+                        validatedFields[j++] = field;
+                    } else if (currentField.getHouses() == 5 && PropertyField.getHotelsInPlay() <= MAX_HOTELS_IN_PLAY) {
+                        validatedFields[j++] = field;
+                    }
+                }
+            }
+        }
+
+        return validatedFields;
+    }
+
+    private PropertyField stringToField(String fieldString, Player owner){
+        for (int n = 0; n < owner.getOwnedFields().size(); n++) {
+            if (fieldString.equalsIgnoreCase(owner.getOwnedFields().get(n).getName())) {
+                try {
+                    return (PropertyField) owner.getOwnedFields().get(n);
+                } catch (ClassCastException e) {
+                    System.out.println("Field received was not a PropertyField");
+                    e.printStackTrace();
+                }
+            }
+        }
+        throw new RuntimeException("getChosenField() returned no value");
+        //todo Crash when you click buy houses
+    }
 
     private PropertyField getChosenField(Player owner, String[] fieldNames) {
         //Select a field to trade based on user input
         if (fieldNames.length > 0) {
             String fieldString = guiHandler.makeButtons("Vælg felt du vil købe/sælge huse på", fieldNames);
-            for (int n = 0; n < owner.getOwnedFields().size(); n++) {
+            return stringToField(fieldString, owner);
+            /*for (int n = 0; n < owner.getOwnedFields().size(); n++) {
                 if (fieldString.equals(fieldNames[n])) {
                     try {
                         return (PropertyField) owner.getOwnedFields().get(n);
@@ -192,11 +303,11 @@ public class BuySellController {
                         e.printStackTrace();
                     }
                 }
-            }
+            }*/
         } else {
             return null;
         }
-        throw new RuntimeException("getChosenField() returned no value");
+
     }
 
     private String[] stringArrayAddition(String[] arr1, String[] arr2){
