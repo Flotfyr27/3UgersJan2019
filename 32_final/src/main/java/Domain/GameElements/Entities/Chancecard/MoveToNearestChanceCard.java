@@ -71,6 +71,17 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
         throw new RuntimeException("No Field of the specified type found");
     }
 
+    private boolean moveTo(Player p, int i) {
+        if (fields[i].getClass() == type) {
+            if (payDouble && ((ShippingField) fields[i]).getOwner() != null && p.getJailTime() < 0)
+                payDouble(p, i);
+            super.value = i;
+            super.action(p);
+            return true;
+        }
+        return false;
+    }
+
     private void payDouble(Player p, int i) {
         ShippingField f;
         f = (ShippingField)fields[i];
