@@ -1,27 +1,24 @@
 package TechnicalServices;
 
-import Domain.GameElements.Entities.diceTray;
-import Domain.Controller.MoveController;
+import Domain.GameElements.Entities.DiceTray;
 
-public class diceTrayRigged extends diceTray {
+public class DiceTrayRigged extends DiceTray {
 
-    private int roundNr;
-
-
-    int[][] dieValues = {
-            {1,2},
-            {1,3},
-            {1,4}
-    };
+    private int value1;
+    private int value2;
+    private int sum;
 
 
+    public void roll(int value1, int value2){
+        this.value1 = value1;
+        this.value2 = value2;
+    }
     @Override
-    public void roll(){
-        value1 = dieValues[roundNr][0];
-        value2 = dieValues[roundNr][1];
-
-        roundNr = ++roundNr % dieValues.length;
+    public int getSum() {
+        sum = this.value1 + this.value2;
+        return sum;
     }
 
+    public
 
 }
