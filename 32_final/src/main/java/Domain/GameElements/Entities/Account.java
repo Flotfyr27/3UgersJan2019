@@ -32,6 +32,11 @@ public class Account {
         return score;
     }
 
+    public int setScore(int score){
+        this.score = score;
+        return score;
+    }
+
 
     /**
      * A method that checks if you are able to buy or not.

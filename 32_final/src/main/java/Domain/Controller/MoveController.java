@@ -2,6 +2,7 @@ package Domain.Controller;
 import Domain.GameElements.Entities.DiceTray;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Board;
+import TechnicalServices.DiceTrayRigged;
 import TechnicalServices.GameLogic.GameLogic;
 import UI.GUI.GuiHandler;
 
@@ -38,13 +39,20 @@ public class MoveController {
         return this;
     }
 
+    public MoveController initiatePresentation(Board board){
+        this.board = board;
+        this.dice = new DiceTrayRigged();
+        return this;
+    }
+
+
     /**
      * runCase method for MoveController. Moves player around the board and activates fields
      * @param p
      */
     public void runCase(Player p){
         int currentPos = p.getPos();
-        dice.Roll();
+        dice.roll();
         guiHandler.showDice(dice.getValue1(), dice.getValue2());
         int dist = dice.getSum();
 
