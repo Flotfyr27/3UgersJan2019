@@ -1,6 +1,5 @@
 package Domain.Controller;
-
-import Domain.GameElements.Entities.diceTray;
+import Domain.GameElements.Entities.DiceTray;
 import Domain.GameElements.Entities.Player;
 import TechnicalServices.GameLogic.GameLogic;
 import UI.GUI.GuiHandler;
@@ -8,7 +7,7 @@ import UI.GUI.GuiHandler;
 public class JailController {
     private GuiHandler guiHandler = GuiHandler.getInstance();
     private int timeInJail;
-    private Domain.GameElements.Entities.diceTray diceTray;
+    private DiceTray diceTray;
 
     private static JailController instance;
 
@@ -30,7 +29,7 @@ public class JailController {
      * Constructor
      */
     private JailController() {
-        diceTray = new diceTray();
+        diceTray = new DiceTray();
     }
 
     /**

@@ -4,21 +4,23 @@ import Domain.GameElements.Entities.DiceTray;
 
 public class DiceTrayRigged extends DiceTray {
 
-    private int value1;
-    private int value2;
-    private int sum;
+    private int roundNr;
 
 
-    public void roll(int value1, int value2){
-        this.value1 = value1;
-        this.value2 = value2;
-    }
+    int[][] dieValues = {
+            {1,2},
+            {1,3},
+            {1,4}
+    };
+
+
     @Override
-    public int getSum() {
-        sum = this.value1 + this.value2;
-        return sum;
+    public void roll(){
+        value1 = dieValues[roundNr][0];
+        value2 = dieValues[roundNr][1];
+
+        roundNr = ++roundNr % dieValues.length;
     }
 
-    public
 
 }

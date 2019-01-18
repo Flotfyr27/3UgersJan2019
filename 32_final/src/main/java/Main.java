@@ -60,7 +60,7 @@ public class Main {
 
         /*switch(MoveController.getInstance().getRoundNr()){
             case 1:
-                diceTrayRigged.roll(2,3);
+                DiceTrayRigged.roll(2,3);
         }*/
 
 

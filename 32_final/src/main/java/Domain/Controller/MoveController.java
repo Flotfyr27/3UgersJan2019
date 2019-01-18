@@ -1,14 +1,14 @@
 package Domain.Controller;
-import Domain.GameElements.Entities.diceTray;
+import Domain.GameElements.Entities.DiceTray;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Board;
-import TechnicalServices.diceTrayRigged;
+import TechnicalServices.DiceTrayRigged;
 import TechnicalServices.GameLogic.GameLogic;
 import UI.GUI.GuiHandler;
 
 public class MoveController {
     private Board board;
-    private diceTray dice;
+    private DiceTray dice;
     private GuiHandler guiHandler;
 
 
@@ -41,7 +41,7 @@ public class MoveController {
 
     public MoveController initiatePresentation(Board board){
         this.board = board;
-        this.dice = new diceTrayRigged();
+        this.dice = new DiceTrayRigged();
         return this;
     }
 
@@ -81,7 +81,7 @@ public class MoveController {
         guiHandler.updateGui(p, board.getPlayers(), board.getFields());
     }
 
-    public diceTray getDiceTray() {
+    public DiceTray getDiceTray() {
         return dice;
     }
 
