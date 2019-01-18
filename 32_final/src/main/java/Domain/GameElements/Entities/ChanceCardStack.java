@@ -109,8 +109,6 @@ public class ChanceCardStack {
                         "trængende\" på kr. 40.000. Ved værdigt trængende forstås, at Deres formue, dvs. Deres " +
                         "kontante penge + skøder + bygninger, ikke overstiger kr. 15.000.")
         };
-        // shuffles the cards once before the start of the game
-        shuffleCards(chanceCards);
     }
 
     /**
@@ -165,18 +163,17 @@ public class ChanceCardStack {
 
     /**
      * Method to shuffle ChanceCards in array.
-     * @param array This is the array to be shuffled.
      */
-    public void shuffleCards(ChanceCard[] array) {
-        int n = array.length;
+    public void shuffleCards() {
+        int n = chanceCards.length;
         Random random = new Random();
 
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i < chanceCards.length; i++) {
 
             int randomValue = i + random.nextInt(n - i);
-            ChanceCard randomElement = array[randomValue];
-            array[randomValue] = array[i];
-            array[i] = randomElement;
+            ChanceCard randomElement = chanceCards[randomValue];
+            chanceCards[randomValue] = chanceCards[i];
+            chanceCards[i] = randomElement;
         }
     }
 }

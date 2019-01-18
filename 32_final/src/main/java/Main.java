@@ -2,6 +2,7 @@ import Domain.Controller.JailController;
 import Domain.Controller.MainController;
 import Domain.Controller.MoveController;
 import Domain.GameElements.Board;
+import Domain.GameElements.Entities.ChanceCardStack;
 import Domain.GameElements.Fields.Ownable.OwnableField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
 import UI.GUI.GuiHandler;
@@ -33,6 +34,7 @@ public class Main {
     private static void standardMode(Board board, GuiHandler guiHandler) {
         board.initBoard(guiHandler.getUserInt("Vælg mellem 3 og 6 spillere", 3, 6), false);
         guiHandler.initGuiPlayers(board.getPlayers());
+        ChanceCardStack.getStackInstance().shuffleCards();
 
         MainController mainController = new MainController(board.getPlayers());
         MoveController.getInstance().initiate(board);
@@ -44,6 +46,7 @@ public class Main {
     private static void presentationMode(Board board, GuiHandler guiHandler){
         board.initBoard(4, true);
         guiHandler.initGuiPlayers(board.getPlayers());
+
 
 
         //Sets accountScore for all dummy players
