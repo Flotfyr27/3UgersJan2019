@@ -60,10 +60,10 @@ public class PropertyField extends OwnableField {
      * Method to add a house, if 4 houses already exists a hotel will be added and houses removed.
      */
     public void addHouse() {
-        if (numberOfHouses <= 4) {
+        if (numberOfHouses <= 4) { //buying a house
             numberOfHouses++;
             housesInPlay++;
-        } else if (numberOfHouses == 5) {
+        } else if (numberOfHouses == 5) { //buying a hotel
             numberOfHouses++;
             housesInPlay -= 4;
             hotelsInPlay++;
