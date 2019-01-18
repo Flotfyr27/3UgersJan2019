@@ -58,19 +58,6 @@ public class Main {
         setFieldOwner(board, 1, 14);
         setFieldOwner(board, 0, 19);
 
-        /*switch(MoveController.getInstance().getRoundNr()){
-            case 1:
-                DiceTrayRigged.roll(2,3);
-        }*/
-
-
-
-
-        //guiHandler.updateGui(board.getPlayers()[0], board.getPlayers(), board.getFields());
-       // guiHandler.teleportPlayer(board.getPlayers()[0].getPos(), board.getPlayers()[0],board.getPlayers());
-
-
-
         MainController mainController = new MainController(board.getPlayers());
         MoveController.getInstance().initiatePresentation(board);
         JailController.getInstance();
