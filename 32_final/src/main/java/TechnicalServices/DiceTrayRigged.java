@@ -10,7 +10,8 @@ public class DiceTrayRigged extends DiceTray {
     int[][] dieValues = {
             {2,3},
             {1,3},
-            {1,4}
+            {1,4},
+            {2,4}
     };
 
 

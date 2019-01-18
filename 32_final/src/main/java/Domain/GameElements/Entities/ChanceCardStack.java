@@ -111,6 +111,23 @@ public class ChanceCardStack {
         };
     }
 
+    //Premade arbitrary arrangement of the chancecards for presentationMode
+    public void arrangeCards(Player[] players, Field[] fields){
+        chanceCards = new ChanceCard[]{
+                new MoveToJailChanceCard(10, "Gå i fængsel. Selv om de passerer \"START\"," +
+                        " indkasserer De ikke kr. 4.000."),
+                new BirthdayCard(500, players, "De har lagt penge ud til et sammenskudsgilde. " +
+                        "Mærkværdigvis betaler alle straks. Modtag fra hver medspiller kr. 500."),
+                new MoveToNearestChanceCard(ShippingField.class, fields,"Tag med den nærmeste færge. " +
+                        "Flyt brikken frem, og hvis De passerer \"START\", indkassér da kr. 4.000."),
+                new GetOutOfJailCard("I andledning af kongens fødselsdag benådes de herved for fængsel. " +
+                        "Dette kort kan opbevares, indtil De får brug for det eller De kan sælge det."),
+                new MoveToChanceCard(32, "Ryk frem til Vimmelskaftet. Hvis De passerer \"START\", " +
+                        "indkassér da kr. 4.000")
+
+        };
+    }
+
     /**
      * returns true if there is an element after the current element in the stack.
      * @return boolean

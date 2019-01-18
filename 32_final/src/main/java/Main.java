@@ -54,6 +54,7 @@ public class Main {
             board.getPlayers()[i].getAccount().setScore(10000);
         }
         guiHandler.updateBalance(board.getPlayers());
+        ChanceCardStack.getStackInstance().arrangeCards(Board.getInstance().getPlayers(), Board.getInstance().getFields());
 
         setPlayerStartPosition(board, guiHandler, 0, 12);
         setPlayerStartPosition(board, guiHandler, 1, 18);
