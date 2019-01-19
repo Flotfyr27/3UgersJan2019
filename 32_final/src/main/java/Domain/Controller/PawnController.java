@@ -24,7 +24,7 @@ public class PawnController {
     }
 
     /**
-     *
+     * Enables this class to be used as a singleton
      */
     public static PawnController getInstance(){
         if (instance == null) {
@@ -35,8 +35,8 @@ public class PawnController {
     }
 
     /**
-     *
-     * @param player
+     * Method which lets you pawn off and buy back your properties.
+     * @param player The player about to pawn, usually the player who's turn it is
      */
     public void runCase(Player player){
         OwnableField chosenField;
@@ -185,7 +185,7 @@ public class PawnController {
     }
 
     /**
-     * Method that pawn our properties.
+     * Method that pawns our properties.
      */
     private void pawnProperty(OwnableField ownableField, Player p) {
         if (isPropertyField(ownableField) && hasBuildings((PropertyField)ownableField)) {
@@ -197,8 +197,9 @@ public class PawnController {
     }
 
     /**
-     * Multiplication of
+     * Calculation of the price for buying back property
      * Cast the double as an int.
+     * @return The price
      */
     private int buyPawnBackValue(OwnableField ownableField) {
 
