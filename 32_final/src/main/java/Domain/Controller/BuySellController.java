@@ -40,20 +40,14 @@ public class BuySellController {
     public void runCase(Player player) {
 
 
-
         String buttons = guiHandler.makeButtons("Vil du købe eller sælge huse/hoteller?", "Køb", "Sælg");
 
-        try {
-            if (buttons.equalsIgnoreCase("Køb")) {
-                buy(player);
-            } else {
-                sell(player);
-            }
-        } catch (RuntimeException e) {
-            System.out.println("An unhandled exception occurred");
-            e.printStackTrace();
-            guiHandler.giveMsg("Noget gik galt :(");
+        if (buttons.equalsIgnoreCase("Køb")) {
+            buy(player);
+        } else {
+            sell(player);
         }
+
 
         guiHandler.updateGui(player, board.getPlayers(), board.getFields());
     }

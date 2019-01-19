@@ -42,7 +42,7 @@ public class GameLogic {
     public static boolean lastManStanding(Player[] players){
         int lost = 0;
         for (int i = 0;i <players.length;i++) {
-            if (players[i].getLost())
+            if (players[i].hasLost())
                 lost++;
         }
             if(lost == players.length-1)
