@@ -104,7 +104,8 @@ public class AuctionController {
                                 buyers.remove(n);
                             }
                         } else {
-                            guiHandler.giveMsg("Du har ikke råd til at byde");
+                            guiHandler.giveMsg("Du har ikke råd til at byde " + currentPlayer.getName() +
+                                    "Højeste Bud er " + highestBid + " og du har kun " + currentPlayer.getAccount().getScore());
                             buyers.remove(n);
                         }
                     }
