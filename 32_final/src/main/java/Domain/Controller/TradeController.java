@@ -10,17 +10,29 @@ public class TradeController {
     private Board board;
     private static TradeController instance;
 
+    /**
+     * Constructor for the TradeController
+     */
+    //TODO burde det ikke være private?
     public TradeController() {
         guiHandler = GuiHandler.getInstance();
         board = Board.getInstance();
     }
 
+    /**
+     * Method to get an instance of the TradeController
+     * @return Returns an instance of the TradeController
+     */
     public static TradeController getInstance(){
         if(instance == null)
             instance = new TradeController();
         return instance;
     }
 
+    /**
+     * This method is the center method of the TradeController, it is in charge of performing a full trade between players
+     * @param playerTrading This is the player who initiates the trade.
+     */
     public void runCase(Player playerTrading) {
         Object chosenTradeObject;
         Player chosenPlayer;

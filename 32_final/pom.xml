@@ -36,13 +36,13 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Domain.Controller.mainController</mainClass>
+                            <mainClass>Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <finalName>Monopoly</finalName>
+                    <finalName>32_Final</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
@@ -56,5 +56,11 @@
                 </executions>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/Resources</directory>
+                <targetPath>Resources</targetPath>
+            </resource>
+        </resources>
     </build>
 </project>
