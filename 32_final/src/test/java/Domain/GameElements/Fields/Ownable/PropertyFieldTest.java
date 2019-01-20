@@ -56,20 +56,4 @@ class PropertyFieldTest {
         pf.addHouse();
         assertEquals(5000, pf.getWorth());
     }
-
-    @Test
-    void sell() {
-    }
-
-    @Test
-    void buy() {
-    }
-
-    @Test
-    void pawn() {
-    }
-
-    @Test
-    void payRent() {
-    }
 }
