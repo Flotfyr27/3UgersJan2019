@@ -58,7 +58,8 @@ public class TaxField extends Field {
             /*
              * Indkomstskat
              */
-            String buttons = guiHandler.makeButtons("Betal indskomstskat: 10% eller kr.4.000", "10%", "kr.4.000");
+            String buttons = guiHandler.makeButtons("Betal indskomstskat: 10% af alt du ejer (bygninger, huse og " +
+                    "i beløbet på din konto) eller kr.4.000", "10%", "kr.4.000");
             if (buttons.equals("10%")) {
                 /*
                  * For loop which calculates the tax of 10% if that option is selected. Using the ownedFields arrayList in player.
@@ -79,7 +80,7 @@ public class TaxField extends Field {
                  */
             } else if (buttons.equals("kr.4.000")) {
                 try{
-                player.getAccount().changeScore(-4000);
+                    player.getAccount().changeScore(-4000);
                 }catch(RuntimeException e){
                     GameLogic.cantPay(player,-4000);
                 }
