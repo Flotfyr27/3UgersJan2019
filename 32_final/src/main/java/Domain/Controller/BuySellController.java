@@ -13,8 +13,6 @@ import java.awt.*;
 public class BuySellController {
     private GuiHandler guiHandler = GuiHandler.getInstance();
     private Board board;
-    private final int MAX_HOUSES_IN_PLAY = 32; //TODO check these values are right
-    private final int MAX_HOTELS_IN_PLAY = 12;
 
     private static BuySellController instance;
 
@@ -158,8 +156,6 @@ public class BuySellController {
             }
         }
 
-        //TODO Make check that ensures one can only build on fields that has the least amount of houses
-
         if (ownableFields.length <= 0) {
             guiHandler.giveMsg("Du har ingen grunde du kan købe huse på.");
         } else {
@@ -193,6 +189,8 @@ public class BuySellController {
     private String[] validateFields(Player buyer, String[] fieldNames) {
         String[] validatedFields;
 
+        int MAX_HOUSES_IN_PLAY = 32;
+        int MAX_HOTELS_IN_PLAY = 12;
         if (PropertyField.getHotelsInPlay() >= MAX_HOTELS_IN_PLAY && PropertyField.getHousesInPlay() >= MAX_HOUSES_IN_PLAY) {
             throw new RuntimeException("Både hoteller og huse er udsolgt");
         }
@@ -279,7 +277,6 @@ public class BuySellController {
             }
         }
         throw new RuntimeException("getChosenField() returned no value");
-        //todo Crash when you click buy houses
     }
 
     private PropertyField getChosenField(Player owner, String[] fieldNames) {

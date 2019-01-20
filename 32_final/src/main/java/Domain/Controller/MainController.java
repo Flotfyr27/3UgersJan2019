@@ -28,7 +28,7 @@ public class MainController {
         moveCon = MoveController.getInstance();
         jailController = JailController.getInstance();
         pawnCon = PawnController.getInstance();
-        tradeCon = new TradeController();
+        tradeCon = TradeController.getInstance();
         buySellCon = BuySellController.getInstance();
     }
 

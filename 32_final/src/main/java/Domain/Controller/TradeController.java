@@ -13,8 +13,7 @@ public class TradeController {
     /**
      * Constructor for the TradeController
      */
-    //TODO burde det ikke være private?
-    public TradeController() {
+    private TradeController() {
         guiHandler = GuiHandler.getInstance();
         board = Board.getInstance();
     }

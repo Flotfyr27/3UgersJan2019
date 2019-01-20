@@ -43,9 +43,7 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
     /**
      * moves the player to the closest field of a specified class.
      *
-     * @param p
-     *
-     * TODO implement the payDouble feature
+     * @param p The player drawing the card.
      */
     public void action(Player p) {
         for (int i = p.getPos(); i < fields.length; i++) {
