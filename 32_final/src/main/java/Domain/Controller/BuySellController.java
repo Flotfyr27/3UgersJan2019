@@ -126,9 +126,7 @@ public class BuySellController {
 
                 boolean sameOwner = true;
                 for (OwnableField colorField : ownedField.getFieldsOfColor()) {
-                    if (colorField.getOwner() == player)
-                        sameOwner = true;
-                    else {
+                    if (colorField.getOwner() != player) {
                         sameOwner = false;
                         break;
                     }
@@ -147,7 +145,7 @@ public class BuySellController {
                     try {
                         colorFields = validateFields(player, colorFields);
                     } catch (RuntimeException e) {
-                        guiHandler.giveMsg(e.getMessage());
+                        e.printStackTrace();
                         return;
                     }
 
@@ -195,41 +193,43 @@ public class BuySellController {
         if (PropertyField.getHotelsInPlay() >= MAX_HOTELS_IN_PLAY && PropertyField.getHousesInPlay() >= MAX_HOUSES_IN_PLAY) {
             throw new RuntimeException("Både hoteller og huse er udsolgt");
         }
-
+//TODO fix the error in this class.
         //checks how many fields live up to all rules
         boolean sentMessage = false;
         int count = 0;
         PropertyField currentField;
         for (String field : fieldNames) {
-            currentField = stringToField(field, buyer);
-            //checks that a field has no more than 5 houses / a hotel
-            if (currentField.getHouses() < 5 && !currentField.getHotel()){
+            currentField = stringToPropertyField(field, buyer);
+            if (currentField != null) {
+                //checks that a field has no more than 5 houses / a hotel
+                if (currentField.getHouses() < 5 && !currentField.getHotel()) {
 
-                //Checks if any fields of that color has less houses than this one
-                boolean hasFewest = true;
-                for (String otherField : fieldNames) {
-                    if (currentField.getHouses() > stringToField(otherField, buyer).getHouses()) {
-                        hasFewest = false;
-                        break;
-                    }
-                }
-
-                if (hasFewest) {
-                    //checks if there are any houses or hotels left to build
-                    if (currentField.getHouses() < 5) {
-                        if (PropertyField.getHousesInPlay() <= MAX_HOUSES_IN_PLAY) {
-                            count++;
-                        } else if (!sentMessage) {
-                            guiHandler.giveMsg("Huse er udsolgt.");
-                            sentMessage = true;
+                    //Checks if any fields of that color has less houses than this one
+                    boolean hasFewest = true;
+                    for (String otherField : fieldNames) {
+                        if (currentField.getHouses() > stringToPropertyField(otherField, buyer).getHouses()) {
+                            hasFewest = false;
+                            break;
                         }
+                    }
 
-                    } else if (currentField.getHouses() == 5) {
-                        if (PropertyField.getHotelsInPlay() <= MAX_HOTELS_IN_PLAY) {
-                            count++;
-                        } else if (!sentMessage) {
-                            guiHandler.giveMsg("Huse er udsolgt.");
-                            sentMessage = true;
+                    if (hasFewest) {
+                        //checks if there are any houses or hotels left to build
+                        if (currentField.getHouses() < 5) {
+                            if (PropertyField.getHousesInPlay() <= MAX_HOUSES_IN_PLAY) {
+                                count++;
+                            } else if (!sentMessage) {
+                                guiHandler.giveMsg("Huse er udsolgt.");
+                                sentMessage = true;
+                            }
+
+                        } else if (currentField.getHouses() == 5) {
+                            if (PropertyField.getHotelsInPlay() <= MAX_HOTELS_IN_PLAY) {
+                                count++;
+                            } else if (!sentMessage) {
+                                guiHandler.giveMsg("Huse er udsolgt.");
+                                sentMessage = true;
+                            }
                         }
                     }
                 }
@@ -240,24 +240,26 @@ public class BuySellController {
         validatedFields = new String[count];
         int j = 0;
         for (String field : fieldNames) {
-            currentField = stringToField(field, buyer);
+            currentField = stringToPropertyField(field, buyer);
             //checks if it has less than max houses and doesn't have a hotel
-            if (currentField.getHouses() < 5 && !currentField.getHotel()) {
-                //checks if any fields of the same color has fewer fields than this one
-                boolean hasFewest = true;
-                for (String otherField : fieldNames) {
-                    if (currentField.getHouses() > stringToField(otherField, buyer).getHouses()) {
-                        hasFewest = false;
-                        break;
+            if (currentField != null) {
+                if (currentField.getHouses() < 5 && !currentField.getHotel()) {
+                    //checks if any fields of the same color has fewer fields than this one
+                    boolean hasFewest = true;
+                    for (String otherField : fieldNames) {
+                        if (currentField.getHouses() > stringToPropertyField(otherField, buyer).getHouses()) {
+                            hasFewest = false;
+                            break;
+                        }
                     }
-                }
 
-                if (hasFewest) {
-                    //checks if there are any houses or hotels left depending on what you are about to buy
-                    if (currentField.getHouses() < 5 && PropertyField.getHousesInPlay() <= MAX_HOUSES_IN_PLAY) {
-                        validatedFields[j++] = field;
-                    } else if (currentField.getHouses() == 5 && PropertyField.getHotelsInPlay() <= MAX_HOTELS_IN_PLAY) {
-                        validatedFields[j++] = field;
+                    if (hasFewest) {
+                        //checks if there are any houses or hotels left depending on what you are about to buy
+                        if (currentField.getHouses() < 5 && PropertyField.getHousesInPlay() <= MAX_HOUSES_IN_PLAY) {
+                            validatedFields[j++] = field;
+                        } else if (currentField.getHouses() == 5 && PropertyField.getHotelsInPlay() <= MAX_HOTELS_IN_PLAY) {
+                            validatedFields[j++] = field;
+                        }
                     }
                 }
             }
@@ -266,36 +268,21 @@ public class BuySellController {
         return validatedFields;
     }
 
-    private PropertyField stringToField(String fieldString, Player owner){
+    private PropertyField stringToPropertyField(String fieldString, Player owner){
         for (int n = 0; n < owner.getOwnedFields().size(); n++) {
             if (fieldString.equalsIgnoreCase(owner.getOwnedFields().get(n).getName())) {
-                try {
+                if (owner.getOwnedFields().get(n).getClass().equals(PropertyField.class))
                     return (PropertyField) owner.getOwnedFields().get(n);
-                } catch (ClassCastException e) {
-                    System.out.println("Field received was not a PropertyField");
-                    e.printStackTrace();
-                }
             }
         }
-        throw new RuntimeException("getChosenField() returned no value");
+        return null;
     }
 
     private PropertyField getChosenField(Player owner, String[] fieldNames) {
         //Select a field to trade based on user input
         if (fieldNames.length > 0) {
             String fieldString = guiHandler.makeButtons("Vælg felt du vil købe/sælge huse på", fieldNames);
-            return stringToField(fieldString, owner);
-            /*for (int n = 0; n < owner.getOwnedFields().size(); n++) {
-                if (fieldString.equals(fieldNames[n])) {
-                    try {
-                        return (PropertyField) owner.getOwnedFields().get(n);
-                    } catch (ClassCastException e) {
-                        guiHandler.giveMsg("Noget gik galt :(");
-                        System.out.println("Field received was not a PropertyField");
-                        e.printStackTrace();
-                    }
-                }
-            }*/
+            return stringToPropertyField(fieldString, owner);
         } else {
             return null;
         }

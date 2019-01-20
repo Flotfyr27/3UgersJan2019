@@ -16,11 +16,7 @@ public class Account {
      * @param value
      */
     public void changeScore(int value) throws RuntimeException {
-        if (canBuy(value)) {
-            score += value;
-        } else
-            throw new RuntimeException("Error: Score would drop below zero");
-
+        score += value;
     }
 
     /**
