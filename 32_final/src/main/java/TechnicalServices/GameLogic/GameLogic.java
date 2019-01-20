@@ -2,6 +2,7 @@ package TechnicalServices.GameLogic;
 
 import Domain.Controller.PawnController;
 import Domain.Controller.TradeController;
+import Domain.GameElements.Board;
 import Domain.GameElements.Entities.Player;
 import UI.GUI.GuiHandler;
 
@@ -74,9 +75,10 @@ public class GameLogic {
             } else {
                 player.setLost(true);
                 player.setIsActive(false);
+                GuiHandler.getInstance().removePlayerCar(player, Board.getInstance().getPlayers());
                 return;
             }
-        }while (player.getAccount().getScore()+amount<0);
+        } while (player.getAccount().getScore() + amount < 0);
         player.getAccount().changeScore(amount);
     }
 

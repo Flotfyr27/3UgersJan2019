@@ -55,7 +55,7 @@ public class Board {
         String name;
         for (int i = 0; i < numberOfPlayers; i++) {
                 do {
-                    name = GuiHandler.getInstance().getUserString("Indtast dit navn " + (i + 1));
+                    name = GuiHandler.getInstance().getUserString("Indtast dit navn spiller " + (i + 1));
                     if (name.equalsIgnoreCase("") || isNameTaken(name, players))
                         GuiHandler.getInstance().giveMsg("Dit navn er enten tomt eller optaget. Indtast venligst et nyt navn");
                 } while (name.equalsIgnoreCase("") || isNameTaken(name, players));

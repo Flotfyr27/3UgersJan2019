@@ -91,6 +91,10 @@ public class MainController {
                     }
 
                 } while (currentPlayer.getIsActive());
+
+                if (GameLogic.hasLost(currentPlayer)){
+                    GameLogic.cantPay(currentPlayer, currentPlayer.getAccount().getScore());
+                }
             }
             currentPlayerNum = ++currentPlayerNum % players.length;
         }

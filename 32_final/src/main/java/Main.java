@@ -2,6 +2,8 @@ import Domain.Controller.JailController;
 import Domain.Controller.MainController;
 import Domain.Controller.MoveController;
 import Domain.GameElements.Board;
+import Domain.GameElements.Fields.Field;
+import Domain.GameElements.Fields.Ownable.OwnableField;
 import UI.GUI.GuiHandler;
 
 public class Main {

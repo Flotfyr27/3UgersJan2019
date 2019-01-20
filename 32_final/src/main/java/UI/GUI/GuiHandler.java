@@ -327,6 +327,12 @@ public class GuiHandler {
         }
     }
 
+
+    /**
+     * A method that moves the player instantly from one field to another without showing up on any other fields on the way.
+     * @param player the player being moved
+     * @param players the array of players in the game
+     */
     public void teleportPlayer(Player player, Player[] players) {
         for (int i = 0; i < gui_fields.length; i++) {
             gui_fields[i].setCar(findGuiPlayer(player, players), false);
@@ -334,11 +340,17 @@ public class GuiHandler {
         gui_fields[player.getPos()].setCar(findGuiPlayer(player, players), true);
     }
 
+    public void removePlayerCar (Player player, Player[] players) {
+        for (int i = 0; i < gui_fields.length; i++) {
+            gui_fields[i].setCar(findGuiPlayer(player, players), false);
+        }
+    }
+
     /**
-     * A method for when a car has moved in the gui
+     * A method for when a car has moved in the gui. makes a short delay in between moving.
      *
      * @param carMoved boolean, true if a car has moved since last call of this method
-     * @return
+     * @return true if the
      */
     private boolean onCarMoved(boolean carMoved) {
         try {
