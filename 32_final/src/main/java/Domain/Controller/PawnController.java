@@ -65,6 +65,7 @@ public class PawnController {
 
         guiHandler.updateGui(player, board.getPlayers(), board.getFields());
     }
+
     /**
      * Creates a button for each ownableField which hasn't been pawned and returns the field chosen by the user
      *
@@ -129,11 +130,8 @@ public class PawnController {
         }
         return fieldNames;
     }
-    /**
-     * Creates a list of the fields owned by a player
-     * @param owner the player
-     * @return list of fields
-     */
+
+
     /**
      * Creates a list of the fields owned by a player
      * @param owner the player
@@ -154,10 +152,11 @@ public class PawnController {
         }
         return fieldNames;
     }
+
     /**
      * Boolean checking if the field has any hotels or houses
      *
-     * @return
+     * @return true if the field contains at least one house/hotel
      */
     private boolean hasBuildings(PropertyField propertyField) {
         if (propertyField.getHouses() == 0 && propertyField.getHotel()) {
@@ -170,7 +169,7 @@ public class PawnController {
     /**
      * Method checks if the field is a property field
      *
-     * @return
+     * @return returns true if the field is a PropertyField
      */
     private boolean isPropertyField(OwnableField ownableField) {
         if (ownableField.getClass() == PropertyField.class) {
@@ -180,6 +179,12 @@ public class PawnController {
         }
     }
 
+    /**
+     * Calculates the amount of money the player gets for pawning a specific field
+     *
+     * @param ownableField The field having its value calculated
+     * @return The pawn vale of the field
+     */
     private int pawnValue(OwnableField ownableField) {
         return ownableField.getPrice() / 2;
     }

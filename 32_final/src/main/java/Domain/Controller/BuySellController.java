@@ -30,13 +30,18 @@ public class BuySellController {
         }
     }
 
+    /**
+     * Constructor
+     */
     private BuySellController() {
         board = Board.getInstance();
     }
 
-
+    /**
+     * The method running the use case.
+     * @param player The player who is buying or selling houses.
+     */
     public void runCase(Player player) {
-
 
         String buttons = guiHandler.makeButtons("Vil du købe eller sælge huse/hoteller?", "Køb", "Sælg");
 
@@ -50,6 +55,10 @@ public class BuySellController {
         guiHandler.updateGui(player, board.getPlayers(), board.getFields());
     }
 
+    /**
+     * The method handeling the selling part of this use case
+     * @param player The player selling
+     */
     private void sell(Player player) {
         String[] possibleFields;
         String choice;
@@ -102,7 +111,11 @@ public class BuySellController {
 
     }
 
-
+    /**
+     * The method for buying houses
+     *
+     * @param player The player buying
+     */
     private void buy(Player player){
         Color[] triedColors = new Color[0];
         String[] ownableFields = new String[0];
@@ -289,6 +302,12 @@ public class BuySellController {
 
     }
 
+    /**
+     * A method for adding string arrays together
+     * @param arr1 A String array
+     * @param arr2 A String array
+     * @return An array of all the elements of both arr1 and arr2
+     */
     private String[] stringArrayAddition(String[] arr1, String[] arr2){
         String[] temp = new String[arr1.length + arr2.length];
 
@@ -302,7 +321,12 @@ public class BuySellController {
         return temp;
     }
 
-
+    /**
+     * A method for adding color arrays together
+     * @param arr1 A Color array
+     * @param arr2 A Color array
+     * @return An array of all the elements of both arr1 and arr2
+     */
     private Color[] colorArrayAddition(Color[] arr1, Color[] arr2){
         Color[] temp = new Color[arr1.length + arr2.length];
 
@@ -315,11 +339,4 @@ public class BuySellController {
         }
         return temp;
     }
-
-    /**
-     * A method for adding the number of houses on a field to the field-selection buttons
-     * @param fieldList the list of fields that is being changed
-     * @return
-     */
-
 }

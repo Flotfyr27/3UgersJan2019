@@ -9,16 +9,17 @@ public class MatadorLegateChanceCard extends TransactionCard {
     /**
      * Constructor.
      *
-     * @param description
+     * @param description The text displayed on the ChanceCard
      */
     public MatadorLegateChanceCard(int amount, String description) {
         super(amount, description);
     }
 
     /**
-     * gives the player a large sum of money if they currently own
+     * Gives the player a large sum of money if they currently own
      * less than 15000 worth of buildings and money
-     * @param player
+     *
+     * @param player the player drawing the card
      */
     public void action(Player player) {
         int ownableWorth = 0;

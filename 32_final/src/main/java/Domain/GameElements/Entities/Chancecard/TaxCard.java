@@ -6,14 +6,23 @@ import TechnicalServices.GameLogic.GameLogic;
 
 public class TaxCard extends ChanceCard{
     private int housePrice;
-    private int hotelPrice;
 
-    public TaxCard(int housePrice, int hotelPrice, String description){
+    /**
+     * Constructor
+     *
+     * @param housePrice The price payed for one house
+     * @param description The text displayed on the ChanceCard
+     */
+    public TaxCard(int housePrice, String description){
         super(description);
         this.housePrice = housePrice;
-        this.hotelPrice = hotelPrice;
     }
 
+    /**
+     * Takes money from the player depending on the amount of houses they owns
+     *
+     * @param p The player drawing the card
+     */
     public void action(Player p){
         int sum = 0;
 
@@ -31,6 +40,4 @@ public class TaxCard extends ChanceCard{
             GameLogic.cantPay(p,-sum);
         }
     }
-
-
 }

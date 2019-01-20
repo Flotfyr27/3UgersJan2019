@@ -7,11 +7,21 @@ import TechnicalServices.GameLogic.GameLogic;
 public class MoveToJailChanceCard extends MoveToChanceCard {
     private GuiHandler guiHandler;
 
-    public MoveToJailChanceCard(int destination, String description) {
-        super(destination, description);
+    /**
+     * Constructor
+     *
+     * @param description The text displayed on the ChanceCard
+     */
+    public MoveToJailChanceCard(String description) {
+        super(10, description);
         guiHandler = GuiHandler.getInstance();
     }
 
+    /**
+     * moves the player to jail and sets their jailTime to 0
+     *
+     * @param player The player who drew the card
+     */
     @Override
     public void action(Player player) {
 

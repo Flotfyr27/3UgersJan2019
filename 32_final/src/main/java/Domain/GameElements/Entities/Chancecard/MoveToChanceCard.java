@@ -11,8 +11,8 @@ public class MoveToChanceCard extends MoveChanceCard {
      * Constructor. The destination is the fields place in the Field array Board.
      * The description is the text presented to the player.
      *
-     * @param destination
-     * @param description
+     * @param destination The location of the field being moved to(index in the field array in Board)
+     * @param description The text being displayed on the ChanceCard
      */
     public MoveToChanceCard (int destination, String description){
         super(destination, description);
@@ -25,9 +25,9 @@ public class MoveToChanceCard extends MoveChanceCard {
      * getsStartMoney informs whether the player gets money if they pass start.
      * The description is the text presented to the player.
      *
-     * @param destination
-     * @param description
-     * @param getsStartMoney
+     * @param destination  The location of the field being moved to (index in the field array in Board)
+     * @param description The text being displayed on the ChanceCard
+     * @param getsStartMoney A boolean deciding if one should get their start money when passing start
      */
     public MoveToChanceCard (int destination, boolean getsStartMoney, String description){
         super(destination, description);

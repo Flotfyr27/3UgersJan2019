@@ -69,17 +69,12 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
         throw new RuntimeException("No Field of the specified type found");
     }
 
-    private boolean moveTo(Player p, int i) {
-        if (fields[i].getClass() == type) {
-            if (payDouble && ((ShippingField) fields[i]).getOwner() != null && p.getJailTime() < 0)
-                payDouble(p, i);
-            super.value = i;
-            super.action(p);
-            return true;
-        }
-        return false;
-    }
-
+    /**
+     * A method for paying double rent instead of only playing normal rent
+     *
+     * @param p The player drawing the card
+     * @param i The location/index of the destination
+     */
     private void payDouble(Player p, int i) {
         ShippingField f;
         f = (ShippingField)fields[i];

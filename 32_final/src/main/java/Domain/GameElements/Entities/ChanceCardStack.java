@@ -86,9 +86,9 @@ public class ChanceCardStack {
                 new MoveToChanceCard(11, "Ryk frem til Frederiksberg Allé. Hvis De passerer \"START\", " +
                         "indkassér da kr. 4.000."),
                 new MoveToChanceCard(0, "Ryk frem til \"START\"."),
-                new MoveToJailChanceCard(10, "Gå i fængsel. Selv om de passerer \"START\"," +
+                new MoveToJailChanceCard("Gå i fængsel. Selv om de passerer \"START\"," +
                         " indkasserer De ikke kr. 4.000."),
-                new MoveToJailChanceCard(10, "Gå i fængsel. Selv om de passerer \"START\"," +
+                new MoveToJailChanceCard("Gå i fængsel. Selv om de passerer \"START\"," +
                         " indkasserer De ikke kr. 4.000."),
                 new MoveToChanceCard(39, "Tag ind på Rådhuspladsen."),
                 new MoveToChanceCard(15, "Tag med Mols-Linien. Flyt brikken frem, og hvis " +

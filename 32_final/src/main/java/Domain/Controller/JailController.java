@@ -14,7 +14,7 @@ public class JailController {
     /**
      * Making the JailController a singleton
      *
-     * @return
+     * @return The only instance of the class
      */
     public static JailController getInstance() {
         if (instance == null) {
