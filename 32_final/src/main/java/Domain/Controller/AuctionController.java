@@ -105,7 +105,8 @@ public class AuctionController {
                             }
                         } else {
                             guiHandler.giveMsg("Du har ikke råd til at byde " + currentPlayer.getName() +
-                                    "Højeste Bud er " + highestBid + " og du har kun " + currentPlayer.getAccount().getScore());
+                                    ". Det mindste du kan byde er " + (highestBid + 50) + " og du har kun " +
+                                    currentPlayer.getAccount().getScore());
                             buyers.remove(n);
                         }
                     }
