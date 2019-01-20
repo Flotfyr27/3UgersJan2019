@@ -92,14 +92,19 @@ public class AuctionController {
                         }
                         //This part focuses on what happens after the first player to bid has done so
                     } else if (playerWithHighestBid != null) {
-                        answer = guiHandler.makeButtons(currentPlayer.getName() + " højeste bud er kr. " + highestBid
-                                + " budt af " + playerWithHighestBid.getName() + ". Ønsker De at byde over?", "Ja", "Nej");
-                        if (answer.equals("Ja")) {
-                            highestBid = guiHandler.getUserInt("Indtast bud. (Højeste bud kr. " + highestBid + " af "
-                                    + playerWithHighestBid.getName() + ")", highestBid + 50, currentPlayer.getAccount().getScore());
-                            playerWithHighestBid = currentPlayer;
-                        } else if (answer.equals("Nej")) {
-                            System.out.println("Removed " + currentPlayer.getName());
+                        if (currentPlayer.getAccount().canBuy(highestBid + 50)) {
+                            answer = guiHandler.makeButtons(currentPlayer.getName() + " højeste bud er kr. " + highestBid
+                                    + " budt af " + playerWithHighestBid.getName() + ". Ønsker De at byde over?", "Ja", "Nej");
+                            if (answer.equals("Ja")) {
+                                highestBid = guiHandler.getUserInt("Indtast bud. (Højeste bud kr. " + highestBid + " af "
+                                        + playerWithHighestBid.getName() + ")", highestBid + 50, currentPlayer.getAccount().getScore());
+                                playerWithHighestBid = currentPlayer;
+                            } else if (answer.equals("Nej")) {
+                                System.out.println("Removed " + currentPlayer.getName());
+                                buyers.remove(n);
+                            }
+                        } else {
+                            guiHandler.giveMsg("Du har ikke råd til at byde");
                             buyers.remove(n);
                         }
                     }
