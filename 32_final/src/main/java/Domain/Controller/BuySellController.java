@@ -193,7 +193,7 @@ public class BuySellController {
         if (PropertyField.getHotelsInPlay() >= MAX_HOTELS_IN_PLAY && PropertyField.getHousesInPlay() >= MAX_HOUSES_IN_PLAY) {
             throw new RuntimeException("Både hoteller og huse er udsolgt");
         }
-//TODO fix the error in this class.
+
         //checks how many fields live up to all rules
         boolean sentMessage = false;
         int count = 0;
