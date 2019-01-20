@@ -65,11 +65,12 @@ public class BuySellController {
 
         //ads all the owned fields' names to the possibleFields array
         possibleFields = new String[count];
+        int j = 0;
         for (int i = 0; i < player.getOwnedFields().size(); i++){
             OwnableField field = player.getOwnedFields().get(i);
             if (field.getClass().equals(PropertyField.class))
                 if (((PropertyField)field).getHouses() > 0)
-                    possibleFields[i] = field.getName();
+                    possibleFields[j] = field.getName();
         }
 
         //checks if any fields were found

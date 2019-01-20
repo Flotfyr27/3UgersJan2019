@@ -62,7 +62,11 @@ public class AuctionController {
                 if (buyers.size() == 1 && playerWithHighestBid == null) {
                     answer = guiHandler.makeButtons(currentPlayer.getName() + " vil De købe " + chosenField.getName() + " for kr. " + highestBid + "?", "Ja", "Nej");
                     if (answer.equals("Ja")) {
-                        sellPropertyToPlayer();
+                        if (currentPlayer.getAccount().canBuy(-highestBid))
+                            sellPropertyToPlayer();
+                        else
+                            buyers.remove(n);
+                            guiHandler.giveMsg("Du har ikke råd til at købe denne grund. Ingen købte grunden");
                     } else if (answer.equals("Nej")) {
                         buyers.remove(n);
                         guiHandler.giveMsg("Ingen købte skødet");

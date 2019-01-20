@@ -210,7 +210,7 @@ public class PawnController {
      * Getting boolean from ownableField and allows you to unpawn it.
      */
     private void unPawn(OwnableField ownableField, Player p) {
-        if (p.getAccount().getScore() - buyPawnBackValue(ownableField) > 0) {
+        if (p.getAccount().canBuy(-buyPawnBackValue(ownableField))) {
                p.getAccount().changeScore(buyPawnBackValue(ownableField));
                ownableField.setIsPawned(false);
         }
