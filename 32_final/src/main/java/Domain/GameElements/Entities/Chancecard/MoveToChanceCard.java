@@ -1,11 +1,8 @@
 package Domain.GameElements.Entities.Chancecard;
 import Domain.GameElements.Board;
 import Domain.GameElements.Entities.Player;
-import Domain.GameElements.Fields.Field;
 import TechnicalServices.GameLogic.GameLogic;
 import UI.GUI.GuiHandler;
-import com.oracle.deploy.update.Updater;
-import com.sun.deploy.config.AutoUpdater;
 
 public class MoveToChanceCard extends MoveChanceCard {
     private boolean getsStartMoney;

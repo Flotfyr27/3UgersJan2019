@@ -70,6 +70,7 @@ public class TaxField extends Field {
                 sum = (int) Math.round(sum * 0.1);
                 try{
                 player.getAccount().changeScore(-sum);
+                guiHandler.giveMsg("Du betalte kr. " + sum + " i skat.");
                 }catch(RuntimeException e){
                     GameLogic.cantPay(player,-sum);
                 }

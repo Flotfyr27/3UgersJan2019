@@ -148,7 +148,7 @@ public class Board {
     }
 
     /**
-     * This method checks wheteher a name already has been claimed by another player
+     * This method checks whether a name already has been claimed by another player
      * @param name The name of the current player entering their name
      * @param players The lis tof players
      * @return

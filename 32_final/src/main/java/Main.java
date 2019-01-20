@@ -16,6 +16,7 @@ public class Main {
         MainController mainController = new MainController(board.getPlayers());
         MoveController.getInstance().initiate(board);
         JailController.getInstance();
+
         mainController.runCase();
     }
 }

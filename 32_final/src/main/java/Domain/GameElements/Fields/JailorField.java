@@ -32,7 +32,7 @@ public class JailorField extends Field {
         }else{
             guiHandler.giveMsg("Du bliver anholdt, og bliver sendt i fængsel");
             player.setPos(10);
-
+            player.setJailTime(0);
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {

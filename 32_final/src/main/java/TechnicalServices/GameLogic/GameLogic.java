@@ -42,13 +42,19 @@ public class GameLogic {
     public static boolean lastManStanding(Player[] players){
         int lost = 0;
         for (int i = 0;i <players.length;i++) {
-            if (players[i].getLost())
+            if (players[i].hasLost())
                 lost++;
         }
             if(lost == players.length-1)
                 return true;
             else return false;
     }
+
+    /**
+     * Method which is to be called whenever a players account score is about to go below zero. This method gives that player a chance to pawn off or sell their properties, to keep in the game, or they can opt out, if staying in the game seems a fleeting chance or right out impossible
+     * @param player THe player who's score is about to go below zero
+     * @param amount The amount of money(score) the player ows
+     */
     public static void cantPay(Player player, int amount){
         do {
             String choice = GuiHandler.getInstance().makeButtons("Vil du pante eller give op?",
@@ -70,8 +76,8 @@ public class GameLogic {
                 player.setIsActive(false);
                 return;
             }
-        }while (player.getAccount().canBuy(-amount));
-        player.getAccount().changeScore(-amount);
+        }while (player.getAccount().getScore()+amount<0);
+        player.getAccount().changeScore(amount);
     }
 
 }

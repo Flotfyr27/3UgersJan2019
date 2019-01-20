@@ -16,11 +16,7 @@ public class Account {
      * @param value
      */
     public void changeScore(int value) throws RuntimeException {
-        if (canBuy(value)) {
-            score += value;
-        } else
-            throw new RuntimeException("Error: Score would drop below zero");
-
+        score += value;
     }
 
     /**
@@ -37,7 +33,7 @@ public class Account {
      * A method that checks if you are able to buy or not.
      */
     public boolean canBuy(int value) {
-        if (score+value < 0) {
+        if (score - Math.abs(value) < 0) {
             return false;
         } else {
             return true;
