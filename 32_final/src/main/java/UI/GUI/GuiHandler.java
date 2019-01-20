@@ -222,11 +222,13 @@ public class GuiHandler {
                     }
             }
             if (f[i].getClass().getSuperclass().equals(OwnableField.class)) {
-                OwnableField field = (OwnableField) f[i];
-                if (field.getIsPawned()) {
+                OwnableField ownableField = (OwnableField) f[i];
+                if (ownableField.getIsPawned()) {
                     gui_fields[i].setSubText("PANTSAT");
-                } else if (field.getOwner() != null) {
-                    gui_fields[i].setSubText("Ejer: " + field.getOwner().getName());
+                } else if (ownableField.getOwner() != null) {
+                    gui_fields[i].setSubText("Ejer: " + ownableField.getOwner().getName());
+                } else {
+                    gui_fields[i].setSubText("kr. " + ownableField.getPrice());
                 }
             }
         }

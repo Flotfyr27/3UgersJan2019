@@ -155,7 +155,9 @@ public class AuctionController {
         buyers = new ArrayList<Player>();
         for (int n = 0; n < board.getPlayers().length; n++) {
             if (!board.getPlayers()[n].equals(startingPlayer)) {
-                buyers.add(board.getPlayers()[n]);
+                if (!board.getPlayers()[n].hasLost()) {
+                    buyers.add(board.getPlayers()[n]);
+                }
             }
         }
     }

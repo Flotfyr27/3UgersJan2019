@@ -202,12 +202,24 @@ public class TradeController {
      * @return String[] of all the possible choices of trading partners
      */
     private String[] getPlayerNames(Player playerTrading) {
-        int i = 0;
-        String[] names = new String[board.getPlayers().length - 1];
-
+        int count = 0;
         for (int n = 0; n < board.getPlayers().length; n++) {
-            if (!playerTrading.equals(board.getPlayers()[n]))
-                names[i++] = board.getPlayers()[n].getName();
+            if (!playerTrading.equals(board.getPlayers()[n])) {
+                if (!board.getPlayers()[n].hasLost()) {
+                    count++;
+                }
+            }
+        }
+
+        String[] names = new String[count];
+
+        int i = 0;
+        for (int n = 0; n < board.getPlayers().length; n++) {
+            if (!playerTrading.equals(board.getPlayers()[n])) {
+                if (!board.getPlayers()[n].hasLost()) {
+                    names[i++] = board.getPlayers()[n].getName();
+                }
+            }
         }
         return names;
     }

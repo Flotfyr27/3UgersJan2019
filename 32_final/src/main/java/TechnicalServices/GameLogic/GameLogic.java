@@ -5,6 +5,7 @@ import Domain.Controller.TradeController;
 import Domain.GameElements.Board;
 import Domain.GameElements.Entities.Player;
 import UI.GUI.GuiHandler;
+import Domain.GameElements.Fields.Ownable.OwnableField;
 
 /*
 * Make list of prices through out the game in separate methods
@@ -75,6 +76,11 @@ public class GameLogic {
             } else {
                 player.setLost(true);
                 player.setIsActive(false);
+                for (OwnableField f : player.getOwnedFields()) {
+                    f.setOwner(null);
+                }
+                player.getOwnedFields().clear();
+                
                 GuiHandler.getInstance().removePlayerCar(player, Board.getInstance().getPlayers());
                 return;
             }
