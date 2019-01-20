@@ -61,11 +61,13 @@ public class JailController {
 
                 //if/else statement which determines what to do when throwing double dice or not.
                 if (diceTray.IsDoubleValue()) {
+                    guiHandler.showDice(diceTray.getValue1(), diceTray.getValue2());
                     guiHandler.giveMsg("Du slog dobbelt, tillyke! Du kommer ud af fængslet.");
                     MoveController.getInstance().runCase(player, diceTray.getSum(), diceTray.IsDoubleValue()); //The dice are thrown in the moveController
                     player.setJailTime(-1);
                     return;
-                } else if (!diceTray.IsDoubleValue()) {
+                } else {
+                    guiHandler.showDice(diceTray.getValue1(), diceTray.getValue2());
                     guiHandler.giveMsg("Du slog desværre ikke dobbelt. Bedre held næste gang");
                     return;
 

@@ -37,7 +37,7 @@ public class Account {
      * A method that checks if you are able to buy or not.
      */
     public boolean canBuy(int value) {
-        if (score+value < 0) {
+        if (score - Math.abs(value) < 0) {
             return false;
         } else {
             return true;
