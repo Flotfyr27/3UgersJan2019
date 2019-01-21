@@ -14,9 +14,8 @@ public class DiceTrayRigged extends DiceTray {
             {2,4}
     };
 
-
     @Override
-    public void roll(){
+    public void Roll(){
         value1 = dieValues[roundNr][0];
         value2 = dieValues[roundNr][1];
 

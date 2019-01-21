@@ -15,7 +15,7 @@ public class DiceTray {
     /**
      * A roll method. To get two values from the dice.
      */
-    public void roll() {
+    public void Roll() {
         value1 = die.Roll();
         value2 = die.Roll();
     }

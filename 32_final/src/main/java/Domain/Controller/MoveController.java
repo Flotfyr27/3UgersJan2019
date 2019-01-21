@@ -52,7 +52,7 @@ public class MoveController {
      */
     public void runCase(Player p){
         int currentPos = p.getPos();
-        dice.roll();
+        dice.Roll();
         guiHandler.showDice(dice.getValue1(), dice.getValue2());
         int dist = dice.getSum();
 

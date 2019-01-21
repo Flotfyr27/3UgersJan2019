@@ -14,7 +14,8 @@ public class ChanceCardStack {
 
     /**
      * The method for getting an instance of ChanceCardStack following the singleton design pattern.
-     * @return
+     *
+     * @return The single Instance of the ChanceCardStack class
      */
     public static ChanceCardStack getStackInstance() {
         if (stackInstance == null) {
@@ -32,6 +33,13 @@ public class ChanceCardStack {
         cardNum = 0;
     }
 
+
+    /**
+     * This method initializes, defines and shuffles the ChanceCards.
+     *
+     * @param players The array of players in the game. Found in Board.
+     * @param fields The array of fields on the board
+     */
     public void initializeCards(Player[] players, Field[] fields){
         chanceCards = new ChanceCard[]{
                 new MoveChanceCard(-3, "Ryk tre felter tilbage."),
@@ -86,9 +94,9 @@ public class ChanceCardStack {
                 new MoveToChanceCard(11, "Ryk frem til Frederiksberg Allé. Hvis De passerer \"START\", " +
                         "indkassér da kr. 4.000."),
                 new MoveToChanceCard(0, "Ryk frem til \"START\"."),
-                new MoveToJailChanceCard(10, "Gå i fængsel. Selv om de passerer \"START\"," +
+                new MoveToJailChanceCard("Gå i fængsel. Selv om de passerer \"START\"," +
                         " indkasserer De ikke kr. 4.000."),
-                new MoveToJailChanceCard(10, "Gå i fængsel. Selv om de passerer \"START\"," +
+                new MoveToJailChanceCard("Gå i fængsel. Selv om de passerer \"START\"," +
                         " indkasserer De ikke kr. 4.000."),
                 new MoveToChanceCard(39, "Tag ind på Rådhuspladsen."),
                 new MoveToChanceCard(15, "Tag med Mols-Linien. Flyt brikken frem, og hvis " +
@@ -126,30 +134,29 @@ public class ChanceCardStack {
                         "indkassér da kr. 4.000")
 
         };
+        // shuffles the cards once before the start of the game
+        shuffleCards();
     }
 
     /**
-     * returns true if there is an element after the current element in the stack.
+     * Returns true if there is an element after the current element in the stack.
      * @return boolean
      */
-    public boolean hasNext() {
-        if (cardNum+1 < chanceCards.length)
-            return true;
-        else
-            return false;
+    private boolean hasNext() {
+        return (cardNum + 1) < chanceCards.length;
     }
 
     /**
-     * returns the currently selected ChanceCard.
-     * @return
+     * Returns the currently selected ChanceCard.
+     * @return Current ChanceCard
      */
     public ChanceCard getCurrent(){
         return chanceCards[cardNum];
     }
 
     /**
-     * Returns the next ChanceCard in the stack.
-     * @return ChanceCard
+     * Returns the next ChanceCard in the stack or starts over if at the end of the stack.
+     * @return Next ChanceCard in stack.
      */
     public ChanceCard next() {
         if (!hasNext()) {
@@ -170,9 +177,9 @@ public class ChanceCardStack {
     }
 
     /**
-     * This method is only for testing.
-     * returns the length of the ChanceCard array.
-     * @return
+     * This method is only for testing. It returns the number of elements in the stack.
+     *
+     * @return returns the length of the ChanceCard array.
      */
     protected int getStackLength(){
         return chanceCards.length;
@@ -180,6 +187,7 @@ public class ChanceCardStack {
 
     /**
      * Method to shuffle ChanceCards in array.
+     *
      */
     public void shuffleCards() {
         int n = chanceCards.length;

@@ -1,4 +1,4 @@
-/**
+/*
  * All GuiHandler related classes are kept here.
  */
 package UI.GUI;
@@ -9,13 +9,15 @@ import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Fields.*;
 import Domain.GameElements.Fields.Ownable.*;
 import Domain.GameElements.Fields.ChanceField.*;
-import TechnicalServices.GameLogic.Values;
 import Domain.GameElements.Fields.Ownable.PropertyField;
 import gui_codebehind.GUI_BoardController;
 import gui_fields.*;
 import gui_main.GUI;
+import sun.applet.Main;
+
 
 import java.awt.*;
+
 
 
 public class GuiHandler {
@@ -45,7 +47,6 @@ public class GuiHandler {
      * creates the gui_fields
      *
      * @param fields the fields in the board class
-     * @return The instance of the object
      */
     public void initGuiFields(Domain.GameElements.Fields.Field[] fields) throws IllegalStateException {
         for (int i = 0; i < gui_fields.length; i++) {
@@ -58,9 +59,9 @@ public class GuiHandler {
 
             } else if (fields[i].getClass().equals(EmptyField.class)) {
                 if(fields[i].getName().equals("På besøg\nI fængsel")){
-                    gui_fields[i] = (new GUI_Jail("src\\main\\Resources\\jail.jpg", fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), Color.WHITE));
+                    gui_fields[i] = (new GUI_Jail("classes\\Resources\\jail.jpg", fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), Color.WHITE));
                 }else if(fields[i].getName().equals("Gratis Parkering")){
-                    gui_fields[i] = (new GUI_Refuge("src\\main\\Resources\\parking.jpg",fields[i].getName(), fields[i].getSubtext(), "De er beruset, parkér bilen til næste tur.", fields[i].getBgColor(), null));//This one be causing trouble
+                    gui_fields[i] = (new GUI_Refuge("classes\\Resources\\parking.jpg",fields[i].getName(), fields[i].getSubtext(), "De er beruset, parkér bilen til næste tur.", fields[i].getBgColor(), null));//This one be causing trouble
                 }else {
                     gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
                 }
@@ -72,17 +73,17 @@ public class GuiHandler {
                 gui_fields[i] = new GUI_Tax(fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), null);
 
             } else if (fields[i].getClass().equals(ShippingField.class)) {
-                gui_fields[i] = new GUI_Shipping("src\\main\\Resources\\ferry.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), Color.WHITE);
+                gui_fields[i] = new GUI_Shipping("classes\\Resources\\ferry.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), Color.WHITE);
 
             } else if (fields[i].getClass().equals(CompanyField.class)) {
                 if(fields[i].getName().equals("Tuborg")){
-                    gui_fields[i] = new GUI_Brewery("src\\main\\Resources\\squash.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
+                    gui_fields[i] = new GUI_Brewery("classes\\Resources\\squash.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
                 }else {
-                    gui_fields[i] = new GUI_Brewery("src\\main\\Resources\\cola.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
+                    gui_fields[i] = new GUI_Brewery("classes\\Resources\\cola.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
                 }
 
             } else if (fields[i].getClass().equals(JailorField.class)) {
-                gui_fields[i] = new GUI_Jail("src\\main\\Resources\\politi.jpg", fields[i].getName(), fields[i].getSubtext(), "De fængsles", fields[i].getBgColor(), Color.WHITE);
+                gui_fields[i] = new GUI_Jail("classes\\Resources\\politi.jpg", fields[i].getName(), fields[i].getSubtext(), "De fængsles", fields[i].getBgColor(), Color.WHITE);
             }
         }
 
@@ -221,11 +222,13 @@ public class GuiHandler {
                     }
             }
             if (f[i].getClass().getSuperclass().equals(OwnableField.class)) {
-                OwnableField field = (OwnableField) f[i];
-                if (field.getIsPawned()) {
+                OwnableField ownableField = (OwnableField) f[i];
+                if (ownableField.getIsPawned()) {
                     gui_fields[i].setSubText("PANTSAT");
-                } else if (field.getOwner() != null) {
-                    gui_fields[i].setSubText("Ejer: " + field.getOwner().getName());
+                } else if (ownableField.getOwner() != null) {
+                    gui_fields[i].setSubText("Ejer: " + ownableField.getOwner().getName());
+                } else {
+                    gui_fields[i].setSubText("kr. " + ownableField.getPrice());
                 }
             }
         }
@@ -326,6 +329,12 @@ public class GuiHandler {
         }
     }
 
+
+    /**
+     * A method that moves the player instantly from one field to another without showing up on any other fields on the way.
+     * @param player the player being moved
+     * @param players the array of players in the game
+     */
     public void teleportPlayer(Player player, Player[] players) {
         for (int i = 0; i < gui_fields.length; i++) {
             gui_fields[i].setCar(findGuiPlayer(player, players), false);
@@ -333,11 +342,17 @@ public class GuiHandler {
         gui_fields[player.getPos()].setCar(findGuiPlayer(player, players), true);
     }
 
+    public void removePlayerCar (Player player, Player[] players) {
+        for (int i = 0; i < gui_fields.length; i++) {
+            gui_fields[i].setCar(findGuiPlayer(player, players), false);
+        }
+    }
+
     /**
-     * A method for when a car has moved in the gui
+     * A method for when a car has moved in the gui. makes a short delay in between moving.
      *
      * @param carMoved boolean, true if a car has moved since last call of this method
-     * @return
+     * @return true if the
      */
     private boolean onCarMoved(boolean carMoved) {
         try {
