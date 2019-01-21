@@ -14,7 +14,8 @@ public class ChanceCardStack {
 
     /**
      * The method for getting an instance of ChanceCardStack following the singleton design pattern.
-     * @return
+     *
+     * @return The single Instance of the ChanceCardStack class
      */
     public static ChanceCardStack getStackInstance() {
         if (stackInstance == null) {
@@ -26,12 +27,18 @@ public class ChanceCardStack {
 
     /**
      * Constructor.
-     * initializes, defines and shuffles the ChanceCards.
      */
     private ChanceCardStack() {
         cardNum = 0;
     }
 
+
+    /**
+     * This method initializes, defines and shuffles the ChanceCards.
+     *
+     * @param players The array of players in the game. Found in Board.
+     * @param fields The array of fields on the board
+     */
     public void initializeCards(Player[] players, Field[] fields){
         chanceCards = new ChanceCard[]{
                 new MoveChanceCard(-3, "Ryk tre felter tilbage."),
@@ -114,27 +121,24 @@ public class ChanceCardStack {
     }
 
     /**
-     * returns true if there is an element after the current element in the stack.
+     * Returns true if there is an element after the current element in the stack.
      * @return boolean
      */
-    public boolean hasNext() {
-        if (cardNum+1 < chanceCards.length)
-            return true;
-        else
-            return false;
+    private boolean hasNext() {
+        return (cardNum + 1) < chanceCards.length;
     }
 
     /**
-     * returns the currently selected ChanceCard.
-     * @return
+     * Returns the currently selected ChanceCard.
+     * @return Current ChanceCard
      */
     public ChanceCard getCurrent(){
         return chanceCards[cardNum];
     }
 
     /**
-     * Returns the next ChanceCard in the stack.
-     * @return ChanceCard
+     * Returns the next ChanceCard in the stack or starts over if at the end of the stack.
+     * @return Next ChanceCard in stack.
      */
     public ChanceCard next() {
         if (!hasNext()) {
@@ -150,14 +154,14 @@ public class ChanceCardStack {
      *
      * @param location the index in the array you go to.
      */
-    public void setStackLocation(int location){
+    protected void setStackLocation(int location){
         cardNum = location;
     }
 
     /**
-     * This method is only for testing.
-     * returns the length of the ChanceCard array.
-     * @return
+     * This method is only for testing. It returns the number of elements in the stack.
+     *
+     * @return returns the length of the ChanceCard array.
      */
     protected int getStackLength(){
         return chanceCards.length;
@@ -165,9 +169,10 @@ public class ChanceCardStack {
 
     /**
      * Method to shuffle ChanceCards in array.
+     *
      * @param array This is the array to be shuffled.
      */
-    public void shuffleCards(ChanceCard[] array) {
+    protected void shuffleCards(ChanceCard[] array) {
         int n = array.length;
         Random random = new Random();
 

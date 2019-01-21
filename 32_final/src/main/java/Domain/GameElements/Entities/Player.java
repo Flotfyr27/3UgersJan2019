@@ -18,7 +18,7 @@ public class Player {
 
     /**
      * constructor.
-     * @param name
+     * @param name The name of the player.
      */
     public Player(String name) {
         this.name = name;
@@ -39,47 +39,75 @@ public class Player {
         this.isActive = isActive;
     }
 
+    /**
+     * gets the isActive boolean used for control of when the player should be able to move and act no more.
+     */
     public boolean getIsActive() {
         return isActive;
     }
 
+    /**
+     * changes the players position on the board.
+     * @param pPos The target position.
+     */
     public void setPos(int pPos) {
         this.pPos = pPos;
     }
 
+    /**
+     * @return the position of the player
+     */
     public int getPos() {
         return pPos;
     }
 
+    /**
+     * @return Returns the players account
+     */
     public Account getAccount() {
         return account;
     }
 
+    /**
+     * @return returns the name of the player
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * JailTime keeps track of how long the player have been to jail.
+     * -1 means the player isn't in jail
+     * 0 means they haven't yet had their first turn in jail.
+     *
+     * @param jail The number of rounds the player has been to jail in.
+     */
     public void setJailTime(int jail) {
         this.jail = jail;
     }
 
+    /**
+     * @return returns the number of rounds the player has been to jail. -1 if they aren't in jail.
+     */
     public int getJailTime() {
         return jail;
     }
 
     /**
-     * returns a boolean value of whether the player has lost yet or not.
-     * @return
+     * @return returns true if the player has lost.
      */
     public boolean hasLost() {
         return lost;
     }
 
+    /**
+     * Changes the players state, normally from not having lost (false) to having lost (true)
+     * @param state A boolean deciding if the player has lost.
+     */
     public void setLost(boolean state){lost = state;}
 
     /**
-     * returns the ArrayList of the fields owned by the player.
-     * @return
+     * @return returns the ArrayList of the fields owned by the player.
      */
     public ArrayList<OwnableField> getOwnedFields() {
         return ownedFields;
@@ -93,15 +121,15 @@ public class Player {
     }
 
     /**
-     * Method removes a jailcard from the player
+     * Method removes a jailCard from the player
      */
     public void removeJailCards(){
         jailCards--;
     }
 
     /**
-     * Method returns number of jailcards possessed
-     * @return Integer value depending on the amount of jailcards
+     * Method returns the number of jailCards in possession of the player
+     * @return Integer value depending on the amount of jailCards
      */
     public int getJailCards(){
         return jailCards;

@@ -4,8 +4,6 @@ import java.util.Random;
 
 public class Die {
     private Random random;
-    private int dieFaces = 6;
-    private int faceValue;
 
     /**
      * Constructor to make it random.
@@ -15,11 +13,11 @@ public class Die {
     }
 
     /**
-     * Roll method allow us to roll us to roll the dice and makes it random with the math.abs() method
-     * @return
+     * The roll method utilizes the java.util.Random class to get a random number and constrain it to the number of faces on a die
+     * @return A random integer between and including 1 and 6
      */
     public int Roll () {
-        faceValue = Math.abs(random.nextInt(dieFaces) + 1);
-        return faceValue;
+        int dieFaces = 6;
+        return Math.abs(random.nextInt(dieFaces)) + 1;
     }
 }
