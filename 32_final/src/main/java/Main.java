@@ -7,6 +7,10 @@ import Domain.GameElements.Fields.Ownable.OwnableField;
 import UI.GUI.GuiHandler;
 
 public class Main {
+    /**
+     * The method forstarting up the game. this is the first method to run and will set up the most important elements of the game in the correct order.
+     * @param args The standard argument for the public static void main class.
+     */
     public static void main(String[] args) {
         Board board = Board.getInstance();
         GuiHandler guiHandler = GuiHandler.getInstance();
