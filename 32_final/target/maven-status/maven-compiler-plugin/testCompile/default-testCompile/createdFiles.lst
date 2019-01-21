@@ -1,7 +1,0 @@
-TechnicalServices\GameLogic\GameLogicTest.class
-Domain\GameElements\Fields\JailorFieldTest.class
-Domain\GameElements\Fields\TaxFieldTest.class
-Domain\GameElements\Entities\ChanceCardStackTest.class
-Domain\GameElements\Fields\Ownable\PropertyFieldTest.class
-Domain\GameElements\Entities\DieTest.class
-Domain\GameElements\Entities\Chancecard\ChanceCardTest.class

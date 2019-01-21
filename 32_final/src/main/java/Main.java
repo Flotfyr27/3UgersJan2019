@@ -2,6 +2,8 @@ import Domain.Controller.JailController;
 import Domain.Controller.MainController;
 import Domain.Controller.MoveController;
 import Domain.GameElements.Board;
+import Domain.GameElements.Fields.Field;
+import Domain.GameElements.Fields.Ownable.OwnableField;
 import Domain.GameElements.Entities.ChanceCardStack;
 import Domain.GameElements.Fields.Ownable.OwnableField;
 import Domain.GameElements.Fields.Ownable.PropertyField;
