@@ -8,20 +8,20 @@ import java.awt.*;
 
 public class JailorField extends Field {
     /**
+     * Constructor
      *
-     * @param name
-     * @param subtext
-     * @param bgColour
+     * @param name The name of the field
+     * @param subtext A short description of the fields effect.
+     * @param bgColour The color of the field
      */
     public JailorField(String name, String subtext, Color bgColour){
         super (name, subtext, bgColour);
     }
 
     /**
-     * Moves the player to jail, and sets "Rounds in jail" to 0
-     * @param player
+     * Moves the player to jail, and sets "jailTime" to 0
+     * @param player the player landing on the field
      */
-
     @Override
     public void landOnAction(Player player){
 
@@ -40,7 +40,5 @@ public class JailorField extends Field {
             }
             GuiHandler.getInstance().teleportPlayer(player, Board.getInstance().getPlayers());
         }
-
-
     }
 }

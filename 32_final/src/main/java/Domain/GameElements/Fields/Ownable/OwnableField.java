@@ -10,8 +10,8 @@ import java.awt.*;
 
 public abstract class OwnableField extends Field {
     private Player owner;
-    protected boolean isPawned;
-    protected int price, rent;
+    private boolean isPawned;
+    private int price;
 
 
     /**
@@ -34,8 +34,7 @@ public abstract class OwnableField extends Field {
      * @return The total value of a field
      */
     public int getWorth() {
-        int worth = price;
-        return worth;
+        return price;
     }
 
     /**
@@ -66,11 +65,11 @@ public abstract class OwnableField extends Field {
     }
 
     /**
-     * Method to allow us to buy the fields
+     * Method to buy the fields.
      *
-     * @param p
+     * @param p The player buying the field
      */
-    public void buyField(Player p) {
+    private void buyField(Player p) {
         if (p.getAccount().getScore() >= getPrice()) {
             setOwner(p);
             p.getAccount().changeScore(-getPrice());
@@ -85,12 +84,13 @@ public abstract class OwnableField extends Field {
 
     /**
      * Method to determine what happens when a player lands on a field.
+     *
      * @param current The current player
      */
     @Override
     public void landOnAction(Player current) {
         if (getOwner() == null) {
-            String choice = guiHandler.makeButtons("Vil du købe "+getName() + "? Den koster " + price, "Ja", "Nej, sæt grunden på aktion");
+            String choice = guiHandler.makeButtons("Vil du købe " + getName() + "? Den koster " + price, "Ja", "Nej, sæt grunden på aktion");
             if (choice.equalsIgnoreCase("Ja")) {
                 buyField(current);
             } else {
@@ -149,7 +149,7 @@ public abstract class OwnableField extends Field {
         }
     }
 
-    public boolean ownsAll(){
+    public boolean ownsAll() {
         boolean ownsAll = false;
         for (OwnableField field : this.getFieldsOfColor()) {
             if (field.getOwner() != null && field.getOwner().equals(owner))
@@ -173,51 +173,68 @@ public abstract class OwnableField extends Field {
         int colorFieldNum = 0;
         OwnableField[] fieldsOfColor;
 
-            //counts the number fields of the same color and class as the object
-            for (Field field : fields) {
-                if (field.getClass().equals(this.getClass())) {
-                    if (((OwnableField) field).getBgColor() == this.getBgColor()) {
-                        colorFieldNum++;
-                    }
+        //counts the number fields of the same color and class as the object
+        for (Field field : fields) {
+            if (field.getClass().equals(this.getClass())) {
+                if (((OwnableField) field).getBgColor() == this.getBgColor()) {
+                    colorFieldNum++;
                 }
             }
+        }
 
-            //Fills the array with the colored fields
-            fieldsOfColor = new OwnableField[colorFieldNum];
-            int colorIndex = 0;
-            for (Field field : fields) {
-                if (field.getClass().equals(this.getClass())) {
-                    if (((OwnableField) field).getBgColor() == this.getBgColor()) {
-                        fieldsOfColor[colorIndex++] = (OwnableField) field;
-                    }
+        //Fills the array with the colored fields
+        fieldsOfColor = new OwnableField[colorFieldNum];
+        int colorIndex = 0;
+        for (Field field : fields) {
+            if (field.getClass().equals(this.getClass())) {
+                if (((OwnableField) field).getBgColor() == this.getBgColor()) {
+                    fieldsOfColor[colorIndex++] = (OwnableField) field;
                 }
             }
-            return fieldsOfColor;
         }
+        return fieldsOfColor;
+    }
 
-        /**
-         * returns the background color
-         * @return
-         */
-        @Override
-        public Color getBgColor () {
-            return super.getBgColor();
-        }
+    /**
+     * Returns the background color
+     *
+     * @return The color of the field
+     */
+    @Override
+    public Color getBgColor() {
+        return super.getBgColor();
+    }
 
-        public boolean getIsPawned () {
-            return isPawned;
-        }
+    /**
+     * @return true if the field has been pawned
+     */
+    public boolean getIsPawned() {
+        return isPawned;
+    }
 
-        public void setIsPawned ( boolean changeTo){
-            isPawned = changeTo;
-        }
+    /**
+     * changes the pawn status of the field
+     * @param changeTo
+     */
+    public void setIsPawned(boolean changeTo) {
+        isPawned = changeTo;
+    }
 
-        public abstract int getRent (Player player);
+    /**
+     * Returns the rent for landing on the field
+     * @param player The player landing on the field
+     * @return The rent of the field
+     */
+    public abstract int getRent(Player player);
 
-        @Override
-        public String toString () {
-            return getName();
-        }
+    /**
+     * overrides the toString method native to the Object class
+     * @return the name of the field.
+     */
+    @Override
+    public String toString() {
+        return getName();
+    }
 
 }
 

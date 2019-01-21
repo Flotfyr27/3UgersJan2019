@@ -17,14 +17,13 @@ public class TaxField extends Field {
     /**
      * Constructor for taxField
      *
-     * @param name
-     * @param subtext
-     * @param bgColour
-     * @param taxType
+     * @param name the name of the field
+     * @param subtext A short description of the fields effect
+     * @param bgColour The color of the field
+     * @param taxType The types of taxes possible
      */
     public TaxField(String name, String subtext, Color bgColour, int taxType) {
         super(name, subtext, bgColour);
-        this.tax = tax;
         this.taxType = taxType;
 
         try {
@@ -37,7 +36,7 @@ public class TaxField extends Field {
     /**
      * LandOnAction that handles the two taxation fields
      *
-     * @param player
+     * @param player the player landing on the field
      */
 
     @Override
@@ -45,7 +44,7 @@ public class TaxField extends Field {
 
         int sum = 0;
         /*
-         * Ekstraordinær statsskat
+         * for field 'Ekstraordinær statsskat'
          */
         if (taxType == 1) {
             guiHandler.giveMsg("Betaling af skatter: 2000 kr");
@@ -56,7 +55,7 @@ public class TaxField extends Field {
             }
         } else {
             /*
-             * Indkomstskat
+             * for field 'Indkomstskat'
              */
             String buttons = guiHandler.makeButtons("Betal indskomstskat: 10% af alt du ejer (bygninger, huse og " +
                     "i beløbet på din konto) eller kr.4.000", "10%", "kr.4.000");

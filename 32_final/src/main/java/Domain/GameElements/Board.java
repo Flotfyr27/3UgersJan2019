@@ -121,14 +121,25 @@ public class Board {
         fields[39] = (new PropertyField("Rådhuspladsen", "kr. 8.000", Color.MAGENTA, 8000, 4000));
     }
 
+    /**
+     * @return The array of fields on the board
+     */
     public Field[] getFields() {
         return fields;
     }
 
+    /**
+     * @return returns the diceTray in the board class
+     */
     public DiceTray getDiceTray(){
         return diceTray;
     }
 
+    /**
+     * Makes a string with a message for the player
+     * @param fieldPos the position of the field in the field array
+     * @return A message in the form of a string
+     */
     public String getRentString(int fieldPos){
         if (fields[fieldPos].getClass().getSuperclass().equals(OwnableField.class)){
             if (fields[fieldPos].getClass().equals(PropertyField.class)) {
@@ -151,7 +162,7 @@ public class Board {
      * This method checks whether a name already has been claimed by another player
      * @param name The name of the current player entering their name
      * @param players The lis tof players
-     * @return
+     * @return true if another player already took the same name
      */
     private boolean isNameTaken(String name, Player[] players){
         for (int i = 0; i < players.length; i++){

@@ -6,6 +6,7 @@ import TechnicalServices.GameLogic.Values;
 import java.awt.*;
 
 public class ShippingField extends OwnableField {
+
     /**
      * Constructor for the shippingfields
      * @param name Name of the field
