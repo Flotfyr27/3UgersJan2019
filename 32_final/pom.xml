@@ -2,8 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>git
-
+    <modelVersion>4.0.0</modelVersion>
     <groupId>groupId</groupId>
     <artifactId>32_final</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -37,13 +36,13 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Domain.Controller.mainController</mainClass>
+                            <mainClass>Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
-                    <finalName>Monopoly</finalName>
+                    <finalName>32_Final</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                 </configuration>
                 <executions>
@@ -57,6 +56,11 @@
                 </executions>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/Resources</directory>
+                <targetPath>Resources</targetPath>
+            </resource>
+        </resources>
     </build>
-
 </project>

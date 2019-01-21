@@ -13,20 +13,16 @@ public class Account {
     /**
      * Method to change the score and checks if you have enough money to buy.
      *
-     * @param value
+     * @param value The amount the score should change with, positive or negative.
      */
     public void changeScore(int value) throws RuntimeException {
-        if (canBuy(value)) {
-            score += value;
-        } else
-            throw new RuntimeException("Error: Score would drop below zero");
-
+        score += value;
     }
 
     /**
      * A getter used to get the score from the account.
      *
-     * @return
+     * @return The current score of the player
      */
     public int getScore() {
         return score;
@@ -34,10 +30,12 @@ public class Account {
 
 
     /**
-     * A method that checks if you are able to buy or not.
+     *  A method that checks if you are able to buy or not.
+     * @param value The value being checked, always considered.
+     * @return true if the account the player can pay amount and not go below 0
      */
     public boolean canBuy(int value) {
-        if (score+value < 0) {
+        if (score - Math.abs(value) < 0) {
             return false;
         } else {
             return true;
