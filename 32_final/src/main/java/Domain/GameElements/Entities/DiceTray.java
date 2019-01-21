@@ -1,8 +1,8 @@
 package Domain.GameElements.Entities;
 
 public class DiceTray {
-    private int value1;
-    private int value2;
+    protected int value1;
+    protected int value2;
     private Die die;
 
     /**
@@ -13,7 +13,7 @@ public class DiceTray {
     }
 
     /**
-     * A Roll method. To get two values from the dice.
+     * A roll method. To get two values from the dice.
      */
     public void Roll() {
         value1 = die.Roll();

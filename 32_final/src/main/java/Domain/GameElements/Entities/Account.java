@@ -29,6 +29,13 @@ public class Account {
     }
 
 
+    //Setting the score for Presentation Mode
+    public int setScore(int score){
+        this.score = score;
+        return score;
+    }
+
+
     /**
      *  A method that checks if you are able to buy or not.
      * @param value The value being checked, always considered.

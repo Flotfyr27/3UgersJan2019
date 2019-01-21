@@ -2,6 +2,7 @@ package Domain.Controller;
 import Domain.GameElements.Entities.DiceTray;
 import Domain.GameElements.Entities.Player;
 import Domain.GameElements.Board;
+import TechnicalServices.DiceTrayRigged;
 import TechnicalServices.GameLogic.GameLogic;
 import UI.GUI.GuiHandler;
 
@@ -37,6 +38,13 @@ public class MoveController {
         this.dice = board.getDiceTray();
         return this;
     }
+
+    public MoveController initiatePresentation(Board board){
+        this.board = board;
+        this.dice = new DiceTrayRigged();
+        return this;
+    }
+
 
     /**
      * runCase method for MoveController. Moves player around the board and activates fields

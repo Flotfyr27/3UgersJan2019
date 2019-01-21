@@ -13,6 +13,7 @@ import Domain.GameElements.Fields.Ownable.PropertyField;
 import gui_codebehind.GUI_BoardController;
 import gui_fields.*;
 import gui_main.GUI;
+import sun.applet.Main;
 
 
 import java.awt.*;
@@ -29,10 +30,10 @@ public class GuiHandler {
     private static GuiHandler guiHandlerInstance;
 
     /**
-     * Returns the instance of the GuiHandler
+     * returns the instance of the GuiHandler
      * this method ensures that all classes can access the same GuiHandler instance (singleton)
      *
-     * @return The single instance of the class
+     * @return
      */
     public static GuiHandler getInstance() {
         if (guiHandlerInstance == null) {
@@ -57,11 +58,11 @@ public class GuiHandler {
                 gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", Integer.toString(propertyField.getPrice()), fields[i].getBgColor(), null));
 
             } else if (fields[i].getClass().equals(EmptyField.class)) {
-                if (fields[i].getName().equals("På besøg\nI fængsel")) {
+                if(fields[i].getName().equals("På besøg\nI fængsel")){
                     gui_fields[i] = (new GUI_Jail("classes\\Resources\\jail.jpg", fields[i].getName(), fields[i].getSubtext(), "", fields[i].getBgColor(), Color.WHITE));
-                } else if (fields[i].getName().equals("Gratis Parkering")) {
-                    gui_fields[i] = (new GUI_Refuge("classes\\Resources\\parking.jpg", fields[i].getName(), fields[i].getSubtext(), "De er beruset, parkér bilen til næste tur.", fields[i].getBgColor(), null));//This one be causing trouble
-                } else {
+                }else if(fields[i].getName().equals("Gratis Parkering")){
+                    gui_fields[i] = (new GUI_Refuge("classes\\Resources\\parking.jpg",fields[i].getName(), fields[i].getSubtext(), "De er beruset, parkér bilen til næste tur.", fields[i].getBgColor(), null));//This one be causing trouble
+                }else {
                     gui_fields[i] = (new GUI_Street(fields[i].getName(), fields[i].getSubtext(), "", "0", fields[i].getBgColor(), null));//This one be causing trouble
                 }
 
@@ -75,9 +76,9 @@ public class GuiHandler {
                 gui_fields[i] = new GUI_Shipping("classes\\Resources\\ferry.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), Color.WHITE);
 
             } else if (fields[i].getClass().equals(CompanyField.class)) {
-                if (fields[i].getName().equals("Tuborg")) {
+                if(fields[i].getName().equals("Tuborg")){
                     gui_fields[i] = new GUI_Brewery("classes\\Resources\\squash.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
-                } else {
+                }else {
                     gui_fields[i] = new GUI_Brewery("classes\\Resources\\cola.jpg", fields[i].getName(), fields[i].getSubtext(), "", "", fields[i].getBgColor(), null);
                 }
 
@@ -117,8 +118,8 @@ public class GuiHandler {
     /**
      * Takes user input in the form of a String and returns it to the system
      *
-     * @param message The instruction that will be displayed in the gui
-     * @return A string written by the user
+     * @param message
+     * @return user String
      */
     public String getUserString(String message) {
         return gui.getUserString(message);
@@ -127,7 +128,7 @@ public class GuiHandler {
     /**
      * Creates players, set car types and colours.
      *
-     * @param p the array of players in the game
+     * @param p
      */
     public void initGuiPlayers(Player[] p) {
         GUI_Car.Type carType;
@@ -187,8 +188,8 @@ public class GuiHandler {
     /**
      * Updates where the player(s) are located on the field.
      *
-     * @param pArr the array of players in the game
-     * @param f    the array of fields in the game
+     * @param pArr
+     * @param f
      */
     public void updateGui(Player currentPlayer, Player[] pArr, Domain.GameElements.Fields.Field[] f) {
 
@@ -197,7 +198,7 @@ public class GuiHandler {
         updateBalance(pArr);
 
 
-        /*
+        /**
          * Updates the owner of the fields and telling what the rental of the field.
          */
         Player owner;
@@ -237,7 +238,7 @@ public class GuiHandler {
      * Moves a player on the board
      *
      * @param player The player to move
-     * @param pArr   The array of all players
+     * @param pArr The array of all players
      */
     public void updatePlayerPos(Player player, Player[] pArr) {
         /*
@@ -276,7 +277,7 @@ public class GuiHandler {
      * Moves a player on the board in a counter clockwise direction
      *
      * @param player The player to move
-     * @param pArr   The array of all players
+     * @param pArr The array of all players
      */
     public void movePlayerBackwards(Player player, Player[] pArr) {
         /*
@@ -322,7 +323,7 @@ public class GuiHandler {
      *
      * @param players all players in the game
      */
-    private void updateBalance(Player[] players) {
+    public void updateBalance(Player[] players) {
         for (int i = 0; i < guiPlayers.length; i++) {
             guiPlayers[i].setBalance(players[i].getAccount().getScore());
         }
@@ -331,26 +332,19 @@ public class GuiHandler {
 
     /**
      * A method that moves the player instantly from one field to another without showing up on any other fields on the way.
-     *
-     * @param player  the player being moved
+     * @param player the player being moved
      * @param players the array of players in the game
      */
     public void teleportPlayer(Player player, Player[] players) {
-        for (GUI_Field gui_field : gui_fields) {
-            gui_field.setCar(findGuiPlayer(player, players), false);
+        for (int i = 0; i < gui_fields.length; i++) {
+            gui_fields[i].setCar(findGuiPlayer(player, players), false);
         }
         gui_fields[player.getPos()].setCar(findGuiPlayer(player, players), true);
     }
 
-    /**
-     * Removes a car from the board
-     *
-     * @param player  The player getting their car removed
-     * @param players The array of players in the game
-     */
-    public void removePlayerCar(Player player, Player[] players) {
-        for (GUI_Field gui_field : gui_fields) {
-            gui_field.setCar(findGuiPlayer(player, players), false);
+    public void removePlayerCar (Player player, Player[] players) {
+        for (int i = 0; i < gui_fields.length; i++) {
+            gui_fields[i].setCar(findGuiPlayer(player, players), false);
         }
     }
 
@@ -387,17 +381,25 @@ public class GuiHandler {
     /**
      * Writes a message in the midle of the Board
      *
-     * @param msg The message displayed in the gui
+     * @param msg
      */
     public void msgInMiddle(String msg) {
         gui.displayChanceCard(msg);
     }
 
+    /**
+     * Message when a player has to press the roll button
+     *
+     * @param msg
+     */
+    public void waitForRoll(String msg) {
+        gui.getUserButtonPressed(msg, "Kast terningerne");
+    }
 
     /**
      * Gives message on the top left corner
      *
-     * @param msg The message displayed in the gui
+     * @param msg
      */
     public void giveMsg(String msg) {
         gui.showMessage(msg);
@@ -405,11 +407,27 @@ public class GuiHandler {
 
 
     /**
+     * A string that builds the field.
+     *
+     * @return
+     */
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+
+        for (GUI_Field f : gui_fields) {
+            builder.append(f + "\n");
+        }
+
+        return builder.toString();
+    }
+
+    /**
      * This method lets any class create an arbitrary number of buttons and waits for the user to press one
      *
-     * @param msg        The instructions givven to the user
-     * @param buttonName The text displayed on each button
-     * @return The name of the user-selected button
+     * @param msg
+     * @param buttonName
+     * @return the name of the user-selected button
      */
     public String makeButtons(String msg, String... buttonName) {
         return gui.getUserButtonPressed(msg, buttonName);
@@ -432,22 +450,10 @@ public class GuiHandler {
         return guiPlayer;
     }
 
-    /**
-     * Displays a number of houses on selected field
-     *
-     * @param street     The gui_street the house should be set on
-     * @param houseCount The number of houses to be displayed
-     */
-    private void setHouses(GUI_Street street, int houseCount) {
+    private void setHouses(GUI_Street street, int houseCount){
         street.setHouses(houseCount);
     }
 
-    /**
-     * Displays a hotel on a field
-     *
-     * @param street   The gui_street to have a hotel
-     * @param hasHotel wether it should be visible or not
-     */
     private void setHotel(GUI_Street street, boolean hasHotel) {
         street.setHotel(hasHotel);
     }

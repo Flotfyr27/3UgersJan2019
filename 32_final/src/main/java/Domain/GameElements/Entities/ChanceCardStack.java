@@ -27,6 +27,7 @@ public class ChanceCardStack {
 
     /**
      * Constructor.
+     * initializes, defines and shuffles the ChanceCards.
      */
     private ChanceCardStack() {
         cardNum = 0;
@@ -116,8 +117,27 @@ public class ChanceCardStack {
                         "trængende\" på kr. 40.000. Ved værdigt trængende forstås, at Deres formue, dvs. Deres " +
                         "kontante penge + skøder + bygninger, ikke overstiger kr. 15.000.")
         };
+    }
+
+    //Premade arbitrary arrangement of the chancecards for presentationMode
+    public void arrangeCards(Player[] players, Field[] fields){
+        chanceCards = new ChanceCard[]{
+                new MoveChanceCard(-3, "Ryk tre felter tilbage."),
+
+                new MoveToJailChanceCard("Gå i fængsel. Selv om de passerer \"START\"," +
+                        " indkasserer De ikke kr. 4.000."),
+                new BirthdayCard(500, players, "De har lagt penge ud til et sammenskudsgilde. " +
+                        "Mærkværdigvis betaler alle straks. Modtag fra hver medspiller kr. 500."),
+                new MoveToNearestChanceCard(ShippingField.class, fields,"Tag med den nærmeste færge. " +
+                        "Flyt brikken frem, og hvis De passerer \"START\", indkassér da kr. 4.000."),
+                new GetOutOfJailCard("I andledning af kongens fødselsdag benådes de herved for fængsel. " +
+                        "Dette kort kan opbevares, indtil De får brug for det eller De kan sælge det."),
+                new MoveToChanceCard(32, "Ryk frem til Vimmelskaftet. Hvis De passerer \"START\", " +
+                        "indkassér da kr. 4.000")
+
+        };
         // shuffles the cards once before the start of the game
-        shuffleCards(chanceCards);
+        //shuffleCards();
     }
 
     /**
@@ -154,7 +174,7 @@ public class ChanceCardStack {
      *
      * @param location the index in the array you go to.
      */
-    protected void setStackLocation(int location){
+    public void setStackLocation(int location){
         cardNum = location;
     }
 
@@ -170,18 +190,17 @@ public class ChanceCardStack {
     /**
      * Method to shuffle ChanceCards in array.
      *
-     * @param array This is the array to be shuffled.
      */
-    protected void shuffleCards(ChanceCard[] array) {
-        int n = array.length;
+    public void shuffleCards() {
+        int n = chanceCards.length;
         Random random = new Random();
 
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i < chanceCards.length; i++) {
 
             int randomValue = i + random.nextInt(n - i);
-            ChanceCard randomElement = array[randomValue];
-            array[randomValue] = array[i];
-            array[i] = randomElement;
+            ChanceCard randomElement = chanceCards[randomValue];
+            chanceCards[randomValue] = chanceCards[i];
+            chanceCards[i] = randomElement;
         }
     }
 }

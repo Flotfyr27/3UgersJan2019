@@ -4,6 +4,7 @@ Domain\GameElements\Entities\Chancecard\MoveToChanceCard.class
 Domain\GameElements\Entities\Chancecard\MoveToNearestChanceCard.class
 Domain\GameElements\Fields\Ownable\CompanyField.class
 Domain\GameElements\Entities\Chancecard\ChanceCard.class
+TechnicalServices\Utility.class
 Domain\GameElements\Fields\EmptyField.class
 Domain\Controller\MainController.class
 Domain\GameElements\Fields\ChanceField\ChanceField.class
