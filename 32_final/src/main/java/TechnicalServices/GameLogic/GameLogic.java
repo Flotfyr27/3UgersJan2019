@@ -2,14 +2,12 @@ package TechnicalServices.GameLogic;
 
 import Domain.Controller.PawnController;
 import Domain.Controller.TradeController;
+import Domain.GameElements.Board;
 import Domain.GameElements.Entities.Player;
 import UI.GUI.GuiHandler;
+import Domain.GameElements.Fields.Ownable.OwnableField;
 
-/*
-* Make list of prices through out the game in separate methods
-* Win condition
-*
-* */
+
 public class GameLogic {
 
 
@@ -26,29 +24,31 @@ public class GameLogic {
     /**
      *
      * @param player It checks if the player has lost or not.
-     * @return
+     * @return true if the player stands to loose the game
      */
     public static boolean hasLost(Player player){
-        if(player.getAccount().getScore() <= 0)
-            return true;
-        else return false;
+        return player.getAccount().getScore() <= 0;
     }
 
     /**
-     *Checks how many that have lost. If all except one person has lost, it returns true.
-     * @param
-     * @return
+     * Checks how many that have lost. If all except one person has lost, it returns true.
+     * @param players The array of players in the game
+     * @return True if only one player is left in the game
      */
     public static boolean lastManStanding(Player[] players){
         int lost = 0;
-        for (int i = 0;i <players.length;i++) {
-            if (players[i].getLost())
+        for (Player player : players) {
+            if (player.hasLost())
                 lost++;
         }
-            if(lost == players.length-1)
-                return true;
-            else return false;
+        return lost == (players.length - 1);
     }
+
+    /**
+     * Method which is to be called whenever a players account score is about to go below zero. This method gives that player a chance to pawn off or sell their properties, to keep in the game, or they can opt out, if staying in the game seems a fleeting chance or right out impossible
+     * @param player THe player who's score is about to go below zero
+     * @param amount The amount of money(score) the player ows
+     */
     public static void cantPay(Player player, int amount){
         do {
             String choice = GuiHandler.getInstance().makeButtons("Vil du pante eller give op?",
@@ -68,10 +68,16 @@ public class GameLogic {
             } else {
                 player.setLost(true);
                 player.setIsActive(false);
+                for (OwnableField f : player.getOwnedFields()) {
+                    f.setOwner(null);
+                }
+                player.getOwnedFields().clear();
+                
+                GuiHandler.getInstance().removePlayerCar(player, Board.getInstance().getPlayers());
                 return;
             }
-        }while (player.getAccount().canBuy(-amount));
-        player.getAccount().changeScore(-amount);
+        } while (player.getAccount().getScore() + amount < 0);
+        player.getAccount().changeScore(amount);
     }
 
 }

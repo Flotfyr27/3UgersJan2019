@@ -12,8 +12,8 @@ public class MoveChanceCard extends ChanceCard {
      * Constructor. The amount is the number of fields the player traverses.
      * The description is the text presented to the player.
      *
-     * @param amount
-     * @param description
+     * @param amount The amount the player is being moved
+     * @param description The text being displayed on the ChanceCard
      */
     public MoveChanceCard (int amount, String description){
         super(description);
@@ -23,7 +23,7 @@ public class MoveChanceCard extends ChanceCard {
     /**
      * This method moves a player by a specific amount and makes sure you get money if you pass the start field.
      *
-     * @param player
+     * @param player The player drawing the card
      */
     @Override
     public void action(Player player){

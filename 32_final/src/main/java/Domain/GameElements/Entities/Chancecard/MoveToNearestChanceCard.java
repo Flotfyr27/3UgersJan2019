@@ -43,9 +43,7 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
     /**
      * moves the player to the closest field of a specified class.
      *
-     * @param p
-     *
-     * TODO implement the payDouble feature
+     * @param p The player drawing the card.
      */
     public void action(Player p) {
         for (int i = p.getPos(); i < fields.length; i++) {
@@ -71,6 +69,12 @@ public class MoveToNearestChanceCard extends MoveToChanceCard {
         throw new RuntimeException("No Field of the specified type found");
     }
 
+    /**
+     * A method for paying double rent instead of only playing normal rent
+     *
+     * @param p The player drawing the card
+     * @param i The location/index of the destination
+     */
     private void payDouble(Player p, int i) {
         ShippingField f;
         f = (ShippingField)fields[i];

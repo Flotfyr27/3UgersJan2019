@@ -7,7 +7,7 @@ public class DiceTrayRigged extends DiceTray {
     private int roundNr;
 
 
-    int[][] dieValues = {
+    private int[][] dieValues = {
             {2,3},
             {1,3},
             {1,4},
