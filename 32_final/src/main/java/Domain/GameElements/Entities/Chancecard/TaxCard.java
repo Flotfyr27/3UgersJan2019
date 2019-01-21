@@ -6,6 +6,7 @@ import TechnicalServices.GameLogic.GameLogic;
 
 public class TaxCard extends ChanceCard{
     private int housePrice;
+    private int hotelPrice;
 
     /**
      * Constructor
@@ -13,9 +14,10 @@ public class TaxCard extends ChanceCard{
      * @param housePrice The price payed for one house
      * @param description The text displayed on the ChanceCard
      */
-    public TaxCard(int housePrice, String description){
+    public TaxCard(int housePrice, int hotelPrice, String description){
         super(description);
         this.housePrice = housePrice;
+        this.hotelPrice = hotelPrice;
     }
 
     /**
@@ -26,12 +28,13 @@ public class TaxCard extends ChanceCard{
     public void action(Player p){
         int sum = 0;
 
-        for (OwnableField f : p.getOwnedFields()){
+        for (OwnableField f : p.getOwnedFields()) {
             if (f.getClass().equals(PropertyField.class)) {
                 PropertyField pf = (PropertyField) f;
-                sum += housePrice * pf.getHouses();
-                if(pf.getHotel())
-                    sum++;
+                if (pf.getHotel())
+                    sum += hotelPrice;
+                else
+                    sum += housePrice * pf.getHouses();
             }
         }
         try {
@@ -40,4 +43,6 @@ public class TaxCard extends ChanceCard{
             GameLogic.cantPay(p,-sum);
         }
     }
+
+
 }
