@@ -9,7 +9,8 @@ public class TransactionCard extends ChanceCard {
 
     /**
      * Constructor.
-     * @param amount
+     *
+     * @param amount The amount the player gets/looses
      */
     public TransactionCard (int amount, String description){
         super(description);
@@ -18,7 +19,8 @@ public class TransactionCard extends ChanceCard {
 
     /**
      * Determines that 'action' is used to change the balance of players
-     * @param p
+     *
+     * @param p The player drawing the card
      */
     @Override
     public void action (Player p){

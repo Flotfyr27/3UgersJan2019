@@ -6,7 +6,7 @@ import UI.GUI.GuiHandler;
 import java.awt.*;
 
 public abstract class Field {
-    /**
+    /*
      * These variables are the name, subtext and colour of a field.
      */
     private String name, subtext;
@@ -55,11 +55,4 @@ public abstract class Field {
      * @param current The current player
      */
     public abstract void landOnAction(Player current);
-
-    /**
-     * Does... something
-     * @param current The current player
-     * @return A string depending on the field.
-     */
-    //public abstract String getMessage(Player current);
 }

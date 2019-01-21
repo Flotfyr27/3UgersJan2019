@@ -6,18 +6,25 @@ public abstract class ChanceCard {
 
     /**
      * Constructor.
-     * @param description
+     *
+     * @param description The text displayed on the ChanceCard
      */
-    public ChanceCard(String description){
+    protected ChanceCard(String description){
         this.description = description;
     }
 
     /**
-     * the method that activates any ChanceCards' effect.
-     * @param player
+     * The method that activates any ChanceCards' effect.
+     *
+     * @param player The player who activates the ChanceCard
      */
     public abstract void action (Player player);
 
+    /**
+     * An override of the toString method native to the 'Object' class
+     *
+     * @return The description of the ChanceCard
+     */
     @Override
     public String toString(){
         return description;

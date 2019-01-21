@@ -10,17 +10,28 @@ public class TradeController {
     private Board board;
     private static TradeController instance;
 
-    public TradeController() {
+    /**
+     * Constructor for the TradeController
+     */
+    private TradeController() {
         guiHandler = GuiHandler.getInstance();
         board = Board.getInstance();
     }
 
+    /**
+     * Method to get an instance of the TradeController
+     * @return Returns an instance of the TradeController
+     */
     public static TradeController getInstance(){
         if(instance == null)
             instance = new TradeController();
         return instance;
     }
 
+    /**
+     * This method is the center method of the TradeController, it is in charge of performing a full trade between players
+     * @param playerTrading This is the player who initiates the trade.
+     */
     public void runCase(Player playerTrading) {
         Object chosenTradeObject;
         Player chosenPlayer;
@@ -191,12 +202,24 @@ public class TradeController {
      * @return String[] of all the possible choices of trading partners
      */
     private String[] getPlayerNames(Player playerTrading) {
-        int i = 0;
-        String[] names = new String[board.getPlayers().length - 1];
-
+        int count = 0;
         for (int n = 0; n < board.getPlayers().length; n++) {
-            if (!playerTrading.equals(board.getPlayers()[n]))
-                names[i++] = board.getPlayers()[n].getName();
+            if (!playerTrading.equals(board.getPlayers()[n])) {
+                if (!board.getPlayers()[n].hasLost()) {
+                    count++;
+                }
+            }
+        }
+
+        String[] names = new String[count];
+
+        int i = 0;
+        for (int n = 0; n < board.getPlayers().length; n++) {
+            if (!playerTrading.equals(board.getPlayers()[n])) {
+                if (!board.getPlayers()[n].hasLost()) {
+                    names[i++] = board.getPlayers()[n].getName();
+                }
+            }
         }
         return names;
     }

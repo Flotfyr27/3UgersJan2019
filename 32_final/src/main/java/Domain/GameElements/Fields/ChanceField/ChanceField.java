@@ -21,15 +21,14 @@ public class ChanceField extends Field {
     }
 
 
+    /**
+     * Draws a chanceCard and activates its effect.
+     * @param current The current player
+     */
     @Override
     public void landOnAction(Player current) {
         guiHandler.msgInMiddle(stack.getCurrent().toString());
         guiHandler.giveMsg("Du trækker et Chancekort");
-       /* try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
 
         stack.next().action(current);
     }

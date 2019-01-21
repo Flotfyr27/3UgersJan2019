@@ -62,7 +62,12 @@ public class AuctionController {
                 if (buyers.size() == 1 && playerWithHighestBid == null) {
                     answer = guiHandler.makeButtons(currentPlayer.getName() + " vil De købe " + chosenField.getName() + " for kr. " + highestBid + "?", "Ja", "Nej");
                     if (answer.equals("Ja")) {
-                        sellPropertyToPlayer();
+                        if (currentPlayer.getAccount().canBuy(-highestBid))
+                            sellPropertyToPlayer();
+                        else {
+                            buyers.remove(n);
+                            guiHandler.giveMsg("Du har ikke råd til at købe denne grund. Ingen købte grunden");
+                        }
                     } else if (answer.equals("Nej")) {
                         buyers.remove(n);
                         guiHandler.giveMsg("Ingen købte skødet");
@@ -74,22 +79,34 @@ public class AuctionController {
                         //This part focuses on the first bid for everyone
                         answer = guiHandler.makeButtons(currentPlayer.getName() + " vil De byde på " + chosenField.getName() + "?", "Ja", "Nej");
                         if (answer.equals("Ja")) {
-                            highestBid = guiHandler.getUserInt(currentPlayer.getName() + " De skal mindst byde kr. " + highestBid, highestBid, currentPlayer.getAccount().getScore());
-                            playerWithHighestBid = currentPlayer;
+                            if(buyers.get(n).getAccount().canBuy(highestBid)){
+                                highestBid = guiHandler.getUserInt(currentPlayer.getName() + " De skal mindst byde kr. " + highestBid, highestBid, currentPlayer.getAccount().getScore());
+                                playerWithHighestBid = currentPlayer;
+                            } else{
+                                guiHandler.giveMsg("Du har ikke råd til at købe denne grund");
+                                buyers.remove(n);
+                            }
                         } else if (answer.equals("Nej")) {
                             System.out.println("Removed " + currentPlayer.getName());
                             buyers.remove(n);
                         }
                         //This part focuses on what happens after the first player to bid has done so
                     } else if (playerWithHighestBid != null) {
-                        answer = guiHandler.makeButtons(currentPlayer.getName() + " højeste bud er kr. " + highestBid
-                                + " budt af " + playerWithHighestBid.getName() + ". Ønsker De at byde over?", "Ja", "Nej");
-                        if (answer.equals("Ja")) {
-                            highestBid = guiHandler.getUserInt("Indtast bud. (Højeste bud kr. " + highestBid + " af "
-                                    + playerWithHighestBid.getName() + ")", highestBid + 50, currentPlayer.getAccount().getScore());
-                            playerWithHighestBid = currentPlayer;
-                        } else if (answer.equals("Nej")) {
-                            System.out.println("Removed " + currentPlayer.getName());
+                        if (currentPlayer.getAccount().canBuy(highestBid + 50)) {
+                            answer = guiHandler.makeButtons(currentPlayer.getName() + " højeste bud er kr. " + highestBid
+                                    + " budt af " + playerWithHighestBid.getName() + ". Ønsker De at byde over?", "Ja", "Nej");
+                            if (answer.equals("Ja")) {
+                                highestBid = guiHandler.getUserInt("Indtast bud. (Højeste bud kr. " + highestBid + " af "
+                                        + playerWithHighestBid.getName() + ")", highestBid + 50, currentPlayer.getAccount().getScore());
+                                playerWithHighestBid = currentPlayer;
+                            } else if (answer.equals("Nej")) {
+                                System.out.println("Removed " + currentPlayer.getName());
+                                buyers.remove(n);
+                            }
+                        } else {
+                            guiHandler.giveMsg("Du har ikke råd til at byde " + currentPlayer.getName() +
+                                    ". Det mindste du kan byde er " + (highestBid + 50) + " og du har kun " +
+                                    currentPlayer.getAccount().getScore());
                             buyers.remove(n);
                         }
                     }
@@ -138,7 +155,9 @@ public class AuctionController {
         buyers = new ArrayList<Player>();
         for (int n = 0; n < board.getPlayers().length; n++) {
             if (!board.getPlayers()[n].equals(startingPlayer)) {
-                buyers.add(board.getPlayers()[n]);
+                if (!board.getPlayers()[n].hasLost()) {
+                    buyers.add(board.getPlayers()[n]);
+                }
             }
         }
     }

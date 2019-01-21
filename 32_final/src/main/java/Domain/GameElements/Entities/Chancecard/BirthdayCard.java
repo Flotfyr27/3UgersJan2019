@@ -26,7 +26,7 @@ public class BirthdayCard extends TransactionCard {
     public void action(Player player){
         int count = 0;
         for (Player p : players){
-            if (!p.getLost()) {
+            if (!p.hasLost()) {
                 if (p.getAccount().canBuy(-super.amount)) {
                         p.getAccount().changeScore(-super.amount);
                         count++;

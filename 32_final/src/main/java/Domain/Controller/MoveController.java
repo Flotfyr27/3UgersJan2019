@@ -68,6 +68,12 @@ public class MoveController {
         guiHandler.updateGui(p, board.getPlayers(), board.getFields());
     }
 
+    /**
+     * Alternative (overloaded) runCase, where the possibility of an outcome for the dice being a pair, leading to the player having another round(restricted int the MainController).
+     * @param p The player who's turn it is.
+     * @param dist The distance which the player should move
+     * @param isDouble A check for whether the outcome of the dice is a pair
+     */
     public void runCase(Player p, int dist, boolean isDouble){
         int currentPos = p.getPos();
         GameLogic.movingPastStart(p,p.getPos()+dist);
@@ -80,10 +86,6 @@ public class MoveController {
             p.setIsActive(false);
         }
         guiHandler.updateGui(p, board.getPlayers(), board.getFields());
-    }
-
-    public DiceTray getDiceTray() {
-        return dice;
     }
 }
 
