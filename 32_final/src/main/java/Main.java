@@ -62,16 +62,33 @@ public class Main {
         guiHandler.updateBalance(board.getPlayers());
         ChanceCardStack.getStackInstance().arrangeCards(Board.getInstance().getPlayers(), Board.getInstance().getFields());
 
-        setPlayerStartPosition(board, guiHandler, 0, 12);
-        setPlayerStartPosition(board, guiHandler, 1, 18);
-        setPlayerStartPosition(board, guiHandler, 2, 20);
-        setPlayerStartPosition(board, guiHandler, 3, 1);
+        setPlayerStartPosition(board, guiHandler, 0, 13);
+        setPlayerStartPosition(board, guiHandler, 1, 29);
+        setPlayerStartPosition(board, guiHandler, 2, 34);
+        setPlayerStartPosition(board, guiHandler, 3, 39);
 
-        setFieldOwner(board, 1, 14);
-        setFieldOwner(board, 0, 19);
 
-        setHouses(board, guiHandler, 1, 14, 5);
-        setHouses(board, guiHandler, 0, 19, 1);
+        setFieldOwner(board, 0, 11);
+        setFieldOwner(board, 0, 13);
+        setFieldOwner(board, 0, 14);
+        setFieldOwner(board,0,5);
+        setFieldOwner(board,0,25);
+        setFieldOwner(board,0,35);
+        setFieldOwner(board, 1, 26 );
+        setFieldOwner(board, 1, 27);
+        setFieldOwner(board, 1, 29);
+        setFieldOwner(board, 2, 31);
+        setFieldOwner(board, 2, 32);
+        setFieldOwner(board, 2, 34);
+        setFieldOwner(board, 3, 37);
+        setFieldOwner(board, 3, 39);
+
+        //setHouses(board, guiHandler, 1, 14, 5);
+        setHouses(board, guiHandler, 0, 14, 1);
+        setHouses(board, guiHandler, 1, 29, 1);
+        setHouses(board, guiHandler, 2, 31, 1);
+        setHouses(board, guiHandler, 3, 37, 5);
+        setHouses(board, guiHandler, 3, 39, 5);
 
 
         MainController mainController = new MainController(board.getPlayers());

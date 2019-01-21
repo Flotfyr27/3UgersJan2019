@@ -122,6 +122,8 @@ public class ChanceCardStack {
     //Premade arbitrary arrangement of the chancecards for presentationMode
     public void arrangeCards(Player[] players, Field[] fields){
         chanceCards = new ChanceCard[]{
+                new MoveChanceCard(-3, "Ryk tre felter tilbage."),
+
                 new MoveToJailChanceCard("Gå i fængsel. Selv om de passerer \"START\"," +
                         " indkasserer De ikke kr. 4.000."),
                 new BirthdayCard(500, players, "De har lagt penge ud til et sammenskudsgilde. " +
@@ -135,7 +137,7 @@ public class ChanceCardStack {
 
         };
         // shuffles the cards once before the start of the game
-        shuffleCards();
+        //shuffleCards();
     }
 
     /**
